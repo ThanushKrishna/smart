@@ -1,16 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-const users = [
-    {
-        firstname: "Thanush",
-        lastname: "Krishna",
-        emailid: "abc@xyz.com"
-    },
-    {
-        firstname: "svelet",
-        emailid: "mno@xyz.com"
-    }
-];
+import { prisma } from '../../db/dist/index.js';
+const users = await prisma.user.findMany();
 const books = [
     {
         title: 'The Awakening',
