@@ -1,17 +1,18 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { prisma } from '../../db/dist/index.js';
-const user = await prisma.user.create({
-    data: { emailid: 'jinkin@prisma.io',
-        firstname: 'Jan',
-        lastname: 'month'
-    },
-});
-const users = prisma.user.findFirst({
-    where: {
-        firstname: 'Thanush'
-    },
-});
+// const user = await prisma.user.create({
+//   data: { emailid: 'jinkin@prisma.io',
+//           firstname:'Jan',
+//           lastname:'month'
+//   },
+// })
+// const users = prisma.user.findFirst({
+//   where: { 
+//       firstname: 'Thanush'
+//   },
+// })
+const users = prisma.user.findMany();
 const books = [
     {
         title: 'The Awakening',
