@@ -17,6 +17,39 @@ model User {
   emailid   String @unique
   }
 
+ model app_user{
+		userid			String  @id @default(auto()) @map("_id") @db.ObjectId
+		emailid			String	@unique
+		password		String
+		firstname		String?
+		lastname		String?
+    gender			GENDER?
+		address			ADDRESS?
+		profile_pic 	BigInt?
+		mobile			Int? @unique
+		role			  ROLE @default(USER)
+		createdAt  		DateTime   @default(now())
+		updatedAT		DateTime   @default(now())
+
+}
+
+enum ROLE {
+  USER
+  ADMIN
+}
+
+enum GENDER {
+  MALE
+  FEMALE
+}
+
+type ADDRESS {
+  street String?
+  city   String?
+  state  String?
+  zip    String?
+}
+
 // model Post {
 //   id       String    @id @default(auto()) @map("_id") @db.ObjectId
 //   slug     String    @unique

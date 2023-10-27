@@ -1,18 +1,26 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { prisma } from '../../db/dist/index.js';
-// const user = await prisma.user.create({
-//   data: { emailid: 'jinkin@prisma.io',
-//           firstname:'Jan',
-//           lastname:'month'
-//   },
-// })
+const user = await prisma.user.create({
+    data: { emailid: 'jinkin@prisma.io',
+        firstname: 'Jan',
+        lastname: 'month'
+    },
+});
+const app_user = await prisma.app_user.create({
+    data: { emailid: 'jinkin@prisma.io',
+        firstname: 'Jan',
+        lastname: 'month',
+        password: 'welcome123'
+    },
+});
 // const users = prisma.user.findFirst({
 //   where: { 
 //       firstname: 'Thanush'
 //   },
 // })
 const users = prisma.user.findMany();
+const app_users = prisma.app_user.findMany();
 const books = [
     {
         title: 'The Awakening',
@@ -40,13 +48,75 @@ const typeDefs = `#graphql
     lastname: String
     emailid: String!
   }
+
+  type Address{
+    street: String
+    city:   String
+    state:  String
+    zip:    String
+  }
+
+  type app_user {
+    userid: ID!
+    firstname: String
+    lastname: String
+    emailid: String!
+    password: String!
+    gender: GENDER
+    address: Address
+    profile_pic: Int
+    mobile: Int
+    role: ROLE
+  }
+  input CreateAddressInput{
+    street: String
+    city:   String
+    state:  String
+    zip:    String
+  }
+
+  input CreateAppuserInput {
+    firstname: String
+    lastname: String
+    emailid: String!
+    password: String!
+    gender: GENDER
+    address: CreateAddressInput
+    profile_pic: Int
+    mobile: Int
+    role: ROLE
+  }
+
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
   type Query {
     books: [Book]
     users: [User]
+    app_user: [app_user]
   }
+
+  enum GENDER {
+    MALE
+    FEMALE
+  }
+
+  enum ROLE {
+    USER
+    ADMIN
+}
+
+  input UpdateAppuserName{
+    id: ID!
+    firstname: String!
+  }
+
+  type Mutation{
+    CreateAppuser(input: CreateAppuserInput!):app_user,
+    UpdateAppuser(input: UpdateAppuserName!): app_user,
+    deletAppuser(id: ID!): app_user
+  }
+
 `;
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
@@ -54,6 +124,7 @@ const resolvers = {
     Query: {
         users: () => users,
         books: () => books,
+        app_user: () => app_users,
     },
 };
 // The ApolloServer constructor requires two parameters: your schema
