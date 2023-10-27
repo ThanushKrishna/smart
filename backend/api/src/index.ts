@@ -3,20 +3,20 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import {prisma} from '../../db/dist/index.js';
 
 
-const user = await prisma.user.create({
-  data: { emailid: 'jinkin@prisma.io',
-          firstname:'Jan',
-          lastname:'month'
-  },
-})
+// const user = await prisma.user.create({
+//   data: { emailid: 'jinkin@prisma.io',
+//           firstname:'Jan',
+//           lastname:'month'
+//   },
+// })
 
-const app_user = await prisma.app_user.create({
-  data: { emailid: 'jinkin@prisma.io',
-          firstname:'Jan',
-          lastname:'month',
-          password: 'welcome123'
-  },
-})
+// const app_user = await prisma.app_user.create({
+//   data: { emailid: 'jinkin@prisma.io',
+//           firstname:'Jan',
+//           lastname:'month',
+//           password: 'welcome123'
+//   },
+// })
 
 // const users = prisma.user.findFirst({
 //   where: { 
@@ -132,8 +132,14 @@ const resolvers = {
     Query: {
       users: () => users,
       books: () => books,
-      app_user: () => app_users,
+      app_user: () => app_users,     
     },
+    Mutation:{
+      CreateAppuser: (parent, args) => {
+        const user = args.input;
+        console.log(user)
+      }
+    }
   };
 
 

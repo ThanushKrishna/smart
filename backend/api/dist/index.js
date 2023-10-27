@@ -1,19 +1,19 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { prisma } from '../../db/dist/index.js';
-const user = await prisma.user.create({
-    data: { emailid: 'jinkin@prisma.io',
-        firstname: 'Jan',
-        lastname: 'month'
-    },
-});
-const app_user = await prisma.app_user.create({
-    data: { emailid: 'jinkin@prisma.io',
-        firstname: 'Jan',
-        lastname: 'month',
-        password: 'welcome123'
-    },
-});
+// const user = await prisma.user.create({
+//   data: { emailid: 'jinkin@prisma.io',
+//           firstname:'Jan',
+//           lastname:'month'
+//   },
+// })
+// const app_user = await prisma.app_user.create({
+//   data: { emailid: 'jinkin@prisma.io',
+//           firstname:'Jan',
+//           lastname:'month',
+//           password: 'welcome123'
+//   },
+// })
 // const users = prisma.user.findFirst({
 //   where: { 
 //       firstname: 'Thanush'
@@ -126,6 +126,12 @@ const resolvers = {
         books: () => books,
         app_user: () => app_users,
     },
+    Mutation: {
+        CreateAppuser: (parent, args) => {
+            const user = args.input;
+            console.log(user);
+        }
+    }
 };
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
