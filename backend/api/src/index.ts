@@ -1,6 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import {prisma} from '../../db/dist/index.js';
+import { InputObjectTypeDefinitionNode } from 'graphql';
 
 
 // const user = await prisma.user.create({
@@ -97,6 +98,7 @@ const typeDefs = `#graphql
   # The "Query" type is special: it lists all of the available queries that
   # clients can execute, along with the return type for each. In this
   # case, the "books" query returns an array of zero or more Books (defined above).
+
   type Query {
     books: [Book]
     users: [User]
@@ -126,6 +128,13 @@ const typeDefs = `#graphql
 
 `;
 
+export interface CreateUserPayload {
+  firstName: string;
+  lastName?: string;
+  email: string;
+  password: string;
+}
+
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
 const resolvers = {
@@ -135,10 +144,21 @@ const resolvers = {
       app_user: () => app_users,     
     },
     Mutation:{
-      CreateAppuser: (parent, args) => {
-        const user = args.input;
-        console.log(user)
+      CreateAppuser: async (parent:any, args) => {
+        const result_user = args.input;
+        console.log(result_user)
+        await prisma.app_user.create({
+          data: {
+                  emailid: args.input.emailid,
+                  firstname:args.input.firstname,
+                  lastname:args.input.lastname,
+                  password: args.input.password,
+                  mobile: args.input.mobile
+            },                 
+        })
+        return result_user;
       }
+      
     }
   };
 
