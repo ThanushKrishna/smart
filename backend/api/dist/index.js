@@ -79,7 +79,7 @@ const typeDefs = `#graphql
   type Mutation{
     CreateAppuser(input: CreateAppuserInput!):CreateAppuserOutput
     UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
-    deletAppuser(id: ID!): app_user
+    deletAppuser(id: ID!): String
   }
 
   input CreateAppuserInput {
@@ -98,7 +98,6 @@ const typeDefs = `#graphql
     firstname: String
     lastname: String
     emailid: String!
-    password: String!
     gender: GENDER
     profile_pic: Int
     mobile: Int
@@ -159,8 +158,20 @@ const resolvers = {
                 where: { userid: ID },
                 data: { lastname: lastname },
             });
-            return lastname;
-        }
+            return "Done";
+        },
+        deletAppuser: async (_, { id }) => {
+            console.log("this is updateAppuser block");
+            const res = { id };
+            console.log({ id, res });
+            const delteduser = await prisma.app_user.delete({
+                where: { userid: id },
+                select: {
+                    emailid: true,
+                },
+            });
+            return "Done";
+        },
     }
 };
 // The ApolloServer constructor requires two parameters: your schema
