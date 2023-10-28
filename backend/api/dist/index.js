@@ -68,11 +68,18 @@ const typeDefs = `#graphql
     mobile: Int
     role: ROLE
   }
-  input CreateAddressInput{
-    street: String
-    city:   String
-    state:  String
-    zip:    String
+
+
+  type Query {
+    books: [Book]
+    users: [User]
+    app_user: [app_user]
+  }
+
+  type Mutation{
+    CreateAppuser(input: CreateAppuserInput!):CreateAppuserOutput
+    UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
+    deletAppuser(id: ID!): app_user
   }
 
   input CreateAppuserInput {
@@ -87,15 +94,28 @@ const typeDefs = `#graphql
     role: ROLE
   }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-
-  type Query {
-    books: [Book]
-    users: [User]
-    app_user: [app_user]
+  type CreateAppuserOutput {
+    firstname: String
+    lastname: String
+    emailid: String!
+    password: String!
+    gender: GENDER
+    profile_pic: Int
+    mobile: Int
+    role: ROLE
   }
+
+  input CreateAddressInput{
+    street: String
+    city:   String
+    state:  String
+    zip:    String
+  }
+
+  input UpdateAppuserInput {
+    lastname: String
+  }
+
 
   enum GENDER {
     MALE
@@ -106,18 +126,6 @@ const typeDefs = `#graphql
     USER
     ADMIN
 }
-
-  input UpdateAppuserName{
-    id: ID!
-    firstname: String!
-  }
-
-  type Mutation{
-    CreateAppuser(input: CreateAppuserInput!):app_user,
-    UpdateAppuser(input: UpdateAppuserName!): app_user,
-    deletAppuser(id: ID!): app_user
-  }
-
 `;
 // Resolvers define how to fetch the types defined in your schema.
 // This resolver retrieves books from the "books" array above.
@@ -128,19 +136,30 @@ const resolvers = {
         app_user: () => app_users,
     },
     Mutation: {
-        CreateAppuser: async (parent, args) => {
-            const result_user = args.input;
-            console.log(result_user);
+        CreateAppuser: async (_, { input: { emailid, firstname, lastname, password, mobile } }) => {
+            console.log("this is Createuser block");
+            const res = { emailid, password, firstname, lastname, mobile };
+            console.log({ res });
             await prisma.app_user.create({
                 data: {
-                    emailid: args.input.emailid,
-                    firstname: args.input.firstname,
-                    lastname: args.input.lastname,
-                    password: args.input.password,
-                    mobile: args.input.mobile
+                    emailid: emailid,
+                    firstname: firstname,
+                    lastname: lastname,
+                    password: password,
+                    mobile: mobile
                 },
             });
-            return result_user;
+            return res;
+        },
+        UpdateAppuser: async (_, { ID, input: { lastname } }) => {
+            console.log("this is updateAppuser block");
+            const res = { lastname };
+            console.log({ ID, res });
+            await prisma.app_user.update({
+                where: { userid: ID },
+                data: { lastname: lastname },
+            });
+            return lastname;
         }
     }
 };
