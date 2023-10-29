@@ -1,15 +1,15 @@
 export const typeDefs = `#graphql
-  type Book {
-    title: String
-    author: String
+
+  enum GENDER {
+    MALE
+    FEMALE
   }
 
-  type User {
-    firstname: String!
-    lastname: String
-    emailid: String!
+  enum ROLE {
+    USER
+    ADMIN
   }
-
+  
   type Address{
     street: String
     city:   String
@@ -32,17 +32,21 @@ export const typeDefs = `#graphql
 
 
   type Query {
-    books: [Book]
-    users: [User]
     app_user: [app_user]
   }
 
-  type Mutation{
-    CreateAppuser(input: CreateAppuserInput!):CreateAppuserOutput
-    UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
-    deletAppuser(id: ID!): String
-  }
 
+############ Start of Mutation Block ############
+############ Start of Mutation Block ############
+############ Start of Mutation Block ############
+
+  input CreateAddressInput{
+    street: String
+    city:   String
+    state:  String
+    zip:    String
+  }
+  
   input CreateAppuserInput {
     firstname: String
     lastname: String
@@ -60,16 +64,11 @@ export const typeDefs = `#graphql
     lastname: String
     emailid: String!
     gender: GENDER
+    password: String!
+    address: Address  
     profile_pic: Int
     mobile: Int
     role: ROLE
-  }
-
-  input CreateAddressInput{
-    street: String
-    city:   String
-    state:  String
-    zip:    String
   }
 
   input UpdateAppuserInput {
@@ -77,14 +76,11 @@ export const typeDefs = `#graphql
   }
 
 
-  enum GENDER {
-    MALE
-    FEMALE
+  type Mutation{
+    CreateAppuser(input: CreateAppuserInput!):CreateAppuserOutput
+    UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
+    deletAppuser(id: ID!): String
   }
 
-  enum ROLE {
-    USER
-    ADMIN
-}
 
 `;

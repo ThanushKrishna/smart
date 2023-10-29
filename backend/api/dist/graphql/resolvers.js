@@ -1,27 +1,14 @@
 import { PrismaClient } from '@prisma/client';
 export const prisma = new PrismaClient();
-const users = prisma.user.findMany();
 const app_users = prisma.app_user.findMany();
-export const books = [
-    {
-        title: 'The Awakening',
-        author: 'Kate Chopin',
-    },
-    {
-        title: 'City of Glass',
-        author: 'Paul Auster',
-    },
-];
 export const resolvers = {
     Query: {
-        users: () => users,
-        books: () => books,
         app_user: () => app_users,
     },
     Mutation: {
-        CreateAppuser: async (_, { input: { emailid, firstname, lastname, password, mobile } }) => {
+        CreateAppuser: async (_, { input: { emailid, firstname, lastname, password, mobile, address: { street, city, state, zip }, gender, profile_pic, role } }) => {
             console.log("this is Createuser block");
-            const res = { emailid, password, firstname, lastname, mobile };
+            const res = { emailid, firstname, lastname, password, mobile, address: { street, city, state, zip }, gender, profile_pic, role };
             console.log({ res });
             await prisma.app_user.create({
                 data: {
@@ -29,7 +16,16 @@ export const resolvers = {
                     firstname: firstname,
                     lastname: lastname,
                     password: password,
-                    mobile: mobile
+                    mobile: mobile,
+                    address: {
+                        street,
+                        city,
+                        state,
+                        zip
+                    },
+                    role: role,
+                    profile_pic: profile_pic,
+                    gender: gender
                 },
             });
             return res;
@@ -45,7 +41,7 @@ export const resolvers = {
             return "Done";
         },
         deletAppuser: async (_, { id }) => {
-            console.log("this is updateAppuser block");
+            console.log("this is deleteAppuser block");
             const res = { id };
             console.log({ id, res });
             const delteduser = await prisma.app_user.delete({

@@ -1,7 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { resolvers } from '../graphql/resolvers.js';
-import { typeDefs } from '../graphql/typeDefs.js';
+import { typeDefs } from "../graphql/typeDefs.js";
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
 const server = new ApolloServer({
