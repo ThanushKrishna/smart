@@ -49,6 +49,18 @@ export const resolvers = {
       return "Done";
     },
 
+    replaceAppuser: async (_, { ID, input: { lastname, firstname } }) => {
+      console.log("this is updateAppuser block");
+      const res = { lastname };
+      console.log({ ID, lastname, firstname });
+      await prisma.app_user.update({
+        where: { userid: ID },
+        data: { lastname: lastname,
+                firstname: firstname },
+      });
+      return "Done";
+    },
+
     deletAppuser: async (_, { id }) => {
       console.log("this is deleteAppuser block");
       const res = { id };

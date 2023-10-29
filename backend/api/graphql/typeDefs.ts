@@ -75,10 +75,15 @@ export const typeDefs = `#graphql
     lastname: String
   }
 
+  input replaceAppuserInput {
+    lastname: String
+    firstname: String
+  }
 
   type Mutation{
     CreateAppuser(input: CreateAppuserInput!):CreateAppuserOutput
     UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
+    replaceAppuser(ID: ID!, input: replaceAppuserInput!): String
     deletAppuser(id: ID!): String
   }
 
