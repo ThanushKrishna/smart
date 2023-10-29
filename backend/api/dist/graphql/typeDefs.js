@@ -71,6 +71,24 @@ export const typeDefs = `#graphql
     role: ROLE
   }
 
+  type replaceAppuserInput {
+    firstname: String
+    lastname: String
+    gender: GENDER
+    address: CreateAddressInput  
+    profile_pic: Int
+    mobile: Int
+  }
+
+  type replaceAppuserOutput {
+    firstname: String
+    lastname: String
+    gender: GENDER
+    address: Address  
+    profile_pic: Int
+    mobile: Int
+  }
+
   input UpdateAppuserInput {
     lastname: String
   }
@@ -83,7 +101,7 @@ export const typeDefs = `#graphql
   type Mutation{
     CreateAppuser(input: CreateAppuserInput!):CreateAppuserOutput
     UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
-    replaceAppuser(ID: ID!, input: replaceAppuserInput!): String
+    replaceAppuser(ID: ID!, input: replaceAppuserInput!): replaceAppuserOutput
     deletAppuser(id: ID!): String
   }
 
