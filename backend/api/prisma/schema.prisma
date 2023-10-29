@@ -29,7 +29,7 @@ model User {
 		mobile			Int? @unique
 		role			  ROLE @default(USER)
 		createdAt  		DateTime   @default(now())
-		updatedAT		DateTime   @default(now())
+		updatedAT		DateTime   @updatedAt
 
 }
 

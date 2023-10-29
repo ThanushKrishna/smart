@@ -7,16 +7,19 @@
   "author": "",
   "scripts": {
     "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js"
+    "start": "npm run compile && node ./dist/src/index.js"
   },
   "license": "ISC",
   "type": "module",
   "dependencies": {
     "@apollo/server": "^4.9.4",
+    "@prisma/client": "^5.5.2",
     "graphql": "^16.8.1"
   },
   "devDependencies": {
-    "@types/node": "^20.8.8",
+    "@types/node": "^20.8.9",
+    "prisma": "^5.5.2",
+    "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   }
 }
