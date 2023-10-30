@@ -6,7 +6,7 @@ const app_users = prisma.app_user.findMany();
 
 
 export const resolvers = {
-  
+
   Query: {
     app_user: () => app_users,
   },
@@ -72,7 +72,7 @@ export const resolvers = {
       return res;
     },
 
-    deletAppuser: async (_, { id }) => {
+    deleteAppuser: async (_, { id }) => {
       console.log("this is deleteAppuser block");
       const res = { id };
       console.log({ id, res });
@@ -84,5 +84,63 @@ export const resolvers = {
       });
       return "Done";
     },
+
+    createUserData: async (_, { Vehicle_No, data_owner_id, RC_No, Registered_Date, Owner, Owner_dob, Ownership_type, Vehicle_type, Year_of_manufacuring, GVW, Chasis_No, Engine_No, FC_due_Date, tax_due_Date, Vehicle_color, Vehice_norms, address:{ street, city, state, zip}, CC, Make, Model, Insurance_provider, Insurance_dueDate, Policy_No, Permit_No, Permit_category, Mobile_No1, Mobile_No2, Email_id, Adhar_No, Adhar_doc, PanCard_No, Pan_doc, Nominee, Nominee_dob, Emission_dueDate, Fuel_type, Hypothecation_bank, Hypothecation_city, RTO, Referred_by, Comments, Customer_type, Martial_status, TP_Insurance_provider, TP_dueDate, GST_No, Insurance_type } ) => {
+      console.log("this is CreateUserData block");
+      const res = { Vehicle_No, data_owner_id, RC_No, Registered_Date, Owner, Owner_dob, Ownership_type, Vehicle_type, Year_of_manufacuring, GVW, Chasis_No, Engine_No, FC_due_Date, tax_due_Date, Vehicle_color, Vehice_norms, address:{ street, city, state, zip}, CC, Make, Model, Insurance_provider, Insurance_dueDate, Policy_No, Permit_No, Permit_category, Mobile_No1, Mobile_No2, Email_id, Adhar_No, Adhar_doc, PanCard_No, Pan_doc, Nominee, Nominee_dob, Emission_dueDate, Fuel_type, Hypothecation_bank, Hypothecation_city, RTO, Referred_by, Comments, Customer_type, Martial_status, TP_Insurance_provider, TP_dueDate, GST_No, Insurance_type };
+      console.log(res);
+      const result = await prisma.user_data.create({
+        data: {
+          Vehicle_No,   
+          data_owner_id,                 
+          RC_No,
+          Registered_Date,          	
+          Owner,                 
+          Owner_dob,    
+          Ownership_type,                 
+          Vehicle_type,          
+          Year_of_manufacuring,  
+          GVW,                   
+          Chasis_No,             
+          Engine_No,  
+          FC_due_Date,
+          tax_due_Date,
+          Vehicle_color,         
+          Vehice_norms,          
+          Address: { street, city, state, zip},               
+          CC,                    
+          Make,                  
+          Model,                 
+          Insurance_provider,    
+          Insurance_dueDate,  
+          Policy_No,             
+          Permit_No,             
+          Permit_category,       
+          Mobile_No1,            
+          Mobile_No2,            
+          Email_id,              
+          Adhar_No,              
+          Adhar_doc,             
+          PanCard_No,            
+          Pan_doc,               
+          Nominee,               
+          Nominee_dob,  
+          Emission_dueDate,              
+          Fuel_type,             
+          Hypothecation_bank,    
+          Hypothecation_city,    
+          RTO,                   
+          Referred_by,           
+          Comments,              
+          Customer_type,         
+          Martial_status,        
+          TP_Insurance_provider,  
+          TP_dueDate,          
+          GST_No,                
+          Insurance_type,
+        },       
+      })
+      return "Done";
+    }
   }
 };

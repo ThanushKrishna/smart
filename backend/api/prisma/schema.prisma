@@ -27,18 +27,135 @@ type ADDRESS {
   zip    String?
 }
 
- model app_user{
-		userid			String  @id @default(auto()) @map("_id") @db.ObjectId
-		emailid			String	@unique
-		password		String
-		firstname		String?
-		lastname		String?
-    gender			GENDER?
-		address			ADDRESS?
-		profile_pic Int?
-		mobile			Int? @unique
-		role			  ROLE @default(USER)
-		createdAt  	DateTime   @default(now())
-		updatedAt		DateTime   @updatedAt
+model app_user {
+  userid      String   @id @default(auto()) @map("_id") @db.ObjectId
+  emailid     String   @unique
+  password    String
+  firstname   String?
+  lastname    String?
+  gender      GENDER?
+  address     ADDRESS?
+  profile_pic Int?
+  mobile      Int?     @unique
+  role        ROLE     @default(USER)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
 
+enum VEHICLE_TYPE {
+  X
+  Y
+}
+
+enum VEHICLE_COLOR {
+  X
+  Y
+}
+
+enum VEHICE_NORMS {
+  X
+  Y
+}
+
+enum CC {
+  X
+  Y
+}
+
+enum MAKE {
+  X
+  Y
+}
+
+enum MODEL {
+  X
+  Y
+}
+
+enum INSURANCE_PROVIDER {
+  X
+  Y
+}
+
+enum PERMIT_CATEGORY {
+  X
+  Y
+}
+
+enum FUEL_TYPE {
+  X
+  Y
+}
+
+enum CUSTOMER_TYPE {
+  X
+  Y
+}
+
+enum MARTIAL_STATUS {
+  X
+  Y
+}
+
+enum TP_INSURANCE_PROVIDER {
+  X
+  Y
+}
+
+enum INSURANCE_TYPE {
+  X
+  Y
+}
+
+model user_data {
+  id                    String                 @id @map("_id")
+  data_owner_id         String                 @db.ObjectId
+  Vehicle_No            String                 @unique
+  RC_No                 String?
+  Registered_Date       DateTime?
+  Owner                 String?
+  Owner_dob             DateTime?
+  Ownership_type        String?
+  Vehicle_type          VEHICLE_TYPE?
+  Year_of_manufacuring  DateTime?
+  GVW                   Int?
+  Chasis_No             String?
+  Engine_No             String?
+  FC_due_Date           DateTime?
+  tax_due_Date          DateTime?
+  Vehicle_color         VEHICLE_COLOR?
+  Vehice_norms          VEHICE_NORMS?
+  Address               ADDRESS?
+  CC                    CC?
+  Make                  MAKE?
+  Model                 MODEL?
+  Insurance_provider    INSURANCE_PROVIDER?
+  Insurance_dueDate     DateTime?
+  Policy_No             String?
+  Permit_No             String?
+  Permit_category       PERMIT_CATEGORY?
+  Mobile_No1            Int?
+  Mobile_No2            Int?
+  Email_id              String?
+  Adhar_No              Int?
+  Adhar_doc             BigInt?
+  PanCard_No            String?
+  Pan_doc               BigInt?
+  Nominee               String?
+  Nominee_dob           DateTime?
+  Emission_dueDateTime  DateTime?
+  Fuel_type             FUEL_TYPE?
+  Hypothecation_bank    String?
+  Hypothecation_city    String?
+  RTO                   String?
+  Referred_by           String?
+  Comments              String?
+  Customer_type         CUSTOMER_TYPE?
+  Martial_status        MARTIAL_STATUS?
+  TP_Insurance_provider TP_INSURANCE_PROVIDER?
+  TP_dueDateTime        DateTime?
+  GST_No                String?
+  Insurance_type        INSURANCE_TYPE?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
 }
