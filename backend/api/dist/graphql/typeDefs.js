@@ -4,7 +4,12 @@ export const typeDefs = `#graphql
 ############ Start of APP_USER Query ############
 ############ Start of APP_USER Query ############
 
-scalar String
+scalar Date
+
+  type Event {
+    id: Int
+    date: Date!
+  }
 
   enum GENDER {
     MALE
@@ -34,11 +39,6 @@ scalar String
     profile_pic: Int
     mobile: Int
     role: ROLE
-  }
-
-
-  type Query {
-    app_user: [app_user]
   }
 
 
@@ -104,16 +104,7 @@ scalar String
     firstname: String
   }
 
-  type Mutation{
-    CreateAppuser(input: CreateAppuserInput!):CreateAppuserOutput
-    UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
-    replaceAppuser(ID: ID!, input: replaceAppuserInput!): replaceAppuserOutput
-    deleteAppuser(id: ID!): String
-  }
-
-
-
-
+ 
 
 
 ############ Start of APP_USER_DATA Query ############
@@ -246,9 +237,10 @@ type user_data {
 }
 
 type Query {
-    user_data: [user_data]
+    user_data: [user_data]    
+    app_user: [app_user]
+    event: [Event!]
   }
-
 
 
 ############ Start of USER_DATA_MUTATION ############
@@ -361,6 +353,13 @@ type createUserDataOutput {
   type Mutation{
     createUserData(input: createUserDataInput!):String    
     deleteUserData(id: ID!): String
+    CreateAppuser(input: CreateAppuserInput!):CreateAppuserOutput
+    UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
+    replaceAppuser(ID: ID!, input: replaceAppuserInput!): replaceAppuserOutput
+    deleteAppuser(id: ID!): String
+    createEvent(id: Int!, dt:Date!): String
+    
   }
+
 
 `;
