@@ -259,7 +259,7 @@ type Query {
 
 input createUserDataInput {
   Vehicle_No:            String!  
-  data_owner_id:         String!
+  data_owner_id:         ID!
   RC_No:                 String
   Registered_Date:       String
   Owner:                 String
@@ -309,7 +309,7 @@ input createUserDataInput {
 
 type createUserDataOutput {
   Vehicle_No:            String!  
-  data_owner_id:         String!
+  data_owner_id:         ID!
   RC_No:                 String
   Registered_Date:       String
   Owner:                 String
@@ -324,7 +324,7 @@ type createUserDataOutput {
   tax_due_Date:       	 String
   Vehicle_color:         VEHICLE_COLOR
   Vehice_norms:          VEHICE_NORMS
-  Address:               CreateAddressInput
+  Address:               Address
   CC:                    CC
   Make:                  MAKE
   Model:                 MODEL

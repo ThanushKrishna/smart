@@ -108,7 +108,7 @@ enum INSURANCE_TYPE {
 }
 
 model user_data {
-  id                    String                 @id @map("_id")
+  id                    String                 @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id         String                 @db.ObjectId
   Vehicle_No            String                 @unique
   RC_No                 String?
