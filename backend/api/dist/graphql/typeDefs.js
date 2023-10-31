@@ -6,11 +6,6 @@ export const typeDefs = `#graphql
 
 scalar Date
 
-  type Event {
-    id: Int
-    date: Date!
-  }
-
   enum GENDER {
     MALE
     FEMALE
@@ -240,7 +235,6 @@ type user_data {
 type Query {
     user_data: [user_data]    
     app_user: [app_user]
-    event: [Event]
   }
 
 
@@ -252,6 +246,56 @@ type Query {
 
 input createUserDataInput { 
   data_owner_id:         String!
+  Vehicle_No:            String!  
+  RC_No:                 String
+  Registered_Date:       Date
+  Owner:                 String
+  Owner_dob:             Date
+  Ownership_type:        String
+  Vehicle_type:          VEHICLE_TYPE
+  Year_of_manufacuring:  Date
+  GVW:                   Int
+  Chasis_No:             String
+  Engine_No:             String
+  FC_due_Date:       	   Date
+  tax_due_Date:       	 Date
+  Vehicle_color:         VEHICLE_COLOR
+  Vehice_norms:          VEHICE_NORMS
+  Address:               CreateAddressInput
+  CC:                    CC
+  Make:                  MAKE
+  Model:                 MODEL
+  Insurance_provider:    INSURANCE_PROVIDER
+  Insurance_dueDate:     Date
+  Policy_No:             String
+  Permit_No:             String
+  Permit_category:       PERMIT_CATEGORY
+  Mobile_No1:            Int
+  Mobile_No2:            Int
+  Email_id:              String
+  Adhar_No:              Int
+  Adhar_doc:             Int
+  PanCard_No:            String
+  Pan_doc:               Int
+  Nominee:               String
+  Nominee_dob:           Date
+  Emission_dueDate:      Date
+  Fuel_type:             FUEL_TYPE
+  Hypothecation_bank:    String
+  Hypothecation_city:    String
+  RTO:                   String
+  Referred_by:           String
+  Comments:              String
+  Customer_type:         CUSTOMER_TYPE
+  Martial_status:        MARTIAL_STATUS
+  TP_Insurance_provider: TP_INSURANCE_PROVIDER
+  TP_dueDate:            Date
+  GST_No:                String
+  Insurance_type:        INSURANCE_TYPE
+}
+
+input updateUserDataInput { 
+  id:                    String!   
   Vehicle_No:            String!  
   RC_No:                 String
   Registered_Date:       Date
@@ -351,15 +395,64 @@ type createUserDataOutput {
   Insurance_type:        INSURANCE_TYPE          
 }
 
+type updateUserDataOutput {  
+  Vehicle_No:            String!  
+  RC_No:                 String
+  Registered_Date:       Date
+  Owner:                 String
+  Owner_dob:             Date
+  Ownership_type:        String
+  Vehicle_type:          VEHICLE_TYPE
+  Year_of_manufacuring:  Date
+  GVW:                   Int
+  Chasis_No:             String
+  Engine_No:             String
+  FC_due_Date:       	   Date
+  tax_due_Date:       	 Date
+  Vehicle_color:         VEHICLE_COLOR
+  Vehice_norms:          VEHICE_NORMS
+  Address:               Address
+  CC:                    CC
+  Make:                  MAKE
+  Model:                 MODEL
+  Insurance_provider:    INSURANCE_PROVIDER
+  Insurance_dueDate:     Date
+  Policy_No:             String
+  Permit_No:             String
+  Permit_category:       PERMIT_CATEGORY
+  Mobile_No1:            Int
+  Mobile_No2:            Int
+  Email_id:              String
+  Adhar_No:              Int
+  Adhar_doc:             Int
+  PanCard_No:            String
+  Pan_doc:               Int
+  Nominee:               String
+  Nominee_dob:           Date
+  Emission_dueDate:      Date
+  Fuel_type:             FUEL_TYPE
+  Hypothecation_bank:    String
+  Hypothecation_city:    String
+  RTO:                   String
+  Referred_by:           String
+  Comments:              String
+  Customer_type:         CUSTOMER_TYPE
+  Martial_status:        MARTIAL_STATUS
+  TP_Insurance_provider: TP_INSURANCE_PROVIDER
+  TP_dueDate:            Date
+  GST_No:                String
+  Insurance_type:        INSURANCE_TYPE          
+}
+
 
   type Mutation{
     createUserData(input: createUserDataInput!): createUserDataOutput
     deleteUserData(id: ID!): String
+    updateUserData(input: updateUserDataInput!): updateUserDataOutput
     CreateAppuser(input: CreateAppuserInput!): CreateAppuserOutput
     UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
     replaceAppuser(ID: ID!, input: replaceAppuserInput!): replaceAppuserOutput
     deleteAppuser(id: ID!): String
-    createEvent(id: Int!, dt:Date!): String
     
   }
 

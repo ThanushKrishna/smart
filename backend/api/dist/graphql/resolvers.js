@@ -3,7 +3,6 @@ export const prisma = new PrismaClient();
 import { GraphQLScalarType, Kind } from 'graphql';
 const app_users = prisma.app_user.findMany({});
 const user_data = prisma.user_data.findMany({});
-const events = [];
 export const dateScalar = new GraphQLScalarType({
     name: 'Date',
     description: 'Date custom scalar type',
@@ -39,15 +38,8 @@ export const resolvers = {
     Query: {
         app_user: () => app_users,
         user_data: () => user_data,
-        event: () => events,
     },
     Mutation: {
-        createEvent: (_, { id, dt }) => {
-            const newEvent = { id, dt };
-            events.push(newEvent);
-            console.log(...events);
-            return { ...events };
-        },
         CreateAppuser: async (_, { input: { emailid, firstname, lastname, password, mobile, address: { street, city, state, zip }, gender, profile_pic, role } }) => {
             console.log("this is Createuser block");
             const res = { emailid, firstname, lastname, password, mobile, address: { street, city, state, zip }, gender, profile_pic, role };
@@ -177,18 +169,77 @@ export const resolvers = {
                 },
             });
             return res;
+        },
+        updateUserData: async (_, { input: { id, Vehicle_No, RC_No, Registered_Date, Owner, Owner_dob, Ownership_type, Address: { street, city, state, zip }, Vehicle_type, Year_of_manufacuring, GVW, Chasis_No, Engine_No, FC_due_Date, tax_due_Date, Vehicle_color, Vehice_norms, CC, Make, Model, Insurance_provider, Insurance_dueDate, Policy_No, Permit_No, Permit_category, Mobile_No1, Mobile_No2, Email_id, Adhar_No, Adhar_doc, PanCard_No, Pan_doc, Nominee, Nominee_dob, Emission_dueDate, Fuel_type, Hypothecation_bank, Hypothecation_city, RTO, Referred_by, Comments, Customer_type, Martial_status, TP_Insurance_provider, TP_dueDate, GST_No, Insurance_type } }) => {
+            console.log("this is updateUserdata block");
+            const res = { id, Vehicle_No, RC_No, Registered_Date, Owner, Owner_dob, Ownership_type, Address: { street, city, state, zip }, Vehicle_type, Year_of_manufacuring, GVW, Chasis_No, Engine_No, FC_due_Date, tax_due_Date, Vehicle_color, Vehice_norms, CC, Make, Model, Insurance_provider, Insurance_dueDate, Policy_No, Permit_No, Permit_category, Mobile_No1, Mobile_No2, Email_id, Adhar_No, Adhar_doc, PanCard_No, Pan_doc, Nominee, Nominee_dob, Emission_dueDate, Fuel_type, Hypothecation_bank, Hypothecation_city, RTO, Referred_by, Comments, Customer_type, Martial_status, TP_Insurance_provider, TP_dueDate, GST_No, Insurance_type };
+            console.log(res);
+            const result = await prisma.user_data.update({
+                where: { id: id },
+                data: {
+                    Vehicle_No,
+                    RC_No,
+                    Registered_Date,
+                    Owner,
+                    Owner_dob,
+                    Ownership_type,
+                    Address: {
+                        street,
+                        city,
+                        state,
+                        zip
+                    },
+                    Vehicle_type,
+                    Year_of_manufacuring,
+                    GVW,
+                    Chasis_No,
+                    Engine_No,
+                    FC_due_Date,
+                    tax_due_Date,
+                    Vehicle_color,
+                    Vehice_norms,
+                    CC,
+                    Make,
+                    Model,
+                    Insurance_provider,
+                    Insurance_dueDate,
+                    Policy_No,
+                    Permit_No,
+                    Permit_category,
+                    Mobile_No1,
+                    Mobile_No2,
+                    Email_id,
+                    Adhar_No,
+                    Adhar_doc,
+                    PanCard_No,
+                    Pan_doc,
+                    Nominee,
+                    Nominee_dob,
+                    Emission_dueDate,
+                    Fuel_type,
+                    Hypothecation_bank,
+                    Hypothecation_city,
+                    RTO,
+                    Referred_by,
+                    Comments,
+                    Customer_type,
+                    Martial_status,
+                    TP_Insurance_provider,
+                    TP_dueDate,
+                    GST_No,
+                    Insurance_type,
+                },
+            });
+            return res;
+        },
+        deleteUserData: async (_, { id }) => {
+            console.log("this is deleteAppuser block");
+            const res = { id };
+            console.log({ id, res });
+            const delteduser = await prisma.user_data.delete({
+                where: { id: id },
+            });
+            return "Done";
         }
-        // testDatetime: async (_, { id }) => {
-        //   console.log("this is datetime block");
-        //   const res = { id };
-        //   console.log({ id, res });
-        //   const delteduser = await prisma.app_user.delete({
-        //     where: { userid: id },
-        //     select: {
-        //       emailid: true,
-        //     },
-        //   });
-        //   return "Done";
-        // },
     }
 };
