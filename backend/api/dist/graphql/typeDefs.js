@@ -188,17 +188,17 @@ type user_data {
   data_owner_id:         String!
   Vehicle_No:            String!  
   RC_No:                 String
-  Registered_Date:       String
+  Registered_Date:       Date
   Owner:                 String
-  Owner_dob:             String
+  Owner_dob:             Date
   Ownership_type:        String
   Vehicle_type:          VEHICLE_TYPE
-  Year_of_manufacuring:  String
+  Year_of_manufacuring:  Date
   GVW:                   Int
   Chasis_No:             String
   Engine_No:             String
-  FC_due_Date:       	 String
-  tax_due_Date:       	 String
+  FC_due_Date:       	   Date
+  tax_due_Date:       	 Date
   Vehicle_color:         VEHICLE_COLOR
   Vehice_norms:          VEHICE_NORMS
   Address:               Address
@@ -206,7 +206,7 @@ type user_data {
   Make:                  MAKE
   Model:                 MODEL
   Insurance_provider:    INSURANCE_PROVIDER
-  Insurance_dueDate:     String
+  Insurance_dueDate:     Date
   Policy_No:             String
   Permit_No:             String
   Permit_category:       PERMIT_CATEGORY
@@ -218,8 +218,8 @@ type user_data {
   PanCard_No:            String
   Pan_doc:               Int
   Nominee:               String
-  Nominee_dob:           String
-  Emission_dueDate:      String
+  Nominee_dob:           Date
+  Emission_dueDate:      Date
   Fuel_type:             FUEL_TYPE
   Hypothecation_bank:    String
   Hypothecation_city:    String
@@ -229,17 +229,18 @@ type user_data {
   Customer_type:         CUSTOMER_TYPE
   Martial_status:        MARTIAL_STATUS
   TP_Insurance_provider: TP_INSURANCE_PROVIDER
-  TP_dueString:          String
+  TP_dueDate:            Date
   GST_No:                String
   Insurance_type:        INSURANCE_TYPE
-  createdAt:             String               
-  updatedAt:             String               
+  createdAt:             Date               
+  updatedAt:             Date               
 }
+
 
 type Query {
     user_data: [user_data]    
     app_user: [app_user]
-    event: [Event!]
+    event: [Event]
   }
 
 
@@ -249,21 +250,21 @@ type Query {
 ############ Start of USER_DATA_MUTATION ############
 
 
-input createUserDataInput {
+input createUserDataInput { 
+  data_owner_id:         String!
   Vehicle_No:            String!  
-  data_owner_id:         ID!
   RC_No:                 String
-  Registered_Date:       String
+  Registered_Date:       Date
   Owner:                 String
-  Owner_dob:             String
+  Owner_dob:             Date
   Ownership_type:        String
   Vehicle_type:          VEHICLE_TYPE
-  Year_of_manufacuring:  String
+  Year_of_manufacuring:  Date
   GVW:                   Int
   Chasis_No:             String
   Engine_No:             String
-  FC_due_Date:       	   String
-  tax_due_Date:       	 String
+  FC_due_Date:       	   Date
+  tax_due_Date:       	 Date
   Vehicle_color:         VEHICLE_COLOR
   Vehice_norms:          VEHICE_NORMS
   Address:               CreateAddressInput
@@ -271,7 +272,7 @@ input createUserDataInput {
   Make:                  MAKE
   Model:                 MODEL
   Insurance_provider:    INSURANCE_PROVIDER
-  Insurance_dueDate:     String
+  Insurance_dueDate:     Date
   Policy_No:             String
   Permit_No:             String
   Permit_category:       PERMIT_CATEGORY
@@ -283,8 +284,8 @@ input createUserDataInput {
   PanCard_No:            String
   Pan_doc:               Int
   Nominee:               String
-  Nominee_dob:           String
-  Emission_dueDate:      String
+  Nominee_dob:           Date
+  Emission_dueDate:      Date
   Fuel_type:             FUEL_TYPE
   Hypothecation_bank:    String
   Hypothecation_city:    String
@@ -294,26 +295,27 @@ input createUserDataInput {
   Customer_type:         CUSTOMER_TYPE
   Martial_status:        MARTIAL_STATUS
   TP_Insurance_provider: TP_INSURANCE_PROVIDER
-  TP_dueDate:            String
+  TP_dueDate:            Date
   GST_No:                String
-  Insurance_type:        INSURANCE_TYPE             
+  Insurance_type:        INSURANCE_TYPE
 }
 
-type createUserDataOutput {
+
+type createUserDataOutput {  
+  data_owner_id:         String!
   Vehicle_No:            String!  
-  data_owner_id:         ID!
   RC_No:                 String
-  Registered_Date:       String
+  Registered_Date:       Date
   Owner:                 String
-  Owner_dob:             String
+  Owner_dob:             Date
   Ownership_type:        String
   Vehicle_type:          VEHICLE_TYPE
-  Year_of_manufacuring:  String
+  Year_of_manufacuring:  Date
   GVW:                   Int
   Chasis_No:             String
   Engine_No:             String
-  FC_due_Date:       	 String
-  tax_due_Date:       	 String
+  FC_due_Date:       	   Date
+  tax_due_Date:       	 Date
   Vehicle_color:         VEHICLE_COLOR
   Vehice_norms:          VEHICE_NORMS
   Address:               Address
@@ -321,7 +323,7 @@ type createUserDataOutput {
   Make:                  MAKE
   Model:                 MODEL
   Insurance_provider:    INSURANCE_PROVIDER
-  Insurance_dueDate:     String
+  Insurance_dueDate:     Date
   Policy_No:             String
   Permit_No:             String
   Permit_category:       PERMIT_CATEGORY
@@ -333,8 +335,8 @@ type createUserDataOutput {
   PanCard_No:            String
   Pan_doc:               Int
   Nominee:               String
-  Nominee_dob:           String
-  Emission_dueDate:      String
+  Nominee_dob:           Date
+  Emission_dueDate:      Date
   Fuel_type:             FUEL_TYPE
   Hypothecation_bank:    String
   Hypothecation_city:    String
@@ -344,16 +346,16 @@ type createUserDataOutput {
   Customer_type:         CUSTOMER_TYPE
   Martial_status:        MARTIAL_STATUS
   TP_Insurance_provider: TP_INSURANCE_PROVIDER
-  TP_dueDate:            String
+  TP_dueDate:            Date
   GST_No:                String
-  Insurance_type:        INSURANCE_TYPE             
+  Insurance_type:        INSURANCE_TYPE          
 }
 
 
   type Mutation{
-    createUserData(input: createUserDataInput!):String    
+    createUserData(input: createUserDataInput!): createUserDataOutput
     deleteUserData(id: ID!): String
-    CreateAppuser(input: CreateAppuserInput!):CreateAppuserOutput
+    CreateAppuser(input: CreateAppuserInput!): CreateAppuserOutput
     UpdateAppuser(ID: ID!, input: UpdateAppuserInput!): String
     replaceAppuser(ID: ID!, input: replaceAppuserInput!): replaceAppuserOutput
     deleteAppuser(id: ID!): String
