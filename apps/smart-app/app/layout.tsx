@@ -1,4 +1,5 @@
 import '@radix-ui/themes/styles.css';
+import './theme-config.css';
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -23,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.variable}>
       <Providers>
         <Theme>
           <NavBar/>         
