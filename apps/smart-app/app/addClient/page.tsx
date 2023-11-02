@@ -10,7 +10,7 @@ const AutomobilePage = () => {
   return (
         <div>
           <Button>
-            <Link href='/automobile/new'> Add Automobile </Link>
+            <Link href='/addClient/new'> Add Automobile </Link>
           </Button>
         </div>
     )
