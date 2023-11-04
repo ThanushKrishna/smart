@@ -4,6 +4,78 @@ export interface iappUser extends app_user{
     app_users: app_user[];
 }
 
+
+enum VEHICLE_TYPE {
+    X,
+    Y
+  }
+  
+  enum VEHICLE_COLOR {
+    X,
+    Y
+  }
+  
+  enum VEHICE_NORMS {
+    X,
+    Y
+  }
+  
+  enum CC {
+    X,
+    Y
+  }
+  
+  enum MAKE {
+    X,
+    Y
+  }
+  
+  enum MODEL {
+    X,
+    Y
+  }
+  
+  enum INSURANCE_PROVIDER {
+    X,
+    Y
+  }
+  
+  enum PERMIT_CATEGORY {
+    X,
+    Y
+  }
+  
+  enum FUEL_TYPE {
+    X,
+    Y
+  }
+  
+  enum CUSTOMER_TYPE {
+    X,
+    Y
+  }
+  
+  enum MARTIAL_STATUS {
+    X,
+    Y
+  }
+  
+  enum TP_INSURANCE_PROVIDER {
+    X,
+    Y
+  }
+  
+  enum INSURANCE_TYPE {
+    X,
+    Y
+  }
+  
+  type Address = {
+      street: String
+      city:   String
+      state:  String
+      zip:    String
+    }
 export interface AddClientType {
     Vehicle_No:            String!  
     RC_No:                 String

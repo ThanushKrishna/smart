@@ -1,5 +1,4 @@
 'use client'
-
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
@@ -10,7 +9,7 @@ const NavBar = () => {
   const currentPath = usePathname();
     const links = [
         { label: 'Dashboard', href: '/'},
-        { label: 'Add Client', href: '/addClient'}
+        { label: 'Clients', href: '/add-client'}
     ]
 
   return (

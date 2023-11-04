@@ -1,9 +1,13 @@
 'use client'
 import React from 'react'
-import { useForm } from 'react-hook-form'
-import { TextField, Button, TextArea } from '@radix-ui/themes'
+import { useForm, useController  } from 'react-hook-form'
+import { TextField, Button, TextArea, Select } from '@radix-ui/themes'
 import { AddClientType } from '../../../typings';
 import { ADD_CLIENT } from '../../../graphql/queries'
+import { GET_APP_USERS } from '../../../graphql/queries'
+import { useMutation } from '@apollo/client';
+
+
 
 const AddClient = () => {
 
@@ -11,13 +15,14 @@ const { register,handleSubmit } = useForm<AddClientType>();
 
 const onSubmit = (data: AddClientType) => {
     console.log( data.Vehicle_No, data.RC_No );
-} 
+}
+
 
 
   return (
-    <form className='max-w-md space-y-2' onSubmit={handleSubmit((data) => {onSubmit(data)})}>
+    <form className='max-w-md space-y-2' onSubmit={handleSubmit(onSubmit)}>
         <TextField.Root>
-        <TextField.Input placeholder="VEHICLE_NO" { ...register('Vehicle_No')}/>
+        <TextField.Input placeholder="VEHICLE_NO123" { ...register('Vehicle_No')}/>
         </TextField.Root>
         <TextField.Root>
         <TextField.Input placeholder="RC_No" { ...register('RC_No')}/>
@@ -35,7 +40,7 @@ const onSubmit = (data: AddClientType) => {
         <TextField.Input placeholder="OWNERSHIP_TYPE" { ...register('Ownership_type')}/>
         </TextField.Root>
         <TextField.Root>
-		<TextField.Input placeholder="VEHICLE_TYPE" { ...register('Vehicle_type')}/>
+        <TextField.Input placeholder="VEHICLE_TYPE" { ...register('Vehicle_type')}/>
         </TextField.Root>
         <TextField.Root>
         <TextField.Input placeholder="YEAR_OF_MANUFACURING" { ...register('Year_of_manufacuring')}/>
