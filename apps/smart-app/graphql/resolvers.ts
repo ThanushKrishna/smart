@@ -159,12 +159,12 @@ export const resolvers = {
     },
     
     testaddclient: async (parent: any, args: any, context: Context) => {
-      console.log("this is updateUserdata block");        
+      console.log("this is testCreateUserdata block");        
         await context.prisma.user_data.create({
         data: {
           Vehicle_No: args.Vehicle_No,
           data_owner_id:args.data_owner_id, 
-          RC_No: args.RC_NO
+          RC_No: args.RC_No
         },
     })
     return "Test Client created"

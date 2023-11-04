@@ -3,7 +3,7 @@ import React from 'react'
 import { useForm, useController  } from 'react-hook-form'
 import { TextField, Button, TextArea, Select } from '@radix-ui/themes'
 import { AddClientType } from '../../../typings';
-import { TEST_ADD_CLIENT } from '../../../graphql/queries'
+import { ADD_CLIENT } from '../../../graphql/queries'
 import { GET_APP_USERS } from '../../../graphql/queries'
 import { useMutation } from '@apollo/client';
 // import { onError } from "@apollo/client/link/error";
@@ -25,15 +25,60 @@ const ownershiptype = [
 
 const AddClient = () => {
 
-const[testaddClient, { data, loading, error } ] = useMutation(TEST_ADD_CLIENT);
+const[addclient, { data, loading, error } ] = useMutation(ADD_CLIENT);
 
-const { register,handleSubmit, control } = useForm<AddClientType>();
+const { register, handleSubmit, control } = useForm<AddClientType>( {
+    defaultValues: {
+        RC_No: "N/A",
+        Registered_Date:undefined,
+        Owner:"N/A",
+        Owner_dob:undefined,
+        Ownership_type:"N/A",
+        Vehicle_type: 0,
+        Year_of_manufacuring:undefined,
+        GVW:"N/A",
+        Chasis_No:"N/A",
+        Engine_No:"N/A",
+        FC_due_Date:undefined,
+        tax_due_Date:undefined,
+        Vehicle_color:0,
+        Vehice_norms:0,
+        Address:undefined,
+        CC:0,
+        Make:1,
+        Model:0,
+        Insurance_provider:0,
+        Insurance_dueDate:undefined,
+        Policy_No:undefined,
+        Permit_No:"N/A",
+        Permit_category:0,
+        Mobile_No1:"N/A",
+        Mobile_No2:"N/A",
+        Email_id:"N/A",
+        Adhar_No:"N/A",
+        Adhar_doc:"N/A",
+        PanCard_No:"N/A",
+        Pan_doc:"N/A",
+        Nominee:"N/A",
+        Nominee_dob:undefined,
+        Emission_dueDate:undefined,
+        Fuel_type:0,
+        Hypothecation_bank:"N/A",
+        Hypothecation_city:"N/A",
+        RTO:"N/A",
+        Referred_by:"N/A",
+        Comments:"N/A",
+        Customer_type:0,
+        Martial_status:0,
+        TP_Insurance_provider:0,
+        TP_dueDate:undefined,
+        GST_No:"N/A",
+        Insurance_type:0
+    },
 
-const { field } = useController({name: 'Ownership_type', control})
+});
 
-if (error){
-    console.log(error);
-}
+//const { field } = useController({name: 'Ownership_type', control})
 
 // const handleSelectChange = (option: any) => {
 //     field.onChange(option.value);
@@ -42,7 +87,8 @@ if (error){
 const onSubmit = (formValues: AddClientType) => { 
     try{
         formValues.data_owner_id="65420cde2e5ffc26bed53918"
-        testaddClient( {variables: { dataOwnerId: formValues.data_owner_id, vehicleNo: formValues.Vehicle_No, rcNo: formValues.RC_No }})        
+        //testaddClient( {variables: { dataOwnerId: formValues.data_owner_id, vehicleNo: formValues.Vehicle_No, rcNo: formValues.RC_No }})        
+        addclient( { variables: { input: formValues}})
         console.log( formValues );
     }   
     catch(e){
