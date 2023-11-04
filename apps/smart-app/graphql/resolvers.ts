@@ -114,13 +114,7 @@ export const resolvers = {
           Registered_Date: args.input.Registered_Date,          	
           Owner: args.input.Owner,                 
           Owner_dob: args.input.Owner_dob,    
-          Ownership_type: args.input.Ownership_type,  
-          Address: {
-            street: args.input.Address.street,
-            city: args.input.Address.city,
-            state: args.input.Address.state,
-            zip: args.input.Address.zip
-          },                 
+          Ownership_type: args.input.Ownership_type,                  
           Vehicle_type: args.input.Vehicle_type,          
           Year_of_manufacuring: args.input.Year_of_manufacuring,  
           GVW: args.input.GVW,                   
@@ -163,7 +157,19 @@ export const resolvers = {
         },       
       })
     },
-  
+    
+    testaddclient: async (parent: any, args: any, context: Context) => {
+      console.log("this is updateUserdata block");        
+        await context.prisma.user_data.create({
+        data: {
+          Vehicle_No: args.Vehicle_No,
+          data_owner_id:args.data_owner_id, 
+          RC_No: args.RC_NO
+        },
+    })
+    return "Test Client created"
+  },
+
     updateUserData: async (parent: any, args: any, context: Context) => {
       console.log("this is updateUserdata block");        
       return await context.prisma.user_data.update({

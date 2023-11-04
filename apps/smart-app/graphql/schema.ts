@@ -263,7 +263,6 @@ input createUserDataInput {
   tax_due_Date:       	 Date
   Vehicle_color:         VEHICLE_COLOR
   Vehice_norms:          VEHICE_NORMS
-  Address:               CreateAddressInput
   CC:                    CC
   Make:                  MAKE
   Model:                 MODEL
@@ -364,7 +363,6 @@ type createUserDataOutput {
   tax_due_Date:       	 Date
   Vehicle_color:         VEHICLE_COLOR
   Vehice_norms:          VEHICE_NORMS
-  Address:               Address
   CC:                    CC
   Make:                  MAKE
   Model:                 MODEL
@@ -446,9 +444,15 @@ type updateUserDataOutput {
   Insurance_type:        INSURANCE_TYPE          
 }
 
+input TestaddClientinput {
+  data_owner_id:         String!
+  Vehicle_No:            String!  
+  RC_No:                 String
+}
 
   type Mutation{
     createUserData(input: createUserDataInput!): createUserDataOutput
+    testaddclient(data_owner_id: String!, Vehicle_No: String!, RC_No: String ): String
     deleteUserData(id: ID!): String
     updateUserData(input: updateUserDataInput!): updateUserDataOutput
     CreateAppuser(input: CreateAppuserInput!): CreateAppuserOutput

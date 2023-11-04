@@ -77,6 +77,7 @@ enum VEHICLE_TYPE {
       zip:    String
     }
 export interface AddClientType {
+    data_owner_id:         String!
     Vehicle_No:            String!  
     RC_No:                 String
     Registered_Date:       Date
@@ -125,3 +126,9 @@ export interface AddClientType {
     Insurance_type:        INSURANCE_TYPE         
   }
   
+
+  export interface TestAddClientType {
+    data_owner_id:         String!
+    Vehicle_No:            String!  
+    RC_No:                 String
+  }

@@ -3,18 +3,54 @@ import React from 'react'
 import { useForm, useController  } from 'react-hook-form'
 import { TextField, Button, TextArea, Select } from '@radix-ui/themes'
 import { AddClientType } from '../../../typings';
-import { ADD_CLIENT } from '../../../graphql/queries'
+import { TEST_ADD_CLIENT } from '../../../graphql/queries'
 import { GET_APP_USERS } from '../../../graphql/queries'
 import { useMutation } from '@apollo/client';
+// import { onError } from "@apollo/client/link/error";
 
+// const errorLink = onError(({ graphQLErrors, networkError }) => {
+//     if (graphQLErrors)
+//       graphQLErrors.forEach(({ message, locations, path }) =>
+//         console.log(
+//           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+//         )
+//       );
+//     if (networkError) console.log(`[Network error]: ${networkError}`);
+//   });
 
+const ownershiptype = [
+    {value: "personal", label: "PERSONAL"},
+    {value: "commercial", label: "COMMERCIAL"}
+];
 
 const AddClient = () => {
 
-const { register,handleSubmit } = useForm<AddClientType>();
+const[testaddClient, { data, loading, error } ] = useMutation(TEST_ADD_CLIENT);
 
-const onSubmit = (data: AddClientType) => {
-    console.log( data.Vehicle_No, data.RC_No );
+const { register,handleSubmit, control } = useForm<AddClientType>();
+
+const { field } = useController({name: 'Ownership_type', control})
+
+if (error){
+    console.log(error);
+}
+
+// const handleSelectChange = (option: any) => {
+//     field.onChange(option.value);
+// }
+
+const onSubmit = (formValues: AddClientType) => { 
+    try{
+        formValues.data_owner_id="65420cde2e5ffc26bed53918"
+        testaddClient( {variables: { dataOwnerId: formValues.data_owner_id, vehicleNo: formValues.Vehicle_No, rcNo: formValues.RC_No }})        
+        console.log( formValues );
+    }   
+    catch(e){
+        console.log("This is error block");
+        console.log(e);
+    }
+ 
+   
 }
 
 
@@ -22,7 +58,7 @@ const onSubmit = (data: AddClientType) => {
   return (
     <form className='max-w-md space-y-2' onSubmit={handleSubmit(onSubmit)}>
         <TextField.Root>
-        <TextField.Input placeholder="VEHICLE_NO123" { ...register('Vehicle_No')}/>
+        <TextField.Input placeholder="VEHICLE_NO" { ...register('Vehicle_No')}/>
         </TextField.Root>
         <TextField.Root>
         <TextField.Input placeholder="RC_No" { ...register('RC_No')}/>
@@ -36,6 +72,12 @@ const onSubmit = (data: AddClientType) => {
         <TextField.Root>
         <TextField.Input placeholder="OWNER_DOB" { ...register('Owner_dob')}/>
         </TextField.Root>
+        {/* <Select 
+        value={field.value}        
+        onChange={ownershiptype.find(({value}) => value === field.value)}
+        options={handleSelectChange}
+        >
+        </Select> */}
         <TextField.Root>
         <TextField.Input placeholder="OWNERSHIP_TYPE" { ...register('Ownership_type')}/>
         </TextField.Root>
