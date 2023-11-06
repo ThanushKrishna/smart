@@ -6,17 +6,6 @@ import { AddClientType } from '../../../typings';
 import { ADD_CLIENT } from '../../../graphql/queries'
 import { GET_APP_USERS } from '../../../graphql/queries'
 import { useMutation } from '@apollo/client';
-// import { onError } from "@apollo/client/link/error";
-
-// const errorLink = onError(({ graphQLErrors, networkError }) => {
-//     if (graphQLErrors)
-//       graphQLErrors.forEach(({ message, locations, path }) =>
-//         console.log(
-//           `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-//         )
-//       );
-//     if (networkError) console.log(`[Network error]: ${networkError}`);
-//   });
 
 const ownershiptype = [
     {value: "personal", label: "PERSONAL"},
@@ -27,56 +16,7 @@ const AddClient = () => {
 
 const[addclient, { data, loading, error } ] = useMutation(ADD_CLIENT);
 
-const { register, handleSubmit, control } = useForm<AddClientType>( {
-    defaultValues: {
-        RC_No: "N/A",
-        Registered_Date:undefined,
-        Owner:"N/A",
-        Owner_dob:undefined,
-        Ownership_type:"N/A",
-        Vehicle_type: 0,
-        Year_of_manufacuring:undefined,
-        GVW:"N/A",
-        Chasis_No:"N/A",
-        Engine_No:"N/A",
-        FC_due_Date:undefined,
-        tax_due_Date:undefined,
-        Vehicle_color:0,
-        Vehice_norms:0,
-        Address:undefined,
-        CC:0,
-        Make:1,
-        Model:0,
-        Insurance_provider:0,
-        Insurance_dueDate:undefined,
-        Policy_No:undefined,
-        Permit_No:"N/A",
-        Permit_category:0,
-        Mobile_No1:"N/A",
-        Mobile_No2:"N/A",
-        Email_id:"N/A",
-        Adhar_No:"N/A",
-        Adhar_doc:"N/A",
-        PanCard_No:"N/A",
-        Pan_doc:"N/A",
-        Nominee:"N/A",
-        Nominee_dob:undefined,
-        Emission_dueDate:undefined,
-        Fuel_type:0,
-        Hypothecation_bank:"N/A",
-        Hypothecation_city:"N/A",
-        RTO:"N/A",
-        Referred_by:"N/A",
-        Comments:"N/A",
-        Customer_type:0,
-        Martial_status:0,
-        TP_Insurance_provider:0,
-        TP_dueDate:undefined,
-        GST_No:"N/A",
-        Insurance_type:0
-    },
-
-});
+const { register, handleSubmit, control } = useForm<AddClientType>({});
 
 //const { field } = useController({name: 'Ownership_type', control})
 
@@ -86,14 +26,63 @@ const { register, handleSubmit, control } = useForm<AddClientType>( {
 
 const onSubmit = (formValues: AddClientType) => { 
     try{
-        formValues.data_owner_id="65420cde2e5ffc26bed53918"
-        //testaddClient( {variables: { dataOwnerId: formValues.data_owner_id, vehicleNo: formValues.Vehicle_No, rcNo: formValues.RC_No }})        
-        addclient( { variables: { input: formValues}})
-        console.log( formValues );
+//        formValues.data_owner_id="65420cde2e5ffc26bed53918"
+//        testaddClient( {variables: { dataOwnerId: formValues.data_owner_id, vehicleNo: formValues.Vehicle_No, rcNo: formValues.RC_No }}) 
+        const result = {
+            data_owner_id: "65420cde2e5ffc26bed53918",
+            Vehicle_No: formValues?.Vehicle_No || undefined,
+            RC_No: formValues?.RC_No || undefined,
+            Registered_Date: formValues?.Registered_Date || undefined,
+            Owner: formValues?.Owner || undefined,
+            Owner_dob: formValues?.Owner_dob || undefined,
+            Ownership_type: formValues?.Ownership_type || undefined,
+            Vehicle_type: formValues?.Vehicle_type || undefined,
+            Year_of_manufacuring: formValues?.Year_of_manufacuring || undefined,
+            GVW: formValues?.GVW || undefined,
+            Chasis_No: formValues?.Chasis_No || undefined,
+            Engine_No: formValues?.Engine_No || undefined,
+            FC_due_Date: formValues?.FC_due_Date || undefined,
+            tax_due_Date: formValues?.tax_due_Date || undefined,
+            Vehicle_color: formValues?.Vehicle_color || undefined,
+            Vehice_norms: formValues?.Vehice_norms || undefined,
+            Address: formValues?.Address || undefined,
+            CC: formValues?.CC || undefined,
+            Make: formValues?.Make || undefined,
+            Model: formValues?.Model || undefined,
+            Insurance_provider: formValues?.Insurance_provider || undefined,
+            Insurance_dueDate: formValues?.Insurance_dueDate || undefined,
+            Policy_No: formValues?.Policy_No || undefined,
+            Permit_No: formValues?.Permit_No || undefined,
+            Permit_category: formValues?.Permit_category || undefined,
+            Mobile_No1: formValues?.Mobile_No1 || undefined,
+            Mobile_No2: formValues?.Mobile_No2 || undefined,
+            Email_id: formValues?.Email_id || undefined,
+            Adhar_No: formValues?.Adhar_No || undefined,
+            Adhar_doc: formValues?.Adhar_doc || undefined,
+            PanCard_No: formValues?.PanCard_No || undefined,
+            Pan_doc: formValues?.Pan_doc || undefined,
+            Nominee: formValues?.Nominee || undefined,
+            Nominee_dob: formValues?.Nominee_dob || undefined,
+            Emission_dueDate: formValues?.Emission_dueDate || undefined,
+            Fuel_type: formValues?.Fuel_type || undefined,
+            Hypothecation_bank: formValues?.Hypothecation_bank || undefined,
+            Hypothecation_city: formValues?.Hypothecation_city || undefined,
+            RTO: formValues?.RTO || undefined,
+            Referred_by: formValues?.Referred_by || undefined,
+            Comments: formValues?.Comments || undefined,
+            Customer_type: formValues?.Customer_type || undefined,
+            Martial_status: formValues?.Martial_status || undefined,
+            TP_Insurance_provider: formValues?.TP_Insurance_provider || undefined,
+            TP_dueDate: formValues?.TP_dueDate || undefined,
+            GST_No: formValues?.GST_No || undefined,
+            Insurance_type: formValues?.Insurance_type || undefined
+        }
+        addclient( { variables: { input: result}})
+        console.log( result );
     }   
     catch(e){
         console.log("This is error block");
-        console.log(e);
+        console.log(e.message);
     }
  
    
@@ -230,7 +219,7 @@ const onSubmit = (formValues: AddClientType) => {
         <TextField.Input placeholder="CUSTOMER_TYPE" { ...register('Customer_type')}/>
         </TextField.Root>
         <TextField.Root>
-        <TextField.Input placeholder="MARTIAL_STATUS" { ...register('Martial_status')}/>
+        <TextField.Input placeholder="MARITAL_STATUS" { ...register('Martial_status')}/>
         </TextField.Root>
         <TextField.Root>
         <TextField.Input placeholder="TP_INSURANCE_PROVIDER" { ...register('TP_Insurance_provider')}/>
