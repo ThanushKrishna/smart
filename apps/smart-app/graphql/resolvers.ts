@@ -7,15 +7,16 @@ export const dateScalar = new GraphQLScalarType({
   description: 'Date custom scalar type',
   serialize(value) {
 //    console.log("serialize Block")
-//  console.log(value)
     if (value instanceof Date) {      
-      return value.getTime(); // Convert outgoing Date to integer for JSON
+      //console.log( value.getTime())
+      return value; // Convert outgoing Date to integer for JSON
     }
     throw Error('GraphQL Date Scalar serializer expected a `Date` object');
   },
   parseValue(value) {
 //    console.log("parseValue Block")
-//    console.log(value)
+    console.log(value)
+      //const changedValue = value.getTime();
     if (typeof value === 'number') {
       return new Date(value); // Convert incoming integer to Date
     }

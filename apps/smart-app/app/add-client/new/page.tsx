@@ -1,33 +1,34 @@
 'use client'
-import React from 'react'
-import { useForm, useController  } from 'react-hook-form'
-import { TextField, Button, TextArea, Select } from '@radix-ui/themes'
+import React, { useState } from 'react'
+import { useForm, Controller  } from 'react-hook-form'
+import { TextField, Button, TextArea, Select, Text } from '@radix-ui/themes'
 import { AddClientType } from '../../../typings';
 import { ADD_CLIENT } from '../../../graphql/queries'
 import { GET_APP_USERS } from '../../../graphql/queries'
 import { useMutation } from '@apollo/client';
+// import DatePicker from 'react-datepicker'
+// import 'react-datepicker/dist/react-datepicker.css';
+import { DatePickerComponent } from '../../components/DatePicker'
+//import { DatePicker } from "@medusajs/ui"
 
-const ownershiptype = [
-    {value: "personal", label: "PERSONAL"},
-    {value: "commercial", label: "COMMERCIAL"}
-];
+interface IDatePickerProps {
+    name: string;
+    onChange: (date: Date) => void;  
+    value: Date;
+   }
 
-const AddClient = () => {
+
+const AddClient:React.FC = () => {
+
 
 const[addclient, { data, loading, error } ] = useMutation(ADD_CLIENT);
 
-const { register, handleSubmit, control } = useForm<AddClientType>({});
+const { register, handleSubmit, control, setValue, formState:{errors} } = useForm<AddClientType>({});
 
-//const { field } = useController({name: 'Ownership_type', control})
-
-// const handleSelectChange = (option: any) => {
-//     field.onChange(option.value);
-// }
+// const { field: { value: DateValue, onChange: DateOnChange, ...restDateField } } = useController({ name: 'Registered_Date', control });
 
 const onSubmit = (formValues: AddClientType) => { 
     try{
-//        formValues.data_owner_id="65420cde2e5ffc26bed53918"
-//        testaddClient( {variables: { dataOwnerId: formValues.data_owner_id, vehicleNo: formValues.Vehicle_No, rcNo: formValues.RC_No }}) 
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
             Vehicle_No: formValues?.Vehicle_No || undefined,
@@ -84,7 +85,7 @@ const onSubmit = (formValues: AddClientType) => {
         console.log("This is error block");
         console.log(e.message);
     }
- 
+    
    
 }
 
@@ -97,22 +98,19 @@ const onSubmit = (formValues: AddClientType) => {
         </TextField.Root>
         <TextField.Root>
         <TextField.Input placeholder="RC_No" { ...register('RC_No')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="REGISTERED_DATE" { ...register('Registered_Date')}/>
-        </TextField.Root>        
-        <TextField.Root>
+        </TextField.Root>  
+        <Controller
+            name="Registered_Date"
+            control={control} 
+            render={({ field }) => <DatePickerComponent {...field} />}
+            />
+      
+        <TextField.Root> 
 		<TextField.Input placeholder="OWNER" { ...register('Owner')}/>
         </TextField.Root>
         <TextField.Root>
         <TextField.Input placeholder="OWNER_DOB" { ...register('Owner_dob')}/>
-        </TextField.Root>
-        {/* <Select 
-        value={field.value}        
-        onChange={ownershiptype.find(({value}) => value === field.value)}
-        options={handleSelectChange}
-        >
-        </Select> */}
+        </TextField.Root>           
         <TextField.Root>
         <TextField.Input placeholder="OWNERSHIP_TYPE" { ...register('Ownership_type')}/>
         </TextField.Root>
