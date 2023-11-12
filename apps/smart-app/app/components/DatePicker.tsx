@@ -11,14 +11,14 @@ interface IDatePickerProps {
 
 export const DatePickerComponent: React.FC<IDatePickerProps> = ({ name, onChange, value, placeholder  }) => {
  return (
-  <>
+  <div className='text-slate-400'>
   {placeholder}
   <DatePicker 
   name={name}
   selected={value}
   onChange={onChange}
   />
-  </>
+  </div>
  )
 
 }

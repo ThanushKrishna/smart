@@ -94,199 +94,199 @@ const onSubmit = (formValues: AddClientType) => {
 
 
   return (
-    <form className='max-w-md space-y-2' onSubmit={handleSubmit(onSubmit)}>
-        <TextField.Root>
-        <TextField.Input placeholder="VEHICLE_NO" { ...register('Vehicle_No')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="RC_No" { ...register('RC_No')}/>
-        </TextField.Root>  
-        <Controller
-            name="Registered_Date"
-            control={control}             
-            render={({ field }) => (
-            <DatePickerComponent 
-            {...field} 
-            placeholder="Registered Date: "
-            />)}
+    <form className='max-w-md space-y-2 text-slate-400 text-base' onSubmit={handleSubmit(onSubmit)}>
+        
+            <TextField.Root>
+            <TextField.Input placeholder="VEHICLE_NO" { ...register('Vehicle_No')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="RC_No" { ...register('RC_No')}/>
+            </TextField.Root>  
+            <Controller
+                name="Registered_Date"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Registered Date: "
+                />)}
             />      
-        <TextField.Root> 
-		<TextField.Input placeholder="OWNER" { ...register('Owner')}/>
-        </TextField.Root>
-        <Controller
-            name="Owner_dob"
-            control={control}             
-            render={({ field }) => (
-            <DatePickerComponent 
-            {...field} 
-            placeholder="Owner DOB: "
-            />)}
+            <TextField.Root> 
+            <TextField.Input placeholder="OWNER" { ...register('Owner')}/>
+            </TextField.Root>
+            <Controller
+                name="Owner_dob"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Owner DOB: "
+                />)}
             />                
-        <TextField.Root>
-        <TextField.Input placeholder="OWNERSHIP_TYPE" { ...register('Ownership_type')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="VEHICLE_TYPE" { ...register('Vehicle_type')}/>
-        </TextField.Root>
-        <Controller
-            name="Year_of_manufacuring"
-            control={control}             
-            render={({ field }) => (
-            <DatePickerComponent 
-            {...field} 
-            placeholder="YEAR_OF_MANUFACTURING: "
-            />)}
+            <TextField.Root>
+            <TextField.Input placeholder="OWNERSHIP_TYPE" { ...register('Ownership_type')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="VEHICLE_TYPE" { ...register('Vehicle_type')}/>
+            </TextField.Root>
+            <Controller
+                name="Year_of_manufacuring"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="YEAR_OF_MANUFACTURING: "
+                />)}
             />    
-        <TextField.Root>
-        <TextField.Input placeholder="GVW" { ...register('GVW')}/>
-        </TextField.Root>
-        <TextField.Root>
-		<TextField.Input placeholder="CHASIS_NO" { ...register('Chasis_No')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="ENGINE_NO" { ...register('Engine_No')}/>
-        </TextField.Root>
-        <Controller
-            name="FC_due_Date"
-            control={control}             
-            render={({ field }) => (
-            <DatePickerComponent 
-            {...field} 
-            placeholder="FC_DUE_DATE: "
-            />)}
-            />   
-            <br></br>
-        <Controller
-            name="tax_due_Date"
-            control={control}             
-            render={({ field }) => (
-            <DatePickerComponent 
-            {...field} 
-            placeholder="TAX_DUE_DATE: "
-            />)}
+            <TextField.Root>
+            <TextField.Input placeholder="GVW" { ...register('GVW')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="CHASIS_NO" { ...register('Chasis_No')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="ENGINE_NO" { ...register('Engine_No')}/>
+            </TextField.Root>
+            <Controller
+                name="FC_due_Date"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="FC_DUE_DATE: "
+                />)}
+            />           
+            <Controller
+                name="tax_due_Date"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="TAX_DUE_DATE: "
+                />)}
             /> 
-        <TextField.Root>
-        <TextField.Input placeholder="VEHICLE_COLOR" { ...register('Vehicle_color')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="VEHICLE_NORMS" { ...register('Vehice_norms')}/>
-        </TextField.Root>
-        <TextField.Root>
-		<TextField.Input placeholder="ADDRESS" { ...register('Address')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="CC" { ...register('CC')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="MAKE" { ...register('Make')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="MODEL" { ...register('Model')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="INSURANCE_PROVIDER" { ...register('Insurance_provider')}/>
-        </TextField.Root>
-        <Controller
-            name="Insurance_dueDate"
-            control={control}             
-            render={({ field }) => (
-            <DatePickerComponent 
-            {...field} 
-            placeholder="INSURANCE_DUEDATE: "
-            />)}
-        /> 
-        <TextField.Root>
-		<TextField.Input placeholder="POLICY_NO" { ...register('Policy_No')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="PERMIT_NO" { ...register('Permit_No')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="PERMIT_CATEGORY" { ...register('Permit_category')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="MOBILE_NO1" { ...register('Mobile_No1')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="MOBILE_NO2" { ...register('Mobile_No2')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="EMAIL_ID" { ...register('Email_id')}/>
-        </TextField.Root>
-        <TextField.Root>
-		<TextField.Input placeholder="ADHAR_NO" { ...register('Adhar_No')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="ADHAR_DOC" { ...register('Adhar_doc')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="PANCARD_NO" { ...register('PanCard_No')}/>
-        </TextField.Root>
-        <TextField.Root>
-		<TextField.Input placeholder="PAN_DOC" { ...register('Pan_doc')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="NOMINEE" { ...register('Nominee')}/>
-        </TextField.Root>
-        <Controller
-            name="Nominee_dob"
-            control={control}             
-            render={({ field }) => (
-            <DatePickerComponent 
-            {...field} 
-            placeholder="NOMINEE_DOB: "
-            />)}
-        /> 
-        <Controller
-            name="Emission_dueDate"
-            control={control}             
-            render={({ field }) => (
-            <DatePickerComponent 
-            {...field} 
-            placeholder="EMISSION_DUEDATE: "
-            />)}
-        />
-        <TextField.Root>
-        <TextField.Input placeholder="FUEL_TYPE" { ...register('Fuel_type')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="HYPOTHECATION_BANK" { ...register('Hypothecation_bank')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="HYPOTHECATION_CITY" { ...register('Hypothecation_city')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="RTO" { ...register('RTO')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="REFERRED_BY" { ...register('Referred_by')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="CUSTOMER_TYPE" { ...register('Customer_type')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="MARITAL_STATUS" { ...register('Martial_status')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="TP_INSURANCE_PROVIDER" { ...register('TP_Insurance_provider')}/>
-        </TextField.Root>
-        <Controller
-            name="TP_dueDate"
-            control={control}             
-            render={({ field }) => (
-            <DatePickerComponent 
-            {...field} 
-            placeholder="TP_DUEDATE: "
-            />)}
-        />
-        <TextField.Root>
-        <TextField.Input placeholder="GST_NO" { ...register('GST_No')}/>        
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="INSURANCE_TYPE" { ...register('Insurance_type')}/>		        
-        </TextField.Root>
-        <TextArea placeholder="COMMENTS" { ...register('Comments')}/>
-		 <Button> Submit </Button>
+            <TextField.Root>
+            <TextField.Input placeholder="VEHICLE_COLOR" { ...register('Vehicle_color')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="VEHICLE_NORMS" { ...register('Vehice_norms')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="ADDRESS" { ...register('Address')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="CC" { ...register('CC')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="MAKE" { ...register('Make')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="MODEL" { ...register('Model')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="INSURANCE_PROVIDER" { ...register('Insurance_provider')}/>
+            </TextField.Root>
+            <Controller
+                name="Insurance_dueDate"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="INSURANCE_DUEDATE: "
+                />)}
+            /> 
+            <TextField.Root>
+            <TextField.Input placeholder="POLICY_NO" { ...register('Policy_No')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="PERMIT_NO" { ...register('Permit_No')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="PERMIT_CATEGORY" { ...register('Permit_category')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="MOBILE_NO1" { ...register('Mobile_No1')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="MOBILE_NO2" { ...register('Mobile_No2')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="EMAIL_ID" { ...register('Email_id')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="ADHAR_NO" { ...register('Adhar_No')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="ADHAR_DOC" { ...register('Adhar_doc')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="PANCARD_NO" { ...register('PanCard_No')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="PAN_DOC" { ...register('Pan_doc')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="NOMINEE" { ...register('Nominee')}/>
+            </TextField.Root>
+            <Controller
+                name="Nominee_dob"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="NOMINEE_DOB: "
+                />)}
+            /> 
+            <Controller
+                name="Emission_dueDate"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="EMISSION_DUEDATE: "
+                />)}
+            />
+            <TextField.Root>
+            <TextField.Input placeholder="FUEL_TYPE" { ...register('Fuel_type')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="HYPOTHECATION_BANK" { ...register('Hypothecation_bank')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="HYPOTHECATION_CITY" { ...register('Hypothecation_city')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="RTO" { ...register('RTO')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="REFERRED_BY" { ...register('Referred_by')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="CUSTOMER_TYPE" { ...register('Customer_type')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="MARITAL_STATUS" { ...register('Martial_status')}/>
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="TP_INSURANCE_PROVIDER" { ...register('TP_Insurance_provider')}/>
+            </TextField.Root>
+            <Controller
+                name="TP_dueDate"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="TP_DUEDATE: "
+                />)}
+            />
+            <TextField.Root>
+            <TextField.Input placeholder="GST_NO" { ...register('GST_No')}/>        
+            </TextField.Root>
+            <TextField.Root>
+            <TextField.Input placeholder="INSURANCE_TYPE" { ...register('Insurance_type')}/>		        
+            </TextField.Root>
+            <TextArea placeholder="COMMENTS" { ...register('Comments')}/>
+            <Button> Submit </Button>        
     </form>
     
   )
