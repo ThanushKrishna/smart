@@ -16,6 +16,8 @@ export const dateScalar = new GraphQLScalarType({
   parseValue(value) {
 //    console.log("parseValue Block")
     console.log(value)
+    if (value instanceof Date) value = new Date(value).getTime();
+    console.log(value)
       //const changedValue = value.getTime();
     if (typeof value === 'number') {
       return new Date(value); // Convert incoming integer to Date

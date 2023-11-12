@@ -27,23 +27,25 @@ const { register, handleSubmit, control, setValue, formState:{errors} } = useFor
 
 // const { field: { value: DateValue, onChange: DateOnChange, ...restDateField } } = useController({ name: 'Registered_Date', control });
 
+
+
 const onSubmit = (formValues: AddClientType) => { 
-    try{
+    try{        
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
             Vehicle_No: formValues?.Vehicle_No || undefined,
             RC_No: formValues?.RC_No || undefined,
-            Registered_Date: formValues?.Registered_Date || undefined,
+            Registered_Date: formValues?.Registered_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                       
             Owner: formValues?.Owner || undefined,
-            Owner_dob: formValues?.Owner_dob || undefined,
+            Owner_dob: formValues?.Owner_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Ownership_type: formValues?.Ownership_type || undefined,
             Vehicle_type: formValues?.Vehicle_type || undefined,
-            Year_of_manufacuring: formValues?.Year_of_manufacuring || undefined,
+            Year_of_manufacuring: formValues?.Year_of_manufacuring?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             GVW: formValues?.GVW || undefined,
             Chasis_No: formValues?.Chasis_No || undefined,
             Engine_No: formValues?.Engine_No || undefined,
-            FC_due_Date: formValues?.FC_due_Date || undefined,
-            tax_due_Date: formValues?.tax_due_Date || undefined,
+            FC_due_Date: formValues?.FC_due_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            tax_due_Date: formValues?.tax_due_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Vehicle_color: formValues?.Vehicle_color || undefined,
             Vehice_norms: formValues?.Vehice_norms || undefined,
             Address: formValues?.Address || undefined,
@@ -51,7 +53,7 @@ const onSubmit = (formValues: AddClientType) => {
             Make: formValues?.Make || undefined,
             Model: formValues?.Model || undefined,
             Insurance_provider: formValues?.Insurance_provider || undefined,
-            Insurance_dueDate: formValues?.Insurance_dueDate || undefined,
+            Insurance_dueDate: formValues?.Insurance_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Policy_No: formValues?.Policy_No || undefined,
             Permit_No: formValues?.Permit_No || undefined,
             Permit_category: formValues?.Permit_category || undefined,
@@ -63,8 +65,8 @@ const onSubmit = (formValues: AddClientType) => {
             PanCard_No: formValues?.PanCard_No || undefined,
             Pan_doc: formValues?.Pan_doc || undefined,
             Nominee: formValues?.Nominee || undefined,
-            Nominee_dob: formValues?.Nominee_dob || undefined,
-            Emission_dueDate: formValues?.Emission_dueDate || undefined,
+            Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Emission_dueDate: formValues?.Emission_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Fuel_type: formValues?.Fuel_type || undefined,
             Hypothecation_bank: formValues?.Hypothecation_bank || undefined,
             Hypothecation_city: formValues?.Hypothecation_city || undefined,
@@ -74,7 +76,7 @@ const onSubmit = (formValues: AddClientType) => {
             Customer_type: formValues?.Customer_type || undefined,
             Martial_status: formValues?.Martial_status || undefined,
             TP_Insurance_provider: formValues?.TP_Insurance_provider || undefined,
-            TP_dueDate: formValues?.TP_dueDate || undefined,
+            TP_dueDate: formValues?.TP_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             GST_No: formValues?.GST_No || undefined,
             Insurance_type: formValues?.Insurance_type || undefined
         }
@@ -101,25 +103,40 @@ const onSubmit = (formValues: AddClientType) => {
         </TextField.Root>  
         <Controller
             name="Registered_Date"
-            control={control} 
-            render={({ field }) => <DatePickerComponent {...field} />}
-            />
-      
+            control={control}             
+            render={({ field }) => (
+            <DatePickerComponent 
+            {...field} 
+            placeholder="Registered Date: "
+            />)}
+            />      
         <TextField.Root> 
 		<TextField.Input placeholder="OWNER" { ...register('Owner')}/>
         </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="OWNER_DOB" { ...register('Owner_dob')}/>
-        </TextField.Root>           
+        <Controller
+            name="Owner_dob"
+            control={control}             
+            render={({ field }) => (
+            <DatePickerComponent 
+            {...field} 
+            placeholder="Owner DOB: "
+            />)}
+            />                
         <TextField.Root>
         <TextField.Input placeholder="OWNERSHIP_TYPE" { ...register('Ownership_type')}/>
         </TextField.Root>
         <TextField.Root>
         <TextField.Input placeholder="VEHICLE_TYPE" { ...register('Vehicle_type')}/>
         </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="YEAR_OF_MANUFACURING" { ...register('Year_of_manufacuring')}/>
-        </TextField.Root>
+        <Controller
+            name="Year_of_manufacuring"
+            control={control}             
+            render={({ field }) => (
+            <DatePickerComponent 
+            {...field} 
+            placeholder="YEAR_OF_MANUFACTURING: "
+            />)}
+            />    
         <TextField.Root>
         <TextField.Input placeholder="GVW" { ...register('GVW')}/>
         </TextField.Root>
@@ -129,12 +146,25 @@ const onSubmit = (formValues: AddClientType) => {
         <TextField.Root>
         <TextField.Input placeholder="ENGINE_NO" { ...register('Engine_No')}/>
         </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="FC_DUE_DATE" { ...register('FC_due_Date')}/>
-        </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="TAX_DUE_DATE" { ...register('tax_due_Date')}/>
-        </TextField.Root>
+        <Controller
+            name="FC_due_Date"
+            control={control}             
+            render={({ field }) => (
+            <DatePickerComponent 
+            {...field} 
+            placeholder="FC_DUE_DATE: "
+            />)}
+            />   
+            <br></br>
+        <Controller
+            name="tax_due_Date"
+            control={control}             
+            render={({ field }) => (
+            <DatePickerComponent 
+            {...field} 
+            placeholder="TAX_DUE_DATE: "
+            />)}
+            /> 
         <TextField.Root>
         <TextField.Input placeholder="VEHICLE_COLOR" { ...register('Vehicle_color')}/>
         </TextField.Root>
@@ -156,9 +186,15 @@ const onSubmit = (formValues: AddClientType) => {
         <TextField.Root>
         <TextField.Input placeholder="INSURANCE_PROVIDER" { ...register('Insurance_provider')}/>
         </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="INSURANCE_DUEDATE" { ...register('Insurance_dueDate')}/>
-        </TextField.Root>
+        <Controller
+            name="Insurance_dueDate"
+            control={control}             
+            render={({ field }) => (
+            <DatePickerComponent 
+            {...field} 
+            placeholder="INSURANCE_DUEDATE: "
+            />)}
+        /> 
         <TextField.Root>
 		<TextField.Input placeholder="POLICY_NO" { ...register('Policy_No')}/>
         </TextField.Root>
@@ -192,12 +228,24 @@ const onSubmit = (formValues: AddClientType) => {
         <TextField.Root>
         <TextField.Input placeholder="NOMINEE" { ...register('Nominee')}/>
         </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="NOMINEE_DOB" { ...register('Nominee_dob')}/>
-        </TextField.Root>
-        <TextField.Root>
-		<TextField.Input placeholder="EMISSION_DUEDATE" { ...register('Emission_dueDate')}/>
-        </TextField.Root>
+        <Controller
+            name="Nominee_dob"
+            control={control}             
+            render={({ field }) => (
+            <DatePickerComponent 
+            {...field} 
+            placeholder="NOMINEE_DOB: "
+            />)}
+        /> 
+        <Controller
+            name="Emission_dueDate"
+            control={control}             
+            render={({ field }) => (
+            <DatePickerComponent 
+            {...field} 
+            placeholder="EMISSION_DUEDATE: "
+            />)}
+        />
         <TextField.Root>
         <TextField.Input placeholder="FUEL_TYPE" { ...register('Fuel_type')}/>
         </TextField.Root>
@@ -222,9 +270,15 @@ const onSubmit = (formValues: AddClientType) => {
         <TextField.Root>
         <TextField.Input placeholder="TP_INSURANCE_PROVIDER" { ...register('TP_Insurance_provider')}/>
         </TextField.Root>
-        <TextField.Root>
-        <TextField.Input placeholder="TP_DUEDATE" { ...register('TP_dueDate')}/>
-        </TextField.Root>
+        <Controller
+            name="TP_dueDate"
+            control={control}             
+            render={({ field }) => (
+            <DatePickerComponent 
+            {...field} 
+            placeholder="TP_DUEDATE: "
+            />)}
+        />
         <TextField.Root>
         <TextField.Input placeholder="GST_NO" { ...register('GST_No')}/>        
         </TextField.Root>
