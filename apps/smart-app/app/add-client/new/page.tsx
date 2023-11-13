@@ -7,7 +7,7 @@ import { ADD_CLIENT } from '../../../graphql/queries'
 import { GET_APP_USERS } from '../../../graphql/queries'
 import { useMutation } from '@apollo/client';
 import { DatePickerComponent } from '../../components/DatePicker'
-import { OwnerShipeTypeControl }  from '../../components/OwnerShipeTypeControl'
+import { DropDownControl }  from '../../components/DropDownControl'
 
 interface IDatePickerProps {
     name: string;
@@ -90,13 +90,15 @@ const onSubmit = (formValues: AddClientType) => {
 
 
   return (
-    <form className='max-w-md space-y-2 text-slate-400 text-base' onSubmit={handleSubmit(onSubmit)}>
-        
+    <form className='max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>
+
+            <p>Vehicle No:</p>
             <TextField.Root>
-            <TextField.Input placeholder="VEHICLE_NO" { ...register('Vehicle_No')}/>
+            <TextField.Input { ...register('Vehicle_No')}/>
             </TextField.Root>
+            <p>RC No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="RC_No" { ...register('RC_No')}/>
+            <TextField.Input { ...register('RC_No')}/>
             </TextField.Root>  
             <Controller
                 name="Registered_Date"
@@ -107,8 +109,9 @@ const onSubmit = (formValues: AddClientType) => {
                 placeholder="Registered Date: "
                 />)}
             />      
+            <p>Owner Name: </p>
             <TextField.Root> 
-            <TextField.Input placeholder="OWNER" { ...register('Owner')}/>
+            <TextField.Input { ...register('Owner')}/>
             </TextField.Root>
             <Controller
                 name="Owner_dob"
@@ -119,39 +122,44 @@ const onSubmit = (formValues: AddClientType) => {
                 placeholder="Owner DOB: "
                 />)}
             />                
-            <OwnerShipeTypeControl 
+            <DropDownControl 
                 name="Ownership_type"
                 control={control}
-                label="OwnerType" 
                 placeholder="Owner Type:   "           
                 options={[
-                  { label: 'x', value: 'X'},
-                  { label: 'y', value: 'Y' } 
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />            
+            <DropDownControl 
+                name="Vehicle_type"
+                control={control}
+                placeholder="Vehicle Type:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
                 ]}              
             />
-            {/* <TextField.Root>
-            <TextField.Input placeholder="OWNERSHIP_TYPE" { ...register('Ownership_type')}/>
-            </TextField.Root> */}
-            <TextField.Root>
-            <TextField.Input placeholder="VEHICLE_TYPE" { ...register('Vehicle_type')}/>
-            </TextField.Root>
             <Controller
                 name="Year_of_manufacuring"
                 control={control}             
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="YEAR_OF_MANUFACTURING: "
+                placeholder="Year Of Manufacturing: "
                 />)}
             />    
+            <p>GVW: </p>
             <TextField.Root>
-            <TextField.Input placeholder="GVW" { ...register('GVW')}/>
+            <TextField.Input  { ...register('GVW')}/>
             </TextField.Root>
+            <p>Chasis No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="CHASIS_NO" { ...register('Chasis_No')}/>
+            <TextField.Input  { ...register('Chasis_No')}/>
             </TextField.Root>
+            <p>Engine No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="ENGINE_NO" { ...register('Engine_No')}/>
+            <TextField.Input  { ...register('Engine_No')}/>
             </TextField.Root>
             <Controller
                 name="FC_due_Date"
@@ -159,7 +167,7 @@ const onSubmit = (formValues: AddClientType) => {
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="FC_DUE_DATE: "
+                placeholder="FC Due Date: "
                 />)}
             />           
             <Controller
@@ -168,71 +176,124 @@ const onSubmit = (formValues: AddClientType) => {
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="TAX_DUE_DATE: "
+                placeholder="Tax Due Date: "
                 />)}
             /> 
+            <DropDownControl 
+                name="Vehicle_color"
+                control={control}
+                placeholder="Vehicle Color:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <DropDownControl 
+                name="Vehice_norms"
+                control={control}
+                placeholder="Vehicle Norms:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <p>Address: </p>
             <TextField.Root>
-            <TextField.Input placeholder="VEHICLE_COLOR" { ...register('Vehicle_color')}/>
+            <TextField.Input  { ...register('Address')}/>
             </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="VEHICLE_NORMS" { ...register('Vehice_norms')}/>
-            </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="ADDRESS" { ...register('Address')}/>
-            </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="CC" { ...register('CC')}/>
-            </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="MAKE" { ...register('Make')}/>
-            </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="MODEL" { ...register('Model')}/>
-            </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="INSURANCE_PROVIDER" { ...register('Insurance_provider')}/>
-            </TextField.Root>
+            <DropDownControl 
+                name="CC"
+                control={control}            
+                placeholder="CC:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <DropDownControl 
+                name="Make"
+                control={control}
+                placeholder="Make:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <DropDownControl 
+                name="Model"
+                control={control}
+                placeholder="Model:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <DropDownControl 
+                name="Insurance_provider"
+                control={control}
+                placeholder="Insurance Provider:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
             <Controller
                 name="Insurance_dueDate"
                 control={control}             
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="INSURANCE_DUEDATE: "
+                placeholder="Insurance Due Date: "
                 />)}
             /> 
+            <p>Policy No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="POLICY_NO" { ...register('Policy_No')}/>
+            <TextField.Input  { ...register('Policy_No')}/>
             </TextField.Root>
+            <p>Permit No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="PERMIT_NO" { ...register('Permit_No')}/>
+            <TextField.Input  { ...register('Permit_No')}/>
             </TextField.Root>
+            <DropDownControl 
+                name="Permit_category"
+                control={control}
+                placeholder="Permit Category:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <p>1st Mobile No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="PERMIT_CATEGORY" { ...register('Permit_category')}/>
+            <TextField.Input  { ...register('Mobile_No1')}/>
             </TextField.Root>
+            <p>2nd Mobile No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="MOBILE_NO1" { ...register('Mobile_No1')}/>
+            <TextField.Input  { ...register('Mobile_No2')}/>
             </TextField.Root>
+            <p>Email Id: </p>
             <TextField.Root>
-            <TextField.Input placeholder="MOBILE_NO2" { ...register('Mobile_No2')}/>
+            <TextField.Input  { ...register('Email_id')}/>
             </TextField.Root>
+            <p>Adhar No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="EMAIL_ID" { ...register('Email_id')}/>
+            <TextField.Input  { ...register('Adhar_No')}/>
             </TextField.Root>
+            <p>Upload Adhar: </p>
             <TextField.Root>
-            <TextField.Input placeholder="ADHAR_NO" { ...register('Adhar_No')}/>
+            <TextField.Input  { ...register('Adhar_doc')}/>
             </TextField.Root>
+            <p>PanCard No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="ADHAR_DOC" { ...register('Adhar_doc')}/>
+            <TextField.Input  { ...register('PanCard_No')}/>
             </TextField.Root>
+            <p>Upload Pan: </p>
             <TextField.Root>
-            <TextField.Input placeholder="PANCARD_NO" { ...register('PanCard_No')}/>
+            <TextField.Input  { ...register('Pan_doc')}/>
             </TextField.Root>
+            <p>Nominee Name: </p>
             <TextField.Root>
-            <TextField.Input placeholder="PAN_DOC" { ...register('Pan_doc')}/>
-            </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="NOMINEE" { ...register('Nominee')}/>
+            <TextField.Input  { ...register('Nominee')}/>
             </TextField.Root>
             <Controller
                 name="Nominee_dob"
@@ -240,7 +301,7 @@ const onSubmit = (formValues: AddClientType) => {
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="NOMINEE_DOB: "
+                placeholder="Nominee DOB: "
                 />)}
             /> 
             <Controller
@@ -249,49 +310,86 @@ const onSubmit = (formValues: AddClientType) => {
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="EMISSION_DUEDATE: "
+                placeholder="Emission Due Date: "
                 />)}
             />
+            <DropDownControl 
+                name="Fuel_type"
+                control={control}        
+                placeholder="Fuel Type:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <p>Hypothecation Bank: </p>
             <TextField.Root>
-            <TextField.Input placeholder="FUEL_TYPE" { ...register('Fuel_type')}/>
+            <TextField.Input  { ...register('Hypothecation_bank')}/>
             </TextField.Root>
+            <p>Hypothecation City: </p>
             <TextField.Root>
-            <TextField.Input placeholder="HYPOTHECATION_BANK" { ...register('Hypothecation_bank')}/>
+            <TextField.Input  { ...register('Hypothecation_city')}/>
             </TextField.Root>
+            <p>RTO: </p>
             <TextField.Root>
-            <TextField.Input placeholder="HYPOTHECATION_CITY" { ...register('Hypothecation_city')}/>
+            <TextField.Input  { ...register('RTO')}/>
             </TextField.Root>
+            <p>Referred by: </p>
             <TextField.Root>
-            <TextField.Input placeholder="RTO" { ...register('RTO')}/>
+            <TextField.Input  { ...register('Referred_by')}/>
             </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="REFERRED_BY" { ...register('Referred_by')}/>
-            </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="CUSTOMER_TYPE" { ...register('Customer_type')}/>
-            </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="MARITAL_STATUS" { ...register('Martial_status')}/>
-            </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="TP_INSURANCE_PROVIDER" { ...register('TP_Insurance_provider')}/>
-            </TextField.Root>
+            <DropDownControl 
+                name="Customer_type"
+                control={control}
+                placeholder="Customer Type:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <DropDownControl 
+                name="Martial_status"
+                control={control}
+                placeholder="Marital Staus:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <DropDownControl 
+                name="TP_Insurance_provider"
+                control={control}
+                placeholder="TP Insurance Provider:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
             <Controller
                 name="TP_dueDate"
                 control={control}             
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="TP_DUEDATE: "
+                placeholder="TP Due Date: "
                 />)}
             />
+            <p>GST No: </p>
             <TextField.Root>
-            <TextField.Input placeholder="GST_NO" { ...register('GST_No')}/>        
+            <TextField.Input  { ...register('GST_No')}/>        
             </TextField.Root>
-            <TextField.Root>
-            <TextField.Input placeholder="INSURANCE_TYPE" { ...register('Insurance_type')}/>		        
-            </TextField.Root>
-            <TextArea placeholder="COMMENTS" { ...register('Comments')}/>
+            <DropDownControl 
+                name="Insurance_type"
+                control={control}
+                placeholder="Insurance Type:   "           
+                options={[
+                  { value: 'X'},
+                  { value: 'Y'} 
+                ]}              
+            />
+            <p>Comments: </p>
+            <TextArea  { ...register('Comments')}/>
+            <br/>
             <Button> Submit </Button>        
     </form>
     
