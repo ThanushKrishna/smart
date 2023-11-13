@@ -6,10 +6,8 @@ import { AddClientType } from '../../../typings';
 import { ADD_CLIENT } from '../../../graphql/queries'
 import { GET_APP_USERS } from '../../../graphql/queries'
 import { useMutation } from '@apollo/client';
-// import DatePicker from 'react-datepicker'
-// import 'react-datepicker/dist/react-datepicker.css';
 import { DatePickerComponent } from '../../components/DatePicker'
-//import { DatePicker } from "@medusajs/ui"
+import { OwnerShipeTypeControl }  from '../../components/OwnerShipeTypeControl'
 
 interface IDatePickerProps {
     name: string;
@@ -23,9 +21,7 @@ const AddClient:React.FC = () => {
 
 const[addclient, { data, loading, error } ] = useMutation(ADD_CLIENT);
 
-const { register, handleSubmit, control, setValue, formState:{errors} } = useForm<AddClientType>({});
-
-// const { field: { value: DateValue, onChange: DateOnChange, ...restDateField } } = useController({ name: 'Registered_Date', control });
+const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
 
 
@@ -83,9 +79,9 @@ const onSubmit = (formValues: AddClientType) => {
         addclient( { variables: { input: result}})
         console.log( result );
     }   
-    catch(e){
+    catch(e: any){
         console.log("This is error block");
-        console.log(e.message);
+        console.log(e?.message);
     }
     
    
@@ -123,9 +119,19 @@ const onSubmit = (formValues: AddClientType) => {
                 placeholder="Owner DOB: "
                 />)}
             />                
-            <TextField.Root>
+            <OwnerShipeTypeControl 
+                name="Ownership_type"
+                control={control}
+                label="OwnerType" 
+                placeholder="Owner Type:   "           
+                options={[
+                  { label: 'x', value: 'X'},
+                  { label: 'y', value: 'Y' } 
+                ]}              
+            />
+            {/* <TextField.Root>
             <TextField.Input placeholder="OWNERSHIP_TYPE" { ...register('Ownership_type')}/>
-            </TextField.Root>
+            </TextField.Root> */}
             <TextField.Root>
             <TextField.Input placeholder="VEHICLE_TYPE" { ...register('Vehicle_type')}/>
             </TextField.Root>

@@ -11,7 +11,7 @@ interface IDatePickerProps {
 
 export const DatePickerComponent: React.FC<IDatePickerProps> = ({ name, onChange, value, placeholder  }) => {
  return (
-  <div className='text-slate-400'>
+  <div className='text-slate-400 border-slate-300'>
   {placeholder}
   <DatePicker 
   name={name}
