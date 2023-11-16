@@ -2,12 +2,12 @@
 import React, { useState } from 'react'
 import { useForm, Controller  } from 'react-hook-form'
 import { TextField, Button, TextArea, Select, Text } from '@radix-ui/themes'
-import { AddClientType } from '../../../typings';
-import { ADD_CLIENT } from '../../../graphql/queries'
-import { GET_APP_USERS } from '../../../graphql/queries'
+import { AddClientType } from '@/typings';
+import { ADD_CLIENT } from '@/graphql/queries'
+import { GET_APP_USERS } from '@/graphql/queries'
 import { useMutation } from '@apollo/client';
-import { DatePickerComponent } from '../../components/DatePicker'
-import { DropDownControl }  from '../../components/DropDownControl'
+import { DatePickerComponent } from '@/app/components/DatePicker'
+import { DropDownControl }  from '@/app/components/DropDownControl'
 
 interface IDatePickerProps {
     name: string;

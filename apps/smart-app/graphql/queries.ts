@@ -93,15 +93,14 @@ export const GET_APP_USERS = gql`
   }
 `;
 
-export const ADD_CLIENT = gql`
-   mutation CreateUserData($input: createUserDataInput!) {
-  createUserData(input: $input) {
-    data_owner_id
-    Vehicle_No
-  }
-}
-   
-
+export const ADD_CLIENT = 
+    gql` 
+    mutation CreateUserData($input: createUserDataInput!) {
+     createUserData(input: $input) {
+      data_owner_id
+      Vehicle_No
+      }
+    }
 `;
 
 export const TEST_ADD_CLIENT = gql`
