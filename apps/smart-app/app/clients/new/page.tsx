@@ -8,6 +8,9 @@ import { GET_APP_USERS } from '@/graphql/queries'
 import { useMutation } from '@apollo/client';
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
+import  Spinner from '@/app/components/Spinner'
+import { useRouter } from 'next/navigation';
+
 
 interface IDatePickerProps {
     name: string;
@@ -18,15 +21,19 @@ interface IDatePickerProps {
 
 const AddClient:React.FC = () => {
 
+const router = useRouter();
 
 const[addclient, { data, loading, error } ] = useMutation(ADD_CLIENT);
 
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
+const [isSubmitted, setisSubmitted] = useState(false);
+
 
 
 const onSubmit = (formValues: AddClientType) => { 
-    try{        
+    try{
+        setisSubmitted(true)      
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
             Vehicle_No: formValues?.Vehicle_No || undefined,
@@ -77,10 +84,23 @@ const onSubmit = (formValues: AddClientType) => {
             Insurance_type: formValues?.Insurance_type || undefined
         }
         addclient( { variables: { input: result}})
+        .then(()=> {
         console.log( result );
+        if(data.errors?.length > 0){        
+          setisSubmitted(false);
+          console.log(data.errors);
+          return;
+        }
+        router.push('/clients')
+        })
+        .catch((err) => {
+          setisSubmitted(false);
+          console.log(err);
+        })        
+        
     }   
-    catch(e: any){
-        console.log("This is error block");
+    catch(e: any){        
+        console.log("This is try-catch-error block");
         console.log(e?.message);
     }
     
@@ -390,7 +410,7 @@ const onSubmit = (formValues: AddClientType) => {
             <p>Comments: </p>
             <TextArea  { ...register('Comments')}/>
             <br/>
-            <Button> Submit </Button>        
+            <Button disabled={isSubmitted}> Submit {isSubmitted && <Spinner></Spinner>}</Button>        
     </form>
     
   )

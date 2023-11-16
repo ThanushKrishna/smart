@@ -9,7 +9,7 @@ const NavBar = () => {
   const currentPath = usePathname();
     const links = [
         { label: 'Dashboard', href: '/'},
-        { label: 'Clients', href: '/add-client'}
+        { label: 'Clients', href: '/clients'}
     ]
 
   return (
