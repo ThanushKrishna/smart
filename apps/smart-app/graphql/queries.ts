@@ -97,9 +97,60 @@ export const GET_USER_DATA = gql`
   query user_data {
     user_data {
       id
-      data_owner_id
-      Vehicle_No
-      Registered_Date
+    data_owner_id
+    Vehicle_No
+    Registered_Date
+    RC_No
+    Owner
+    Owner_dob
+    Ownership_type
+    Vehicle_type
+    Year_of_manufacuring
+    GVW
+    Chasis_No
+    Engine_No
+    FC_due_Date
+    tax_due_Date
+    Vehicle_color
+    Vehice_norms
+    Address {
+      street
+      city
+      state
+      zip
+    }
+    CC
+    Make
+    Model
+    Insurance_provider
+    Insurance_dueDate
+    Policy_No
+    Permit_No
+    Permit_category
+    Mobile_No1
+    Mobile_No2
+    Email_id
+    Adhar_No
+    Adhar_doc
+    PanCard_No
+    Pan_doc
+    Nominee
+    Nominee_dob
+    Emission_dueDate
+    Fuel_type
+    Hypothecation_bank
+    Hypothecation_city
+    RTO
+    Referred_by
+    Comments
+    Customer_type
+    Martial_status
+    TP_Insurance_provider
+    TP_dueDate
+    GST_No
+    Insurance_type
+    createdAt
+    updatedAt
     }
   }
 `
