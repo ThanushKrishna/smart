@@ -93,8 +93,18 @@ export const GET_APP_USERS = gql`
   }
 `;
 
-export const ADD_CLIENT = 
-    gql` 
+export const GET_USER_DATA = gql`
+  query user_data {
+    user_data {
+      id
+      data_owner_id
+      Vehicle_No
+      Registered_Date
+    }
+  }
+`
+
+export const ADD_CLIENT = gql` 
     mutation CreateUserData($input: createUserDataInput!) {
      createUserData(input: $input) {
       data_owner_id

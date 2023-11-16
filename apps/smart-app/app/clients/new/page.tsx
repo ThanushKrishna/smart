@@ -4,7 +4,6 @@ import { useForm, Controller  } from 'react-hook-form'
 import { TextField, Button, TextArea, Select, Text } from '@radix-ui/themes'
 import { AddClientType } from '@/typings';
 import { ADD_CLIENT } from '@/graphql/queries'
-import { GET_APP_USERS } from '@/graphql/queries'
 import { useMutation } from '@apollo/client';
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
@@ -86,16 +85,11 @@ const onSubmit = (formValues: AddClientType) => {
         addclient( { variables: { input: result}})
         .then(()=> {
         console.log( result );
-        if(data.errors?.length > 0){        
-          setisSubmitted(false);
-          console.log(data.errors);
-          return;
-        }
         router.push('/clients')
         })
         .catch((err) => {
-          setisSubmitted(false);
           console.log(err);
+          setisSubmitted(false);          
         })        
         
     }   
