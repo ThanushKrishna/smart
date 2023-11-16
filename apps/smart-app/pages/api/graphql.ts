@@ -14,6 +14,3 @@ const apolloServer = new ApolloServer<Context>({ typeDefs, resolvers });
 export default startServerAndCreateNextHandler(apolloServer, {
 	context: async (req, res) => ({ req, res, prisma }),
 });
-
-console.log(process.env?.DATABASE_URL);
-console.log(process.env?.NODE_ENV);

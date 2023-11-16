@@ -36,7 +36,7 @@ export const dateScalar = new GraphQLScalarType({
   },
 });
 
-console.log("DB Connection is going or not")
+
 
 export const resolvers = {
   
