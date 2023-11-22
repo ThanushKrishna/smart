@@ -9,6 +9,7 @@ import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
+import AvatarUploadPage from '@/app/components/Upload'
 
 
 interface IDatePickerProps {
@@ -104,8 +105,9 @@ const onSubmit = (formValues: AddClientType) => {
 
 
   return (
-    <form className='max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>
-
+    
+    
+    <form className='max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                    
             <p>Vehicle No:</p>
             <TextField.Root>
             <TextField.Input { ...register('Vehicle_No')}/>
@@ -123,7 +125,7 @@ const onSubmit = (formValues: AddClientType) => {
                 placeholder="Registered Date: "
                 />)}
             />      
-            <p>Owner Name: </p>
+            <p>Owner Name: </p>            
             <TextField.Root> 
             <TextField.Input { ...register('Owner')}/>
             </TextField.Root>
