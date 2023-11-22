@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import { GET_USER_DATA } from '@/graphql/queries'
 
 
+
 const AutomobilePage = () => {
   const { loading, error, data } = useQuery(GET_USER_DATA, {
     pollInterval: 2000, // refetch every 5 seconds

@@ -293,7 +293,7 @@ const onSubmit = (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input  { ...register('Adhar_No')}/>
             </TextField.Root>
-            <p>Upload Adhar: </p>
+            <p>Upload Adhar: </p>            
             <TextField.Root>
             <TextField.Input  { ...register('Adhar_doc')}/>
             </TextField.Root>
