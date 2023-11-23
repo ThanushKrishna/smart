@@ -37,11 +37,12 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 },
               );
                 
-              console.log(response.json())    
+                 
               const newBlob = (await response.json()) as PutBlobResult;
      
               setBlob(newBlob);
               setadharDoc(blob?.url);
+              console.log(blob?.url) 
         }
         return (  
         <div>
@@ -53,7 +54,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 render={({ field }) => (
                     <>
                     <div {...field} >
-						<input name="file" ref={inputFileRef} type="file" onChange={handleFileChange} required />						
+						<input name="file" ref={inputFileRef} type="file" onChange={handleFileChange} />						
 					</div>
                     {blob && (
                         <div>

@@ -29,9 +29,10 @@ const { register, handleSubmit, control, formState:{errors} } = useForm<AddClien
 
 const [isSubmitted, setisSubmitted] = useState(false);
 
-const [adharDoc, setadharDoc] = useState(null);
+const [adharDoc, setadharDoc] = useState("");
 
-const handlesetadharDoc = () => {
+const handlesetadharDoc = (e:string) => {
+  setadharDoc(e)
   console.log(adharDoc)
 }
 
