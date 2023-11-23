@@ -38,11 +38,11 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
               );
                 
                  
-              const newBlob = (await response.json()) as PutBlobResult;
+              const newBlob = (await response.json()) as PutBlobResult;              
      
               setBlob(newBlob);
-              setadharDoc(blob?.url);
-              console.log(blob?.url) 
+              setadharDoc(newBlob.url);
+              console.log(newBlob.url) 
         }
         return (  
         <div>
