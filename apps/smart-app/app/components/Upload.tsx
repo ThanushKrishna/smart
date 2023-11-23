@@ -20,7 +20,6 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     setadharDoc
     }) => {
 		const inputFileRef = useRef<HTMLInputElement>(null);
-		const [blob, setBlob] = useState<PutBlobResult | null>(null);
 
         const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
             if (!inputFileRef.current?.files) {
@@ -38,9 +37,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
               );
                 
                  
-              const newBlob = (await response.json()) as PutBlobResult;              
-     
-              setBlob(newBlob);
+              const newBlob = (await response.json()) as PutBlobResult;                                 
               setadharDoc(newBlob.url);
               console.log(newBlob.url) 
         }
@@ -55,12 +52,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     <>
                     <div {...field} >
 						<input name="file" ref={inputFileRef} type="file" onChange={handleFileChange} />						
-					</div>
-                    {blob && (
-                        <div>
-                        Blob url: <a href={blob.url}>{blob.url}</a>
-                        </div>
-                    )}
+					</div>                    
                 </>
                 )}    
                 />  

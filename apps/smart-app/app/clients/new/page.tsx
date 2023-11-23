@@ -30,11 +30,13 @@ const { register, handleSubmit, control, formState:{errors} } = useForm<AddClien
 const [isSubmitted, setisSubmitted] = useState(false);
 
 const [adharDoc, setadharDoc] = useState("");
+const [panDoc, setpanDoc] = useState("");
 
-const handlesetadharDoc = (e:any) => {
-  console.log(e)
-  setadharDoc(e)
-  console.log(adharDoc)
+const handlesetadharDoc = (e:any) => {  
+  setadharDoc(e)  
+}
+const handlesetpanDoc = (e:any) => {  
+  setpanDoc(e)  
 }
 
 const onSubmit = (formValues: AddClientType) => { 
@@ -72,7 +74,7 @@ const onSubmit = (formValues: AddClientType) => {
             Adhar_No: formValues?.Adhar_No || undefined,
             Adhar_doc: adharDoc || undefined,
             PanCard_No: formValues?.PanCard_No || undefined,
-            Pan_doc: formValues?.Pan_doc || undefined,
+            Pan_doc: panDoc || undefined,
             Nominee: formValues?.Nominee || undefined,
             Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Emission_dueDate: formValues?.Emission_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
@@ -311,10 +313,12 @@ const onSubmit = (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input  { ...register('PanCard_No')}/>
             </TextField.Root>
-            <p>Upload Pan: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Pan_doc')}/>
-            </TextField.Root>
+            <FileUplaod 
+                name="Pan_doc"
+                control={control}
+                setadharDoc = {handlesetpanDoc}
+                placeholder="Upload Pan:   "                       
+            />
             <p>Nominee Name: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Nominee')}/>
