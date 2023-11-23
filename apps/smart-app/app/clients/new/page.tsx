@@ -9,7 +9,7 @@ import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
-import AvatarUploadPage from '@/app/components/Upload'
+import { FileUplaod } from '@/app/components/Upload'
 
 
 interface IDatePickerProps {
@@ -29,7 +29,11 @@ const { register, handleSubmit, control, formState:{errors} } = useForm<AddClien
 
 const [isSubmitted, setisSubmitted] = useState(false);
 
+const [adharDoc, setadharDoc] = useState(null);
 
+const handlesetadharDoc = () => {
+  console.log(adharDoc)
+}
 
 const onSubmit = (formValues: AddClientType) => { 
     try{
@@ -64,7 +68,7 @@ const onSubmit = (formValues: AddClientType) => {
             Mobile_No2: formValues?.Mobile_No2 || undefined,
             Email_id: formValues?.Email_id || undefined,
             Adhar_No: formValues?.Adhar_No || undefined,
-            Adhar_doc: formValues?.Adhar_doc || undefined,
+            Adhar_doc: adharDoc || undefined,
             PanCard_No: formValues?.PanCard_No || undefined,
             Pan_doc: formValues?.Pan_doc || undefined,
             Nominee: formValues?.Nominee || undefined,
@@ -294,11 +298,13 @@ const onSubmit = (formValues: AddClientType) => {
             <p>Adhar No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Adhar_No')}/>
-            </TextField.Root>
-            <p>Upload Adhar: </p>            
-            <TextField.Root>
-            <TextField.Input  { ...register('Adhar_doc')}/>
-            </TextField.Root>
+            </TextField.Root>                     
+            <FileUplaod 
+                name="Adhar_doc"
+                control={control}
+                setadharDoc = {() => handlesetadharDoc}
+                placeholder="Upload Adhar:   "                       
+            />
             <p>PanCard No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('PanCard_No')}/>
