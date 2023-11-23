@@ -31,7 +31,8 @@ const [isSubmitted, setisSubmitted] = useState(false);
 
 const [adharDoc, setadharDoc] = useState("");
 
-const handlesetadharDoc = (e:string) => {
+const handlesetadharDoc = (e:any) => {
+  console.log(e)
   setadharDoc(e)
   console.log(adharDoc)
 }
@@ -303,7 +304,7 @@ const onSubmit = (formValues: AddClientType) => {
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}
-                setadharDoc = {() => handlesetadharDoc}
+                setadharDoc = {handlesetadharDoc}
                 placeholder="Upload Adhar:   "                       
             />
             <p>PanCard No: </p>
