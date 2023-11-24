@@ -28,8 +28,6 @@ const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
 
 const [adharfile, setadharfile] = useState<File>();
 const [panfile, setpanfile] = useState<File>();
-const adharuploadlink = async () => await uploadfile(adharfile); 
-const panuploadlink = async () => await uploadfile(panfile); 
 
 
 
@@ -50,10 +48,7 @@ const onSubmit = async (formValues: AddClientType) => {
           if(ispandocProvided)
             return  await uploadfile(panfile); 
           return;
-        }
-
-        console.log(await adharuploadlink());
-        console.log(await panuploadlink());
+        }        
 
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
@@ -85,9 +80,9 @@ const onSubmit = async (formValues: AddClientType) => {
             Mobile_No2: formValues?.Mobile_No2 || undefined,
             Email_id: formValues?.Email_id || undefined,
             Adhar_No: formValues?.Adhar_No || undefined,
-            Adhar_doc: await adharuploadlink() || undefined,
+            Adhar_doc: adharuploadlink || undefined,
             PanCard_No: formValues?.PanCard_No || undefined,
-            Pan_doc: await panuploadlink() || undefined,
+            Pan_doc: panuploadlink || undefined,
             Nominee: formValues?.Nominee || undefined,
             Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Emission_dueDate: formValues?.Emission_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
