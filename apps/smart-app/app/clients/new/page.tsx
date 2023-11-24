@@ -23,18 +23,20 @@ const { register, handleSubmit, control, formState:{errors} } = useForm<AddClien
 
 const [isSubmitted, setisSubmitted] = useState(false);
 
+
+
 const [adharfile, setadharfile] = useState<File>();
 const [panfile, setpanfile] = useState<File>();
 
 
 
 
-const onSubmit = (formValues: AddClientType) => { 
+const onSubmit = async (formValues: AddClientType) => { 
     try{
         setisSubmitted(true)      
-        const adharuploadlink = uploadfile(adharfile);
+        const adharuploadlink = await uploadfile(adharfile);
         console.log(adharuploadlink);
-        const panuploadlink = uploadfile(panfile);
+        const panuploadlink = await uploadfile(panfile);
         console.log(panuploadlink);
 
         const result = {
@@ -100,6 +102,7 @@ const onSubmit = (formValues: AddClientType) => {
     catch(e: any){        
         console.log("This is try-catch-error block");
         console.log(e?.message);
+        setisSubmitted(false); 
     }
     
    
