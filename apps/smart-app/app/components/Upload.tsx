@@ -1,14 +1,13 @@
 'use client';
 import React from 'react'
 import { Control, Controller } from 'react-hook-form';
-import type { PutBlobResult } from '@vercel/blob';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 interface iFileUplaod<T> {
     name: string;
     control: Control<any>;    
     placeholder: String;
-    setadharDoc: (link: String | undefined) => void;
+    onSelectFile: (file:File) => void;
 }
 
 
@@ -17,29 +16,18 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     name, 
     control, 
     placeholder,
-    setadharDoc
+    onSelectFile
     }) => {
 		const inputFileRef = useRef<HTMLInputElement>(null);
-
         const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
             if (!inputFileRef.current?.files) {
                 throw new Error('No file selected');
               }
-     
-              const file = inputFileRef.current.files[0];
-     
-              const response = await fetch(
-                `/api/files/upload?filename=${file.name}`,
-                {
-                  method: 'POST',
-                  body: file,
-                },
-              );
-                
-                 
-              const newBlob = (await response.json()) as PutBlobResult;                                 
-              setadharDoc(newBlob.url);
-              console.log(newBlob.url) 
+                                   
+             const file = inputFileRef.current.files[0];
+             onSelectFile(file);
+             console.log(file);          
+			 console.log("file upload block");                        
         }
         return (  
         <div>

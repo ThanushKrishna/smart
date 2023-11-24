@@ -10,13 +10,7 @@ import { DropDownControl }  from '@/app/components/DropDownControl'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
-
-
-interface IDatePickerProps {
-    name: string;
-    onChange: (date: Date) => void;  
-    value: Date;
-   }
+import { uploadfile } from '@/app/functions/uploadfile'
 
 
 const AddClient:React.FC = () => {
@@ -29,19 +23,18 @@ const { register, handleSubmit, control, formState:{errors} } = useForm<AddClien
 
 const [isSubmitted, setisSubmitted] = useState(false);
 
-const [adharDoc, setadharDoc] = useState("");
-const [panDoc, setpanDoc] = useState("");
+const [adharfile, setadharfile] = useState<File>();
+const [panfile, setpanfile] = useState<File>();
 
-const handlesetadharDoc = (e:any) => {  
-  setadharDoc(e)  
-}
-const handlesetpanDoc = (e:any) => {  
-  setpanDoc(e)  
-}
+
+
 
 const onSubmit = (formValues: AddClientType) => { 
     try{
         setisSubmitted(true)      
+        const adharuploadlink = uploadfile(adharfile);
+        const panuploadlink = uploadfile(panfile);
+
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
             Vehicle_No: formValues?.Vehicle_No || undefined,
@@ -72,9 +65,9 @@ const onSubmit = (formValues: AddClientType) => {
             Mobile_No2: formValues?.Mobile_No2 || undefined,
             Email_id: formValues?.Email_id || undefined,
             Adhar_No: formValues?.Adhar_No || undefined,
-            Adhar_doc: adharDoc || undefined,
+            Adhar_doc: adharuploadlink || undefined,
             PanCard_No: formValues?.PanCard_No || undefined,
-            Pan_doc: panDoc || undefined,
+            Pan_doc: panuploadlink || undefined,
             Nominee: formValues?.Nominee || undefined,
             Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Emission_dueDate: formValues?.Emission_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
@@ -305,8 +298,8 @@ const onSubmit = (formValues: AddClientType) => {
             </TextField.Root>                     
             <FileUplaod 
                 name="Adhar_doc"
-                control={control}
-                setadharDoc = {handlesetadharDoc}
+                control={control}     
+                onSelectFile={(e:File) => setadharfile(e)}           
                 placeholder="Upload Adhar:   "                       
             />
             <p>PanCard No: </p>
@@ -316,7 +309,7 @@ const onSubmit = (formValues: AddClientType) => {
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
-                setadharDoc = {handlesetpanDoc}
+                onSelectFile={(e:File) => setpanfile(e)}
                 placeholder="Upload Pan:   "                       
             />
             <p>Nominee Name: </p>
