@@ -33,11 +33,21 @@ const [panfile, setpanfile] = useState<File>();
 
 const onSubmit = async (formValues: AddClientType) => { 
     try{
-        setisSubmitted(true)      
-        const adharuploadlink = await uploadfile(adharfile);
-        console.log(adharuploadlink);
-        const panuploadlink = await uploadfile(panfile);
-        console.log(panuploadlink);
+        setisSubmitted(true)     
+
+        const adharuploadlink = async (adharfile:File) => { 
+          if(adharfile) {
+            return await uploadfile(adharfile);
+          }
+        }
+          // console.log(adharuploadlink);
+                
+        const panuploadlink = async (panfile:File) => { 
+          if(panfile) {
+            return await uploadfile(panfile);
+          }
+        }
+        // console.log(panuploadlink);
 
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
