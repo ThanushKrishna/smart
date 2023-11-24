@@ -22,32 +22,38 @@ const[addclient, { data, loading, error } ] = useMutation(ADD_CLIENT);
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
 const [isSubmitted, setisSubmitted] = useState(false);
-
+const [ispandocProvided, setpandocProvided] = useState<Boolean>(false);
+const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
 
 
 const [adharfile, setadharfile] = useState<File>();
 const [panfile, setpanfile] = useState<File>();
-
+const adharuploadlink = async () => await uploadfile(adharfile); 
+const panuploadlink = async () => await uploadfile(panfile); 
 
 
 
 const onSubmit = async (formValues: AddClientType) => { 
     try{
         setisSubmitted(true)     
+        
+        
+        
+        const adharuploadlink = async () => {
+          if(isadhardocProvided)
+            return  await uploadfile(adharfile); 
+          return;
+        }
+        
 
-        const adharuploadlink = async (adharfile:File) => { 
-          if(adharfile) {
-            return await uploadfile(adharfile);
-          }
+        const panuploadlink = async () => {
+          if(ispandocProvided)
+            return  await uploadfile(panfile); 
+          return;
         }
-          // console.log(adharuploadlink);
-                
-        const panuploadlink = async (panfile:File) => { 
-          if(panfile) {
-            return await uploadfile(panfile);
-          }
-        }
-        // console.log(panuploadlink);
+
+        console.log(await adharuploadlink());
+        console.log(await panuploadlink());
 
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
@@ -79,9 +85,9 @@ const onSubmit = async (formValues: AddClientType) => {
             Mobile_No2: formValues?.Mobile_No2 || undefined,
             Email_id: formValues?.Email_id || undefined,
             Adhar_No: formValues?.Adhar_No || undefined,
-            Adhar_doc: adharuploadlink || undefined,
+            Adhar_doc: await adharuploadlink() || undefined,
             PanCard_No: formValues?.PanCard_No || undefined,
-            Pan_doc: panuploadlink || undefined,
+            Pan_doc: await panuploadlink() || undefined,
             Nominee: formValues?.Nominee || undefined,
             Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Emission_dueDate: formValues?.Emission_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
@@ -314,7 +320,8 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}     
-                onSelectFile={(e:File) => setadharfile(e)}           
+                onSelectFile={(e:File) => setadharfile(e)}   
+                isCalled={(e: Boolean) => setadhardocProvided(e)}        
                 placeholder="Upload Adhar:   "                       
             />
             <p>PanCard No: </p>
@@ -325,6 +332,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Pan_doc"
                 control={control}
                 onSelectFile={(e:File) => setpanfile(e)}
+                isCalled={(e:Boolean) => setpandocProvided(e)}
                 placeholder="Upload Pan:   "                       
             />
             <p>Nominee Name: </p>

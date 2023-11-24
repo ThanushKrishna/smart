@@ -8,6 +8,7 @@ interface iFileUplaod<T> {
     control: Control<any>;    
     placeholder: String;
     onSelectFile: (file:File) => void;
+    isCalled: (item: Boolean) => void;
 }
 
 
@@ -16,7 +17,8 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     name, 
     control, 
     placeholder,
-    onSelectFile
+    onSelectFile,
+    isCalled
     }) => {
 		const inputFileRef = useRef<HTMLInputElement>(null);
         const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +28,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                                    
              const file = inputFileRef.current.files[0];
              onSelectFile(file);
+             isCalled(true);
              console.log(file);          
 			 console.log("file upload block");                        
         }
