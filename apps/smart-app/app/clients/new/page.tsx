@@ -33,7 +33,9 @@ const onSubmit = (formValues: AddClientType) => {
     try{
         setisSubmitted(true)      
         const adharuploadlink = uploadfile(adharfile);
+        console.log(adharuploadlink);
         const panuploadlink = uploadfile(panfile);
+        console.log(panuploadlink);
 
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",

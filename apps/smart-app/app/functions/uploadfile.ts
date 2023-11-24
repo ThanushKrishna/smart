@@ -2,8 +2,7 @@ import type { PutBlobResult } from '@vercel/blob';
 
 export const uploadfile = async (file?:File) => {  
     console.log("this is uploadfile function") 
-
-    try{
+  
         const response = await fetch(
             `/api/files/upload?filename=${file?.name}`,
             {
@@ -12,15 +11,12 @@ export const uploadfile = async (file?:File) => {
             },
         );     
         const newBlob = (await response.json()) as PutBlobResult;     
-        console.log(newBlob.url)  
+        console.log(newBlob.url.toString())  
         return newBlob.url  
-    }
+  
     
-    catch(error){
-            console.log(error)
-    }                                            
-     
-      
+                               
+           
          
   }
   
