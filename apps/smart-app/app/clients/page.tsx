@@ -103,7 +103,7 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.Email_id}</Table.Cell>
                   <Table.Cell>{data.Adhar_No}</Table.Cell>
                   <Table.Cell>{data.Adhar_doc}</Table.Cell>
-                  <Table.Cell>{data.PanCard}</Table.Cell>
+                  <Table.Cell>{data.PanCard_No}</Table.Cell>
                   <Table.Cell>{data.Pan_doc}</Table.Cell>
                   <Table.Cell>{data.Nominee}</Table.Cell>
                   <Table.Cell>{data.Nominee_dob && new Date(data?.Nominee_dob)?.toDateString().slice(4)}</Table.Cell>

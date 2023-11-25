@@ -60,7 +60,7 @@ model user_data {
   tax_due_Date          DateTime?
   Vehicle_color         String?
   Vehice_norms          String?
-  Address               String?
+  Address               ADDRESS?
   CC                    String?
   Make                  String?
   Model                 String?
