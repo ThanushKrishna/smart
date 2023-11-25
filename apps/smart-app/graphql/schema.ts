@@ -173,13 +173,6 @@ enum INSURANCE_TYPE {
   Y
 }
 
-type Address{
-    street: String
-    city:   String
-    state:  String
-    zip:    String
-  }
-
 type user_data {
   id:                    String!   
   data_owner_id:         String!
@@ -263,6 +256,7 @@ input createUserDataInput {
   tax_due_Date:       	 Date
   Vehicle_color:         VEHICLE_COLOR
   Vehice_norms:          VEHICE_NORMS
+  Address:               CreateAddressInput
   CC:                    CC
   Make:                  MAKE
   Model:                 MODEL

@@ -69,6 +69,7 @@ const AutomobilePage = () => {
                 <Table.ColumnHeaderCell>TP DueDate</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>GST No</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Insurance Type</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Address</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Comments</Table.ColumnHeaderCell>
               </Table.Row>
             </Table.Header>
@@ -117,13 +118,13 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.TP_Insurance_provider}</Table.Cell>
                   <Table.Cell>{data.TP_dueDate && new Date(data?.TP_dueDate)?.toDateString().slice(4)}</Table.Cell>
                   <Table.Cell>{data.GST_No}</Table.Cell>
-                  <Table.Cell>{data.Insurance_type}</Table.Cell>
-                  <Table.Cell>{data.Comments}</Table.Cell>
-                  
+                  <Table.Cell>{data.Insurance_type}</Table.Cell>                  
+                  <Table.Cell className='columns-2'>{data.Address && "Street: " + data.Address.street + "\nCity: " +  data.Address.city + "\nState: " + data.Address.state + "\nZip: " + data.Address.zip }</Table.Cell>
+                  <Table.Cell>{data.Comments}</Table.Cell>                                    
                 </Table.Row>
               ))}
             </Table.Body>
-
+            {/* const result = data.Address.map((item) => {item}) */}
           </Table.Root>
         </div>
     )

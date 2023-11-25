@@ -19,6 +19,7 @@
     "packages/*"
   ],
   "dependencies": {
+    "@material-tailwind/react": "^2.1.4",
     "@vercel/blob": "^0.15.1"
   }
 }

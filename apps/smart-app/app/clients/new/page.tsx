@@ -11,6 +11,7 @@ import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import { uploadfile } from '@/app/functions/uploadfile'
+import { InputVariants } from '@/app/components/InputVariants';
 
 
 const AddClient:React.FC = () => {
@@ -229,11 +230,7 @@ const onSubmit = async (formValues: AddClientType) => {
                   { value: 'X'},
                   { value: 'Y'} 
                 ]}              
-            />
-            <p>Address: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Address')}/>
-            </TextField.Root>
+            />            
             <DropDownControl 
                 name="CC"
                 control={control}            
@@ -426,6 +423,29 @@ const onSubmit = async (formValues: AddClientType) => {
                   { value: 'Y'} 
                 ]}              
             />
+            <p>Address: </p>
+            <div className='no-style'>            
+            <InputVariants
+              name="Address.street"
+              control={control}
+              placeholder="street"              
+            />
+            <InputVariants
+              name="Address.city"
+              control={control}
+              placeholder="city"              
+            />
+             <InputVariants
+              name="Address.state"
+              control={control}
+              placeholder="state"              
+            />
+             <InputVariants
+              name="Address.zip"
+              control={control}
+              placeholder="zip"              
+            />
+            </div>            
             <p>Comments: </p>
             <TextArea  { ...register('Comments')}/>
             <br/>

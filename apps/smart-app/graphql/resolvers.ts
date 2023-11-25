@@ -141,7 +141,13 @@ export const resolvers = {
             FC_due_Date: args.input.FC_due_Date,
             tax_due_Date: args.input.tax_due_Date,
             Vehicle_color: args.input.Vehicle_color,         
-            Vehice_norms: args.input.Vehice_norms,                     
+            Vehice_norms: args.input.Vehice_norms,    
+            Address: {
+              street: args.input.Address.street,
+              city: args.input.Address.city,
+              state: args.input.Address.state,
+              zip: args.input.Address.zip
+            },
             CC: args.input.CC,                    
             Make: args.input.Make,                  
             Model: args.input.Model,                 
