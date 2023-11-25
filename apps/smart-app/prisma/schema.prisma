@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 enum ROLE {
   USER
   ADMIN
@@ -37,104 +36,39 @@ model app_user {
   gender      GENDER?
   address     ADDRESS?
   profile_pic String?
-  mobile      String?     @unique
+  mobile      String?  @unique
   role        ROLE     @default(USER)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
 
-enum VEHICLE_TYPE {
-  X
-  Y
-}
-
-enum VEHICLE_COLOR {
-  X
-  Y
-}
-
-enum VEHICE_NORMS {
-  X
-  Y
-}
-
-enum CC {
-  X
-  Y
-}
-
-enum MAKE {
-  X
-  Y
-}
-
-enum MODEL {
-  X
-  Y
-}
-
-enum INSURANCE_PROVIDER {
-  X
-  Y
-}
-
-enum PERMIT_CATEGORY {
-  X
-  Y
-}
-
-enum FUEL_TYPE {
-  X
-  Y
-}
-
-enum CUSTOMER_TYPE {
-  X
-  Y
-}
-
-enum MARTIAL_STATUS {
-  X
-  Y
-}
-
-enum TP_INSURANCE_PROVIDER {
-  X
-  Y
-}
-
-enum INSURANCE_TYPE {
-  X
-  Y
-}
-
 model user_data {
-  id                    String                 @id @default(auto()) @map("_id") @db.ObjectId
-  data_owner_id         String                 @db.ObjectId
-  Vehicle_No            String                 @unique
+  id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id         String    @db.ObjectId
+  Vehicle_No            String    @unique
   RC_No                 String?
   Registered_Date       DateTime?
   Owner                 String?
   Owner_dob             DateTime?
   Ownership_type        String?
-  Vehicle_type          VEHICLE_TYPE?
+  Vehicle_type          String?
   Year_of_manufacuring  DateTime?
   GVW                   String?
   Chasis_No             String?
   Engine_No             String?
   FC_due_Date           DateTime?
   tax_due_Date          DateTime?
-  Vehicle_color         VEHICLE_COLOR?
-  Vehice_norms          VEHICE_NORMS?
-  Address               ADDRESS?
-  CC                    CC?
-  Make                  MAKE?
-  Model                 MODEL?
-  Insurance_provider    INSURANCE_PROVIDER?
+  Vehicle_color         String?
+  Vehice_norms          String?
+  Address               String?
+  CC                    String?
+  Make                  String?
+  Model                 String?
+  Insurance_provider    String?
   Insurance_dueDate     DateTime?
   Policy_No             String?
   Permit_No             String?
-  Permit_category       PERMIT_CATEGORY?
+  Permit_category       String?
   Mobile_No1            String?
   Mobile_No2            String?
   Email_id              String?
@@ -145,18 +79,66 @@ model user_data {
   Nominee               String?
   Nominee_dob           DateTime?
   Emission_dueDate      DateTime?
-  Fuel_type             FUEL_TYPE?
+  Fuel_type             String?
   Hypothecation_bank    String?
   Hypothecation_city    String?
   RTO                   String?
   Referred_by           String?
   Comments              String?
-  Customer_type         CUSTOMER_TYPE?
-  Martial_status        MARTIAL_STATUS?
-  TP_Insurance_provider TP_INSURANCE_PROVIDER?
+  Customer_type         String?
+  Martial_status        String?
+  TP_Insurance_provider String?
   TP_dueDate            DateTime?
   GST_No                String?
-  Insurance_type        INSURANCE_TYPE?
-  createdAt             DateTime               @default(now())
-  updatedAt             DateTime               @updatedAt
+  Insurance_type        String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+}
+
+model VEHICLE_COLOR {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model VEHICE_NORMS {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model CC {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model MAKE {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model MODEL {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model INSURANCE_PROVIDER {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model PERMIT_CATEGORY {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model TP_INSURANCE_PROVIDER {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
 }

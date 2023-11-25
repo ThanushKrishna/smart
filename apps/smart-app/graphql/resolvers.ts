@@ -62,11 +62,32 @@ export const resolvers = {
       }
     },
 
+    VEHICLE_COLOR : async (parent: any, args: any, context: Context) => {
+      
+      try{
+        return await context.prisma.vEHICLE_COLOR.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
   },
 
 
   Mutation: {
 
+    createVehicleColor: async (parent: any, args: any, context: Context) => {
+      console.log("this is CreateVehicleColor block");            
+      return await context.prisma.vEHICLE_COLOR.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+    
+    
     CreateAppuser: async (parent: any, args: any, context: Context) => {
       console.log("this is Createuser block");            
       return await context.prisma.app_user.create({
