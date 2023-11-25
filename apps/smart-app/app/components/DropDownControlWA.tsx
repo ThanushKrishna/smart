@@ -4,7 +4,7 @@ import { Control, Controller } from 'react-hook-form';
 interface DropDownControlWAProps<T> {
     name: string;
     control: Control<any>;
-    options: string[];
+    options: String[];
     placeholder: string;
 }
 
@@ -24,6 +24,7 @@ export const DropDownControlWA: React.FC<DropDownControlWAProps<any>> = ({
                 control={control}
                 render={({ field }) => (
                     <select {...field} className='w-full py-1.48 rounded pl-1 bottom-0 h-full text-slate-500 pt-1 border-slate-300 border-2'>                  
+                    <option key="dummy" value=""> </option>
                     {options && options.map((option:any) => (
                         <option key={option} value={option}>
                         {option}

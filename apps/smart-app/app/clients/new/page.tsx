@@ -2,13 +2,14 @@
 import React, { useState } from 'react'
 import { useForm, Controller  } from 'react-hook-form'
 import { TextField, Button, TextArea, Select, Text } from '@radix-ui/themes'
-import { AddClientType } from '@/typings';
+import { AddClientType, VEHICLE_COLOR } from '@/typings';
 import { useQuery } from '@apollo/client';
 import { GET_VEHICLE_COLORS } from '@/graphql/queries'
 import { ADD_CLIENT } from '@/graphql/queries'
 import { useMutation } from '@apollo/client';
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
+import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
@@ -21,7 +22,10 @@ const AddClient:React.FC = () => {
 
 const router = useRouter();
 
-const[addclient, { data, loading, error } ] = useMutation(ADD_CLIENT);
+const[addclient, { data} ] = useMutation(ADD_CLIENT);
+const { data:colorsdata,  loading, error  } = useQuery(GET_VEHICLE_COLORS, {
+  pollInterval: 1000, // refetch every 1 second
+});
 
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
@@ -118,17 +122,20 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log("This is try-catch-error block");
         console.log(e?.message);
         setisSubmitted(false); 
-    }
+    }   
     
-   
 }
 
 
-
+// if (loading) return <p>Loading...</p>;
+// if (error) return <p>Error: {error.message}</p>;
   return (
     
     
     <form className='max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                    
+            {/* <div>
+              { colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
+            </div> */}
             <p>Vehicle No:</p>
             <TextField.Root>
             <TextField.Input { ...register('Vehicle_No')}/>
@@ -210,59 +217,41 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="Tax Due Date: "
                 />)}
             /> 
-            <DropDownControl 
+            <DropDownControlWA 
                 name="Vehicle_color"
                 control={control}
                 placeholder="Vehicle Color:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
             />
-            <DropDownControl 
+            <DropDownControlWA 
                 name="Vehice_norms"
                 control={control}
                 placeholder="Vehicle Norms:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
             />            
-            <DropDownControl 
+            <DropDownControlWA 
                 name="CC"
                 control={control}            
                 placeholder="CC:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
             />
-            <DropDownControl 
+            <DropDownControlWA
                 name="Make"
                 control={control}
                 placeholder="Make:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
             />
-            <DropDownControl 
+            <DropDownControlWA 
                 name="Model"
                 control={control}
                 placeholder="Model:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
             />
-            <DropDownControl 
+            <DropDownControlWA 
                 name="Insurance_provider"
                 control={control}
                 placeholder="Insurance Provider:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
             />
             <Controller
                 name="Insurance_dueDate"
@@ -281,14 +270,11 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input  { ...register('Permit_No')}/>
             </TextField.Root>
-            <DropDownControl 
+            <DropDownControlWA 
                 name="Permit_category"
                 control={control}
                 placeholder="Permit Category:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
             />
             <p>1st Mobile No: </p>
             <TextField.Root>
@@ -386,14 +372,11 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="Insurance Type:   "           
                 options={INSURANCE_TYPE}              
             />            
-            <DropDownControl 
+            <DropDownControlWA 
                 name="TP_Insurance_provider"
                 control={control}
                 placeholder="TP Insurance Provider:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
             />
             <Controller
                 name="TP_dueDate"
