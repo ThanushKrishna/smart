@@ -3,6 +3,8 @@ import React, { useState } from 'react'
 import { useForm, Controller  } from 'react-hook-form'
 import { TextField, Button, TextArea, Select, Text } from '@radix-ui/themes'
 import { AddClientType } from '@/typings';
+import { useQuery } from '@apollo/client';
+import { GET_VEHICLE_COLORS } from '@/graphql/queries'
 import { ADD_CLIENT } from '@/graphql/queries'
 import { useMutation } from '@apollo/client';
 import { DatePickerComponent } from '@/app/components/DatePicker'

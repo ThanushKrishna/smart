@@ -391,7 +391,6 @@ input TestaddClientinput {
 
 
 input VehicleColorinput {
-  id:                    String!
   data_owner_id:         String!    
   value:                 String!
 }
