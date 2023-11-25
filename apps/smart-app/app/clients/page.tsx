@@ -119,7 +119,7 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.TP_dueDate && new Date(data?.TP_dueDate)?.toDateString().slice(4)}</Table.Cell>
                   <Table.Cell>{data.GST_No}</Table.Cell>
                   <Table.Cell>{data.Insurance_type}</Table.Cell>                  
-                  <Table.Cell className='columns-2'>{data.Address && "Street: " + data.Address.street + "\nCity: " +  data.Address.city + "\nState: " + data.Address.state + "\nZip: " + data.Address.zip }</Table.Cell>
+                  <Table.Cell className='w-30'>{data.Address && "Street: " + data.Address.street + "\n" + "City: " +  data.Address.city + "\n" + "State: " + data.Address.state + "\n" + "Zip: " + data.Address.zip }</Table.Cell>
                   <Table.Cell>{data.Comments}</Table.Cell>                                    
                 </Table.Row>
               ))}

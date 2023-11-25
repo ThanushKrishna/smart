@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import { uploadfile } from '@/app/functions/uploadfile'
 import { InputVariants } from '@/app/components/InputVariants';
+import { VEHICLE_TYPE, OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE } from '@/json/enums'
 
 
 const AddClient:React.FC = () => {
@@ -159,20 +160,14 @@ const onSubmit = async (formValues: AddClientType) => {
             <DropDownControl 
                 name="Ownership_type"
                 control={control}
-                placeholder="Owner Type:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                placeholder="Owner Type:   "                                      
+                options={OWNER_TYPE}
             />            
             <DropDownControl 
                 name="Vehicle_type"
                 control={control}
                 placeholder="Vehicle Type:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={VEHICLE_TYPE}           
             />
             <Controller
                 name="Year_of_manufacuring"
@@ -353,10 +348,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Fuel_type"
                 control={control}        
                 placeholder="Fuel Type:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={FUEL_TYPE}              
             />
             <p>Hypothecation Bank: </p>
             <TextField.Root>
@@ -378,20 +370,20 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Customer_type"
                 control={control}
                 placeholder="Customer Type:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={OWNER_TYPE}              
             />
             <DropDownControl 
                 name="Martial_status"
                 control={control}
                 placeholder="Marital Staus:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
+                options={MARITAL_STATUS}              
             />
+            <DropDownControl 
+                name="Insurance_type"
+                control={control}
+                placeholder="Insurance Type:   "           
+                options={INSURANCE_TYPE}              
+            />            
             <DropDownControl 
                 name="TP_Insurance_provider"
                 control={control}
@@ -413,16 +405,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <p>GST No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('GST_No')}/>        
-            </TextField.Root>
-            <DropDownControl 
-                name="Insurance_type"
-                control={control}
-                placeholder="Insurance Type:   "           
-                options={[
-                  { value: 'X'},
-                  { value: 'Y'} 
-                ]}              
-            />
+            </TextField.Root>          
             <p>Address: </p>
             <div className='no-style'>            
             <InputVariants
