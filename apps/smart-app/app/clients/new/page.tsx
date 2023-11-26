@@ -1,12 +1,12 @@
 'use client'
 import React, { useState } from 'react'
 import { useForm, Controller  } from 'react-hook-form'
-import { TextField, Button, TextArea, Select, Text } from '@radix-ui/themes'
-import { AddClientType, VEHICLE_COLOR } from '@/typings';
+import { TextField, Button, TextArea } from '@radix-ui/themes'
+import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { GET_VEHICLE_COLORS } from '@/graphql/queries'
 import { ADD_CLIENT } from '@/graphql/queries'
-import { useMutation } from '@apollo/client';
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
 import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
@@ -387,11 +387,11 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="TP Due Date: "
                 />)}
             />
-            <p>GST No: </p>
+            <p className='mt-3'>GST No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('GST_No')}/>        
             </TextField.Root>          
-            <p>Address: </p>
+            <p className='mb-0'>Address: </p>
             <div className='no-style'>            
             <InputVariants
               name="Address.street"
@@ -414,7 +414,7 @@ const onSubmit = async (formValues: AddClientType) => {
               placeholder="zip"              
             />
             </div>            
-            <p>Comments: </p>
+            <p className='mt-3'>Comments: </p>
             <TextArea  { ...register('Comments')}/>
             <br/>
             <Button disabled={isSubmitted}> Submit {isSubmitted && <Spinner></Spinner>}</Button>        
