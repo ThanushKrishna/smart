@@ -5,9 +5,27 @@ import { TextField, Button, TextArea } from '@radix-ui/themes'
 import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
-import { GET_VEHICLE_COLORS } from '@/graphql/queries'
-import { ADD_CLIENT } from '@/graphql/queries'
-import { ADD_VEHICLE_COLORS } from '@/graphql/queries'
+import { 
+    ADD_CLIENT, 
+    ADD_VEHICLE_COLORS,
+    ADD_VEHICE_NORMS,
+    ADD_CC,
+    ADD_MAKE,
+    ADD_MODEL,
+    ADD_INSURANCE_PROVIDER,
+    ADD_PERMIT_CATEGORY,
+    ADD_TP_INSURANCE_PROVIDER
+    } from '@/graphql/queries'
+import {     
+    GET_VEHICLE_COLORS,
+    GET_VEHICLE_NORMS,  
+    GET_CC,
+    GET_MAKE,
+    GET_MODEL,
+    GET_INSURANCE_PROVIDER,
+    GET_PERMIT_CATEGORY,
+    GET_TP_INSURANCE_PROVIDER    
+    } from '@/graphql/queries'
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
 import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
@@ -23,11 +41,24 @@ const AddClient:React.FC = () => {
 
 const router = useRouter();
 
-const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
 const[addclient, { data:clientdata} ] = useMutation(ADD_CLIENT);
-const { data:colorsdata,  loading, error  } = useQuery(GET_VEHICLE_COLORS, {
-  pollInterval: 1000, // refetch every 1 second
-});
+const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
+const[addVehicleNorms, { data:normsdata} ] = useMutation(ADD_VEHICE_NORMS);
+const[addcc, { data:ccdata} ] = useMutation(ADD_CC);
+const[addMake, { data:makedata} ] = useMutation(ADD_MAKE);
+const[addModel, { data:modeldata} ] = useMutation(ADD_MODEL);
+const[addiProvider, { data:iproviderdata} ] = useMutation(ADD_INSURANCE_PROVIDER);
+const[addPermitCategory, { data:permitdata} ] = useMutation(ADD_PERMIT_CATEGORY);
+const[addTpInsuranceProvider, { data:tpproviderdata} ] = useMutation(ADD_TP_INSURANCE_PROVIDER);
+
+const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLORS, { pollInterval: 1000,}); 
+const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS, { pollInterval: 1000,}); 
+const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
+const { data:gmakedata } = useQuery(GET_MAKE, { pollInterval: 1000,}); 
+const { data:gmodeldata } = useQuery(GET_MODEL, { pollInterval: 1000,}); 
+const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
+const { data:gpermitdata } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
+const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});
 
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
@@ -220,43 +251,43 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Vehicle_color"
                 control={control}
                 placeholder="Vehicle Color:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
+                options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
                 onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
             />
             <DropDownControlWA 
                 name="Vehice_norms"
                 control={control}
                 placeholder="Vehicle Norms:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
-                onOptionAdd={(e: String) => {}}            
+                options={gnormsdata && gnormsdata.VEHICE_NORMS.map((data:any) => (data.value)) }
+                onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />            
             <DropDownControlWA 
                 name="CC"
                 control={control}            
                 placeholder="CC:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
-                onOptionAdd={(e: String) => {}}            
+                options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
+                onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
             />
             <DropDownControlWA
                 name="Make"
                 control={control}
                 placeholder="Make:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
-                onOptionAdd={(e: String) => {}}            
+                options={gmakedata && gmakedata.MAKE.map((data:any) => (data.value)) }             
+                onOptionAdd= {async (e: String) => await (addMake( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
             />
             <DropDownControlWA 
                 name="Model"
                 control={control}
                 placeholder="Model:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
-                onOptionAdd={(e: String) => {}}            
+                options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
+                onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
             <DropDownControlWA 
                 name="Insurance_provider"
                 control={control}
                 placeholder="Insurance Provider:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
-                onOptionAdd={(e: String) => {}}            
+                options={giproviderdata && giproviderdata.INSURANCE_PROVIDER.map((data:any) => (data.value)) }
+                onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
             />
             <Controller
                 name="Insurance_dueDate"
@@ -279,8 +310,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Permit_category"
                 control={control}
                 placeholder="Permit Category:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) } 
-                onOptionAdd={(e: String) => {}}                   
+                options={gpermitdata && gpermitdata.PERMIT_CATEGORY.map((data:any) => (data.value)) }
+                onOptionAdd= {async (e: String) => await (addPermitCategory( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
             <p>1st Mobile No: </p>
             <TextField.Root>
@@ -382,8 +413,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="TP_Insurance_provider"
                 control={control}
                 placeholder="TP Insurance Provider:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }      
-                onOptionAdd={(e: String) => {}}              
+                options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
+                onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
             <Controller
                 name="TP_dueDate"

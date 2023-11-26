@@ -12,6 +12,73 @@ export const GET_VEHICLE_COLORS = gql`
 }
 `;
 
+export const GET_VEHICLE_NORMS = gql`
+    query vehice_norms{
+              VEHICE_NORMS {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+export const GET_CC = gql`
+    query cc{
+              CC {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+
+export const GET_MAKE = gql`
+    query make{
+              MAKE {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+export const GET_MODEL = gql`
+    query model{
+              MODEL {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+
+export const GET_INSURANCE_PROVIDER = gql`
+    query insurance_provider{
+              INSURANCE_PROVIDER {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+export const GET_PERMIT_CATEGORY = gql`
+    query permit_category{
+              PERMIT_CATEGORY {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+
+export const GET_TP_INSURANCE_PROVIDER = gql`
+    query tp_insurance_provider{
+              TP_INSURANCE_PROVIDER {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+
 
 export const GET_APP_USERS = gql`
     query App_user {
@@ -108,6 +175,76 @@ export const ADD_CLIENT = gql`
 export const ADD_VEHICLE_COLORS = gql` 
     mutation CreateVehicleColor($input: VehicleColorinput!) {
       createVehicleColor(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_VEHICE_NORMS = gql` 
+    mutation CreateVehicleNorms($input: VehicleNormsinput!) {
+      createVehicleNorms(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_CC = gql` 
+    mutation CreateCC($input: CCinput!) {
+      createCC(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_MAKE = gql` 
+    mutation CreateMake($input: Makeinput!) {
+      createMake(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_MODEL = gql` 
+    mutation CreateModel($input: Modelinput!) {
+      createModel(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_INSURANCE_PROVIDER = gql` 
+    mutation CreateInsuranceProvider($input: InsuranceProviderinput!) {
+      createInsuranceProvider(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_PERMIT_CATEGORY = gql` 
+    mutation CreatePermitCategory($input: PermitCategoryinput!) {
+      createPermitCategory(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_TP_INSURANCE_PROVIDER = gql` 
+    mutation CreateTpInsuranceProvider($input: TpInsuranceProviderinput!) {
+      createTpInsuranceProvider(input: $input) {
         id
         data_owner_id
         value

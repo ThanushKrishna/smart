@@ -62,10 +62,73 @@ export const resolvers = {
       }
     },
 
-    VEHICLE_COLOR : async (parent: any, args: any, context: Context) => {
-      
+    VEHICLE_COLOR : async (parent: any, args: any, context: Context) => {      
       try{
         return await context.prisma.vEHICLE_COLOR.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+
+	VEHICE_NORMS : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.vEHICE_NORMS.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+	CC : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.cC.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+	MAKE : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.mAKE.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+	MODEL : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.mODEL.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+	INSURANCE_PROVIDER : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.iNSURANCE_PROVIDER.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+	PERMIT_CATEGORY : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.pERMIT_CATEGORY.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },	
+
+	TP_INSURANCE_PROVIDER : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.tP_INSURANCE_PROVIDER.findMany();
       }
       catch(err){
           console.log(err);
@@ -80,6 +143,76 @@ export const resolvers = {
     createVehicleColor: async (parent: any, args: any, context: Context) => {
       console.log("this is CreateVehicleColor block");            
       return await context.prisma.vEHICLE_COLOR.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+	
+	createVehicleNorms: async (parent: any, args: any, context: Context) => {
+      console.log("this is createVehicleNorms block");            
+      return await context.prisma.vEHICE_NORMS.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+
+    createCC: async (parent: any, args: any, context: Context) => {
+      console.log("this is createCC block");            
+      return await context.prisma.cC.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+	
+	createMake: async (parent: any, args: any, context: Context) => {
+      console.log("this is createMake block");            
+      return await context.prisma.mAKE.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+
+    createModel: async (parent: any, args: any, context: Context) => {
+      console.log("this is createModel block");            
+      return await context.prisma.mODEL.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+	
+	createInsuranceProvider: async (parent: any, args: any, context: Context) => {
+      console.log("this is createInsuranceProvider block");            
+      return await context.prisma.iNSURANCE_PROVIDER.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+
+	createPermitCategory: async (parent: any, args: any, context: Context) => {
+      console.log("this is createPermitCategory block");            
+      return await context.prisma.pERMIT_CATEGORY.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+	
+	createTpInsuranceProvider: async (parent: any, args: any, context: Context) => {
+      console.log("this is createTpInsuranceProvider block");            
+      return await context.prisma.tP_INSURANCE_PROVIDER.create({
         data: {
           data_owner_id: args.input.data_owner_id,
           value: args.input.value
