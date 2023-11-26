@@ -9,9 +9,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 interface iFormDialog {
   placeholder: String;
+  onItemAdd: (item: String) => void;
 }
 
-export default function FormDialog( {placeholder}: iFormDialog ) {
+export default function FormDialog( {placeholder, onItemAdd }: iFormDialog ) {
   const [open, setOpen] = React.useState(false);
   const[value, setValue] = React.useState<String>("");
 
@@ -20,15 +21,13 @@ export default function FormDialog( {placeholder}: iFormDialog ) {
   };
 
   const handleAddClose = (event:any) => {
-    event.preventDefault();
     console.log(value);
+    onItemAdd(value);
     setOpen(false);
     
   };
 
   const handleCancelClose = (event:any) => {
-    event.preventDefault();
-    console.log(value);
     setOpen(false);
     
   };
@@ -38,7 +37,7 @@ export default function FormDialog( {placeholder}: iFormDialog ) {
       {/* <Button variant="outlined" onClick={handleClickOpen}>
         Open form dialog
       </Button> */}
-      <button className='absolute inline-block bottom-0 right-0 text-xs' onClick={handleClickOpen}>AddNew</button> 
+      <button type="button" className='absolute inline-block bottom-0 right-0 text-xs' onClick={handleClickOpen}>AddNew</button> 
       <Dialog open={open} onClose={handleCancelClose}>
         <DialogTitle>Add New {placeholder}</DialogTitle>
         <DialogContent>

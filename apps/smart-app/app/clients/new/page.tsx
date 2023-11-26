@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { GET_VEHICLE_COLORS } from '@/graphql/queries'
 import { ADD_CLIENT } from '@/graphql/queries'
+import { ADD_VEHICLE_COLORS } from '@/graphql/queries'
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
 import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
@@ -22,7 +23,8 @@ const AddClient:React.FC = () => {
 
 const router = useRouter();
 
-const[addclient, { data} ] = useMutation(ADD_CLIENT);
+const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
+const[addclient, { data:clientdata} ] = useMutation(ADD_CLIENT);
 const { data:colorsdata,  loading, error  } = useQuery(GET_VEHICLE_COLORS, {
   pollInterval: 1000, // refetch every 1 second
 });
@@ -39,7 +41,8 @@ const [panfile, setpanfile] = useState<File>();
 
 
 
-const onSubmit = async (formValues: AddClientType) => { 
+const onSubmit = async (formValues: AddClientType) => {     
+
     try{
         setisSubmitted(true)     
         
@@ -127,15 +130,11 @@ const onSubmit = async (formValues: AddClientType) => {
 }
 
 
-// if (loading) return <p>Loading...</p>;
-// if (error) return <p>Error: {error.message}</p>;
+
   return (
     
     
     <form className='max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                    
-            {/* <div>
-              { colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
-            </div> */}
             <p>Vehicle No:</p>
             <TextField.Root>
             <TextField.Input { ...register('Vehicle_No')}/>
@@ -221,37 +220,43 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Vehicle_color"
                 control={control}
                 placeholder="Vehicle Color:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
+                onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
             />
             <DropDownControlWA 
                 name="Vehice_norms"
                 control={control}
                 placeholder="Vehicle Norms:   "           
                 options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
+                onOptionAdd={(e: String) => {}}            
             />            
             <DropDownControlWA 
                 name="CC"
                 control={control}            
                 placeholder="CC:   "           
                 options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
+                onOptionAdd={(e: String) => {}}            
             />
             <DropDownControlWA
                 name="Make"
                 control={control}
                 placeholder="Make:   "           
                 options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
+                onOptionAdd={(e: String) => {}}            
             />
             <DropDownControlWA 
                 name="Model"
                 control={control}
                 placeholder="Model:   "           
                 options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }              
+                onOptionAdd={(e: String) => {}}            
             />
             <DropDownControlWA 
                 name="Insurance_provider"
                 control={control}
                 placeholder="Insurance Provider:   "           
                 options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
+                onOptionAdd={(e: String) => {}}            
             />
             <Controller
                 name="Insurance_dueDate"
@@ -274,7 +279,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Permit_category"
                 control={control}
                 placeholder="Permit Category:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) } 
+                onOptionAdd={(e: String) => {}}                   
             />
             <p>1st Mobile No: </p>
             <TextField.Root>
@@ -376,7 +382,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="TP_Insurance_provider"
                 control={control}
                 placeholder="TP Insurance Provider:   "           
-                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }        
+                options={colorsdata && colorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }      
+                onOptionAdd={(e: String) => {}}              
             />
             <Controller
                 name="TP_dueDate"

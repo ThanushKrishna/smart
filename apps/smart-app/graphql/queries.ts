@@ -13,13 +13,6 @@ export const GET_VEHICLE_COLORS = gql`
 `;
 
 
-  type Address = {
-      street: String
-      city:   String
-      state:  String
-      zip:    String
-    }
-
 export const GET_APP_USERS = gql`
     query App_user {
         app_user {
@@ -108,6 +101,16 @@ export const ADD_CLIENT = gql`
      createUserData(input: $input) {
       data_owner_id
       Vehicle_No
+      }
+    }
+`;
+
+export const ADD_VEHICLE_COLORS = gql` 
+    mutation CreateVehicleColor($input: VehicleColorinput!) {
+      createVehicleColor(input: $input) {
+        id
+        data_owner_id
+        value
       }
     }
 `;
