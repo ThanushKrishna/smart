@@ -7,7 +7,7 @@ interface iFileUplaod<T> {
     name: string;
     control: Control<any>;    
     placeholder: String;
-    onSelectFile: (file:File) => void;
+    onSelectFile: (file:any) => void;
     isCalled: (item: Boolean) => void;
 }
 
@@ -26,7 +26,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 throw new Error('No file selected');
               }
                                    
-             const file = inputFileRef.current.files[0];
+             const file = {...inputFileRef.current.files};
              onSelectFile(file);
              isCalled(true);
              console.log(file);          
@@ -42,7 +42,12 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 render={({ field }) => (
                     <>
                     <div {...field} >
-						<input name="file" ref={inputFileRef} type="file" onChange={handleFileChange} />						
+						<input 
+                        name="file"
+                        multiple                 
+                        ref={inputFileRef} 
+                        type="file"  
+                        onChange={handleFileChange} />						
 					</div>                    
                 </>
                 )}    
