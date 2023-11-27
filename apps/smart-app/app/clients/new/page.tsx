@@ -262,7 +262,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Vehicle_type"
                 control={control}
                 placeholder="Vehicle Class:   "           
-                options={gCusTypedata && gCusTypedata.VEHICLE_CLASS.map((data:any) => (data.value)) }  
+                options={gVehclassdata && gVehclassdata.VEHICLE_CLASS.map((data:any) => (data.value)) }  
                 onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
             />
             <DropDownControlWA 
