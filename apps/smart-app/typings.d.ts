@@ -5,71 +5,6 @@ export interface iappUser extends app_user{
 }
 
 
-enum VEHICLE_TYPE {
-    X,
-    Y
-  }
-  
-  enum VEHICLE_COLOR {
-    X,
-    Y
-  }
-  
-  enum VEHICE_NORMS {
-    X,
-    Y
-  }
-  
-  enum CC {
-    X,
-    Y
-  }
-  
-  enum MAKE {
-    X,
-    Y
-  }
-  
-  enum MODEL {
-    X,
-    Y
-  }
-  
-  enum INSURANCE_PROVIDER {
-    X,
-    Y
-  }
-  
-  enum PERMIT_CATEGORY {
-    X,
-    Y
-  }
-  
-  enum FUEL_TYPE {
-    X,
-    Y
-  }
-  
-  enum CUSTOMER_TYPE {
-    X,
-    Y
-  }
-  
-  enum MARTIAL_STATUS {
-    X,
-    Y
-  }
-  
-  enum TP_INSURANCE_PROVIDER {
-    X,
-    Y
-  }
-  
-  enum INSURANCE_TYPE {
-    X,
-    Y
-  }
-  
   type Address = {
       street: String
       city:   String
@@ -79,51 +14,57 @@ enum VEHICLE_TYPE {
 export interface AddClientType {
     data_owner_id:         String!
     Vehicle_No:            String!  
+    Vehicle_Reg_url:       String
     RC_No:                 String
     Registered_Date:       Date
     Owner:                 String
     Owner_dob:             Date
     Ownership_type:        String
-    Vehicle_type:          VEHICLE_TYPE
+    Vehicle_type:          String
     Year_of_manufacuring:  Date
     GVW:                   Int
     Chasis_No:             String
     Engine_No:             String
     FC_due_Date:       	   Date
     tax_due_Date:       	 Date
-    Vehicle_color:         VEHICLE_COLOR
-    Vehice_norms:          VEHICE_NORMS
+    Vehicle_color:         String
+    Vehice_norms:          String
     Address:               Address
     CC:                    CC
-    Make:                  MAKE
-    Model:                 MODEL
-    Insurance_provider:    INSURANCE_PROVIDER
+    Make:                  String
+    Model:                 String
+    Insurance_provider:    String
     Insurance_dueDate:     Date
     Policy_No:             String
+    Policy_url:            String
     Permit_No:             String
-    Permit_category:       PERMIT_CATEGORY
+    Permit_category:       String
     Mobile_No1:            Int
     Mobile_No2:            Int
+    Mobile_No3:            Int
     Email_id:              String
     Adhar_No:              Int
     Adhar_doc:             Int
     PanCard_No:            String
     Pan_doc:               Int
     Nominee:               String
+    Nominee_relationship:  String
     Nominee_dob:           Date
     Emission_dueDate:      Date
-    Fuel_type:             FUEL_TYPE
+    Fuel_type:             String
     Hypothecation_bank:    String
     Hypothecation_city:    String
     RTO:                   String
     Referred_by:           String
     Comments:              String
-    Customer_type:         CUSTOMER_TYPE
-    Martial_status:        MARTIAL_STATUS
-    TP_Insurance_provider: TP_INSURANCE_PROVIDER
+    Customer_type:         String
+    Martial_status:        String
+    TP_Insurance_provider: String
     TP_dueDate:            Date
+    OD_Insurance_provider: String
+    OD_dueDate:            Date
     GST_No:                String
-    Insurance_type:        INSURANCE_TYPE         
+    Insurance_type:        String         
   }
   
 

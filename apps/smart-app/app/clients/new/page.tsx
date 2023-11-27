@@ -64,37 +64,50 @@ const { register, handleSubmit, control, formState:{errors} } = useForm<AddClien
 
 const [isSubmitted, setisSubmitted] = useState(false);
 const [ispandocProvided, setpandocProvided] = useState<Boolean>(false);
-const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
-
-
-const [adharfile, setadharfile] = useState<File>();
 const [panfile, setpanfile] = useState<File>();
+const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
+const [adharfile, setadharfile] = useState<File>();
+const [isVehicleRegisterdocProvided, setVehicleRegisterdocProvided] = useState<Boolean>(false);
+const [VehicleRegisterfile, setVehicleRegisterfile] = useState<File>();
+const [isPolicydocProvided, setPolicydocProvided] = useState<Boolean>(false);
+const [Policyfile, setPolicyfile] = useState<File>();
 
 
 
 const onSubmit = async (formValues: AddClientType) => {     
 
-    try{
-        setisSubmitted(true)     
-        
-        
-        
-        const adharuploadlink = async () => {
-          if(isadhardocProvided)
-            return  await uploadfile(adharfile); 
-          return;
-        }
-        
+    const adharuploadlink = async () => {
+        if(isadhardocProvided && adharfile)
+          return  await uploadfile(adharfile); 
+        return;
+      }
+      
 
-        const panuploadlink = async () => {
-          if(ispandocProvided)
-            return  await uploadfile(panfile); 
-          return;
-        }        
+    const panuploadlink = async () => {
+        if(ispandocProvided && panfile)
+          return  await uploadfile(panfile); 
+        return;
+      }        
+    const VehicleRegistrationuploadlink = async () => {
+        if(isVehicleRegisterdocProvided && VehicleRegisterfile )
+          return  await uploadfile(VehicleRegisterfile); 
+        return;
+      }
+      
+
+	const Policyuploadlink = async () => {
+        if(isPolicydocProvided && Policyfile)
+          return  await uploadfile(Policyfile); 
+        return;
+      } 
+    
+    try{
+        setisSubmitted(true)                     
 
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
             Vehicle_No: formValues?.Vehicle_No || undefined,
+            Vehicle_Registration: await VehicleRegistrationuploadlink() || undefined,
             RC_No: formValues?.RC_No || undefined,
             Registered_Date: formValues?.Registered_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                       
             Owner: formValues?.Owner || undefined,
@@ -116,16 +129,19 @@ const onSubmit = async (formValues: AddClientType) => {
             Insurance_provider: formValues?.Insurance_provider || undefined,
             Insurance_dueDate: formValues?.Insurance_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Policy_No: formValues?.Policy_No || undefined,
+            Policy_Document: await Policyuploadlink() || undefined,
             Permit_No: formValues?.Permit_No || undefined,
             Permit_category: formValues?.Permit_category || undefined,
             Mobile_No1: formValues?.Mobile_No1 || undefined,
             Mobile_No2: formValues?.Mobile_No2 || undefined,
+            Mobile_No3: formValues?.Mobile_No3 || undefined,
             Email_id: formValues?.Email_id || undefined,
             Adhar_No: formValues?.Adhar_No || undefined,
             Adhar_doc: await adharuploadlink() || undefined,
             PanCard_No: formValues?.PanCard_No || undefined,
             Pan_doc: await panuploadlink() || undefined,
             Nominee: formValues?.Nominee || undefined,
+            Nominee_relationship: formValues?.Nominee_relationship || undefined,
             Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Emission_dueDate: formValues?.Emission_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Fuel_type: formValues?.Fuel_type || undefined,
@@ -138,6 +154,8 @@ const onSubmit = async (formValues: AddClientType) => {
             Martial_status: formValues?.Martial_status || undefined,
             TP_Insurance_provider: formValues?.TP_Insurance_provider || undefined,
             TP_dueDate: formValues?.TP_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            OD_Insurance_provider: formValues?.OD_Insurance_provider || undefined,
+            OD_dueDate: formValues?.OD_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             GST_No: formValues?.GST_No || undefined,
             Insurance_type: formValues?.Insurance_type || undefined
         }
@@ -166,11 +184,18 @@ const onSubmit = async (formValues: AddClientType) => {
     
     
     <form className='max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                    
-            <p>Vehicle No:</p>
+            <p>Vehicle Registration Number:</p>
             <TextField.Root>
             <TextField.Input { ...register('Vehicle_No')}/>
             </TextField.Root>
-            <p>RC No: </p>
+            <FileUplaod 
+                name="Vehicle_Registration"
+                control={control}     
+                onSelectFile={(e:File) => setVehicleRegisterfile(e)}   
+                isCalled={(e: Boolean) => setVehicleRegisterdocProvided(e)}        
+                placeholder=""                       
+            />
+            <p>Owner Serial Number: </p>
             <TextField.Root>
             <TextField.Input { ...register('RC_No')}/>
             </TextField.Root>  
@@ -202,11 +227,12 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="Owner Type:   "                                      
                 options={OWNER_TYPE}
             />            
-            <DropDownControl 
+            <DropDownControlWA 
                 name="Vehicle_type"
                 control={control}
                 placeholder="Vehicle Type:   "           
-                options={VEHICLE_TYPE}           
+                options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
+                onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
             />
             <Controller
                 name="Year_of_manufacuring"
@@ -214,18 +240,18 @@ const onSubmit = async (formValues: AddClientType) => {
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="Year Of Manufacturing: "
+                placeholder="Manufacturing Date: "
                 />)}
             />    
             <p>GVW: </p>
             <TextField.Root>
             <TextField.Input  { ...register('GVW')}/>
             </TextField.Root>
-            <p>Chasis No: </p>
+            <p>Chassis Number: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Chasis_No')}/>
             </TextField.Root>
-            <p>Engine No: </p>
+            <p>Engine Number: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Engine_No')}/>
             </TextField.Root>
@@ -235,7 +261,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="FC Due Date: "
+                placeholder="REG/FC UpTo: "
                 />)}
             />           
             <Controller
@@ -244,7 +270,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="Tax Due Date: "
+                placeholder="Tax UpTo: "
                 />)}
             /> 
             <DropDownControlWA 
@@ -257,7 +283,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <DropDownControlWA 
                 name="Vehice_norms"
                 control={control}
-                placeholder="Vehicle Norms:   "           
+                placeholder="Emission Norms:   "           
                 options={gnormsdata && gnormsdata.VEHICE_NORMS.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />            
@@ -302,6 +328,13 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input  { ...register('Policy_No')}/>
             </TextField.Root>
+            <FileUplaod 
+                name="Policy_Document"
+                control={control}     
+                onSelectFile={(e:File) => setPolicyfile(e)}   
+                isCalled={(e: Boolean) => setPolicydocProvided(e)}        
+                placeholder=""                       
+            />	
             <p>Permit No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Permit_No')}/>
@@ -321,11 +354,15 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input  { ...register('Mobile_No2')}/>
             </TextField.Root>
+            <p>3rd Mobile No: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Mobile_No3')}/>
+            </TextField.Root>
             <p>Email Id: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Email_id')}/>
             </TextField.Root>
-            <p>Adhar No: </p>
+            <p>Adhar Number: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Adhar_No')}/>
             </TextField.Root>                     
@@ -334,9 +371,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}     
                 onSelectFile={(e:File) => setadharfile(e)}   
                 isCalled={(e: Boolean) => setadhardocProvided(e)}        
-                placeholder="Upload Adhar:   "                       
+                placeholder=""                       
             />
-            <p>PanCard No: </p>
+            <p>PAN Number: </p>
             <TextField.Root>
             <TextField.Input  { ...register('PanCard_No')}/>
             </TextField.Root>
@@ -345,11 +382,15 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}
                 onSelectFile={(e:File) => setpanfile(e)}
                 isCalled={(e:Boolean) => setpandocProvided(e)}
-                placeholder="Upload Pan:   "                       
+                placeholder=""                       
             />
             <p>Nominee Name: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Nominee')}/>
+            </TextField.Root>
+            <p>Nominee RelationShip: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Nominee_relationship')}/>
             </TextField.Root>
             <Controller
                 name="Nominee_dob"
@@ -366,7 +407,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="Emission Due Date: "
+                placeholder="PUC/Emission UpTo: "
                 />)}
             />
             <DropDownControl 
@@ -391,11 +432,12 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input  { ...register('Referred_by')}/>
             </TextField.Root>
-            <DropDownControl 
+            <DropDownControlWA 
                 name="Customer_type"
                 control={control}
-                placeholder="Customer Type:   "           
-                options={OWNER_TYPE}              
+                placeholder="Policy Issued Through:  "           
+                options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
+                onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
             <DropDownControl 
                 name="Martial_status"
@@ -412,7 +454,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <DropDownControlWA 
                 name="TP_Insurance_provider"
                 control={control}
-                placeholder="TP Insurance Provider:   "           
+                placeholder="Third Party Insurance Provider:   "           
                 options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
                 onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
@@ -422,7 +464,23 @@ const onSubmit = async (formValues: AddClientType) => {
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="TP Due Date: "
+                placeholder="Thrid Party Insurance UpTo: "
+                />)}
+            />
+            <DropDownControlWA 
+                name="OD_Insurance_provider"
+                control={control}
+                placeholder="Own Damage Insurance Provider:   "           
+                options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
+                onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+            />
+            <Controller
+                name="OD_dueDate"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Own Damage Insurance UpTo: "
                 />)}
             />
             <p className='mt-3'>GST No: </p>
