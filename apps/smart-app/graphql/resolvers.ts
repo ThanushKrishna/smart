@@ -62,7 +62,7 @@ export const resolvers = {
       }
     },
 
-    VEHICLE_COLOR : async (parent: any, args: any, context: Context) => {      
+  VEHICLE_COLOR : async (parent: any, args: any, context: Context) => {      
       try{
         return await context.prisma.vEHICLE_COLOR.findMany();
       }
@@ -135,10 +135,122 @@ export const resolvers = {
       }
     },
 
+    VEHICLE_CLASS : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.vEHICLE_CLASS.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+CUSTOMER_TYPE : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.cUSTOMER_TYPE.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+VEHICLE_DESCRIPTION : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.vEHICLE_DESCRIPTION.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+SEATING_CAPACITY : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.sEATING_CAPACITY.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.sTANDING_CAPACITY.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+  RTO : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.rTO.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+  
+
   },
 
 
   Mutation: {
+
+    createRTO: async (parent: any, args: any, context: Context) => {
+      console.log("this is createRTO block");            
+      return await context.prisma.rTO.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+
+    createVehicleClass: async (parent: any, args: any, context: Context) => {
+        console.log("this is createVehicleClass block");            
+        return await context.prisma.vEHICLE_CLASS.create({
+          data: {
+            data_owner_id: args.input.data_owner_id,
+            value: args.input.value
+          },
+        })
+      },
+    createCustomerType: async (parent: any, args: any, context: Context) => {
+          console.log("this is createCustomerType block");            
+          return await context.prisma.cUSTOMER_TYPE.create({
+            data: {
+              data_owner_id: args.input.data_owner_id,
+              value: args.input.value
+            },
+          })
+        },
+    createVehicleDescription: async (parent: any, args: any, context: Context) => {
+          console.log("this is createVehicleDescription block");            
+          return await context.prisma.vEHICLE_DESCRIPTION.create({
+            data: {
+              data_owner_id: args.input.data_owner_id,
+              value: args.input.value
+            },
+          })
+        },
+    createSeatingCapacity: async (parent: any, args: any, context: Context) => {
+          console.log("this is createSeatingCapacity block");            
+          return await context.prisma.sEATING_CAPACITY.create({
+            data: {
+              data_owner_id: args.input.data_owner_id,
+              value: args.input.value
+            },
+          })
+        },
+    createStandingCapacity: async (parent: any, args: any, context: Context) => {
+          console.log("this is createStandingCapacity block");            
+          return await context.prisma.sTANDING_CAPACITY.create({
+            data: {
+              data_owner_id: args.input.data_owner_id,
+              value: args.input.value
+            },
+          })
+        },	
+
 
     createVehicleColor: async (parent: any, args: any, context: Context) => {
       console.log("this is CreateVehicleColor block");            

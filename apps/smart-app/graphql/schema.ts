@@ -212,6 +212,36 @@ type PERMIT_CATEGORY {
   value:                 String!
 }
 
+type VEHICLE_CLASS {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+type CUSTOMER_TYPE {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+type VEHICLE_DESCRIPTION {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+type SEATING_CAPACITY {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+type STANDING_CAPACITY {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+type RTO {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
 
 
 type Query {
@@ -225,6 +255,12 @@ type Query {
     INSURANCE_PROVIDER: [INSURANCE_PROVIDER]
     PERMIT_CATEGORY: [PERMIT_CATEGORY]
     TP_INSURANCE_PROVIDER: [TP_INSURANCE_PROVIDER]
+    VEHICLE_CLASS: [VEHICLE_CLASS]
+    CUSTOMER_TYPE: [CUSTOMER_TYPE]
+    VEHICLE_DESCRIPTION: [VEHICLE_DESCRIPTION]
+    SEATING_CAPACITY: [SEATING_CAPACITY]
+    STANDING_CAPACITY: [STANDING_CAPACITY]
+    RTO: [RTO]
   }
 
 
@@ -440,59 +476,28 @@ input TestaddClientinput {
 }
 
 
-input VehicleColorinput {
+input DDinput {
   data_owner_id:         String!    
   value:                 String!
 }
 
 
-input VehicleNormsinput {
-  data_owner_id:         String!    
-  value:                 String!
-}
-
-input CCinput {
-  data_owner_id:         String!    
-  value:                 String!
-}
-
-
-input Makeinput {
-  data_owner_id:         String!    
-  value:                 String!
-}
-
-input InsuranceProviderinput {
-  data_owner_id:         String!    
-  value:                 String!
-}
-
-
-input PermitCategoryinput {
-  data_owner_id:         String!    
-  value:                 String!
-}
-
-input Modelinput {
-  data_owner_id:         String!    
-  value:                 String!
-}
-
-
-input TpInsuranceProviderinput {
-  data_owner_id:         String!    
-  value:                 String!
-}
 
   type Mutation{
-    createVehicleColor(input: VehicleColorinput!): VEHICLE_COLOR
-    createVehicleNorms(input: VehicleNormsinput!): VEHICE_NORMS
-    createCC(input: CCinput!): CC
-    createMake(input: Makeinput!): MAKE
-    createModel(input: Modelinput!): MODEL
-    createInsuranceProvider(input: InsuranceProviderinput!): INSURANCE_PROVIDER
-    createPermitCategory(input: PermitCategoryinput!): PERMIT_CATEGORY
-    createTpInsuranceProvider(input: TpInsuranceProviderinput!): TP_INSURANCE_PROVIDER
+    createVehicleClass(input: DDinput!): VEHICLE_CLASS
+    createCustomerType(input: DDinput!): CUSTOMER_TYPE
+    createVehicleDescription(input: DDinput!): VEHICLE_DESCRIPTION
+    createSeatingCapacity(input: DDinput!): SEATING_CAPACITY
+    createStandingCapacity(input: DDinput!): STANDING_CAPACITY
+    createRTO(input: DDinput!): RTO
+    createVehicleColor(input: DDinput!): VEHICLE_COLOR
+    createVehicleNorms(input: DDinput!): VEHICE_NORMS
+    createCC(input: DDinput!): CC
+    createMake(input: DDinput!): MAKE
+    createModel(input: DDinput!): MODEL
+    createInsuranceProvider(input: DDinput!): INSURANCE_PROVIDER
+    createPermitCategory(input: DDinput!): PERMIT_CATEGORY
+    createTpInsuranceProvider(input: DDinput!): TP_INSURANCE_PROVIDER
     createUserData(input: createUserDataInput!): createUserDataOutput
     testaddclient(data_owner_id: String!, Vehicle_No: String!, RC_No: String ): String
     deleteUserData(id: ID!): String

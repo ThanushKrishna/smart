@@ -2,6 +2,62 @@ import { gql } from "@apollo/client";
 
 
 
+export const GET_VEHICLE_CLASS = gql`
+    query vehicle_class{
+              VEHICLE_CLASS {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+export const GET_CUSTOMER_TYPE = gql`
+    query customer_type{
+              CUSTOMER_TYPE {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+export const GET_VEHICLE_DESCRIPTION = gql`
+    query vehicle_description{
+              VEHICLE_DESCRIPTION {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+export const GET_SEATING_CAPACITY = gql`
+    query seating_capacity{
+              SEATING_CAPACITY {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+export const GET_STANDING_CAPACITY = gql`
+    query standing_capacity{
+              STANDING_CAPACITY {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+
+export const GET_RTO = gql`
+    query rto{
+              RTO {
+              id
+              data_owner_id
+              value
+          }
+}
+`;
+
 export const GET_VEHICLE_COLORS = gql`
     query vehicle_color{
               VEHICLE_COLOR {
@@ -173,7 +229,7 @@ export const ADD_CLIENT = gql`
 `;
 
 export const ADD_VEHICLE_COLORS = gql` 
-    mutation CreateVehicleColor($input: VehicleColorinput!) {
+    mutation CreateVehicleColor($input: DDinput!) {
       createVehicleColor(input: $input) {
         id
         data_owner_id
@@ -183,7 +239,7 @@ export const ADD_VEHICLE_COLORS = gql`
 `;
 
 export const ADD_VEHICE_NORMS = gql` 
-    mutation CreateVehicleNorms($input: VehicleNormsinput!) {
+    mutation CreateVehicleNorms($input: DDinput!) {
       createVehicleNorms(input: $input) {
         id
         data_owner_id
@@ -193,7 +249,7 @@ export const ADD_VEHICE_NORMS = gql`
 `;
 
 export const ADD_CC = gql` 
-    mutation CreateCC($input: CCinput!) {
+    mutation CreateCC($input: DDinput!) {
       createCC(input: $input) {
         id
         data_owner_id
@@ -203,7 +259,7 @@ export const ADD_CC = gql`
 `;
 
 export const ADD_MAKE = gql` 
-    mutation CreateMake($input: Makeinput!) {
+    mutation CreateMake($input: DDinput!) {
       createMake(input: $input) {
         id
         data_owner_id
@@ -213,7 +269,7 @@ export const ADD_MAKE = gql`
 `;
 
 export const ADD_MODEL = gql` 
-    mutation CreateModel($input: Modelinput!) {
+    mutation CreateModel($input: DDinput!) {
       createModel(input: $input) {
         id
         data_owner_id
@@ -223,7 +279,7 @@ export const ADD_MODEL = gql`
 `;
 
 export const ADD_INSURANCE_PROVIDER = gql` 
-    mutation CreateInsuranceProvider($input: InsuranceProviderinput!) {
+    mutation CreateInsuranceProvider($input: DDinput!) {
       createInsuranceProvider(input: $input) {
         id
         data_owner_id
@@ -233,7 +289,7 @@ export const ADD_INSURANCE_PROVIDER = gql`
 `;
 
 export const ADD_PERMIT_CATEGORY = gql` 
-    mutation CreatePermitCategory($input: PermitCategoryinput!) {
+    mutation CreatePermitCategory($input: DDinput!) {
       createPermitCategory(input: $input) {
         id
         data_owner_id
@@ -243,8 +299,65 @@ export const ADD_PERMIT_CATEGORY = gql`
 `;
 
 export const ADD_TP_INSURANCE_PROVIDER = gql` 
-    mutation CreateTpInsuranceProvider($input: TpInsuranceProviderinput!) {
+    mutation CreateTpInsuranceProvider($input: DDinput!) {
       createTpInsuranceProvider(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+
+export const ADD_VEHICLE_CLASS = gql` 
+    mutation CreateVehicleClass($input: DDinput!) {
+      createVehicleClass(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+export const ADD_CUSTOMER_TYPE = gql` 
+    mutation CreateCustomerType($input: DDinput!) {
+      createCustomerType(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+export const ADD_VEHICLE_DESCRIPTION = gql` 
+    mutation CreateVehicleDescription($input: DDinput!) {
+      createVehicleDescription(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+export const ADD_SEATING_CAPACITY = gql` 
+    mutation CreateSeatingCapacity($input: DDinput!) {
+      createSeatingCapacity(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+export const ADD_STANDING_CAPACITY = gql` 
+    mutation CreateStandingCapacity($input: DDinput!) {
+      createStandingCapacity(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_RTO = gql` 
+    mutation CreateRTO($input: DDinput!) {
+      createRTO(input: $input) {
         id
         data_owner_id
         value

@@ -61,10 +61,31 @@ export interface AddClientType {
     Martial_status:        String
     TP_Insurance_provider: String
     TP_dueDate:            Date
-    OD_Insurance_provider: String
     OD_dueDate:            Date
     GST_No:                String
-    Insurance_type:        String         
+    Insurance_type:        String
+    Customer_Type:         String
+    Vehicle_Description:   String
+    Seating_Capacity:      String
+    Standing_Capacity:     String   
+    Mobile_No3: 			     String
+    Nominee_Relationship:  String
+    Son_Wife_Daughter_Of:  String
+    Vehicle_Body:          String
+    Wheel_Base:            String
+    No_Of_Cylinder:        String
+    Unladen_Weight:        String
+    Sleeper_Capacity:      String
+    PUCC_Emission_No:      String
+    updated_by:            String
+    TP_Policy_No:          String
+    Permit_No:             String   
+    Insurance_Start:		   Date
+    TP_Insurance_Start:		 Date
+    Vehicle_Reg_Doc:	     String
+    OD_Policy_Doc:         String
+    TP_Policy_Doc:         String
+    GST_Cer_Doc:           String
   }
   
 

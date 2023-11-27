@@ -9,22 +9,22 @@ import {
     ADD_CLIENT, 
     ADD_VEHICLE_COLORS,
     ADD_VEHICE_NORMS,
-    ADD_CC,
-    ADD_MAKE,
-    ADD_MODEL,
-    ADD_INSURANCE_PROVIDER,
-    ADD_PERMIT_CATEGORY,
-    ADD_TP_INSURANCE_PROVIDER
+    ADD_CC, ADD_RTO,
+    ADD_MAKE, ADD_STANDING_CAPACITY,
+    ADD_MODEL, ADD_SEATING_CAPACITY,
+    ADD_INSURANCE_PROVIDER, ADD_VEHICLE_DESCRIPTION,
+    ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE,
+    ADD_TP_INSURANCE_PROVIDER, ADD_VEHICLE_CLASS
     } from '@/graphql/queries'
 import {     
     GET_VEHICLE_COLORS,
     GET_VEHICLE_NORMS,  
-    GET_CC,
-    GET_MAKE,
-    GET_MODEL,
-    GET_INSURANCE_PROVIDER,
-    GET_PERMIT_CATEGORY,
-    GET_TP_INSURANCE_PROVIDER    
+    GET_CC, GET_RTO,
+    GET_MAKE, GET_STANDING_CAPACITY,
+    GET_MODEL, GET_VEHICLE_CLASS,
+    GET_INSURANCE_PROVIDER, GET_CUSTOMER_TYPE,
+    GET_PERMIT_CATEGORY, GET_VEHICLE_DESCRIPTION,
+    GET_TP_INSURANCE_PROVIDER, GET_SEATING_CAPACITY
     } from '@/graphql/queries'
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
@@ -34,7 +34,7 @@ import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import { uploadfile } from '@/app/functions/uploadfile'
 import { InputVariants } from '@/app/components/InputVariants';
-import { VEHICLE_TYPE, OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE } from '@/json/enums'
+import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE } from '@/json/enums'
 
 
 const AddClient:React.FC = () => {
@@ -50,6 +50,12 @@ const[addModel, { data:modeldata} ] = useMutation(ADD_MODEL);
 const[addiProvider, { data:iproviderdata} ] = useMutation(ADD_INSURANCE_PROVIDER);
 const[addPermitCategory, { data:permitdata} ] = useMutation(ADD_PERMIT_CATEGORY);
 const[addTpInsuranceProvider, { data:tpproviderdata} ] = useMutation(ADD_TP_INSURANCE_PROVIDER);
+const[addCusType, { data:custtypedata} ] = useMutation(ADD_CUSTOMER_TYPE);
+const[addVehclass, { data:vehicleclassdata} ] = useMutation(ADD_VEHICLE_CLASS);
+const[addVehDes, { data:vehicledescdata} ] = useMutation(ADD_VEHICLE_DESCRIPTION);
+const[addSeatCap, { data:seatcapdata} ] = useMutation(ADD_SEATING_CAPACITY);
+const[addStanCap, { data:standcapdata} ] = useMutation(ADD_STANDING_CAPACITY);
+const[addrto, { data:rtodata} ] = useMutation(ADD_RTO);
 
 const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLORS, { pollInterval: 1000,}); 
 const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS, { pollInterval: 1000,}); 
@@ -59,6 +65,12 @@ const { data:gmodeldata } = useQuery(GET_MODEL, { pollInterval: 1000,});
 const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
 const { data:gpermitdata } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
 const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});
+const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 	
+const { data:gVehDesdata } = useQuery(GET_VEHICLE_DESCRIPTION, { pollInterval: 1000,}); 	
+const { data:gSeatCapdata } = useQuery(GET_SEATING_CAPACITY, { pollInterval: 1000,}); 	
+const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY, { pollInterval: 1000,}); 	
+const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,}); 	
+const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
 
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
@@ -154,7 +166,6 @@ const onSubmit = async (formValues: AddClientType) => {
             Martial_status: formValues?.Martial_status || undefined,
             TP_Insurance_provider: formValues?.TP_Insurance_provider || undefined,
             TP_dueDate: formValues?.TP_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            OD_Insurance_provider: formValues?.OD_Insurance_provider || undefined,
             OD_dueDate: formValues?.OD_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             GST_No: formValues?.GST_No || undefined,
             Insurance_type: formValues?.Insurance_type || undefined
@@ -183,11 +194,11 @@ const onSubmit = async (formValues: AddClientType) => {
   return (
     
     
-    <form className='max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                    
+    <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                    
             <p>Vehicle Registration Number:</p>
             <TextField.Root>
             <TextField.Input { ...register('Vehicle_No')}/>
-            </TextField.Root>
+            </TextField.Root>            
             <FileUplaod 
                 name="Vehicle_Registration"
                 control={control}     
@@ -195,58 +206,18 @@ const onSubmit = async (formValues: AddClientType) => {
                 isCalled={(e: Boolean) => setVehicleRegisterdocProvided(e)}        
                 placeholder=""                       
             />
+             <p>Owner Name: </p>            
+            <TextField.Root> 
+            <TextField.Input { ...register('Owner')}/>
+            </TextField.Root>
+            <p>Son/Wife/Daughter Of: </p>            
+            <TextField.Root> 
+            <TextField.Input { ...register('Owner')}/>
+            </TextField.Root>
             <p>Owner Serial Number: </p>
             <TextField.Root>
             <TextField.Input { ...register('RC_No')}/>
             </TextField.Root>  
-            <Controller
-                name="Registered_Date"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Registered Date: "
-                />)}
-            />      
-            <p>Owner Name: </p>            
-            <TextField.Root> 
-            <TextField.Input { ...register('Owner')}/>
-            </TextField.Root>
-            <Controller
-                name="Owner_dob"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Owner DOB: "
-                />)}
-            />                
-            <DropDownControl 
-                name="Ownership_type"
-                control={control}
-                placeholder="Owner Type:   "                                      
-                options={OWNER_TYPE}
-            />            
-            <DropDownControlWA 
-                name="Vehicle_type"
-                control={control}
-                placeholder="Vehicle Type:   "           
-                options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
-                onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
-            />
-            <Controller
-                name="Year_of_manufacuring"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Manufacturing Date: "
-                />)}
-            />    
-            <p>GVW: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('GVW')}/>
-            </TextField.Root>
             <p>Chassis Number: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Chasis_No')}/>
@@ -255,45 +226,6 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input  { ...register('Engine_No')}/>
             </TextField.Root>
-            <Controller
-                name="FC_due_Date"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="REG/FC UpTo: "
-                />)}
-            />           
-            <Controller
-                name="tax_due_Date"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Tax UpTo: "
-                />)}
-            /> 
-            <DropDownControlWA 
-                name="Vehicle_color"
-                control={control}
-                placeholder="Vehicle Color:   "           
-                options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
-                onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
-            />
-            <DropDownControlWA 
-                name="Vehice_norms"
-                control={control}
-                placeholder="Emission Norms:   "           
-                options={gnormsdata && gnormsdata.VEHICE_NORMS.map((data:any) => (data.value)) }
-                onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-            />            
-            <DropDownControlWA 
-                name="CC"
-                control={control}            
-                placeholder="CC:   "           
-                options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
-                onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-            />
             <DropDownControlWA
                 name="Make"
                 control={control}
@@ -308,23 +240,87 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
-            <DropDownControlWA 
-                name="Insurance_provider"
-                control={control}
-                placeholder="Insurance Provider:   "           
-                options={giproviderdata && giproviderdata.INSURANCE_PROVIDER.map((data:any) => (data.value)) }
-                onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
-            />
             <Controller
-                name="Insurance_dueDate"
+                name="Registered_Date"
                 control={control}             
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
-                placeholder="Insurance Due Date: "
+                placeholder="Registration Date: "
                 />)}
-            /> 
-            <p>Policy No: </p>
+            />        
+             <Controller
+                name="tax_due_Date"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Tax Valid UpTo: "
+                />)}
+            />          
+            <DropDownControlWA 
+                name="Vehicle_type"
+                control={control}
+                placeholder="Vehicle Class:   "           
+                options={gCusTypedata && gCusTypedata.VEHICLE_CLASS.map((data:any) => (data.value)) }  
+                onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+            />
+            <DropDownControlWA 
+                name="Vehicle_Description"
+                control={control}
+                placeholder="Vehicle Description:   "           
+                options={gVehDesdata && gVehDesdata.VEHICLE_DESCRIPTION.map((data:any) => (data.value)) }  
+                onOptionAdd= {async (e: String) => await (addVehDes( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+            />
+            <DropDownControl 
+                name="Fuel_type"
+                control={control}        
+                placeholder="Fuel Type:   "           
+                options={FUEL_TYPE}              
+            />
+            <DropDownControlWA 
+                name="Vehice_norms"
+                control={control}
+                placeholder="Emission Norms:   "           
+                options={gnormsdata && gnormsdata.VEHICE_NORMS.map((data:any) => (data.value)) }
+                onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+            />   
+            <DropDownControlWA 
+                name="Vehicle_color"
+                control={control}
+                placeholder="Vehicle Color:   "           
+                options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
+                onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+            />      
+            <DropDownControlWA 
+                name="Seating_Capacity"
+                control={control}
+                placeholder="Seating Capacity:   "           
+                options={gSeatCapdata && gSeatCapdata.SEATING_CAPACITY.map((data:any) => (data.value)) }  
+                onOptionAdd= {async (e: String) => await (addSeatCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+            />      
+            <DropDownControlWA 
+                name="Standing_Capacity"
+                control={control}
+                placeholder="Standing Capacity:   "           
+                options={gStanCapdata && gStanCapdata.STANDING_CAPACITY.map((data:any) => (data.value)) }  
+                onOptionAdd= {async (e: String) => await (addStanCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+            />      
+            <p>Hypothecation Bank: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Hypothecation_bank')}/>
+            </TextField.Root>
+            <p>Hypothecation City: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Hypothecation_city')}/>
+            </TextField.Root>
+            <DropDownControl 
+                name="Insurance_type"
+                control={control}
+                placeholder="Insurance Type:   "           
+                options={INSURANCE_TYPE}              
+            />      
+            <p>OD Policy No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Policy_No')}/>
             </TextField.Root>
@@ -334,7 +330,138 @@ const onSubmit = async (formValues: AddClientType) => {
                 onSelectFile={(e:File) => setPolicyfile(e)}   
                 isCalled={(e: Boolean) => setPolicydocProvided(e)}        
                 placeholder=""                       
-            />	
+            />	   
+            <DropDownControlWA 
+                name="Insurance_provider"
+                control={control}
+                placeholder=" Own Damage Insurance Provider:   "           
+                options={giproviderdata && giproviderdata.INSURANCE_PROVIDER.map((data:any) => (data.value)) }
+                onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
+            />
+             <Controller
+                name="OD_dueDate"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Own Damage Insurance Starts From: "
+                />)}
+            />
+             <Controller
+                name="OD_dueDate"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Own Damage Insurance UpTo: "
+                />)}
+            />         
+            <p>TP Policy No: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('TP_Policy_No')}/>
+            </TextField.Root>
+            <FileUplaod 
+                name="TP_Policy_Document"
+                control={control}     
+                onSelectFile={(e:File) => setPolicyfile(e)}   
+                isCalled={(e: Boolean) => setPolicydocProvided(e)}        
+                placeholder=""                       
+            />	              
+            <DropDownControlWA 
+                name="TP_Insurance_provider"
+                control={control}
+                placeholder="Third Party Insurance Provider:   "           
+                options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
+                onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+            />
+            <Controller
+                name="TP_dueDate"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Thrid Party Insurance Starts From: "
+                />)}
+            />              
+            <Controller
+                name="TP_dueDate"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Thrid Party Insurance UpTo: "
+                />)}
+            />        
+            <DropDownControlWA 
+                name="RTO"
+                control={control}            
+                placeholder="Registering Authority:   "           
+                options={grtodata && grtodata.RTO.map((data:any) => (data.value)) }           
+                onOptionAdd= {async (e: String) => await (addrto( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+            />        
+            <p>Unladen Weight: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('GVW')}/>
+            </TextField.Root> 
+            <p>Laden Weight (GVW): </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('GVW')}/>
+            </TextField.Root>                       
+            <Controller
+                name="Owner_dob"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Owner DOB: "
+                />)}
+            />   
+            <DropDownControl 
+                name="Martial_status"
+                control={control}
+                placeholder="Marital Staus:   "           
+                options={MARITAL_STATUS}              
+            />                 
+            <DropDownControl 
+                name="Ownership_type"
+                control={control}
+                placeholder="Owner Type:   "                                      
+                options={OWNER_TYPE}
+            />                        
+            <Controller
+                name="Year_of_manufacuring"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Manufacturing Date: "
+                />)}
+            />                 
+            <Controller
+                name="FC_due_Date"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="REG/FC UpTo: "
+                />)}
+            />                                                 
+            <DropDownControlWA 
+                name="CC"
+                control={control}            
+                placeholder="CC:   "           
+                options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
+                onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+            />                       
+            {/* <Controller
+                name="Insurance_dueDate"
+                control={control}             
+                render={({ field }) => (
+                <DatePickerComponent 
+                {...field} 
+                placeholder="Insurance Due Date: "
+                />)}
+            />                                 */}
             <p>Permit No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Permit_No')}/>
@@ -362,7 +489,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input  { ...register('Email_id')}/>
             </TextField.Root>
-            <p>Adhar Number: </p>
+            <p>Aadhar Number: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Adhar_No')}/>
             </TextField.Root>                     
@@ -388,7 +515,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input  { ...register('Nominee')}/>
             </TextField.Root>
-            <p>Nominee RelationShip: </p>
+            <p>Nominee Relationship: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Nominee_relationship')}/>
             </TextField.Root>
@@ -401,6 +528,10 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="Nominee DOB: "
                 />)}
             /> 
+            <p>PUC/Emission Number: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Nominee_relationship')}/>
+            </TextField.Root>
             <Controller
                 name="Emission_dueDate"
                 control={control}             
@@ -409,84 +540,18 @@ const onSubmit = async (formValues: AddClientType) => {
                 {...field} 
                 placeholder="PUC/Emission UpTo: "
                 />)}
-            />
-            <DropDownControl 
-                name="Fuel_type"
-                control={control}        
-                placeholder="Fuel Type:   "           
-                options={FUEL_TYPE}              
-            />
-            <p>Hypothecation Bank: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Hypothecation_bank')}/>
-            </TextField.Root>
-            <p>Hypothecation City: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Hypothecation_city')}/>
-            </TextField.Root>
-            <p>RTO: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('RTO')}/>
-            </TextField.Root>
-            <p>Referred by: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Referred_by')}/>
-            </TextField.Root>
-            <DropDownControlWA 
-                name="Customer_type"
-                control={control}
-                placeholder="Policy Issued Through:  "           
-                options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
-                onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-            />
-            <DropDownControl 
-                name="Martial_status"
-                control={control}
-                placeholder="Marital Staus:   "           
-                options={MARITAL_STATUS}              
-            />
-            <DropDownControl 
-                name="Insurance_type"
-                control={control}
-                placeholder="Insurance Type:   "           
-                options={INSURANCE_TYPE}              
-            />            
-            <DropDownControlWA 
-                name="TP_Insurance_provider"
-                control={control}
-                placeholder="Third Party Insurance Provider:   "           
-                options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
-                onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-            />
-            <Controller
-                name="TP_dueDate"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Thrid Party Insurance UpTo: "
-                />)}
-            />
-            <DropDownControlWA 
-                name="OD_Insurance_provider"
-                control={control}
-                placeholder="Own Damage Insurance Provider:   "           
-                options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
-                onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-            />
-            <Controller
-                name="OD_dueDate"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Own Damage Insurance UpTo: "
-                />)}
-            />
+            />      
             <p className='mt-3'>GST No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('GST_No')}/>        
-            </TextField.Root>          
+            </TextField.Root>  
+            <FileUplaod 
+                name="Pan_doc"
+                control={control}
+                onSelectFile={(e:File) => setpanfile(e)}
+                isCalled={(e:Boolean) => setpandocProvided(e)}
+                placeholder=""                       
+            />                                                                                                 
             <p className='mb-0'>Address: </p>
             <div className='no-style'>            
             <InputVariants
@@ -510,6 +575,21 @@ const onSubmit = async (formValues: AddClientType) => {
               placeholder="zip"              
             />
             </div>            
+            <p>Referred by: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Referred_by')}/>
+            </TextField.Root>
+            <p>Updated by: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('RTO')}/>
+            </TextField.Root>
+            <DropDownControlWA 
+                name="Customer_type"
+                control={control}
+                placeholder="Policy Issued Through:  "           
+                options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE.map((data:any) => (data.value)) }    
+                onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+            />                        
             <p className='mt-3'>Comments: </p>
             <TextArea  { ...register('Comments')}/>
             <br/>

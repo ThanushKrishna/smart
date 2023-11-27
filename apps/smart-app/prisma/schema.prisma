@@ -142,3 +142,39 @@ model TP_INSURANCE_PROVIDER {
   data_owner_id String @db.ObjectId
   value         String @unique
 }
+
+model VEHICLE_CLASS {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model CUSTOMER_TYPE {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model VEHICLE_DESCRIPTION {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model SEATING_CAPACITY {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model STANDING_CAPACITY {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model RTO {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
