@@ -2,12 +2,13 @@
 import React from 'react'
 import { Control, Controller } from 'react-hook-form';
 import { useRef } from 'react';
+import { isTemplateExpression } from 'typescript';
 
 interface iFileUplaod<T> {
     name: string;
     control: Control<any>;    
     placeholder: String;
-    onSelectFile: (file:any) => void;
+    onSelectFile: (file:FileList | null) => void;
     isCalled: (item: Boolean) => void;
 }
 
@@ -26,12 +27,12 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 throw new Error('No file selected');
               }
                                    
-             const file = {...inputFileRef.current.files};
-             onSelectFile(file);
+             const file = inputFileRef.current.files;
+             onSelectFile(file)
              isCalled(true);
-             console.log(file);          
-			 console.log("file upload block");                        
-        }
+             console.log(file)
+            }
+
         return (  
         <div>
             {placeholder}    
@@ -57,4 +58,3 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
       )
 }
 
-			

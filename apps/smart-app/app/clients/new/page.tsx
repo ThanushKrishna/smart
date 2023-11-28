@@ -76,13 +76,13 @@ const { register, handleSubmit, control, formState:{errors} } = useForm<AddClien
 
 const [isSubmitted, setisSubmitted] = useState(false);
 const [ispandocProvided, setpandocProvided] = useState<Boolean>(false);
-const [panfile, setpanfile] = useState<File[]>();
+const [panfile, setpanfile] = useState<FileList | null>(null);
 const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
-const [adharfile, setadharfile] = useState<File[]>();
+const [adharfile, setadharfile] = useState<FileList | null>(null);
 const [isVehicleRegisterdocProvided, setVehicleRegisterdocProvided] = useState<Boolean>(false);
-const [VehicleRegisterfile, setVehicleRegisterfile] = useState<File[]>();
+const [VehicleRegisterfile, setVehicleRegisterfile] = useState<FileList | null>(null);
 const [isPolicydocProvided, setPolicydocProvided] = useState<Boolean>(false);
-const [Policyfile, setPolicyfile] = useState<File[]>();
+const [Policyfile, setPolicyfile] = useState<FileList | null>(null);
 
 
 
@@ -202,7 +202,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Vehicle_Registration"
                 control={control}     
-                onSelectFile={(e:File[]) => setVehicleRegisterfile(e)}   
+                onSelectFile={(e:FileList | null) => setVehicleRegisterfile(e)}   
                 isCalled={(e: Boolean) => setVehicleRegisterdocProvided(e)}        
                 placeholder=""                       
             />
@@ -327,7 +327,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Policy_Document"
                 control={control}     
-                onSelectFile={(e:File[]) => setPolicyfile(e)}   
+                onSelectFile={(e:FileList | null) => setPolicyfile(e)}   
                 isCalled={(e: Boolean) => setPolicydocProvided(e)}        
                 placeholder=""                       
             />	   
@@ -363,7 +363,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="TP_Policy_Document"
                 control={control}     
-                onSelectFile={(e:File[]) => setPolicyfile(e)}   
+                onSelectFile={(e:FileList | null) => setPolicyfile(e)}   
                 isCalled={(e: Boolean) => setPolicydocProvided(e)}        
                 placeholder=""                       
             />	              
@@ -496,7 +496,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}     
-                onSelectFile={(e:File[]) => setadharfile(e)}   
+                onSelectFile={(e:FileList | null) => setadharfile(e)}   
                 isCalled={(e: Boolean) => setadhardocProvided(e)}        
                 placeholder=""                       
             />
@@ -507,7 +507,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
-                onSelectFile={(e:File[]) => setpanfile(e)}
+                onSelectFile={(e:FileList | null) => setpanfile(e)}
                 isCalled={(e:Boolean) => setpandocProvided(e)}
                 placeholder=""                       
             />
@@ -548,7 +548,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
-                onSelectFile={(e:File[]) => setpanfile(e)}
+                onSelectFile={(e:FileList | null) => setpanfile(e)}
                 isCalled={(e:Boolean) => setpandocProvided(e)}
                 placeholder=""                       
             />                                                                                                 
