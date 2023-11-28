@@ -59,7 +59,7 @@ const AutomobilePage = () => {
                 <Table.ColumnHeaderCell>TP Insurance End</Table.ColumnHeaderCell>		               
 				<Table.ColumnHeaderCell>RTO</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Unladen Weight</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>"Laden Weight (GVW)"</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Laden Weight GVW</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Vehicle Body</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Wheel Base</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>No Of Cylinder</Table.ColumnHeaderCell>
