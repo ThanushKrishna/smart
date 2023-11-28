@@ -37,7 +37,7 @@ const AutomobilePage = () => {
                 <Table.ColumnHeaderCell>Model</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Registration Date</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Tax Valid UpTo</Table.ColumnHeaderCell>
-				<Table.ColumnHeaderCell>Vehicle Class:</Table.ColumnHeaderCell>  
+				        <Table.ColumnHeaderCell>Vehicle Class:</Table.ColumnHeaderCell>  
                 <Table.ColumnHeaderCell>Vehicle Description:</Table.ColumnHeaderCell>                
                 <Table.ColumnHeaderCell>Fuel Type</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Emission Norms</Table.ColumnHeaderCell>
@@ -54,10 +54,10 @@ const AutomobilePage = () => {
                 <Table.ColumnHeaderCell>OD Insurance End</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>TP Policy No</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>TP Policy Doc</Table.ColumnHeaderCell>
-				<Table.ColumnHeaderCell>TP Insurance Provider</Table.ColumnHeaderCell>
+				        <Table.ColumnHeaderCell>TP Insurance Provider</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>TP Insurance Start</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>TP Insurance End</Table.ColumnHeaderCell>		               
-				<Table.ColumnHeaderCell>RTO</Table.ColumnHeaderCell>
+				        <Table.ColumnHeaderCell>RTO</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Unladen Weight</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Laden Weight GVW</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell>Vehicle Body</Table.ColumnHeaderCell>
@@ -98,7 +98,7 @@ const AutomobilePage = () => {
               {data.user_data.map((data:any) => (
                 <Table.Row key={data.id}>
                   <Table.Cell>{data.Vehicle_No}</Table.Cell>
-                  <Table.Cell>{data.Vehicle_Reg_url && data.Vehicle_Reg_url.toString()}</Table.Cell>
+                  <Table.Cell>{data.Vehicle_Reg_Doc && data.Vehicle_Reg_Doc.toString()}</Table.Cell>
                   <Table.Cell>{data.Owner}</Table.Cell>
                   <Table.Cell>{data.Son_Wife_Daughter_Of}</Table.Cell>                  
                   <Table.Cell>{data.RC_No}</Table.Cell>               
