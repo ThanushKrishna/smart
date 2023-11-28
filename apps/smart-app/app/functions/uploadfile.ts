@@ -21,6 +21,7 @@ export const uploadfile = async (files?:FileList | null) => {
           const newBlob = (await response.json()) as PutBlobResult;     
           console.log(newBlob.url.toString())  
           urls+=newBlob.url + " "
+          console.log(urls);
            
       }
     
