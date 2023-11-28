@@ -1,5 +1,5 @@
 // This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// learn more about it in the docs https//pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -91,6 +91,26 @@ model user_data {
   TP_dueDate            DateTime?
   GST_No                String?
   Insurance_type        String?
+  Mobile_No3            String?
+  Nominee_Relationship  String?
+  Son_Wife_Daughter_Of  String?
+  Vehicle_Body          String?
+  Wheel_Base            String?
+  No_Of_Cylinder        String?
+  Unladen_Weight        String?
+  Sleeper_Capacity      String?
+  PUCC_Emission_No      String?
+  updated_by            String?
+  TP_Policy_No          String?
+  Insurance_Start       DateTime?
+  TP_Insurance_Start    DateTime?
+  Vehicle_Reg_Doc       String?
+  OD_Policy_Doc         String?
+  TP_Policy_Doc         String?
+  GST_Cer_Doc           String?  
+  Vehicle_Description   String?
+  Seating_Capacity      String?
+  Standing_Capacity     String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 }

@@ -102,7 +102,7 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.Mobile_No2}</Table.Cell>
                   <Table.Cell>{data.Email_id}</Table.Cell>
                   <Table.Cell>{data.Adhar_No}</Table.Cell>
-                  <Table.Cell>{data.Adhar_doc}</Table.Cell>
+                  <Table.Cell>{data.Adhar_doc && data.Adhar_doc.toString()}</Table.Cell>
                   <Table.Cell>{data.PanCard_No}</Table.Cell>
                   <Table.Cell>{data.Pan_doc}</Table.Cell>
                   <Table.Cell>{data.Nominee}</Table.Cell>
@@ -119,7 +119,7 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.TP_dueDate && new Date(data?.TP_dueDate)?.toDateString().slice(4)}</Table.Cell>
                   <Table.Cell>{data.GST_No}</Table.Cell>
                   <Table.Cell>{data.Insurance_type}</Table.Cell>                  
-                  <Table.Cell className='w-30'>{data.Address && "Street: " + data.Address.street + "\n" + "City: " +  data.Address.city + "\n" + "State: " + data.Address.state + "\n" + "Zip: " + data.Address.zip }</Table.Cell>
+                  <Table.Cell className='w-30'>{data.Address.state && "Street: " + data.Address.street + "\n" + "City: " +  data.Address.city + "\n" + "State: " + data.Address.state + "\n" + "Zip: " + data.Address.zip }</Table.Cell>
                   <Table.Cell>{data.Comments}</Table.Cell>                                    
                 </Table.Row>
               ))}

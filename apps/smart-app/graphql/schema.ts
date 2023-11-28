@@ -159,6 +159,26 @@ type user_data {
   TP_dueDate:            Date
   GST_No:                String
   Insurance_type:        String
+  Mobile_No3:            String
+  Nominee_Relationship:  String
+  Son_Wife_Daughter_Of:  String
+  Vehicle_Body:          String
+  Wheel_Base:            String
+  No_Of_Cylinder:        String
+  Unladen_Weight:        String
+  Sleeper_Capacity:      String
+  PUCC_Emission_No:      String
+  updated_by:            String
+  TP_Policy_No:          String
+  Insurance_Start:       Date
+  TP_Insurance_Start:    Date
+  Vehicle_Reg_Doc:       String
+  OD_Policy_Doc:         String
+  TP_Policy_Doc:         String
+  GST_Cer_Doc:           String
+  Vehicle_Description:   String
+  Seating_Capacity:      String
+  Standing_Capacity:     String   
   createdAt:             Date               
   updatedAt:             Date               
 }
@@ -318,6 +338,26 @@ input createUserDataInput {
   TP_dueDate:            Date
   GST_No:                String
   Insurance_type:        String
+  Mobile_No3:            String
+  Nominee_Relationship:  String
+  Son_Wife_Daughter_Of:  String
+  Vehicle_Body:          String
+  Wheel_Base:            String
+  No_Of_Cylinder:        String
+  Unladen_Weight:        String
+  Sleeper_Capacity:      String
+  PUCC_Emission_No:      String
+  updated_by:            String
+  TP_Policy_No:          String
+  Insurance_Start:       Date
+  TP_Insurance_Start:    Date
+  Vehicle_Reg_Doc:       String
+  OD_Policy_Doc:         String
+  TP_Policy_Doc:         String
+  GST_Cer_Doc:           String
+  Vehicle_Description:   String
+  Seating_Capacity:      String
+  Standing_Capacity:     String   
 }
 
 input updateUserDataInput { 
@@ -368,7 +408,28 @@ input updateUserDataInput {
   TP_dueDate:            Date
   GST_No:                String
   Insurance_type:        String
+  Mobile_No3:            String
+  Nominee_Relationship:  String
+  Son_Wife_Daughter_Of:  String
+  Vehicle_Body:          String
+  Wheel_Base:            String
+  No_Of_Cylinder:        String
+  Unladen_Weight:        String
+  Sleeper_Capacity:      String
+  PUCC_Emission_No:      String
+  updated_by:            String
+  TP_Policy_No:          String
+  Insurance_Start:       Date
+  TP_Insurance_Start:    Date
+  Vehicle_Reg_Doc:       String
+  OD_Policy_Doc:         String
+  TP_Policy_Doc:         String
+  GST_Cer_Doc:           String
+  Vehicle_Description:   String
+  Seating_Capacity:      String
+  Standing_Capacity:     String   
 }
+
 
 
 type createUserDataOutput {  
@@ -388,6 +449,7 @@ type createUserDataOutput {
   tax_due_Date:       	 Date
   Vehicle_color:         String
   Vehice_norms:          String
+  Address:               Address
   CC:                    String
   Make:                  String
   Model:                 String
@@ -417,7 +479,27 @@ type createUserDataOutput {
   TP_Insurance_provider: String
   TP_dueDate:            Date
   GST_No:                String
-  Insurance_type:        String          
+  Insurance_type:        String 
+  Mobile_No3:            String
+  Nominee_Relationship:  String
+  Son_Wife_Daughter_Of:  String
+  Vehicle_Body:          String
+  Wheel_Base:            String
+  No_Of_Cylinder:        String
+  Unladen_Weight:        String
+  Sleeper_Capacity:      String
+  PUCC_Emission_No:      String
+  updated_by:            String
+  TP_Policy_No:          String
+  Insurance_Start:       Date
+  TP_Insurance_Start:    Date
+  Vehicle_Reg_Doc:       String
+  OD_Policy_Doc:         String
+  TP_Policy_Doc:         String
+  GST_Cer_Doc:           String  
+  Vehicle_Description:   String
+  Seating_Capacity:      String
+  Standing_Capacity:     String          
 }
 
 type updateUserDataOutput {  
@@ -466,7 +548,27 @@ type updateUserDataOutput {
   TP_Insurance_provider: String
   TP_dueDate:            Date
   GST_No:                String
-  Insurance_type:        String          
+  Insurance_type:        String 
+  Mobile_No3:            String
+  Nominee_Relationship:  String
+  Son_Wife_Daughter_Of:  String
+  Vehicle_Body:          String
+  Wheel_Base:            String
+  No_Of_Cylinder:        String
+  Unladen_Weight:        String
+  Sleeper_Capacity:      String
+  PUCC_Emission_No:      String
+  updated_by:            String
+  TP_Policy_No:          String
+  Insurance_Start:       Date
+  TP_Insurance_Start:    Date
+  Vehicle_Reg_Doc:       String
+  OD_Policy_Doc:         String
+  TP_Policy_Doc:         String
+  GST_Cer_Doc:           String  
+  Vehicle_Description:   String
+  Seating_Capacity:      String
+  Standing_Capacity:     String          
 }
 
 input TestaddClientinput {

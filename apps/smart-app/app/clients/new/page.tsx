@@ -41,7 +41,7 @@ const AddClient:React.FC = () => {
 
 const router = useRouter();
 
-const[addclient, { data:clientdata} ] = useMutation(ADD_CLIENT);
+const[addclient, { data:clientdata, error:addclienterror } ] = useMutation(ADD_CLIENT);
 const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
 const[addVehicleNorms, { data:normsdata} ] = useMutation(ADD_VEHICE_NORMS);
 const[addcc, { data:ccdata} ] = useMutation(ADD_CC);
@@ -79,11 +79,14 @@ const [ispandocProvided, setpandocProvided] = useState<Boolean>(false);
 const [panfile, setpanfile] = useState<FileList | null>(null);
 const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
 const [adharfile, setadharfile] = useState<FileList | null>(null);
-const [isVehicleRegisterdocProvided, setVehicleRegisterdocProvided] = useState<Boolean>(false);
-const [VehicleRegisterfile, setVehicleRegisterfile] = useState<FileList | null>(null);
-const [isPolicydocProvided, setPolicydocProvided] = useState<Boolean>(false);
-const [Policyfile, setPolicyfile] = useState<FileList | null>(null);
-
+const [isVehRegDocProvided, setVehRegDocProvided] = useState<Boolean>(false);
+const [VehRegDocfile, setVehRegDocfile] = useState<FileList | null>(null);
+const [isOdPolicydocProvided, setOdPolicydocProvided] = useState<Boolean>(false);
+const [OdPolicydocfile, setOdPolicydocfile] = useState<FileList | null>(null);
+const [isTpPolicyDocProvided, setTpPolicyDocProvided] = useState<Boolean>(false);
+const [TpPolicyDocfile, setTpPolicyDocfile] = useState<FileList | null>(null);
+const [isGstCerdocProvided, setGstCerdocProvided] = useState<Boolean>(false);
+const [GstCerfile, setGstCerfile] = useState<FileList | null>(null);
 
 
 const onSubmit = async (formValues: AddClientType) => {     
@@ -92,34 +95,40 @@ const onSubmit = async (formValues: AddClientType) => {
         if(isadhardocProvided && adharfile)
           return  await uploadfile(adharfile); 
         return;
-      }
-      
-
+      }      
     const panuploadlink = async () => {
         if(ispandocProvided && panfile)
           return  await uploadfile(panfile); 
         return;
       }        
     const VehicleRegistrationuploadlink = async () => {
-        if(isVehicleRegisterdocProvided && VehicleRegisterfile )
-          return  await uploadfile(VehicleRegisterfile); 
+        if(isVehRegDocProvided && VehRegDocfile )
+          return  await uploadfile(VehRegDocfile); 
         return;
       }
       
-
-	const Policyuploadlink = async () => {
-        if(isPolicydocProvided && Policyfile)
-          return  await uploadfile(Policyfile); 
-        return;
-      } 
+    const OdPolicyyuploadlink = async () => {
+            if(isOdPolicydocProvided && OdPolicydocfile)
+            return  await uploadfile(OdPolicydocfile); 
+            return;
+        } 
+    const TpPolicyuploadlink = async () => {
+            if(isTpPolicyDocProvided && TpPolicyDocfile)
+            return  await uploadfile(TpPolicyDocfile); 
+            return;
+        } 
+    const GstCeruploadlink = async () => {
+            if(isGstCerdocProvided && GstCerfile)
+            return  await uploadfile(GstCerfile); 
+            return;
+        } 	
     
     try{
         setisSubmitted(true)                     
 
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
-            Vehicle_No: formValues?.Vehicle_No || undefined,
-            Vehicle_Registration: await VehicleRegistrationuploadlink() || undefined,
+            Vehicle_No: formValues?.Vehicle_No || undefined,            
             RC_No: formValues?.RC_No || undefined,
             Registered_Date: formValues?.Registered_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                       
             Owner: formValues?.Owner || undefined,
@@ -141,7 +150,6 @@ const onSubmit = async (formValues: AddClientType) => {
             Insurance_provider: formValues?.Insurance_provider || undefined,
             Insurance_dueDate: formValues?.Insurance_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Policy_No: formValues?.Policy_No || undefined,
-            Policy_Document: await Policyuploadlink() || undefined,
             Permit_No: formValues?.Permit_No || undefined,
             Permit_category: formValues?.Permit_category || undefined,
             Mobile_No1: formValues?.Mobile_No1 || undefined,
@@ -153,7 +161,7 @@ const onSubmit = async (formValues: AddClientType) => {
             PanCard_No: formValues?.PanCard_No || undefined,
             Pan_doc: await panuploadlink() || undefined,
             Nominee: formValues?.Nominee || undefined,
-            Nominee_relationship: formValues?.Nominee_relationship || undefined,
+            Nominee_Relationship: formValues?.Nominee_Relationship || undefined,
             Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Emission_dueDate: formValues?.Emission_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Fuel_type: formValues?.Fuel_type || undefined,
@@ -165,20 +173,42 @@ const onSubmit = async (formValues: AddClientType) => {
             Customer_type: formValues?.Customer_type || undefined,
             Martial_status: formValues?.Martial_status || undefined,
             TP_Insurance_provider: formValues?.TP_Insurance_provider || undefined,
-            TP_dueDate: formValues?.TP_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            OD_dueDate: formValues?.OD_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            TP_dueDate: formValues?.TP_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,            
             GST_No: formValues?.GST_No || undefined,
-            Insurance_type: formValues?.Insurance_type || undefined
+            Insurance_type: formValues?.Insurance_type || undefined,
+            Son_Wife_Daughter_Of: formValues?.Son_Wife_Daughter_Of || undefined, 
+            Vehicle_Body: formValues?.Vehicle_Body || undefined,
+            Wheel_Base: formValues?.Wheel_Base || undefined,
+            No_Of_Cylinder: formValues?.No_Of_Cylinder || undefined,
+            Unladen_Weight: formValues?.Unladen_Weight || undefined, 
+            Sleeper_Capacity: formValues?.Sleeper_Capacity || undefined,
+            PUCC_Emission_No: formValues?.PUCC_Emission_No || undefined,
+            updated_by: formValues?.updated_by || undefined,
+            TP_Policy_No: formValues?.TP_Policy_No || undefined, 
+            Insurance_Start: formValues?.Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            TP_Insurance_Start: formValues?.TP_Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Vehicle_Reg_Doc: await VehicleRegistrationuploadlink() || undefined,
+            OD_Policy_Doc: await OdPolicyyuploadlink() || undefined,
+            TP_Policy_Doc: await TpPolicyuploadlink() || undefined,
+            GST_Cer_Doc: await GstCeruploadlink() || undefined,
+            Vehicle_Description: formValues?.Vehicle_Description || undefined,
+            Seating_Capacity: formValues?.Seating_Capacity || undefined,
+            Standing_Capacity: formValues?.Standing_Capacity || undefined,
         }
-        addclient( { variables: { input: result}})
-        .then(()=> {
+        
         console.log( result );
+        addclient( { variables: { input: result}})
+        .then(()=> {        
         router.push('/clients')
         })
         .catch((err) => {
-          console.log(err);
+          console.log(JSON.stringify(err, null, 2));        
           setisSubmitted(false);          
-        })        
+        })
+
+        if(addclienterror) {            
+            console.log(JSON.stringify(addclienterror, null, 2));
+        }
         
     }   
     catch(e: any){        
@@ -200,10 +230,10 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Input { ...register('Vehicle_No')}/>
             </TextField.Root>            
             <FileUplaod 
-                name="Vehicle_Registration"
+                name="Vehicle_Reg_Doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setVehicleRegisterfile(e)}   
-                isCalled={(e: Boolean) => setVehicleRegisterdocProvided(e)}        
+                onSelectFile={(e:FileList | null) => setVehRegDocfile(e)}   
+                isCalled={(e: Boolean) => setVehRegDocProvided(e)}        
                 placeholder=""                       
             />
              <p>Owner Name: </p>            
@@ -212,7 +242,7 @@ const onSubmit = async (formValues: AddClientType) => {
             </TextField.Root>
             <p>Son/Wife/Daughter Of: </p>            
             <TextField.Root> 
-            <TextField.Input { ...register('Owner')}/>
+            <TextField.Input { ...register('Son_Wife_Daughter_Of')}/>
             </TextField.Root>
             <p>Owner Serial Number: </p>
             <TextField.Root>
@@ -263,7 +293,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}
                 placeholder="Vehicle Class:   "           
                 options={gVehclassdata && gVehclassdata.VEHICLE_CLASS.map((data:any) => (data.value)) }  
-                onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                onOptionAdd= {async (e: String) => await (addVehclass( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
             />
             <DropDownControlWA 
                 name="Vehicle_Description"
@@ -325,10 +355,10 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Input  { ...register('Policy_No')}/>
             </TextField.Root>
             <FileUplaod 
-                name="Policy_Document"
+                name="OD_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setPolicyfile(e)}   
-                isCalled={(e: Boolean) => setPolicydocProvided(e)}        
+                onSelectFile={(e:FileList | null) => setOdPolicydocfile(e)}   
+                isCalled={(e: Boolean) => setOdPolicydocProvided(e)}        
                 placeholder=""                       
             />	   
             <DropDownControlWA 
@@ -339,7 +369,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
             />
              <Controller
-                name="OD_dueDate"
+                name="Insurance_Start"
                 control={control}             
                 render={({ field }) => (
                 <DatePickerComponent 
@@ -348,7 +378,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 />)}
             />
              <Controller
-                name="OD_dueDate"
+                name="Insurance_dueDate"
                 control={control}             
                 render={({ field }) => (
                 <DatePickerComponent 
@@ -361,10 +391,10 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Input  { ...register('TP_Policy_No')}/>
             </TextField.Root>
             <FileUplaod 
-                name="TP_Policy_Document"
+                name="TP_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setPolicyfile(e)}   
-                isCalled={(e: Boolean) => setPolicydocProvided(e)}        
+                onSelectFile={(e:FileList | null) => setTpPolicyDocfile(e)}   
+                isCalled={(e: Boolean) => setTpPolicyDocProvided(e)}        
                 placeholder=""                       
             />	              
             <DropDownControlWA 
@@ -375,7 +405,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
             <Controller
-                name="TP_dueDate"
+                name="TP_Insurance_Start"
                 control={control}             
                 render={({ field }) => (
                 <DatePickerComponent 
@@ -401,12 +431,29 @@ const onSubmit = async (formValues: AddClientType) => {
             />        
             <p>Unladen Weight: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('GVW')}/>
+            <TextField.Input  { ...register('Unladen_Weight')}/>
             </TextField.Root> 
             <p>Laden Weight (GVW): </p>
             <TextField.Root>
             <TextField.Input  { ...register('GVW')}/>
-            </TextField.Root>                       
+            </TextField.Root>      
+            <p>Vehicle Body: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Vehicle_Body')}/>
+            </TextField.Root> 
+            <p>Wheel Base: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Wheel_Base')}/>
+            </TextField.Root> 
+            <p>No Of Cylinder: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('No_Of_Cylinder')}/>
+            </TextField.Root> 
+            <p>Sleeper Capacity: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Sleeper_Capacity')}/>
+            </TextField.Root> 
+
             <Controller
                 name="Owner_dob"
                 control={control}             
@@ -453,15 +500,6 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
                 onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
             />                       
-            {/* <Controller
-                name="Insurance_dueDate"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Insurance Due Date: "
-                />)}
-            />                                 */}
             <p>Permit No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Permit_No')}/>
@@ -517,7 +555,7 @@ const onSubmit = async (formValues: AddClientType) => {
             </TextField.Root>
             <p>Nominee Relationship: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Nominee_relationship')}/>
+            <TextField.Input  { ...register('Nominee_Relationship')}/>
             </TextField.Root>
             <Controller
                 name="Nominee_dob"
@@ -530,7 +568,7 @@ const onSubmit = async (formValues: AddClientType) => {
             /> 
             <p>PUC/Emission Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Nominee_relationship')}/>
+            <TextField.Input  { ...register('PUCC_Emission_No')}/>
             </TextField.Root>
             <Controller
                 name="Emission_dueDate"
@@ -546,10 +584,10 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Input  { ...register('GST_No')}/>        
             </TextField.Root>  
             <FileUplaod 
-                name="Pan_doc"
+                name="GST_Cer_Doc"
                 control={control}
-                onSelectFile={(e:FileList | null) => setpanfile(e)}
-                isCalled={(e:Boolean) => setpandocProvided(e)}
+                onSelectFile={(e:FileList | null) => setGstCerfile(e)}
+                isCalled={(e:Boolean) => setGstCerdocProvided(e)}
                 placeholder=""                       
             />                                                                                                 
             <p className='mb-0'>Address: </p>
@@ -581,7 +619,7 @@ const onSubmit = async (formValues: AddClientType) => {
             </TextField.Root>
             <p>Updated by: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('RTO')}/>
+            <TextField.Input  { ...register('updated_by')}/>
             </TextField.Root>
             <DropDownControlWA 
                 name="Customer_type"

@@ -48,7 +48,7 @@ export interface AddClientType {
     PanCard_No:            String
     Pan_doc:               Int
     Nominee:               String
-    Nominee_relationship:  String
+    Nominee_Relationship:  String
     Nominee_dob:           Date
     Emission_dueDate:      Date
     Fuel_type:             String

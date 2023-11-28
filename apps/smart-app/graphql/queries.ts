@@ -213,6 +213,23 @@ export const GET_USER_DATA = gql`
     TP_dueDate
     GST_No
     Insurance_type
+    Mobile_No3          
+    Nominee_Relationship
+    Son_Wife_Daughter_Of
+    Vehicle_Body        
+    Wheel_Base          
+    No_Of_Cylinder      
+    Unladen_Weight      
+    Sleeper_Capacity    
+    PUCC_Emission_No    
+    updated_by          
+    TP_Policy_No        
+    Insurance_Start     
+    TP_Insurance_Start  
+    Vehicle_Reg_Doc     
+    OD_Policy_Doc       
+    TP_Policy_Doc       
+    GST_Cer_Doc         
     createdAt
     updatedAt
     }
