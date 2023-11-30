@@ -18,10 +18,17 @@ const AutomobilePage = () => {
 
   return (
         <div>
+          <div className='flex'>
           <div className='mb-5'>
             <Button>
               <Link href='/clients/new'> Add Client </Link>
-            </Button>
+            </Button>            
+          </div>
+          <div className='mb-5 ml-10'>
+            <Button>
+              <Link href='/clients/update'> Update Client </Link>
+            </Button>            
+          </div>
           </div>
           <Table.Root variant='surface'>
             <Table.Header>
@@ -98,6 +105,7 @@ const AutomobilePage = () => {
               {data.user_data.map((data:any) => (
                 <Table.Row key={data.id}>
                   <Table.Cell>{data.Vehicle_No}</Table.Cell>
+                  {/* <Table.Cell>{data.Vehicle_Reg_Doc && data.Vehicle_Reg_Doc.toString()}</Table.Cell> */}
                   <Table.Cell>{data.Vehicle_Reg_Doc && data.Vehicle_Reg_Doc.toString()}</Table.Cell>
                   <Table.Cell>{data.Owner}</Table.Cell>
                   <Table.Cell>{data.Son_Wife_Daughter_Of}</Table.Cell>                  
