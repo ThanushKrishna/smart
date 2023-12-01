@@ -51,7 +51,8 @@ export const resolvers = {
           console.log(err);
       }
       
-    },
+    },   
+
     user_data: async (parent: any, args: any, context: Context) => {
       
       try{
@@ -59,6 +60,21 @@ export const resolvers = {
       }
       catch(err){
           console.log(err);
+      }
+    },
+
+    user_data_byid: async (parent: any, args: any, context: Context) => {
+      console.log("this is user_data_byid block");  
+      try{
+        return await context.prisma.user_data.findUnique({
+          where: {
+            Vehicle_No: args.vechicle_id,
+          },
+        })
+      }
+
+      catch(err){
+        console.log(err);
       }
     },
 

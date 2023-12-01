@@ -267,6 +267,7 @@ type RTO {
 type Query {
     user_data: [user_data]    
     app_user: [app_user]
+    user_data_byid(vechicle_id: String!): user_data
     VEHICLE_COLOR: [VEHICLE_COLOR]
     VEHICE_NORMS: [VEHICE_NORMS]
     CC: [CC]

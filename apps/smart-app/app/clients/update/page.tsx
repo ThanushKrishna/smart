@@ -17,6 +17,7 @@ import {
     ADD_TP_INSURANCE_PROVIDER, ADD_VEHICLE_CLASS
     } from '@/graphql/queries'
 import {     
+    GET_USER_DATA_BYID,
     GET_VEHICLE_COLORS,
     GET_VEHICLE_NORMS,  
     GET_CC, GET_RTO,
@@ -57,6 +58,12 @@ const[addSeatCap, { data:seatcapdata} ] = useMutation(ADD_SEATING_CAPACITY);
 const[addStanCap, { data:standcapdata} ] = useMutation(ADD_STANDING_CAPACITY);
 const[addrto, { data:rtodata} ] = useMutation(ADD_RTO);
 
+const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
+const [vehicleno, setVehicleno] = useState<String>("");
+
+const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
+    variables: { vechicleId: vehicleno }, pollInterval: 1000,
+    }); 
 const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLORS, { pollInterval: 1000,}); 
 const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS, { pollInterval: 1000,}); 
 const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
@@ -72,7 +79,9 @@ const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY, { pollInterval: 10
 const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,}); 	
 const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
 
+
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
+
 
 const [isSubmitted, setisSubmitted] = useState(false);
 const [ispandocProvided, setpandocProvided] = useState<Boolean>(false);
@@ -220,15 +229,43 @@ const onSubmit = async (formValues: AddClientType) => {
 }
 
 
+const handleVehicleNoSubmit = async () => {
+    console.log("This is handleVehicleNoSubmit");
+    console.log(await vehicleno);
+    
+    console.log(gusrdatabyid)
+    //setVehicleNoprovided(true);
+}
+
+//if(gusrbyidload) return <h1>Loading...</h1>
+//if(gusrbyiderror) return <p>Error:{gusrbyiderror?.message}</p>
 
   return (
+   <>
+      
+   {!isVehicleNoprovided &&
+        <>
+        <label> Vehicle Registration Number1: </label> 
+        <input type="text" 
+        name='Vehicle_No'  
+        onChange={(e:any) => setVehicleno(e.target.value)}    
+        /> 
+        <br></br>
+        <button 
+        type="button" 
+        onClick = {handleVehicleNoSubmit}            
+        > Search </button>
+        </>
+   }
     
-    
-    <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                    
+
+
+    {isVehicleNoprovided && <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
             <p>Vehicle Registration Number:</p>
             <TextField.Root>
             <TextField.Input { ...register('Vehicle_No')}/>
-            </TextField.Root>            
+            </TextField.Root>        
+              
             <FileUplaod 
                 name="Vehicle_Reg_Doc"
                 control={control}     
@@ -632,8 +669,9 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextArea  { ...register('Comments')}/>
             <br/>
             <Button disabled={isSubmitted}> Submit {isSubmitted && <Spinner></Spinner>}</Button>        
-    </form>
+    </form>}
     
+    </> 
   )
 }
 
