@@ -62,7 +62,7 @@ const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
 const [vehicleno, setVehicleno] = useState<String>("");
 
 const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
-    variables: { vechicleId: vehicleno }, pollInterval: 1000,
+    variables: { vechicleId: vehicleno },
     }); 
 const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLORS, { pollInterval: 1000,}); 
 const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS, { pollInterval: 1000,}); 
@@ -231,10 +231,11 @@ const onSubmit = async (formValues: AddClientType) => {
 
 const handleVehicleNoSubmit = async () => {
     console.log("This is handleVehicleNoSubmit");
-    console.log(await vehicleno);
-    
-    console.log(gusrdatabyid)
-    //setVehicleNoprovided(true);
+    console.log(vehicleno);    
+    if(await gusrdatabyid ){
+        setVehicleNoprovided(true);
+    }
+        
 }
 
 //if(gusrbyidload) return <h1>Loading...</h1>
@@ -245,10 +246,10 @@ const handleVehicleNoSubmit = async () => {
       
    {!isVehicleNoprovided &&
         <>
-        <label> Vehicle Registration Number1: </label> 
+        <label> Vehicle Registration Number: </label> 
         <input type="text" 
         name='Vehicle_No'  
-        onChange={(e:any) => setVehicleno(e.target.value)}    
+        onBlur={(e:any) => setVehicleno(e.target.value)}    
         /> 
         <br></br>
         <button 
@@ -258,12 +259,13 @@ const handleVehicleNoSubmit = async () => {
         </>
    }
     
-
+{gusrbyidload && <p>Loading...</p>}
+{gusrbyiderror && <p>{gusrbyiderror.message}</p>}
 
     {isVehicleNoprovided && <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
             <p>Vehicle Registration Number:</p>
             <TextField.Root>
-            <TextField.Input { ...register('Vehicle_No')}/>
+            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No}/>
             </TextField.Root>        
               
             <FileUplaod 
@@ -271,11 +273,12 @@ const handleVehicleNoSubmit = async () => {
                 control={control}     
                 onSelectFile={(e:FileList | null) => setVehRegDocfile(e)}   
                 isCalled={(e: Boolean) => setVehRegDocProvided(e)}        
-                placeholder=""                       
+                placeholder=""   
+                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                    
             />
              <p>Owner Name: </p>            
             <TextField.Root> 
-            <TextField.Input { ...register('Owner')}/>
+            <TextField.Input { ...register('Owner')} defaultValue={gusrdatabyid.user_data_byid?.Owner}/>
             </TextField.Root>
             <p>Son/Wife/Daughter Of: </p>            
             <TextField.Root> 
@@ -396,7 +399,8 @@ const handleVehicleNoSubmit = async () => {
                 control={control}     
                 onSelectFile={(e:FileList | null) => setOdPolicydocfile(e)}   
                 isCalled={(e: Boolean) => setOdPolicydocProvided(e)}        
-                placeholder=""                       
+                placeholder=""  
+                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                        
             />	   
             <DropDownControlWA 
                 name="Insurance_provider"
@@ -432,7 +436,8 @@ const handleVehicleNoSubmit = async () => {
                 control={control}     
                 onSelectFile={(e:FileList | null) => setTpPolicyDocfile(e)}   
                 isCalled={(e: Boolean) => setTpPolicyDocProvided(e)}        
-                placeholder=""                       
+                placeholder=""              
+                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}            
             />	              
             <DropDownControlWA 
                 name="TP_Insurance_provider"
@@ -573,7 +578,8 @@ const handleVehicleNoSubmit = async () => {
                 control={control}     
                 onSelectFile={(e:FileList | null) => setadharfile(e)}   
                 isCalled={(e: Boolean) => setadhardocProvided(e)}        
-                placeholder=""                       
+                placeholder=""        
+                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                  
             />
             <p>PAN Number: </p>
             <TextField.Root>
@@ -584,7 +590,8 @@ const handleVehicleNoSubmit = async () => {
                 control={control}
                 onSelectFile={(e:FileList | null) => setpanfile(e)}
                 isCalled={(e:Boolean) => setpandocProvided(e)}
-                placeholder=""                       
+                placeholder=""             
+                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}             
             />
             <p>Nominee Name: </p>
             <TextField.Root>
@@ -625,7 +632,8 @@ const handleVehicleNoSubmit = async () => {
                 control={control}
                 onSelectFile={(e:FileList | null) => setGstCerfile(e)}
                 isCalled={(e:Boolean) => setGstCerdocProvided(e)}
-                placeholder=""                       
+                placeholder=""        
+                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                  
             />                                                                                                 
             <p className='mb-0'>Address: </p>
             <div className='no-style'>            

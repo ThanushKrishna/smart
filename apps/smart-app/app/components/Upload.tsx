@@ -10,6 +10,7 @@ interface iFileUplaod<T> {
     placeholder: String;
     onSelectFile: (file:FileList | null) => void;
     isCalled: (item: Boolean) => void;
+    defaultValue: String;
 }
 
 
@@ -19,7 +20,8 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     control, 
     placeholder,
     onSelectFile,
-    isCalled
+    isCalled,
+    defaultValue
     }) => {
 		const inputFileRef = useRef<HTMLInputElement>(null);
         const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +50,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         multiple                 
                         ref={inputFileRef} 
                         type="file"  
+                        {...defaultValue}
                         onChange={handleFileChange} />						
 					</div>                    
                 </>
