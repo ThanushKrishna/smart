@@ -9,13 +9,14 @@ export const uploadfile = async (files?:FileList | null, previousList?: String) 
         throw new Error('No file selected');
       }
     
-    if(previousList){
-       const urls = previousList.split(" ");
-       for(var i=0; i<urls.length; i++){
-        console.log(urls[i] + "is deleted" ) 
-        await del(urls[i]); 
-       }
-    }
+     if(previousList){
+        console.log(previousList)
+    //    const urls = previousList.split(" ");
+    //    for(var i=0; i<urls.length; i++){
+    //     console.log(urls[i] + "is deleted" ) 
+    //     await del(urls[i]); 
+    //    }
+     }
       
     var urls="";
 
