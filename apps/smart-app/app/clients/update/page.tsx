@@ -282,30 +282,32 @@ const handleVehicleNoSubmit = async () => {
             </TextField.Root>
             <p>Son/Wife/Daughter Of: </p>            
             <TextField.Root> 
-            <TextField.Input { ...register('Son_Wife_Daughter_Of')}/>
+            <TextField.Input { ...register('Son_Wife_Daughter_Of')} defaultValue={gusrdatabyid.user_data_byid?.Son_Wife_Daughter_Of}/>
             </TextField.Root>
             <p>Owner Serial Number: </p>
             <TextField.Root>
-            <TextField.Input { ...register('RC_No')}/>
+            <TextField.Input { ...register('RC_No')} defaultValue={gusrdatabyid.user_data_byid?.RC_No}/>
             </TextField.Root>  
             <p>Chassis Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Chasis_No')}/>
+            <TextField.Input  { ...register('Chasis_No')} defaultValue={gusrdatabyid.user_data_byid?.Chasis_No}/>
             </TextField.Root>
             <p>Engine Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Engine_No')}/>
+            <TextField.Input  { ...register('Engine_No')} defaultValue={gusrdatabyid.user_data_byid?.Engine_No}/>
             </TextField.Root>
             <DropDownControlWA
                 name="Make"
                 control={control}
-                placeholder="Make:   "           
+                placeholder="Make:   "     
+                value={gusrdatabyid.user_data_byid?.Make}                  
                 options={gmakedata && gmakedata.MAKE.map((data:any) => (data.value)) }             
                 onOptionAdd= {async (e: String) => await (addMake( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
             />
             <DropDownControlWA 
                 name="Model"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Model}
                 placeholder="Model:   "           
                 options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
@@ -331,6 +333,7 @@ const handleVehicleNoSubmit = async () => {
             <DropDownControlWA 
                 name="Vehicle_type"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Vehicle_type}                
                 placeholder="Vehicle Class:   "           
                 options={gVehclassdata && gVehclassdata.VEHICLE_CLASS.map((data:any) => (data.value)) }  
                 onOptionAdd= {async (e: String) => await (addVehclass( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
@@ -338,19 +341,22 @@ const handleVehicleNoSubmit = async () => {
             <DropDownControlWA 
                 name="Vehicle_Description"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Vehicle_Description}
                 placeholder="Vehicle Description:   "           
                 options={gVehDesdata && gVehDesdata.VEHICLE_DESCRIPTION.map((data:any) => (data.value)) }  
                 onOptionAdd= {async (e: String) => await (addVehDes( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
             />
             <DropDownControl 
                 name="Fuel_type"
-                control={control}        
+                control={control}      
+                value={gusrdatabyid.user_data_byid?.Fuel_type}  
                 placeholder="Fuel Type:   "           
                 options={FUEL_TYPE}              
             />
             <DropDownControlWA 
                 name="Vehice_norms"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Vehice_norms}
                 placeholder="Emission Norms:   "           
                 options={gnormsdata && gnormsdata.VEHICE_NORMS.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
@@ -358,6 +364,7 @@ const handleVehicleNoSubmit = async () => {
             <DropDownControlWA 
                 name="Vehicle_color"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Vehicle_color}
                 placeholder="Vehicle Color:   "           
                 options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
                 onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
@@ -365,6 +372,7 @@ const handleVehicleNoSubmit = async () => {
             <DropDownControlWA 
                 name="Seating_Capacity"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Seating_Capacity}
                 placeholder="Seating Capacity:   "           
                 options={gSeatCapdata && gSeatCapdata.SEATING_CAPACITY.map((data:any) => (data.value)) }  
                 onOptionAdd= {async (e: String) => await (addSeatCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
@@ -372,27 +380,29 @@ const handleVehicleNoSubmit = async () => {
             <DropDownControlWA 
                 name="Standing_Capacity"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Standing_Capacity}
                 placeholder="Standing Capacity:   "           
                 options={gStanCapdata && gStanCapdata.STANDING_CAPACITY.map((data:any) => (data.value)) }  
                 onOptionAdd= {async (e: String) => await (addStanCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
             />      
             <p>Hypothecation Bank: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Hypothecation_bank')}/>
+            <TextField.Input  { ...register('Hypothecation_bank')} defaultValue={gusrdatabyid.user_data_byid?.Hypothecation_bank}/>
             </TextField.Root>
             <p>Hypothecation City: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Hypothecation_city')}/>
+            <TextField.Input  { ...register('Hypothecation_city')} defaultValue={gusrdatabyid.user_data_byid?.Hypothecation_city}/>
             </TextField.Root>
             <DropDownControl 
                 name="Insurance_type"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Insurance_type}  
                 placeholder="Insurance Type:   "           
                 options={INSURANCE_TYPE}              
             />      
             <p>OD Policy No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Policy_No')}/>
+            <TextField.Input  { ...register('Policy_No')} defaultValue={gusrdatabyid.user_data_byid?.Policy_No}/>
             </TextField.Root>
             <FileUplaod 
                 name="OD_Policy_Doc"
@@ -405,6 +415,7 @@ const handleVehicleNoSubmit = async () => {
             <DropDownControlWA 
                 name="Insurance_provider"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Insurance_provider}
                 placeholder=" Own Damage Insurance Provider:   "           
                 options={giproviderdata && giproviderdata.INSURANCE_PROVIDER.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
@@ -429,7 +440,7 @@ const handleVehicleNoSubmit = async () => {
             />         
             <p>TP Policy No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('TP_Policy_No')}/>
+            <TextField.Input  { ...register('TP_Policy_No')} defaultValue={gusrdatabyid.user_data_byid?.TP_Policy_No}/>
             </TextField.Root>
             <FileUplaod 
                 name="TP_Policy_Doc"
@@ -442,6 +453,7 @@ const handleVehicleNoSubmit = async () => {
             <DropDownControlWA 
                 name="TP_Insurance_provider"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.TP_Insurance_provider}
                 placeholder="Third Party Insurance Provider:   "           
                 options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
                 onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
@@ -466,34 +478,35 @@ const handleVehicleNoSubmit = async () => {
             />        
             <DropDownControlWA 
                 name="RTO"
-                control={control}            
+                control={control}     
+                value={gusrdatabyid.user_data_byid?.RTO}       
                 placeholder="Registering Authority:   "           
                 options={grtodata && grtodata.RTO.map((data:any) => (data.value)) }           
                 onOptionAdd= {async (e: String) => await (addrto( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
             />        
             <p>Unladen Weight: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Unladen_Weight')}/>
+            <TextField.Input  { ...register('Unladen_Weight')} defaultValue={gusrdatabyid.user_data_byid?.Unladen_Weight}/>
             </TextField.Root> 
             <p>Laden Weight (GVW): </p>
             <TextField.Root>
-            <TextField.Input  { ...register('GVW')}/>
+            <TextField.Input  { ...register('GVW')} defaultValue={gusrdatabyid.user_data_byid?.GVW}/>
             </TextField.Root>      
             <p>Vehicle Body: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Vehicle_Body')}/>
+            <TextField.Input  { ...register('Vehicle_Body')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Body}/>
             </TextField.Root> 
             <p>Wheel Base: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Wheel_Base')}/>
+            <TextField.Input  { ...register('Wheel_Base')} defaultValue={gusrdatabyid.user_data_byid?.Wheel_Base}/>
             </TextField.Root> 
             <p>No Of Cylinder: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('No_Of_Cylinder')}/>
+            <TextField.Input  { ...register('No_Of_Cylinder')} defaultValue={gusrdatabyid.user_data_byid?.No_Of_Cylinder}/>
             </TextField.Root> 
             <p>Sleeper Capacity: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Sleeper_Capacity')}/>
+            <TextField.Input  { ...register('Sleeper_Capacity')} defaultValue={gusrdatabyid.user_data_byid?.Sleeper_Capacity}/>
             </TextField.Root> 
 
             <Controller
@@ -508,12 +521,14 @@ const handleVehicleNoSubmit = async () => {
             <DropDownControl 
                 name="Martial_status"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Martial_status}  
                 placeholder="Marital Staus:   "           
                 options={MARITAL_STATUS}              
             />                 
             <DropDownControl 
                 name="Ownership_type"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Ownership_type}  
                 placeholder="Owner Type:   "                                      
                 options={OWNER_TYPE}
             />                        
@@ -537,41 +552,43 @@ const handleVehicleNoSubmit = async () => {
             />                                                 
             <DropDownControlWA 
                 name="CC"
-                control={control}            
+                control={control}       
+                value={gusrdatabyid.user_data_byid?.CC}     
                 placeholder="CC:   "           
                 options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
                 onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
             />                       
             <p>Permit No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Permit_No')}/>
+            <TextField.Input  { ...register('Permit_No')} defaultValue={gusrdatabyid.user_data_byid?.Permit_No}/>
             </TextField.Root>
             <DropDownControlWA 
                 name="Permit_category"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Permit_category}
                 placeholder="Permit Category:   "           
                 options={gpermitdata && gpermitdata.PERMIT_CATEGORY.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addPermitCategory( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
             <p>1st Mobile No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Mobile_No1')}/>
+            <TextField.Input  { ...register('Mobile_No1')} defaultValue={gusrdatabyid.user_data_byid?.Mobile_No1}/>
             </TextField.Root>
             <p>2nd Mobile No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Mobile_No2')}/>
+            <TextField.Input  { ...register('Mobile_No2')} defaultValue={gusrdatabyid.user_data_byid?.Mobile_No2}/>
             </TextField.Root>
             <p>3rd Mobile No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Mobile_No3')}/>
+            <TextField.Input  { ...register('Mobile_No3')} defaultValue={gusrdatabyid.user_data_byid?.Mobile_No3}/>
             </TextField.Root>
             <p>Email Id: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Email_id')}/>
+            <TextField.Input  { ...register('Email_id')} defaultValue={gusrdatabyid.user_data_byid?.Email_id}/>
             </TextField.Root>
             <p>Aadhar Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Adhar_No')}/>
+            <TextField.Input  { ...register('Adhar_No')} defaultValue={gusrdatabyid.user_data_byid?.Adhar_No}/>
             </TextField.Root>                     
             <FileUplaod 
                 name="Adhar_doc"
@@ -595,11 +612,11 @@ const handleVehicleNoSubmit = async () => {
             />
             <p>Nominee Name: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Nominee')}/>
+            <TextField.Input  { ...register('Nominee')} defaultValue={gusrdatabyid.user_data_byid?.Nominee}/>
             </TextField.Root>
             <p>Nominee Relationship: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Nominee_Relationship')}/>
+            <TextField.Input  { ...register('Nominee_Relationship')} defaultValue={gusrdatabyid.user_data_byid?.Nominee_Relationship}/>
             </TextField.Root>
             <Controller
                 name="Nominee_dob"
@@ -612,7 +629,7 @@ const handleVehicleNoSubmit = async () => {
             /> 
             <p>PUC/Emission Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('PUCC_Emission_No')}/>
+            <TextField.Input  { ...register('PUCC_Emission_No')} defaultValue={gusrdatabyid.user_data_byid?.PUCC_Emission_No}/>
             </TextField.Root>
             <Controller
                 name="Emission_dueDate"
@@ -625,7 +642,7 @@ const handleVehicleNoSubmit = async () => {
             />      
             <p className='mt-3'>GST No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('GST_No')}/>        
+            <TextField.Input  { ...register('GST_No')} defaultValue={gusrdatabyid.user_data_byid?.GST_No}/>        
             </TextField.Root>  
             <FileUplaod 
                 name="GST_Cer_Doc"
@@ -640,41 +657,46 @@ const handleVehicleNoSubmit = async () => {
             <InputVariants
               name="Address.street"
               control={control}
+              value={gusrdatabyid.user_data_byid?.Adress?.Street}
               placeholder="street"              
             />
             <InputVariants
               name="Address.city"
               control={control}
+              value={gusrdatabyid.user_data_byid?.Adress?.city}
               placeholder="city"              
             />
              <InputVariants
               name="Address.state"
               control={control}
+              value={gusrdatabyid.user_data_byid?.Adress?.state}
               placeholder="state"              
             />
              <InputVariants
               name="Address.zip"
               control={control}
+              value={gusrdatabyid.user_data_byid?.Adress?.zip}
               placeholder="zip"              
             />
             </div>            
             <p>Referred by: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Referred_by')}/>
+            <TextField.Input  { ...register('Referred_by')} defaultValue={gusrdatabyid.user_data_byid?.Referred_by}/>
             </TextField.Root>
             <p>Updated by: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('updated_by')}/>
+            <TextField.Input  { ...register('updated_by')} defaultValue={gusrdatabyid.user_data_byid?.updated_by}/>
             </TextField.Root>
             <DropDownControlWA 
                 name="Customer_type"
                 control={control}
+                value={gusrdatabyid.user_data_byid?.Customer_type}
                 placeholder="Policy Issued Through:  "           
                 options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE.map((data:any) => (data.value)) }    
                 onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />                        
             <p className='mt-3'>Comments: </p>
-            <TextArea  { ...register('Comments')}/>
+            <TextArea  { ...register('Comments')} defaultValue={gusrdatabyid.user_data_byid?.Comments}/>
             <br/>
             <Button disabled={isSubmitted}> Submit {isSubmitted && <Spinner></Spinner>}</Button>        
     </form>}
