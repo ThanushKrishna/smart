@@ -134,7 +134,7 @@ export const resolvers = {
     },
 
 	PERMIT_CATEGORY : async (parent: any, args: any, context: Context) => {      
-      try{
+      try{        
         return await context.prisma.pERMIT_CATEGORY.findMany();
       }
       catch(err){

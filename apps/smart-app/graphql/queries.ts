@@ -328,6 +328,14 @@ export const ADD_CLIENT = gql`
     }
 `;
 
+export const UPDATE_CLIENT = gql` 
+    mutation UpdateUserData($input: updateUserDataInput!) {
+      updateUserData(input: $input) {      
+      Vehicle_No
+      }
+    }
+`;
+
 export const ADD_VEHICLE_COLORS = gql` 
     mutation CreateVehicleColor($input: DDinput!) {
       createVehicleColor(input: $input) {

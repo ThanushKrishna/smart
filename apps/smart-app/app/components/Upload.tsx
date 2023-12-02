@@ -2,7 +2,6 @@
 import React from 'react'
 import { Control, Controller } from 'react-hook-form';
 import { useRef } from 'react';
-import { isTemplateExpression } from 'typescript';
 
 interface iFileUplaod<T> {
     name: string;
@@ -10,7 +9,7 @@ interface iFileUplaod<T> {
     placeholder: String;
     onSelectFile: (file:FileList | null) => void;
     isCalled: (item: Boolean) => void;
-    defaultValue: String;
+    value?: String;
 }
 
 
@@ -21,7 +20,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     placeholder,
     onSelectFile,
     isCalled,
-    defaultValue
+    value
     }) => {
 		const inputFileRef = useRef<HTMLInputElement>(null);
         const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,6 +41,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 <Controller  
                 name={name}  
                 control={control}
+                defaultValue={value}
                 render={({ field }) => (
                     <>
                     <div {...field} >
@@ -50,7 +50,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         multiple                 
                         ref={inputFileRef} 
                         type="file"  
-                        {...defaultValue}
+                        {...value}
                         onChange={handleFileChange} />						
 					</div>                    
                 </>

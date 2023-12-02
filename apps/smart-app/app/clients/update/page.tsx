@@ -6,7 +6,7 @@ import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { 
-    ADD_CLIENT, 
+    UPDATE_CLIENT, 
     ADD_VEHICLE_COLORS,
     ADD_VEHICE_NORMS,
     ADD_CC, ADD_RTO,
@@ -34,7 +34,6 @@ import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import { uploadfile } from '@/app/functions/uploadfile'
-import { InputVariants } from '@/app/components/InputVariants';
 import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE } from '@/json/enums'
 
 
@@ -42,7 +41,7 @@ const UpdateClient:React.FC = () => {
 
 const router = useRouter();
 
-const[addclient, { data:clientdata, error:addclienterror } ] = useMutation(ADD_CLIENT);
+const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT);
 const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
 const[addVehicleNorms, { data:normsdata} ] = useMutation(ADD_VEHICE_NORMS);
 const[addcc, { data:ccdata} ] = useMutation(ADD_CC);
@@ -70,7 +69,7 @@ const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,});
 const { data:gmakedata } = useQuery(GET_MAKE, { pollInterval: 1000,}); 
 const { data:gmodeldata } = useQuery(GET_MODEL, { pollInterval: 1000,}); 
 const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
-const { data:gpermitdata } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
+const { data:gpermitdata, error:gpermiterror } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
 const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});
 const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 	
 const { data:gVehDesdata } = useQuery(GET_VEHICLE_DESCRIPTION, { pollInterval: 1000,}); 	
@@ -102,33 +101,33 @@ const onSubmit = async (formValues: AddClientType) => {
 
     const adharuploadlink = async () => {
         if(isadhardocProvided && adharfile)
-          return  await uploadfile(adharfile); 
+          return  await uploadfile(adharfile, formValues?.Adhar_doc); 
         return;
       }      
     const panuploadlink = async () => {
         if(ispandocProvided && panfile)
-          return  await uploadfile(panfile); 
+          return  await uploadfile(panfile, formValues?.Pan_doc); 
         return;
       }        
     const VehicleRegistrationuploadlink = async () => {
         if(isVehRegDocProvided && VehRegDocfile )
-          return  await uploadfile(VehRegDocfile); 
+          return  await uploadfile(VehRegDocfile, formValues?.Vehicle_Reg_Doc); 
         return;
       }
       
     const OdPolicyyuploadlink = async () => {
             if(isOdPolicydocProvided && OdPolicydocfile)
-            return  await uploadfile(OdPolicydocfile); 
+            return  await uploadfile(OdPolicydocfile, formValues?.OD_Policy_Doc); 
             return;
         } 
     const TpPolicyuploadlink = async () => {
             if(isTpPolicyDocProvided && TpPolicyDocfile)
-            return  await uploadfile(TpPolicyDocfile); 
+            return  await uploadfile(TpPolicyDocfile, formValues?.TP_Policy_Doc); 
             return;
         } 
     const GstCeruploadlink = async () => {
             if(isGstCerdocProvided && GstCerfile)
-            return  await uploadfile(GstCerfile); 
+            return  await uploadfile(GstCerfile, formValues?.GST_Cer_Doc); 
             return;
         } 	
     
@@ -136,7 +135,7 @@ const onSubmit = async (formValues: AddClientType) => {
         setisSubmitted(true)                     
 
         const result = {
-            data_owner_id: "65420cde2e5ffc26bed53918",
+            id: gusrdatabyid.user_data_byid.id,
             Vehicle_No: formValues?.Vehicle_No || undefined,            
             RC_No: formValues?.RC_No || undefined,
             Registered_Date: formValues?.Registered_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                       
@@ -196,7 +195,7 @@ const onSubmit = async (formValues: AddClientType) => {
             TP_Policy_No: formValues?.TP_Policy_No || undefined, 
             Insurance_Start: formValues?.Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             TP_Insurance_Start: formValues?.TP_Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            Vehicle_Reg_Doc: await VehicleRegistrationuploadlink() || undefined,
+            Vehicle_Reg_Doc:  await VehicleRegistrationuploadlink() || undefined,
             OD_Policy_Doc: await OdPolicyyuploadlink() || undefined,
             TP_Policy_Doc: await TpPolicyuploadlink() || undefined,
             GST_Cer_Doc: await GstCeruploadlink() || undefined,
@@ -206,7 +205,7 @@ const onSubmit = async (formValues: AddClientType) => {
         }
         
         console.log( result );
-        addclient( { variables: { input: result}})
+        updateclient( { variables: { input: result}})
         .then(()=> {        
         router.push('/clients')
         })
@@ -215,8 +214,8 @@ const onSubmit = async (formValues: AddClientType) => {
           setisSubmitted(false);          
         })
 
-        if(addclienterror) {            
-            console.log(JSON.stringify(addclienterror, null, 2));
+        if(updateclienterror) {            
+            console.log(JSON.stringify(updateclienterror, null, 2));
         }
         
     }   
@@ -233,7 +232,7 @@ const handleVehicleNoSubmit = async () => {
     console.log("This is handleVehicleNoSubmit");
     console.log(vehicleno);    
     if(await gusrdatabyid ){
-        setVehicleNoprovided(true);
+        await setVehicleNoprovided(true);
     }
         
 }
@@ -274,7 +273,7 @@ const handleVehicleNoSubmit = async () => {
                 onSelectFile={(e:FileList | null) => setVehRegDocfile(e)}   
                 isCalled={(e: Boolean) => setVehRegDocProvided(e)}        
                 placeholder=""   
-                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                    
+                value={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                    
             />
              <p>Owner Name: </p>            
             <TextField.Root> 
@@ -314,7 +313,8 @@ const handleVehicleNoSubmit = async () => {
             />
             <Controller
                 name="Registered_Date"
-                control={control}             
+                control={control}      
+                defaultValue={gusrdatabyid.user_data_byid.Registered_Date && new Date(gusrdatabyid.user_data_byid?.Registered_Date)}       
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -323,7 +323,8 @@ const handleVehicleNoSubmit = async () => {
             />        
              <Controller
                 name="tax_due_Date"
-                control={control}             
+                control={control}    
+                defaultValue={gusrdatabyid.user_data_byid.tax_due_Date && new Date(gusrdatabyid.user_data_byid?.tax_due_Date)}         
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -410,7 +411,7 @@ const handleVehicleNoSubmit = async () => {
                 onSelectFile={(e:FileList | null) => setOdPolicydocfile(e)}   
                 isCalled={(e: Boolean) => setOdPolicydocProvided(e)}        
                 placeholder=""  
-                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                        
+                value={gusrdatabyid.user_data_byid?.OD_Policy_Doc}                        
             />	   
             <DropDownControlWA 
                 name="Insurance_provider"
@@ -422,7 +423,8 @@ const handleVehicleNoSubmit = async () => {
             />
              <Controller
                 name="Insurance_Start"
-                control={control}             
+                control={control}        
+                defaultValue={gusrdatabyid.user_data_byid.Insurance_Start && new Date(gusrdatabyid.user_data_byid?.Insurance_Start)}     
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -431,7 +433,8 @@ const handleVehicleNoSubmit = async () => {
             />
              <Controller
                 name="Insurance_dueDate"
-                control={control}             
+                control={control}     
+                defaultValue={gusrdatabyid.user_data_byid.Insurance_dueDate && new Date(gusrdatabyid.user_data_byid?.Insurance_dueDate)}        
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -448,7 +451,7 @@ const handleVehicleNoSubmit = async () => {
                 onSelectFile={(e:FileList | null) => setTpPolicyDocfile(e)}   
                 isCalled={(e: Boolean) => setTpPolicyDocProvided(e)}        
                 placeholder=""              
-                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}            
+                value={gusrdatabyid.user_data_byid?.TP_Policy_Doc}            
             />	              
             <DropDownControlWA 
                 name="TP_Insurance_provider"
@@ -460,7 +463,8 @@ const handleVehicleNoSubmit = async () => {
             />
             <Controller
                 name="TP_Insurance_Start"
-                control={control}             
+                control={control}       
+                defaultValue={gusrdatabyid.user_data_byid.TP_Insurance_Start && new Date(gusrdatabyid.user_data_byid?.TP_Insurance_Start)}      
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -469,7 +473,8 @@ const handleVehicleNoSubmit = async () => {
             />              
             <Controller
                 name="TP_dueDate"
-                control={control}             
+                control={control}  
+                defaultValue={gusrdatabyid.user_data_byid.TP_dueDate && new Date(gusrdatabyid.user_data_byid?.TP_dueDate)}           
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -511,7 +516,8 @@ const handleVehicleNoSubmit = async () => {
 
             <Controller
                 name="Owner_dob"
-                control={control}             
+                control={control}       
+                defaultValue={gusrdatabyid.user_data_byid.Owner_dob && new Date(gusrdatabyid.user_data_byid?.Owner_dob)}      
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -534,7 +540,8 @@ const handleVehicleNoSubmit = async () => {
             />                        
             <Controller
                 name="Year_of_manufacuring"
-                control={control}             
+                control={control}         
+                defaultValue={gusrdatabyid.user_data_byid.Year_of_manufacuring && new Date(gusrdatabyid.user_data_byid?.Year_of_manufacuring)}    
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -543,7 +550,8 @@ const handleVehicleNoSubmit = async () => {
             />                 
             <Controller
                 name="FC_due_Date"
-                control={control}             
+                control={control} 
+                defaultValue={gusrdatabyid.user_data_byid.FC_due_Date && new Date(gusrdatabyid.user_data_byid?.FC_due_Date)}            
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -570,6 +578,7 @@ const handleVehicleNoSubmit = async () => {
                 options={gpermitdata && gpermitdata.PERMIT_CATEGORY.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addPermitCategory( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
+            {gpermiterror && <p> {gpermiterror.message} </p>}
             <p>1st Mobile No: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Mobile_No1')} defaultValue={gusrdatabyid.user_data_byid?.Mobile_No1}/>
@@ -596,7 +605,7 @@ const handleVehicleNoSubmit = async () => {
                 onSelectFile={(e:FileList | null) => setadharfile(e)}   
                 isCalled={(e: Boolean) => setadhardocProvided(e)}        
                 placeholder=""        
-                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                  
+                value={gusrdatabyid.user_data_byid?.Adhar_doc}                  
             />
             <p>PAN Number: </p>
             <TextField.Root>
@@ -608,7 +617,7 @@ const handleVehicleNoSubmit = async () => {
                 onSelectFile={(e:FileList | null) => setpanfile(e)}
                 isCalled={(e:Boolean) => setpandocProvided(e)}
                 placeholder=""             
-                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}             
+                value={gusrdatabyid.user_data_byid?.Pan_doc}             
             />
             <p>Nominee Name: </p>
             <TextField.Root>
@@ -620,7 +629,8 @@ const handleVehicleNoSubmit = async () => {
             </TextField.Root>
             <Controller
                 name="Nominee_dob"
-                control={control}             
+                control={control}      
+                defaultValue={gusrdatabyid.user_data_byid.Nominee_dob && new Date(gusrdatabyid.user_data_byid?.Nominee_dob)}           
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -633,7 +643,8 @@ const handleVehicleNoSubmit = async () => {
             </TextField.Root>
             <Controller
                 name="Emission_dueDate"
-                control={control}             
+                control={control}     
+                defaultValue={gusrdatabyid.user_data_byid.Emission_dueDate && new Date(gusrdatabyid.user_data_byid?.Emission_dueDate)}        
                 render={({ field }) => (
                 <DatePickerComponent 
                 {...field} 
@@ -650,35 +661,21 @@ const handleVehicleNoSubmit = async () => {
                 onSelectFile={(e:FileList | null) => setGstCerfile(e)}
                 isCalled={(e:Boolean) => setGstCerdocProvided(e)}
                 placeholder=""        
-                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                  
-            />                                                                                                 
-            <p className='mb-0'>Address: </p>
-            <div className='no-style'>            
-            <InputVariants
-              name="Address.street"
-              control={control}
-              value={gusrdatabyid.user_data_byid?.Adress?.Street}
-              placeholder="street"              
-            />
-            <InputVariants
-              name="Address.city"
-              control={control}
-              value={gusrdatabyid.user_data_byid?.Adress?.city}
-              placeholder="city"              
-            />
-             <InputVariants
-              name="Address.state"
-              control={control}
-              value={gusrdatabyid.user_data_byid?.Adress?.state}
-              placeholder="state"              
-            />
-             <InputVariants
-              name="Address.zip"
-              control={control}
-              value={gusrdatabyid.user_data_byid?.Adress?.zip}
-              placeholder="zip"              
-            />
-            </div>            
+                value={gusrdatabyid.user_data_byid?.GST_Cer_Doc}                  
+            />                                                                                                                         
+            <p>Address: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Address.street')} placeholder='Street' defaultValue={gusrdatabyid.user_data_byid?.Address?.street}/>
+            </TextField.Root>       
+            <TextField.Root>
+            <TextField.Input  { ...register('Address.city')} defaultValue={gusrdatabyid.user_data_byid?.Address?.city}/>
+            </TextField.Root>       
+            <TextField.Root>
+            <TextField.Input  { ...register('Address.state')} defaultValue={gusrdatabyid.user_data_byid?.Address?.state}/>
+            </TextField.Root>       
+            <TextField.Root>
+            <TextField.Input  { ...register('Address.zip')} defaultValue={gusrdatabyid.user_data_byid?.Address?.zip}/>
+            </TextField.Root>       
             <p>Referred by: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Referred_by')} defaultValue={gusrdatabyid.user_data_byid?.Referred_by}/>
@@ -698,7 +695,7 @@ const handleVehicleNoSubmit = async () => {
             <p className='mt-3'>Comments: </p>
             <TextArea  { ...register('Comments')} defaultValue={gusrdatabyid.user_data_byid?.Comments}/>
             <br/>
-            <Button disabled={isSubmitted}> Submit {isSubmitted && <Spinner></Spinner>}</Button>        
+            <Button disabled={isSubmitted}> Update {isSubmitted && <Spinner></Spinner>}</Button>        
     </form>}
     
     </> 

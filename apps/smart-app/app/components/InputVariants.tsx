@@ -20,7 +20,7 @@ export const InputVariants: React.FC<iInput> = ({
                 <Controller  
                 name={name}  
                 control={control}
-                {...value}
+                defaultValue={value}
                 render={({ field }) => (                
                      <div {...field} className="flex w-72 py-4 flex-col gap-6">
                       <Input variant="standard" label = {placeholder} crossOrigin="" />

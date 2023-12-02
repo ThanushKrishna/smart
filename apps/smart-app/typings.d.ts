@@ -14,7 +14,6 @@ export interface iappUser extends app_user{
 export interface AddClientType {
     data_owner_id:         String!
     Vehicle_No:            String!  
-    Vehicle_Reg_url:       String
     RC_No:                 String
     Registered_Date:       Date
     Owner:                 String

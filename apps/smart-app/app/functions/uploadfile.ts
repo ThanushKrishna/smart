@@ -1,13 +1,23 @@
 import type { PutBlobResult } from '@vercel/blob';
+import { del } from '@vercel/blob';
 
-export const uploadfile = async (files?:FileList | null) => {  
+export const runtime = 'edge';
+export const uploadfile = async (files?:FileList | null, previousList?: String) => {  
     console.log("this is uploadfile function") 
 
     if (!files) {
         throw new Error('No file selected');
       }
-
-      var urls="";
+    
+    if(previousList){
+       const urls = previousList.split(" ");
+       for(var i=0; i<urls.length; i++){
+        console.log(urls[i] + "is deleted" ) 
+        await del(urls[i]); 
+       }
+    }
+      
+    var urls="";
 
       for(var i=0; i<files.length; i++){
           console.log(files[i].name) 

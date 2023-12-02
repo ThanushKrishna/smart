@@ -9,7 +9,7 @@ interface DropDownControlWAProps<T> {
     options: String[];
     placeholder: string;
     onOptionAdd: (item: String) => void;
-    value: String;
+    value?: String;
 }
 
 
@@ -35,9 +35,9 @@ export const DropDownControlWA: React.FC<DropDownControlWAProps<any>> = ({
                 defaultValue={value}                
                 render={({ field }) => (                    
                     <select  {...field} className='w-full  rounded pl-1 bottom-0 h-full text-slate-500 pt-1 border-slate-300 border-2'>  
-                    {value && <option {...value}> {value} </option> }                                                     
-                    {!value && <option key="dummy" value="dummy"></option>}                    
-                    {value && options && options.map((option:any) => (
+                    {value && <option> {value} </option> }                                                     
+                    {<option key="dummy" value="dummy"></option>}                    
+                    {options && options.map((option:any) => (
                         <option key={option} value={option}>
                         {option}
                         </option>  

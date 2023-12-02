@@ -6,7 +6,7 @@ interface DropDownControlProps<T> {
     control: Control<any>;
     options: {value: string}[];
     placeholder: string;
-    value: String;
+    value?: String;
 }
 
 

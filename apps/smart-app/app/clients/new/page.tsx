@@ -590,29 +590,19 @@ const onSubmit = async (formValues: AddClientType) => {
                 isCalled={(e:Boolean) => setGstCerdocProvided(e)}
                 placeholder=""                       
             />                                                                                                 
-            <p className='mb-0'>Address: </p>
-            <div className='no-style'>            
-            <InputVariants
-              name="Address.street"
-              control={control}
-              placeholder="street"              
-            />
-            <InputVariants
-              name="Address.city"
-              control={control}
-              placeholder="city"              
-            />
-             <InputVariants
-              name="Address.state"
-              control={control}
-              placeholder="state"              
-            />
-             <InputVariants
-              name="Address.zip"
-              control={control}
-              placeholder="zip"              
-            />
-            </div>            
+            <p>Address: </p>
+            <TextField.Root>
+            <TextField.Input  { ...register('Address.street')} placeholder='Street'/>
+            </TextField.Root>       
+            <TextField.Root>
+            <TextField.Input  { ...register('Address.city')} placeholder='city'/>
+            </TextField.Root>       
+            <TextField.Root>
+            <TextField.Input  { ...register('Address.state')} placeholder='state'/>
+            </TextField.Root>       
+            <TextField.Root>
+            <TextField.Input  { ...register('Address.zip')} placeholder='zip'/>
+            </TextField.Root>   
             <p>Referred by: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Referred_by')}/>
