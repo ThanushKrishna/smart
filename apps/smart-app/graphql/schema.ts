@@ -431,6 +431,87 @@ input updateUserDataInput {
   Standing_Capacity:     String   
 }
 
+input updateUserDataInput1 {
+id:                    	String!
+Vehicle_No:            	String!
+Vehicle_Reg_Doc:   	   	String
+Owner:                 	String
+Son_Wife_Daughter_Of:  	String
+RC_No:                 	String
+Chasis_No:             	String
+Engine_No:             	String
+Make:             		String
+Model:             		String
+Registered_Date:       	Date
+tax_due_Date:       	Date
+Vehicle_type:           String
+Vehicle_Description:    String
+Fuel_type:             	String
+Vehice_norms:           String
+Vehicle_color:          String
+Seating_Capacity:       String
+Standing_Capacity:      String
+Hypothecation_bank:     String
+Hypothecation_city:     String
+}
+
+input updateUserDataInput2 {
+id:                    	String!
+Vehicle_No:            	String!
+Insurance_type:        	String
+Policy_No:             	String
+OD_Policy_Doc:         	String
+Insurance_provider:    	String
+Insurance_Start:       	Date
+Insurance_dueDate:     	Date
+TP_Policy_No:          	String
+TP_Policy_Doc:         	String
+TP_Insurance_provider: 	String
+TP_Insurance_Start:    	Date
+TP_dueDate:       		Date
+RTO:             		String
+Unladen_Weight:         String
+GVW:             		String
+Vehicle_Body:           String
+Wheel_Base:             String
+No_Of_Cylinder:         String
+Sleeper_Capacity:       String
+}
+
+
+input updateUserDataInput3 {
+id:                    	String!
+Vehicle_No:            	String!
+Owner_dob:      		Date
+Martial_status:         String
+Ownership_type:         String
+Year_of_manufacuring:   Date
+FC_due_Date: 			Date
+CC:             		String
+Permit_No:             	String
+Permit_category:        String
+Mobile_No1:             String
+Mobile_No2:             String
+Mobile_No3:             String
+Email_id:             	String
+Adhar_No:             	String
+Adhar_doc:             String
+PanCard_No:             String
+Pan_doc:             	String
+Nominee:             	String
+Nominee_Relationship:   String
+Nominee_dob: 			Date
+PUCC_Emission_No:       String
+Emission_dueDate:       Date
+GST_No:             	String
+GST_Cer_Doc:            String
+Address:             	CreateAddressInput
+Referred_by:            String
+updated_by:             String
+Customer_type:          String
+Comments:             	String
+}
+
 
 
 type createUserDataOutput {  
@@ -605,6 +686,9 @@ input DDinput {
     testaddclient(data_owner_id: String!, Vehicle_No: String!, RC_No: String ): String
     deleteUserData(id: ID!): String
     updateUserData(input: updateUserDataInput!): updateUserDataOutput
+    updateUserData1(input: updateUserDataInput1!): String
+    updateUserData2(input: updateUserDataInput2!): String
+    updateUserData3(input: updateUserDataInput3!): String
     CreateAppuser(input: CreateAppuserInput!): CreateAppuserOutput
     replaceAppuser(id: ID!, input: replaceAppuserInput!): replaceAppuserOutput
     deleteAppuser(id: ID!): String

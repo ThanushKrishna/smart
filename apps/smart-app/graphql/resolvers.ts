@@ -581,6 +581,109 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       })    
     },
 
+  updateUserData1: async (parent: any, args: any, context: Context) => {
+      console.log("this is updateUserdata1 block");   
+      await context.prisma.user_data.update({
+          where: { id: args.input.id },
+          data: {
+      Vehicle_No: args.input.Vehicle_No,
+      Vehicle_Reg_Doc       : args.input.Vehicle_Reg_Doc,
+      Owner: args.input.Owner,
+      Son_Wife_Daughter_Of: args.input.Son_Wife_Daughter_Of,		
+      RC_No: args.input.RC_No,
+      Chasis_No: args.input.Chasis_No, 
+      Engine_No: args.input.Engine_No, 	
+      Make: args.input.Make, 
+      Model: args.input.Model,    		
+      Registered_Date: args.input.Registered_Date, 
+      tax_due_Date: args.input.tax_due_Date,
+      Vehicle_type: args.input.Vehicle_type,          
+      Vehicle_Description:   args.input.Vehicle_Description,
+      Fuel_type: args.input.Fuel_type,   
+      Vehice_norms: args.input.Vehice_norms,
+      Vehicle_color: args.input.Vehicle_color,         
+      Seating_Capacity:      args.input.Seating_Capacity,
+      Standing_Capacity:     args.input.Standing_Capacity,
+      Hypothecation_bank: args.input.Hypothecation_bank,    
+      Hypothecation_city: args.input.Hypothecation_city,    
+          }, 
+        })  
+    return "Updated !"    
+  },
+    
+  updateUserData2: async (parent: any, args: any, context: Context) => {
+    console.log("this is updateUserdata2 block");   		
+    await context.prisma.user_data.update({
+          where: { id: args.input.id },
+          data: {		
+          Vehicle_No: args.input.Vehicle_No, 
+      Insurance_type: args.input.Insurance_type,
+      Policy_No: args.input.Policy_No,
+      OD_Policy_Doc         : args.input.OD_Policy_Doc,
+      Insurance_provider: args.input.Insurance_provider, 
+      Insurance_Start       : args.input.Insurance_Start,
+      Insurance_dueDate: args.input.Insurance_dueDate,  
+      TP_Policy_No          : args.input.TP_Policy_No,
+      TP_Policy_Doc         : args.input.TP_Policy_Doc,
+      TP_Insurance_provider: args.input.TP_Insurance_provider,  
+      TP_Insurance_Start    : args.input.TP_Insurance_Start,
+      TP_dueDate: args.input.TP_dueDate, 
+      RTO: args.input.RTO,  
+      Unladen_Weight        : args.input.Unladen_Weight,
+      GVW: args.input.GVW, 
+      Vehicle_Body          : args.input.Vehicle_Body,
+      Wheel_Base            : args.input.Wheel_Base,
+      No_Of_Cylinder        : args.input.No_Of_Cylinder,
+      Sleeper_Capacity      : args.input.Sleeper_Capacity,
+          }, 
+        })  
+    return "Updated !"    
+  },		
+        
+  updateUserData3: async (parent: any, args: any, context: Context) => {
+     console.log("this is updateUserdata3 block");   			
+     await context.prisma.user_data.update({
+          where: { id: args.input.id },
+          data: {                   	        
+        Vehicle_No: args.input.Vehicle_No, 
+            Owner_dob: args.input.Owner_dob,    
+            Ownership_type: args.input.Ownership_type, 
+            Address: {
+              street: args.input.Address.street,
+              city: args.input.Address.city,
+              state: args.input.Address.state,
+              zip: args.input.Address.zip
+            },                          
+            Year_of_manufacuring: args.input.Year_of_manufacuring,                
+            FC_due_Date: args.input.FC_due_Date, CC: args.input.CC,                         
+            Permit_No: args.input.Permit_No,             
+            Permit_category: args.input.Permit_category,       
+            Mobile_No1: args.input.Mobile_No1,            
+            Mobile_No2: args.input.Mobile_No2,            
+            Email_id: args.input.Email_id,              
+            Adhar_No: args.input.Adhar_No,              
+            Adhar_doc: args.input.Adhar_doc,             
+            PanCard_No: args.input.PanCard_No,            
+            Pan_doc: args.input.Pan_doc,               
+            Nominee: args.input.Nominee,               
+            Nominee_dob: args.input.Nominee_dob,  
+            Emission_dueDate: args.input.Emission_dueDate,                                                                                
+            Referred_by: args.input.Referred_by,           
+            Comments: args.input.Comments,              
+            Customer_type: args.input.Customer_type,         
+            Martial_status: args.input.Martial_status,        
+            GST_No: args.input.GST_No,                          
+            Mobile_No3 : args.input.Mobile_No3,
+            Nominee_Relationship: args.input.Nominee_Relationship,          
+            No_Of_Cylinder        : args.input.No_Of_Cylinder,
+            PUCC_Emission_No      : args.input.PUCC_Emission_No,
+            updated_by            : args.input.updated_by,          
+            GST_Cer_Doc           : args.input.GST_Cer_Doc,                              
+          }, 
+        })   
+      return "Updated !"     
+  },	    
+
   deleteUserData: async (parent: any, args: any, context: Context) => {
     console.log("this is deleteAppuser block");    
     await context.prisma.user_data.delete({

@@ -4,10 +4,14 @@ import { Button, Table } from '@radix-ui/themes'
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { GET_USER_DATA } from '@/graphql/queries'
+import { useRouter } from 'next/navigation';
 
 
 
 const AutomobilePage = () => {
+
+  const router = useRouter();
+
   const { loading, error, data } = useQuery(GET_USER_DATA, {
     pollInterval: 2000, // refetch every 5 seconds
   });
@@ -25,9 +29,10 @@ const AutomobilePage = () => {
             </Button>            
           </div>
           <div className='mb-5 ml-10'>
-            <Button>
-              <Link href='/clients/update'> Update Client </Link>
-            </Button>            
+            <Button
+            //  onClick={()=> router.push('/clients/update/page1')}
+             > <Link href='/clients/update'> Update Client </Link>
+             </Button>            
           </div>
           </div>
           <Table.Root variant='surface'>
