@@ -5,12 +5,14 @@ import Updatepage02 from '../../components/updatepag02'
 import Updatepage03 from '../../components/updatepag03'
 import { useQuery } from '@apollo/client';
 import { GET_USER_DATA_BYID } from '@/graphql/queries'
+import { AddClientType } from '@/typings';
 
 const updateClient:React.FC = () => {
    
 
         const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
         const [vehicleno, setVehicleno] = useState<String>("");   
+        const [firstpage, setfirstpage ] = useState<Boolean>(false);
         const [secndpage, setsecndpage ] = useState<Boolean>(false);
         const [thirddpage, setthirddpage ] = useState<Boolean>(false);
 
@@ -21,7 +23,9 @@ const updateClient:React.FC = () => {
         const handleVehicleNoSubmit = async () => {
             console.log("This is handleVehicleNoSubmit");
             console.log(vehicleno);    
-            if(await gusrdatabyid ){
+            //console.log(await gusrdatabyid.user_data_byid?.Vehicle_No: String)
+            if(vehicleno && gusrdatabyid) {
+                setfirstpage(true);
                 setVehicleNoprovided(true);
             }  
         }  
@@ -46,9 +50,9 @@ const updateClient:React.FC = () => {
     {gusrbyidload && <p>Loading...</p>}
     {gusrbyiderror && <p>{gusrbyiderror.message}</p>}
 
-            { isVehicleNoprovided && <Updatepage01 value={vehicleno} ispage1submitted={(e:Boolean) => (setsecndpage(e))} /> }
-            {secndpage && <Updatepage02/> }
-            {thirddpage && <Updatepage03/>}
+            {firstpage && <Updatepage01 value={vehicleno} ispagesubmitted={(e:Boolean) => {setsecndpage(e); setfirstpage(!e)}} /> }
+            {secndpage && <Updatepage02 value={vehicleno} ispagesubmitted={(e:Boolean) => {setthirddpage(e); setsecndpage(!e)}} /> }
+            {thirddpage && <Updatepage03 value={vehicleno} ispagesubmitted={(e:Boolean) => { setthirddpage(!e)} } /> }
 
     </div>
   )

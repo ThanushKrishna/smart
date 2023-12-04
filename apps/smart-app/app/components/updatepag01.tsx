@@ -6,13 +6,13 @@ import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { 
-    UPDATE_CLIENT, 
     ADD_VEHICLE_COLORS,
     ADD_VEHICE_NORMS,    
     ADD_MAKE, ADD_STANDING_CAPACITY,
     ADD_MODEL, ADD_SEATING_CAPACITY,
     ADD_VEHICLE_DESCRIPTION,
-    ADD_VEHICLE_CLASS
+    ADD_VEHICLE_CLASS,
+    UPDATE_CLIENT_01
     } from '@/graphql/queries'
 import {     
     GET_USER_DATA_BYID,
@@ -34,12 +34,11 @@ import { FUEL_TYPE } from '@/json/enums'
 
 interface iupdatevalue {
     value: String,
-    ispage1submitted: (res: Boolean) => void
+    ispagesubmitted: (res: Boolean) => void
 }
 
-const Updatepage01:React.FC<iupdatevalue> = ( { value, ispage1submitted } ) => {
+const Updatepage01:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
-const router = useRouter();
 const [vehicleno, setVehicleno] = useState<String>(value);
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 const [isSubmitted, setisSubmitted] = useState(false);
@@ -50,7 +49,7 @@ const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQue
     variables: { vechicleId: vehicleno },
     }); 
 
-const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT);
+const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_01);
 const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
 const[addVehicleNorms, { data:normsdata} ] = useMutation(ADD_VEHICE_NORMS);
 const[addMake, { data:makedata} ] = useMutation(ADD_MAKE);
@@ -84,8 +83,7 @@ const onSubmit = async (formValues: AddClientType) => {
         setisSubmitted(true)                     
 
         const result = {
-            id: value,
-            Vehicle_No: formValues?.Vehicle_No || undefined,  
+            id: gusrdatabyid.user_data_byid.id,
             Vehicle_Reg_Doc:  await VehicleRegistrationuploadlink() || undefined,			
             RC_No: formValues?.RC_No || undefined,
             Registered_Date: formValues?.Registered_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                       
@@ -110,11 +108,11 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log( result );
         updateclient( { variables: { input: result}})
         .then(()=> {        
-        ispage1submitted(true);
+        ispagesubmitted(true);
         })
         .catch((err) => {
           console.log(JSON.stringify(err, null, 2));        
-          ispage1submitted(false);          
+          ispagesubmitted(false);          
         })
 
         if(updateclienterror) {            
@@ -126,7 +124,7 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log("This is try-catch-error block");
         console.log(e?.message);
         setisSubmitted(false); 
-        ispage1submitted(false); 
+        ispagesubmitted(false); 
     }   
     
 }
@@ -136,8 +134,8 @@ const onSubmit = async (formValues: AddClientType) => {
    <>      
     <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
             <p>Vehicle Registration Number:</p>
-            <TextField.Root>
-            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No}/>
+            <TextField.Root >
+            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
             </TextField.Root>        
               
             <FileUplaod 
@@ -268,7 +266,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Input  { ...register('Hypothecation_city')} defaultValue={gusrdatabyid.user_data_byid?.Hypothecation_city}/>
             </TextField.Root>
             
-            <Button disabled={isSubmitted}> Update and Next {isSubmitted && <Spinner></Spinner>}</Button>        
+            <Button disabled={isSubmitted}> Save and Next {isSubmitted && <Spinner></Spinner>}</Button>        
     </form>    
     </> 
   )

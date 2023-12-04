@@ -6,7 +6,7 @@ import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { 
-    UPDATE_CLIENT, 
+    UPDATE_CLIENT_02, 
     ADD_RTO,    
     ADD_INSURANCE_PROVIDER, 
     ADD_TP_INSURANCE_PROVIDER
@@ -26,33 +26,37 @@ import { uploadfile } from '@/app/functions/uploadfile'
 import { INSURANCE_TYPE } from '@/json/enums'
 
 
-const Updatepage02:React.FC = () => {
+interface iupdatevalue {
+    value: String,
+    ispagesubmitted: (res: Boolean) => void
+}
 
-const router = useRouter();
+const Updatepage02:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
-const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT);
-const[addiProvider, { data:iproviderdata} ] = useMutation(ADD_INSURANCE_PROVIDER);
-const[addTpInsuranceProvider, { data:tpproviderdata} ] = useMutation(ADD_TP_INSURANCE_PROVIDER);
-const[addrto, { data:rtodata} ] = useMutation(ADD_RTO);
-const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
-const [vehicleno, setVehicleno] = useState<String>("");
-
-const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
-    variables: { vechicleId: vehicleno },
-    }); 
-const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
-const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});	
-const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
-
-
-const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
-
-
+const [vehicleno, setVehicleno] = useState<String>(value);
 const [isSubmitted, setisSubmitted] = useState(false);
 const [isOdPolicydocProvided, setOdPolicydocProvided] = useState<Boolean>(false);
 const [OdPolicydocfile, setOdPolicydocfile] = useState<FileList | null>(null);
 const [isTpPolicyDocProvided, setTpPolicyDocProvided] = useState<Boolean>(false);
 const [TpPolicyDocfile, setTpPolicyDocfile] = useState<FileList | null>(null);
+
+
+const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_02);
+const[addiProvider, { data:iproviderdata} ] = useMutation(ADD_INSURANCE_PROVIDER);
+const[addTpInsuranceProvider, { data:tpproviderdata} ] = useMutation(ADD_TP_INSURANCE_PROVIDER);
+const[addrto, { data:rtodata} ] = useMutation(ADD_RTO);
+const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
+const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});	
+const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
+
+
+
+const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
+    variables: { vechicleId: vehicleno },
+    }); 
+
+const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
+
 
 
 
@@ -77,7 +81,6 @@ const onSubmit = async (formValues: AddClientType) => {
 
         const result = {
             id: gusrdatabyid.user_data_byid.id,
-            Vehicle_No: formValues?.Vehicle_No || undefined, 
 			Insurance_type: formValues?.Insurance_type || undefined,            			
 			Policy_No: formValues?.Policy_No || undefined,
 			OD_Policy_Doc: await OdPolicyyuploadlink() || undefined,
@@ -101,11 +104,11 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log( result );
         updateclient( { variables: { input: result}})
         .then(()=> {        
-        router.push('/clients')
+        ispagesubmitted(true);
         })
         .catch((err) => {
           console.log(JSON.stringify(err, null, 2));        
-          setisSubmitted(false);          
+          ispagesubmitted(false);          
         })
 
         if(updateclienterror) {            
@@ -117,49 +120,19 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log("This is try-catch-error block");
         console.log(e?.message);
         setisSubmitted(false); 
+        ispagesubmitted(false); 
     }   
     
 }
 
 
-const handleVehicleNoSubmit = async () => {
-    console.log("This is handleVehicleNoSubmit");
-    console.log(vehicleno);    
-    if(await gusrdatabyid ){
-        await setVehicleNoprovided(true);
-    }
-        
-}
-
-//if(gusrbyidload) return <h1>Loading...</h1>
-//if(gusrbyiderror) return <p>Error:{gusrbyiderror?.message}</p>
-
   return (
    <>
-      
-   {!isVehicleNoprovided &&
-        <>
-        <label> Vehicle Registration Number: </label> 
-        <input type="text" 
-        name='Vehicle_No'  
-        onBlur={(e:any) => setVehicleno(e.target.value)}    
-        /> 
-        <br></br>
-        <button 
-        type="button" 
-        onClick = {handleVehicleNoSubmit}            
-        > Search </button>
-        </>
-   }
-    
-{gusrbyidload && <p>Loading...</p>}
-{gusrbyiderror && <p>{gusrbyiderror.message}</p>}
-
-    {isVehicleNoprovided && <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
-            <p>Vehicle Registration Number:</p>
-            <TextField.Root>
-            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No}/>
-            </TextField.Root>                               
+        <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
+        <p>Vehicle Registration Number:</p>
+            <TextField.Root >
+            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
+            </TextField.Root>                                 
              <DropDownControl 
              name="Insurance_type"
              control={control}
@@ -281,9 +254,8 @@ const handleVehicleNoSubmit = async () => {
             </TextField.Root> 
             
             <br/>
-            <Button disabled={isSubmitted}> Update {isSubmitted && <Spinner></Spinner>}</Button>        
-    </form>}
-    
+            <Button disabled={isSubmitted}> Save and Next {isSubmitted && <Spinner></Spinner>}</Button>        
+    </form>    
     </> 
   )
 }

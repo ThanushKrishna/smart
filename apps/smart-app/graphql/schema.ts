@@ -433,7 +433,6 @@ input updateUserDataInput {
 
 input updateUserDataInput1 {
 id:                    	String!
-Vehicle_No:            	String!
 Vehicle_Reg_Doc:   	   	String
 Owner:                 	String
 Son_Wife_Daughter_Of:  	String
@@ -457,7 +456,6 @@ Hypothecation_city:     String
 
 input updateUserDataInput2 {
 id:                    	String!
-Vehicle_No:            	String!
 Insurance_type:        	String
 Policy_No:             	String
 OD_Policy_Doc:         	String
@@ -481,7 +479,6 @@ Sleeper_Capacity:       String
 
 input updateUserDataInput3 {
 id:                    	String!
-Vehicle_No:            	String!
 Owner_dob:      		Date
 Martial_status:         String
 Ownership_type:         String

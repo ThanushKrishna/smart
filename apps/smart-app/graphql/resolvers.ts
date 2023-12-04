@@ -585,8 +585,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       console.log("this is updateUserdata1 block");   
       await context.prisma.user_data.update({
           where: { id: args.input.id },
-          data: {
-      Vehicle_No: args.input.Vehicle_No,
+          data: {      
       Vehicle_Reg_Doc       : args.input.Vehicle_Reg_Doc,
       Owner: args.input.Owner,
       Son_Wife_Daughter_Of: args.input.Son_Wife_Daughter_Of,		

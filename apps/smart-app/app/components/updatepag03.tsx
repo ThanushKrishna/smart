@@ -6,7 +6,7 @@ import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
 import { 
-    UPDATE_CLIENT,    
+    UPDATE_CLIENT_03,    
     ADD_CC, 
     ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE,    
     } from '@/graphql/queries'
@@ -24,19 +24,22 @@ import { FileUplaod } from '@/app/components/Upload'
 import { uploadfile } from '@/app/functions/uploadfile'
 import { OWNER_TYPE, MARITAL_STATUS } from '@/json/enums'
 
+interface iupdatevalue {
+    value: String,
+    ispagesubmitted: (res: Boolean) => void
+}
 
-const Updatepage03:React.FC = () => {
+const Updatepage03: React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
 const router = useRouter();
-
-const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT);
-const[addcc, { data:ccdata} ] = useMutation(ADD_CC);
-const[addPermitCategory, { data:permitdata} ] = useMutation(ADD_PERMIT_CATEGORY);
-const[addCusType, { data:custtypedata} ] = useMutation(ADD_CUSTOMER_TYPE);
-
-
-const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
-const [vehicleno, setVehicleno] = useState<String>("");
+const [vehicleno, setVehicleno] = useState<String>(value);
+const [isSubmitted, setisSubmitted] = useState(false);
+const [ispandocProvided, setpandocProvided] = useState<Boolean>(false);
+const [panfile, setpanfile] = useState<FileList | null>(null);
+const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
+const [adharfile, setadharfile] = useState<FileList | null>(null);
+const [isGstCerdocProvided, setGstCerdocProvided] = useState<Boolean>(false);
+const [GstCerfile, setGstCerfile] = useState<FileList | null>(null);
 
 const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
     variables: { vechicleId: vehicleno },
@@ -45,18 +48,12 @@ const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,});
 const { data:gpermitdata, error:gpermiterror } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
 const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 	
 
-
+const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_03);
+const[addcc, { data:ccdata} ] = useMutation(ADD_CC);
+const[addPermitCategory, { data:permitdata} ] = useMutation(ADD_PERMIT_CATEGORY);
+const[addCusType, { data:custtypedata} ] = useMutation(ADD_CUSTOMER_TYPE);
 
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
-
-
-const [isSubmitted, setisSubmitted] = useState(false);
-const [ispandocProvided, setpandocProvided] = useState<Boolean>(false);
-const [panfile, setpanfile] = useState<FileList | null>(null);
-const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
-const [adharfile, setadharfile] = useState<FileList | null>(null);
-const [isGstCerdocProvided, setGstCerdocProvided] = useState<Boolean>(false);
-const [GstCerfile, setGstCerfile] = useState<FileList | null>(null);
 
 
 const onSubmit = async (formValues: AddClientType) => {     
@@ -82,7 +79,6 @@ const onSubmit = async (formValues: AddClientType) => {
 
         const result = {
             id: gusrdatabyid.user_data_byid.id,
-            Vehicle_No: formValues?.Vehicle_No || undefined, 
 			Owner_dob: formValues?.Owner_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Ownership_type: formValues?.Ownership_type || undefined,            
             Year_of_manufacuring: formValues?.Year_of_manufacuring?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
@@ -117,11 +113,12 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log( result );
         updateclient( { variables: { input: result}})
         .then(()=> {        
+        ispagesubmitted(true);
         router.push('/clients')
         })
         .catch((err) => {
           console.log(JSON.stringify(err, null, 2));        
-          setisSubmitted(false);          
+          ispagesubmitted(false);          
         })
 
         if(updateclienterror) {            
@@ -133,49 +130,18 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log("This is try-catch-error block");
         console.log(e?.message);
         setisSubmitted(false); 
+        ispagesubmitted(false); 
     }   
-    
+
 }
-
-
-const handleVehicleNoSubmit = async () => {
-    console.log("This is handleVehicleNoSubmit");
-    console.log(vehicleno);    
-    if(await gusrdatabyid ){
-        await setVehicleNoprovided(true);
-    }
-        
-}
-
-//if(gusrbyidload) return <h1>Loading...</h1>
-//if(gusrbyiderror) return <p>Error:{gusrbyiderror?.message}</p>
-
   return (
-   <>
-      
-   {!isVehicleNoprovided &&
-        <>
-        <label> Vehicle Registration Number: </label> 
-        <input type="text" 
-        name='Vehicle_No'  
-        onBlur={(e:any) => setVehicleno(e.target.value)}    
-        /> 
-        <br></br>
-        <button 
-        type="button" 
-        onClick = {handleVehicleNoSubmit}            
-        > Search </button>
-        </>
-   }
-    
-{gusrbyidload && <p>Loading...</p>}
-{gusrbyiderror && <p>{gusrbyiderror.message}</p>}
+   <>    
 
-    {isVehicleNoprovided && <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
-            <p>Vehicle Registration Number:</p>
-            <TextField.Root>
-            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No}/>
-            </TextField.Root>        
+    <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
+    <p>Vehicle Registration Number:</p>
+            <TextField.Root >
+            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
+            </TextField.Root>              
              <Controller
              name="Owner_dob"
              control={control}       
@@ -358,7 +324,7 @@ const handleVehicleNoSubmit = async () => {
             <TextArea  { ...register('Comments')} defaultValue={gusrdatabyid.user_data_byid?.Comments}/>
             <br/>
             <Button disabled={isSubmitted}> Update {isSubmitted && <Spinner></Spinner>}</Button>        
-    </form>}
+    </form>
     
     </> 
   )
