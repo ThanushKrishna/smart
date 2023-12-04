@@ -27,7 +27,6 @@ import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
 import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
-import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import { uploadfile } from '@/app/functions/uploadfile'
 import { FUEL_TYPE } from '@/json/enums'
@@ -40,10 +39,11 @@ interface iupdatevalue {
 const Updatepage01:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
 const [vehicleno, setVehicleno] = useState<String>(value);
-const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 const [isSubmitted, setisSubmitted] = useState(false);
 const [isVehRegDocProvided, setVehRegDocProvided] = useState<Boolean>(false);
 const [VehRegDocfile, setVehRegDocfile] = useState<FileList | null>(null);
+const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
+
 
 const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
     variables: { vechicleId: vehicleno },

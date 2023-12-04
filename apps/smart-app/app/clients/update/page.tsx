@@ -5,9 +5,8 @@ import Updatepage02 from '../../components/updatepag02'
 import Updatepage03 from '../../components/updatepag03'
 import { useQuery } from '@apollo/client';
 import { GET_USER_DATA_BYID } from '@/graphql/queries'
-import { AddClientType } from '@/typings';
 
-const updateClient:React.FC = () => {
+const UpdateClient:React.FC = () => {
    
 
         const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
@@ -23,7 +22,7 @@ const updateClient:React.FC = () => {
         const handleVehicleNoSubmit = async () => {
             console.log("This is handleVehicleNoSubmit");
             console.log(vehicleno);    
-            //console.log(await gusrdatabyid.user_data_byid?.Vehicle_No: String)
+            
             if(vehicleno && gusrdatabyid) {
                 setfirstpage(true);
                 setVehicleNoprovided(true);
@@ -59,4 +58,4 @@ const updateClient:React.FC = () => {
 }
 
 
-export default updateClient;
+export default UpdateClient;
