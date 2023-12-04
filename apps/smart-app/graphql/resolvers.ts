@@ -686,7 +686,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   deleteUserData: async (parent: any, args: any, context: Context) => {
     console.log("this is deleteAppuser block");    
     await context.prisma.user_data.delete({
-      where: { id: args.id },      
+      where: { Vehicle_No: args.vehicleid },      
     })
     return "UserData Deleted Successfully!"
     

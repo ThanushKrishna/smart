@@ -354,6 +354,12 @@ export const UPDATE_CLIENT_03 = gql`
     }
 `;
 
+export const DELETE_CLIENT_BYID = gql` 
+    mutation DeleteUserData($vehicleid: String!) {
+      deleteUserData(vehicleid: $vehicleid)
+    }
+`;
+
 export const ADD_VEHICLE_COLORS = gql` 
     mutation CreateVehicleColor($input: DDinput!) {
       createVehicleColor(input: $input) {

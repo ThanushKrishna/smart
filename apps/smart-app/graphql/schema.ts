@@ -681,7 +681,7 @@ input DDinput {
     createTpInsuranceProvider(input: DDinput!): TP_INSURANCE_PROVIDER
     createUserData(input: createUserDataInput!): createUserDataOutput
     testaddclient(data_owner_id: String!, Vehicle_No: String!, RC_No: String ): String
-    deleteUserData(id: ID!): String
+    deleteUserData(vehicleid: String!): String
     updateUserData(input: updateUserDataInput!): updateUserDataOutput
     updateUserData1(input: updateUserDataInput1!): String
     updateUserData2(input: updateUserDataInput2!): String

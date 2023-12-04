@@ -25,13 +25,19 @@ const AutomobilePage = () => {
           <div className='flex'>
           <div className='mb-5'>
             <Button>
-              <Link href='/clients/new'> Add Client </Link>
+              <Link href='/clients/add'> Add Client </Link>
             </Button>            
           </div>
           <div className='mb-5 ml-10'>
             <Button
             //  onClick={()=> router.push('/clients/update/page1')}
              > <Link href='/clients/update'> Update Client </Link>
+             </Button>            
+          </div>
+          <div className='mb-5 ml-10'>
+            <Button
+            //  onClick={()=> router.push('/clients/update/page1')}
+             > <Link href='/clients/delete'> Delete Client </Link>
              </Button>            
           </div>
           </div>
