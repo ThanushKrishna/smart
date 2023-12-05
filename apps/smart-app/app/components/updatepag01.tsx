@@ -74,6 +74,7 @@ const onSubmit = async (formValues: AddClientType) => {
 
     const VehicleRegistrationuploadlink = async () => {
         if(isVehRegDocProvided && VehRegDocfile )
+            console.log(formValues?.Vehicle_Reg_Doc);
           return  await uploadfile(VehRegDocfile, formValues?.Vehicle_Reg_Doc); 
         return;
       }

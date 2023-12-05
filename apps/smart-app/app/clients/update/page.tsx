@@ -14,18 +14,17 @@ const UpdateClient:React.FC = () => {
         const [firstpage, setfirstpage ] = useState<Boolean>(false);
         const [secndpage, setsecndpage ] = useState<Boolean>(false);
         const [thirddpage, setthirddpage ] = useState<Boolean>(false);
-
         const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
             variables: { vechicleId: vehicleno },
-            }); 
+            });   
 
         const handleVehicleNoSubmit = async () => {
             console.log("This is handleVehicleNoSubmit");
             console.log(vehicleno);    
             
-            if(vehicleno && gusrdatabyid) {
-                setfirstpage(true);
-                setVehicleNoprovided(true);
+            if (vehicleno ) {                                    
+                    setfirstpage(true);
+                    setVehicleNoprovided(true);                
             }  
         }  
 

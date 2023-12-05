@@ -22,6 +22,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     isCalled,
     value
     }) => {
+        const urls = value?.split(" ");
 		const inputFileRef = useRef<HTMLInputElement>(null);
         const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
             if (!inputFileRef.current?.files) {
@@ -50,13 +51,15 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         multiple                 
                         ref={inputFileRef} 
                         type="file"  
-                        {...value}
-                        onChange={handleFileChange} />						
+                        {...value}                        
+                        onChange={handleFileChange} />	
+                        <p>{value}</p>					
 					</div>                    
                 </>
                 )}    
                 />  
-            </div>     
+            </div>  
+            {value && (urls!.length > 0) && urls?.map((item:String) => (item)) }   
         </div>     
       )
 }
