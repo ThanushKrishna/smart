@@ -53,13 +53,13 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         type="file"  
                         {...value}                        
                         onChange={handleFileChange} />	
-                        <p>{value}</p>					
+                        {/* <p>{value}</p>					 */}
 					</div>                    
                 </>
                 )}    
                 />  
             </div>  
-            {value && (urls!.length > 0) && urls?.map((item:String) => (item)) }   
+            {value && (urls!.length > 0) && urls?.map((item:String) => (<p>{item}</p>) ) }   
         </div>     
       )
 }
