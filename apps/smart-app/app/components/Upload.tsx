@@ -108,7 +108,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 )}    
                 />  
             </div>  
-            {value && links?.map((item:string, index:number) => ( <>
+            {links?.map((item:string, index:number) => ( <>
                 <a href={item} target="_blank" rel="noopener noreferrer">
                 <button type="button" className='mr-4'>Doc{index+1}</button>                                                                
                 </a>                
