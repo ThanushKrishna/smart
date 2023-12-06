@@ -74,55 +74,18 @@ const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,});
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
 const [isSubmitted, setisSubmitted] = useState(false);
-const [ispandocProvided, setpandocProvided] = useState<Boolean>(false);
-const [panfile, setpanfile] = useState<FileList | null>(null);
-const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
-const [adharfile, setadharfile] = useState<FileList | null>(null);
-const [isVehRegDocProvided, setVehRegDocProvided] = useState<Boolean>(false);
-const [VehRegDocfile, setVehRegDocfile] = useState<FileList | null>(null);
-const [isOdPolicydocProvided, setOdPolicydocProvided] = useState<Boolean>(false);
-const [OdPolicydocfile, setOdPolicydocfile] = useState<FileList | null>(null);
-const [isTpPolicyDocProvided, setTpPolicyDocProvided] = useState<Boolean>(false);
-const [TpPolicyDocfile, setTpPolicyDocfile] = useState<FileList | null>(null);
-const [isGstCerdocProvided, setGstCerdocProvided] = useState<Boolean>(false);
-const [GstCerfile, setGstCerfile] = useState<FileList | null>(null);
+const [panfile, setpanfile] = useState<String | null>(null);
+const [adharfile, setadharfile] = useState<String | null>(null);
+const [VehRegDocfile, setVehRegDocfile] = useState<String | null>(null);
+const [OdPolicydocfile, setOdPolicydocfile] = useState<String | null>(null);
+const [TpPolicyDocfile, setTpPolicyDocfile] = useState<String | null>(null);
+const [GstCerfile, setGstCerfile] = useState<String | null>(null);
 
 
 const onSubmit = async (formValues: AddClientType) => {     
 
-    const adharuploadlink = async () => {
-        if(isadhardocProvided && adharfile)
-          return  await uploadfile(adharfile); 
-        return;
-      }      
-    const panuploadlink = async () => {
-        if(ispandocProvided && panfile)
-          return  await uploadfile(panfile); 
-        return;
-      }        
-    const VehicleRegistrationuploadlink = async () => {
-        if(isVehRegDocProvided && VehRegDocfile )
-          return  await uploadfile(VehRegDocfile); 
-        return;
-      }
-      
-    const OdPolicyyuploadlink = async () => {
-            if(isOdPolicydocProvided && OdPolicydocfile)
-            return  await uploadfile(OdPolicydocfile); 
-            return;
-        } 
-    const TpPolicyuploadlink = async () => {
-            if(isTpPolicyDocProvided && TpPolicyDocfile)
-            return  await uploadfile(TpPolicyDocfile); 
-            return;
-        } 
-    const GstCeruploadlink = async () => {
-            if(isGstCerdocProvided && GstCerfile)
-            return  await uploadfile(GstCerfile); 
-            return;
-        } 	
-    
-    try{
+	
+        try{
         setisSubmitted(true)                     
 
         const result = {
@@ -156,9 +119,9 @@ const onSubmit = async (formValues: AddClientType) => {
             Mobile_No3: formValues?.Mobile_No3 || undefined,
             Email_id: formValues?.Email_id || undefined,
             Adhar_No: formValues?.Adhar_No || undefined,
-            Adhar_doc: await adharuploadlink() || undefined,
+            Adhar_doc: adharfile || undefined,
             PanCard_No: formValues?.PanCard_No || undefined,
-            Pan_doc: await panuploadlink() || undefined,
+            Pan_doc: panfile || undefined,
             Nominee: formValues?.Nominee || undefined,
             Nominee_Relationship: formValues?.Nominee_Relationship || undefined,
             Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
@@ -186,10 +149,10 @@ const onSubmit = async (formValues: AddClientType) => {
             TP_Policy_No: formValues?.TP_Policy_No || undefined, 
             Insurance_Start: formValues?.Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             TP_Insurance_Start: formValues?.TP_Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            Vehicle_Reg_Doc: await VehicleRegistrationuploadlink() || undefined,
-            OD_Policy_Doc: await OdPolicyyuploadlink() || undefined,
-            TP_Policy_Doc: await TpPolicyuploadlink() || undefined,
-            GST_Cer_Doc: await GstCeruploadlink() || undefined,
+            Vehicle_Reg_Doc: VehRegDocfile || undefined,
+            OD_Policy_Doc: OdPolicydocfile || undefined,
+            TP_Policy_Doc: TpPolicyDocfile || undefined,
+            GST_Cer_Doc: GstCerfile || undefined,
             Vehicle_Description: formValues?.Vehicle_Description || undefined,
             Seating_Capacity: formValues?.Seating_Capacity || undefined,
             Standing_Capacity: formValues?.Standing_Capacity || undefined,
@@ -231,8 +194,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Vehicle_Reg_Doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setVehRegDocfile(e)}   
-                isCalled={(e: Boolean) => setVehRegDocProvided(e)}        
+                onSelectFile={(e:String | null) => setVehRegDocfile(e)}   
                 placeholder=""                       
             />
              <p>Owner Name: </p>            
@@ -356,8 +318,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="OD_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setOdPolicydocfile(e)}   
-                isCalled={(e: Boolean) => setOdPolicydocProvided(e)}        
+                onSelectFile={(e:String | null) => setOdPolicydocfile(e)}      
                 placeholder=""                       
             />	   
             <DropDownControlWA 
@@ -392,8 +353,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="TP_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setTpPolicyDocfile(e)}   
-                isCalled={(e: Boolean) => setTpPolicyDocProvided(e)}        
+                onSelectFile={(e:String | null) => setTpPolicyDocfile(e)}     
                 placeholder=""                       
             />	              
             <DropDownControlWA 
@@ -533,8 +493,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setadharfile(e)}   
-                isCalled={(e: Boolean) => setadhardocProvided(e)}        
+                onSelectFile={(e:String | null) => setadharfile(e)}                   
                 placeholder=""                       
             />
             <p>PAN Number: </p>
@@ -544,8 +503,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
-                onSelectFile={(e:FileList | null) => setpanfile(e)}
-                isCalled={(e:Boolean) => setpandocProvided(e)}
+                onSelectFile={(e:String | null) => setpanfile(e)}
                 placeholder=""                       
             />
             <p>Nominee Name: </p>
@@ -585,8 +543,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="GST_Cer_Doc"
                 control={control}
-                onSelectFile={(e:FileList | null) => setGstCerfile(e)}
-                isCalled={(e:Boolean) => setGstCerdocProvided(e)}
+                onSelectFile={(e:String | null) => setGstCerfile(e)}
                 placeholder=""                       
             />                                                                                                 
             <p>Address: </p>
