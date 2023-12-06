@@ -78,7 +78,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     return;
                 }
 
-                if (newLink.trim() !== '' && links.length > 0) {
+                if (newLink.trim() !== '' && links?.length > 0) {
                     setLinks([...links!, newLink]);
                     setNewLink('');
                 }
