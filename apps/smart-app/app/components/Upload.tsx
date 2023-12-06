@@ -4,6 +4,8 @@ import { Control, Controller } from 'react-hook-form';
 import { useRef } from 'react';
 import type { PutBlobResult } from '@vercel/blob';
 import { del } from '@vercel/blob';
+export const runtime = 'edge';
+
 
 interface iFileUplaod<T> {
     name: string;
@@ -34,6 +36,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
 
         const handlefileDelete = async (index:number) => {
             try{
+                
                 await del(links[index]);
             }
             catch(e){
@@ -86,7 +89,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     setLinks([newLink]);
                     setNewLink('');
                 }
-                onSelectFile(links.toString())
+                onSelectFile(links?.toString())
 
             }
         
