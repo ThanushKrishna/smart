@@ -50,15 +50,14 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
         const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
             if (!inputFileRef.current?.files) {
                 throw new Error('No file selected');
-              }
-                                   
-             const files = inputFileRef.current.files;             
-             console.log("Files now Selected: "+ files)             
-
-            for(var i=0; i<files.length; i++){
-                console.log(files[i].name) 
+              }                                            
 
                 try{
+                    const files = inputFileRef.current.files;             
+                    console.log("Files now Selected: "+ files)             
+       
+                   for(var i=0; i<files.length; i++){
+                       console.log(files[i].name) 
                     const response = await fetch(
                         `/api/files/upload?filename=${files[i].name}`,
                         {
@@ -76,7 +75,8 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                             setNewLink('');
                         }
                         onSelectFile(links.toString())
-                }
+                   }
+            }
 
                 catch(e){
                     console.log("This is catch:" + e);
@@ -84,7 +84,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     return;
                 }
             }
-        }
+        
 
 
         return (  
