@@ -213,7 +213,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}     
                 onSelectFile={(e:String | null) => setadharfile(e)}                      
                 placeholder=""        
-                value={gusrdatabyid.user_data_byid?.Adhar_doc}                  
+                value={gusrdatabyid.user_data_byid?.Adhar_doc + adharfile}                  
             />
             <p>PAN Number: </p>
             <TextField.Root>
@@ -224,7 +224,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}
                 onSelectFile={(e:String | null) => setpanfile(e)}                
                 placeholder=""             
-                value={gusrdatabyid.user_data_byid?.Pan_doc}             
+                value={gusrdatabyid.user_data_byid?.Pan_doc + panfile}             
             />
             <p>Nominee Name: </p>
             <TextField.Root>
@@ -267,7 +267,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}
                 onSelectFile={(e:String | null) => setGstCerfile(e)}                
                 placeholder=""        
-                value={gusrdatabyid.user_data_byid?.GST_Cer_Doc}                  
+                value={gusrdatabyid.user_data_byid?.GST_Cer_Doc + GstCerfile}                  
             />                                                                                                                         
             <p>Address: </p>
             <TextField.Root>

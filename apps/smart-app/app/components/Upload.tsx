@@ -12,7 +12,7 @@ interface iFileUplaod<T> {
     control: Control<any>;    
     placeholder: String;
     onSelectFile: (urls:String | null) => void;    
-    value?: String;
+    value?: String | null;
 }
 
 
@@ -35,8 +35,9 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
         
 
         const handlefileDelete = async (index:number) => {
+            
             try{
-                
+                console.log("Deleting Blob:" + links[index]);
                 await del(links[index]);
             }
             catch(e){

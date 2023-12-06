@@ -195,6 +195,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Vehicle_Reg_Doc"
                 control={control}     
                 onSelectFile={(e:String | null) => setVehRegDocfile(e)}   
+                value={VehRegDocfile}
                 placeholder=""                       
             />
              <p>Owner Name: </p>            
@@ -318,7 +319,8 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="OD_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:String | null) => setOdPolicydocfile(e)}      
+                onSelectFile={(e:String | null) => setOdPolicydocfile(e)}     
+                value={OdPolicydocfile} 
                 placeholder=""                       
             />	   
             <DropDownControlWA 
@@ -354,6 +356,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="TP_Policy_Doc"
                 control={control}     
                 onSelectFile={(e:String | null) => setTpPolicyDocfile(e)}     
+                value={TpPolicyDocfile }
                 placeholder=""                       
             />	              
             <DropDownControlWA 
@@ -493,7 +496,8 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}     
-                onSelectFile={(e:String | null) => setadharfile(e)}                   
+                onSelectFile={(e:String | null) => setadharfile(e)}  
+                value={ adharfile }                 
                 placeholder=""                       
             />
             <p>PAN Number: </p>
@@ -504,6 +508,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Pan_doc"
                 control={control}
                 onSelectFile={(e:String | null) => setpanfile(e)}
+                value={panfile}
                 placeholder=""                       
             />
             <p>Nominee Name: </p>
@@ -544,6 +549,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="GST_Cer_Doc"
                 control={control}
                 onSelectFile={(e:String | null) => setGstCerfile(e)}
+                value={GstCerfile}
                 placeholder=""                       
             />                                                                                                 
             <p>Address: </p>

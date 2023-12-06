@@ -143,7 +143,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}     
                 onSelectFile={(e:String | null) => setVehRegDocfile(e)}       
                 placeholder=""   
-                value={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                    
+                value={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc + VehRegDocfile }
             />
              <p>Owner Name: </p>            
             <TextField.Root> 
