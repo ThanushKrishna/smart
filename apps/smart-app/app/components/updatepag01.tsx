@@ -40,8 +40,7 @@ const Updatepage01:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
 const [vehicleno, setVehicleno] = useState<String>(value);
 const [isSubmitted, setisSubmitted] = useState(false);
-const [isVehRegDocProvided, setVehRegDocProvided] = useState<Boolean>(false);
-const [VehRegDocfile, setVehRegDocfile] = useState<FileList | null>(null);
+const [VehRegDocfile, setVehRegDocfile] = useState<String | null>(null);
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
 
@@ -72,12 +71,12 @@ const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,
 
 const onSubmit = async (formValues: AddClientType) => {     
 
-    const VehicleRegistrationuploadlink = async () => {
-        if(isVehRegDocProvided && VehRegDocfile )
-            console.log("this is formvalue for doc:" +  formValues?.Vehicle_Reg_Doc);
-          return  await uploadfile(VehRegDocfile, formValues?.Vehicle_Reg_Doc); 
-        return;
-      }
+    // const VehicleRegistrationuploadlink = async () => {
+    //     if(isVehRegDocProvided && VehRegDocfile )
+    //         console.log("this is formvalue for doc:" +  formValues?.Vehicle_Reg_Doc);
+    //       return  await uploadfile(VehRegDocfile, formValues?.Vehicle_Reg_Doc); 
+    //     return;
+    //   }
         
     
     try{
@@ -85,7 +84,7 @@ const onSubmit = async (formValues: AddClientType) => {
 
         const result = {
             id: gusrdatabyid.user_data_byid.id,
-            Vehicle_Reg_Doc:  await VehicleRegistrationuploadlink() || undefined,			
+            Vehicle_Reg_Doc:  VehRegDocfile || undefined,			
             RC_No: formValues?.RC_No || undefined,
             Registered_Date: formValues?.Registered_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                       
             Owner: formValues?.Owner || undefined,
@@ -142,8 +141,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Vehicle_Reg_Doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setVehRegDocfile(e)}   
-                isCalled={(e: Boolean) => setVehRegDocProvided(e)}        
+                onSelectFile={(e:String | null) => setVehRegDocfile(e)}       
                 placeholder=""   
                 value={gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc}                    
             />

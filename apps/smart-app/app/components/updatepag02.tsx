@@ -35,10 +35,8 @@ const Updatepage02:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
 const [vehicleno, setVehicleno] = useState<String>(value);
 const [isSubmitted, setisSubmitted] = useState(false);
-const [isOdPolicydocProvided, setOdPolicydocProvided] = useState<Boolean>(false);
-const [OdPolicydocfile, setOdPolicydocfile] = useState<FileList | null>(null);
-const [isTpPolicyDocProvided, setTpPolicyDocProvided] = useState<Boolean>(false);
-const [TpPolicyDocfile, setTpPolicyDocfile] = useState<FileList | null>(null);
+const [OdPolicydocfile, setOdPolicydocfile] = useState<String | null>(null);
+const [TpPolicyDocfile, setTpPolicyDocfile] = useState<String | null>(null);
 
 
 const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_02);
@@ -62,19 +60,6 @@ const { register, handleSubmit, control, formState:{errors} } = useForm<AddClien
 
 const onSubmit = async (formValues: AddClientType) => {     
 
-
-      
-    const OdPolicyyuploadlink = async () => {
-            if(isOdPolicydocProvided && OdPolicydocfile)
-            return  await uploadfile(OdPolicydocfile, formValues?.OD_Policy_Doc); 
-            return;
-        } 
-    const TpPolicyuploadlink = async () => {
-            if(isTpPolicyDocProvided && TpPolicyDocfile)
-            return  await uploadfile(TpPolicyDocfile, formValues?.TP_Policy_Doc); 
-            return;
-        } 
- 
     
     try{
         setisSubmitted(true)                     
@@ -83,13 +68,13 @@ const onSubmit = async (formValues: AddClientType) => {
             id: gusrdatabyid.user_data_byid.id,
 			Insurance_type: formValues?.Insurance_type || undefined,            			
 			Policy_No: formValues?.Policy_No || undefined,
-			OD_Policy_Doc: await OdPolicyyuploadlink() || undefined,
+			OD_Policy_Doc: OdPolicydocfile || undefined,
 			Insurance_provider: formValues?.Insurance_provider || undefined,
             Insurance_dueDate: formValues?.Insurance_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
 			TP_Policy_No: formValues?.TP_Policy_No || undefined, 
             Insurance_Start: formValues?.Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             TP_Insurance_Start: formValues?.TP_Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,            
-            TP_Policy_Doc: await TpPolicyuploadlink() || undefined,
+            TP_Policy_Doc: TpPolicyDocfile || undefined,
 			TP_Insurance_provider: formValues?.TP_Insurance_provider || undefined,
             TP_dueDate: formValues?.TP_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,            
 			RTO: formValues?.RTO || undefined,
@@ -147,8 +132,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="OD_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setOdPolicydocfile(e)}   
-                isCalled={(e: Boolean) => setOdPolicydocProvided(e)}        
+                onSelectFile={(e:String | null) => setOdPolicydocfile(e)}                 
                 placeholder=""  
                 value={gusrdatabyid.user_data_byid?.OD_Policy_Doc}                        
             />	   
@@ -187,8 +171,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="TP_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setTpPolicyDocfile(e)}   
-                isCalled={(e: Boolean) => setTpPolicyDocProvided(e)}        
+                onSelectFile={(e:String | null) => setTpPolicyDocfile(e)}                 
                 placeholder=""              
                 value={gusrdatabyid.user_data_byid?.TP_Policy_Doc}            
             />	              

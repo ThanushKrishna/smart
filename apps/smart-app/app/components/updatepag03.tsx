@@ -34,12 +34,9 @@ const Updatepage03: React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 const router = useRouter();
 const [vehicleno, setVehicleno] = useState<String>(value);
 const [isSubmitted, setisSubmitted] = useState(false);
-const [ispandocProvided, setpandocProvided] = useState<Boolean>(false);
-const [panfile, setpanfile] = useState<FileList | null>(null);
-const [isadhardocProvided, setadhardocProvided] = useState<Boolean>(false);
-const [adharfile, setadharfile] = useState<FileList | null>(null);
-const [isGstCerdocProvided, setGstCerdocProvided] = useState<Boolean>(false);
-const [GstCerfile, setGstCerfile] = useState<FileList | null>(null);
+const [panfile, setpanfile] = useState<String | null>(null);
+const [adharfile, setadharfile] = useState<String | null>(null);
+const [GstCerfile, setGstCerfile] = useState<String | null>(null);
 
 const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
     variables: { vechicleId: vehicleno },
@@ -58,22 +55,6 @@ const { register, handleSubmit, control, formState:{errors} } = useForm<AddClien
 
 const onSubmit = async (formValues: AddClientType) => {     
 
-    const adharuploadlink = async () => {
-        if(isadhardocProvided && adharfile)
-          return  await uploadfile(adharfile, formValues?.Adhar_doc); 
-        return;
-      }      
-    const panuploadlink = async () => {
-        if(ispandocProvided && panfile)
-          return  await uploadfile(panfile, formValues?.Pan_doc); 
-        return;
-      }        
-    const GstCeruploadlink = async () => {
-            if(isGstCerdocProvided && GstCerfile)
-            return  await uploadfile(GstCerfile, formValues?.GST_Cer_Doc); 
-            return;
-        } 	
-    
     try{
         setisSubmitted(true)                     
 
@@ -92,9 +73,9 @@ const onSubmit = async (formValues: AddClientType) => {
             Mobile_No3: formValues?.Mobile_No3 || undefined,
             Email_id: formValues?.Email_id || undefined,
             Adhar_No: formValues?.Adhar_No || undefined,
-            Adhar_doc: await adharuploadlink() || undefined,
+            Adhar_doc: adharfile || undefined,
             PanCard_No: formValues?.PanCard_No || undefined,
-            Pan_doc: await panuploadlink() || undefined,
+            Pan_doc: panfile || undefined,
             Nominee: formValues?.Nominee || undefined,
             Nominee_Relationship: formValues?.Nominee_Relationship || undefined,
             Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
@@ -107,7 +88,7 @@ const onSubmit = async (formValues: AddClientType) => {
             GST_No: formValues?.GST_No || undefined,
             PUCC_Emission_No: formValues?.PUCC_Emission_No || undefined,
             updated_by: formValues?.updated_by || undefined,            
-            GST_Cer_Doc: await GstCeruploadlink() || undefined,                        
+            GST_Cer_Doc: GstCerfile || undefined,                        
         }
         
         console.log( result );
@@ -230,8 +211,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}     
-                onSelectFile={(e:FileList | null) => setadharfile(e)}   
-                isCalled={(e: Boolean) => setadhardocProvided(e)}        
+                onSelectFile={(e:String | null) => setadharfile(e)}                      
                 placeholder=""        
                 value={gusrdatabyid.user_data_byid?.Adhar_doc}                  
             />
@@ -242,8 +222,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
-                onSelectFile={(e:FileList | null) => setpanfile(e)}
-                isCalled={(e:Boolean) => setpandocProvided(e)}
+                onSelectFile={(e:String | null) => setpanfile(e)}                
                 placeholder=""             
                 value={gusrdatabyid.user_data_byid?.Pan_doc}             
             />
@@ -286,8 +265,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="GST_Cer_Doc"
                 control={control}
-                onSelectFile={(e:FileList | null) => setGstCerfile(e)}
-                isCalled={(e:Boolean) => setGstCerdocProvided(e)}
+                onSelectFile={(e:String | null) => setGstCerfile(e)}                
                 placeholder=""        
                 value={gusrdatabyid.user_data_byid?.GST_Cer_Doc}                  
             />                                                                                                                         
