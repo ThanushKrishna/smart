@@ -79,8 +79,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             }
 
                 catch(e){
-                    console.log("This is catch:" + e);
-                    <p>Some Issue Occured During file Delete</p>
+                    console.log("This is catch:" + e);                    
                     return;
                 }
             }
@@ -108,7 +107,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 )}    
                 />  
             </div>  
-            {links?.map((item:string, index:number) => ( <>
+            {links && links?.map((item:string, index:number) => ( <>
                 <a href={item} target="_blank" rel="noopener noreferrer">
                 <button type="button" className='mr-4'>Doc{index+1}</button>                                                                
                 </a>                
