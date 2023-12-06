@@ -69,19 +69,21 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         console.log(newBlob.url.toString())  
                         newLink = newBlob.url.toString() + " ";
                         
-                   }
-                        if (newLink.trim() !== '') {
-                            setLinks([...links, newLink]);
-                            setNewLink('');
-                        }
-                        onSelectFile(links.toString())
+                   }                        
                    
-            }
+                }
 
                 catch(e){
                     console.log("This is catch:" + e);                    
                     return;
                 }
+
+                if (newLink.trim() !== '') {
+                    setLinks([...links, newLink]);
+                    setNewLink('');
+                }
+                onSelectFile(links.toString())
+
             }
         
 
