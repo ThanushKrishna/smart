@@ -578,7 +578,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}
                 placeholder="Policy Issued Through:  "           
                 options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE.map((data:any) => (data.value)) }    
-                onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+                onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}                
             />                        
             <p className='mt-3'>Comments: </p>
             <TextArea  { ...register('Comments')}/>

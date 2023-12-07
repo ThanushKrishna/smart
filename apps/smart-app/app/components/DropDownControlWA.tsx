@@ -9,7 +9,7 @@ interface DropDownControlWAProps<T> {
     options: String[];
     placeholder: string;
     onOptionAdd: (item: String) => void;
-    value?: String;
+    value?: String | undefined;
 }
 
 

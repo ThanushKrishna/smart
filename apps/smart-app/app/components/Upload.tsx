@@ -26,7 +26,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     }) => {      
         
         
-            const urls=value?.split(' ');
+            const urls=value?.toString()?.split(',');
             urls?.pop();             
             const [links, setLinks] = useState<string[]>(urls!);
             var [newLink, setNewLink] = useState<string>('');
@@ -71,7 +71,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     );     
                         const newBlob = (await response.json()) as PutBlobResult;     
                         console.log(newBlob.url.toString())  
-                        newLink = newBlob.url.toString() + " ";
+                        newLink = newBlob.url.toString() + ",";
                         
                    }                        
                    
