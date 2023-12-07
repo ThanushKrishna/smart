@@ -29,7 +29,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             const urls=value?.toString()?.split(',');
             urls?.pop();             
             const [links, setLinks] = useState<string[]>(urls!);
-            var [newLink, setNewLink] = useState<string>('');
+            var newLink = "";
             const inputFileRef = useRef<HTMLInputElement>(null);
             console.log("previous urls: " + value);            
         
@@ -71,7 +71,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     );     
                         const newBlob = (await response.json()) as PutBlobResult;     
                         console.log(newBlob.url.toString())  
-                        newLink = newBlob.url.toString() + ",";
+                        newLink += newBlob.url.toString() + ",";
                         
                    }                        
                    
@@ -83,14 +83,12 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 }
 
                 if (newLink.trim() !== '' && links?.length > 0) {
-                    setLinks([...links!, newLink]);
-                    setNewLink('');
+                    setLinks([...links!, newLink]);                    
                 }
                 else{
-                    setLinks([newLink]);
-                    setNewLink('');
+                    setLinks([newLink]);                
                 }
-                console.log(links?.toString());
+                console.log("All links: "+ links?.toString());
                 onSelectFile(links?.toString())
                 
 
