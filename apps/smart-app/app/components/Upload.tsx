@@ -26,7 +26,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     }) => {      
         
         
-            const urls=value?.toString()?.split(',');
+            const urls=value?.split(' ');
             urls?.pop();             
             const [links, setLinks] = useState<string[]>(urls!);
             var newLink = "";
@@ -48,7 +48,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             const updatedLinks = [...links];
             updatedLinks.splice(index, 1);
             setLinks(updatedLinks);      
-            onSelectFile(links.toString())      
+            onSelectFile(links.join(" "))      
         }
 
         const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +71,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     );     
                         const newBlob = (await response.json()) as PutBlobResult;     
                         console.log(newBlob.url.toString())  
-                        newLink += newBlob.url.toString() + ",";
+                        newLink += newBlob.url.toString() + " ";
                         
                    }                        
                    
@@ -83,14 +83,14 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 }
 
                 if (newLink.trim() !== '' && links?.length > 0) {
-                    setLinks([...links!, newLink]);   
+                    setLinks( [...links , newLink]);   
                     console.log("if block:" + links!);
                 }
                 else{
                     setLinks([newLink]);                
                 }
-                console.log("All links: "+ links?.toString());
-                onSelectFile(links?.toString())
+                console.log("All links: "+ links?.join(" "));
+                onSelectFile(links?.join(" "))
                 
 
             }
