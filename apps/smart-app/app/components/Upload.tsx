@@ -45,8 +45,11 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             try{
 
                 if(links.length===1){
-                    await del(links[0]); 
+                    await del(links[0], {
+                        "token": process.env.BLOB_READ_WRITE_TOKEN
+                    }); 
                     onSelectFile("");
+                    setLinks([]);
                 }
                 if(links.length > 0){
                     console.log("Deleting Blob:" + links[index]);
