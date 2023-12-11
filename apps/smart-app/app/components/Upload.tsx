@@ -83,6 +83,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         console.log(newBlob.url.toString())  
                         setLink(newBlob.url.toString() + " ")
                         links.push(link);
+                        console.log("All Links: " + links.join(" "))  
                         onSelectFile(links.join(" "))
                         
                    }                        
@@ -119,13 +120,14 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 )}    
                 />  
             </div>  
-            {links.length > 0 && links.map((item:string, index:number) => ( <>
+            {links.map((item:string, index:number) => ( 
+            <>
                 <a href={item} target="_blank" rel="noopener noreferrer">
                 <button type="button" className='mr-4'>Doc{index+1}</button>                                                                
                 </a>                
-              <button type="button" onClick={() => handlefileDelete(index)}>Delete </button>
-              <br></br>
-              </>
+                <button type="button" onClick={() => handlefileDelete(index)}>Delete </button>
+                <br></br>
+            </>
             ))}   
         </div>     
       )
