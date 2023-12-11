@@ -28,7 +28,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
         
          
             const [links, setLinks] = useState<string[]>([]);
-            const [link, setLink] = useState<string[]>([]);          
+            const [link, setLink] = useState<string>("");          
             const inputFileRef = useRef<HTMLInputElement>(null);
             
             useEffect(()=>{
@@ -85,7 +85,10 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         );     
                         const newBlob = (await response.json()) as PutBlobResult;     
                         console.log(newBlob.url.toString()) 
-                        setLink( [...link, newBlob.url.toString()]);
+                        setLink( newBlob.url.toString());
+                        setLinks([ link, ...links ]);
+                        console.log("All Links: " + links.join(" ") )
+                        onSelectFile(links.join(" "))
 
                    }                        
                    
@@ -97,9 +100,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 }                                 
                 
                 
-                setLinks([...links, ...link]);
-                console.log("All Links: " + links.join(" ") )
-                onSelectFile(links.join(" "))
+                
                         
             }
         
