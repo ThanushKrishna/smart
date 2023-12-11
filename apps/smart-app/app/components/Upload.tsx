@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Control, Controller } from 'react-hook-form';
 import { useRef } from 'react';
 import type { PutBlobResult } from '@vercel/blob';
@@ -31,10 +31,12 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             var link: string[]= [];            
             const inputFileRef = useRef<HTMLInputElement>(null);
             
-            if(value) {
-                const urls = value.split(" ");                
-                setLinks([ ...urls ]);
-            }
+            useEffect(()=>{
+                const urls = value?.split(" ");  
+                setLinks([ ...urls! ]);
+            }, []); 
+
+            
         
 
         const handlefileDelete = async (index:number) => {
@@ -59,7 +61,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             }            
         }
 
-        const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const handleFileChange = async () => {
             if (!inputFileRef.current?.files) {
                 throw new Error('No file selected');
               }     
@@ -116,7 +118,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         multiple                 
                         ref={inputFileRef} 
                         type="file"                                            
-                        onChange={(e:any) => handleFileChange(e)} />	                        
+                        onChange={() => handleFileChange()} />	                        
 					</div>                    
                 </>
                 )}    
