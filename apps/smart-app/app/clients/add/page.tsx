@@ -193,7 +193,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Vehicle_Reg_Doc"
                 control={control}     
-                onSelectFile={(e:String | null) => setVehRegDocfile(e)}   
+                onSelectFile={(e:string | null) => setVehRegDocfile(e)}   
                 value={VehRegDocfile}
                 placeholder=""                       
             />
@@ -318,7 +318,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="OD_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:String | null) => setOdPolicydocfile(e)}     
+                onSelectFile={(e:string | null) => setOdPolicydocfile(e)}     
                 value={OdPolicydocfile} 
                 placeholder=""                       
             />	   
@@ -354,7 +354,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="TP_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:String | null) => setTpPolicyDocfile(e)}     
+                onSelectFile={(e:string | null) => setTpPolicyDocfile(e)}     
                 value={TpPolicyDocfile }
                 placeholder=""                       
             />	              
@@ -495,7 +495,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}     
-                onSelectFile={(e:String | null) => setadharfile(e)}  
+                onSelectFile={(e:string | null) => setadharfile(e)}  
                 value={ adharfile }                 
                 placeholder=""                       
             />
@@ -506,7 +506,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
-                onSelectFile={(e:String | null) => setpanfile(e)}
+                onSelectFile={(e:string | null) => setpanfile(e)}
                 value={panfile}
                 placeholder=""                       
             />
@@ -547,7 +547,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="GST_Cer_Doc"
                 control={control}
-                onSelectFile={(e:String | null) => setGstCerfile(e)}
+                onSelectFile={(e:string | null) => setGstCerfile(e)}
                 value={GstCerfile}
                 placeholder=""                       
             />                                                                                                 

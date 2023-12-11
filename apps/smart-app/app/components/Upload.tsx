@@ -11,7 +11,7 @@ interface iFileUplaod<T> {
     name: string;
     control: Control<any>;    
     placeholder: string;
-    onSelectFile: (urls:String | null) => void;    
+    onSelectFile: (<urls:s></urls:s>tring | null) => void;    
     value?: string | null;
 }
 
