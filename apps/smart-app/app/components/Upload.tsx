@@ -8,11 +8,11 @@ export const runtime = 'edge';
 
 
 interface iFileUplaod<T> {
-    name: string;
-    control: Control<any>;    
-    placeholder: string;
-    onSelectFile: (<urls:s></urls:s>tring | null) => void;    
-    value?: string | null;
+    name: string,
+    control: Control<any>,
+    placeholder: string,
+    onSelectFile: (urls:string | null) => void,
+    value?: string | null
 }
 
 
