@@ -29,7 +29,12 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
          
             const [links, setLinks] = useState<string[]>([]);
             const [link, setLink] = useState<string>("");
-            const inputFileRef = useRef<HTMLInputElement>(null);                    
+            const inputFileRef = useRef<HTMLInputElement>(null);
+            
+            if(value) {
+                const urls = value.split(" ");                
+                setLinks([ ...urls ]);
+            }
         
 
         const handlefileDelete = async (index:number) => {
@@ -58,10 +63,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             if (!inputFileRef.current?.files) {
                 throw new Error('No file selected');
               }     
-              
-            if(value) {
-                setLink(value);
-            }
+                         
 
                 try{
                     const files = inputFileRef.current.files;             
@@ -76,10 +78,12 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         method: 'POST',
                         body: files[i],
                         },
-                    );     
+                        );     
                         const newBlob = (await response.json()) as PutBlobResult;     
                         console.log(newBlob.url.toString())  
-                        setLink( link + newBlob.url.toString() + " ")
+                        setLink(newBlob.url.toString() + " ")
+                        links.push(link);
+                        onSelectFile(links.join(" "))
                         
                    }                        
                    
@@ -88,18 +92,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 catch(e){
                     console.log("This is catch:" + e);                    
                     return;
-                }
-                if(links.length === 0) {
-                    links.push(link); 
-                    onSelectFile(links.join(" "))
-                    return;           
-                }
-                if (links.length > 0) {
-                    setLinks( [...links , link]);   
-                    console.log("if block:" + links!);
-                    onSelectFile(links.join(" "));
-                    return;
-                }                                                
+                }                                 
 
             }
         
