@@ -98,8 +98,8 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 
                 
                 setLinks([...links, ...link]);
-                console.log("All Links: " + links.join(" "))  
-                onSelectFile(links.join(" "))
+                console.log("All Links: " + links.toString() )
+                onSelectFile(links.toString())
                         
             }
         
