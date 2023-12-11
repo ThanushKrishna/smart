@@ -10,9 +10,9 @@ export const runtime = 'edge';
 interface iFileUplaod<T> {
     name: string;
     control: Control<any>;    
-    placeholder: String;
+    placeholder: string;
     onSelectFile: (urls:String | null) => void;    
-    value?: String | null;
+    value?: string | null;
 }
 
 
@@ -26,43 +26,51 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     }) => {      
         
         
-            const urls=value?.split(' ');
-            urls?.pop();             
-            const [links, setLinks] = useState<string[]>(urls!);
-            var newLink = "";
-            const inputFileRef = useRef<HTMLInputElement>(null);
-            console.log("previous urls: " + value);            
+         
+            const [links, setLinks] = useState<string[]>([]);
+            const [link, setLink] = useState<string>("");
+            const inputFileRef = useRef<HTMLInputElement>(null);                    
         
 
         const handlefileDelete = async (index:number) => {
             
             try{
-                console.log("Deleting Blob:" + links[index]);
-                await del(links[index]);
+
+                if(links.length===1){
+                    await del(links[0]); 
+                    onSelectFile("");
+                }
+                if(links.length > 0){
+                    console.log("Deleting Blob:" + links[index]);
+                    await del(links[index]);                    
+                    links.splice(index, 1);                         
+                    onSelectFile(links.join(" "))      
+                }
             }
             catch(e){
                 console.log(e);
                 <p>Some Issue Occured During file Delete</p>
                 return;
-            }
-            const updatedLinks = [...links];
-            updatedLinks.splice(index, 1);
-            setLinks(updatedLinks);      
-            onSelectFile(links.join(" "))      
+            }            
         }
 
         const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
             if (!inputFileRef.current?.files) {
                 throw new Error('No file selected');
-              }                                            
+              }     
+              
+            if(value) {
+                setLink(value);
+            }
 
                 try{
                     const files = inputFileRef.current.files;             
-                    console.log("Files now Selected: "+ files)             
+                    console.log("Files now Selected: "+ files)   
+                                        
        
                    for(var i=0; i<files.length; i++){
                        console.log(files[i].name) 
-                    const response = await fetch(
+                       const response = await fetch(
                         `/api/files/upload?filename=${files[i].name}`,
                         {
                         method: 'POST',
@@ -71,7 +79,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     );     
                         const newBlob = (await response.json()) as PutBlobResult;     
                         console.log(newBlob.url.toString())  
-                        newLink += newBlob.url.toString() + " ";
+                        setLink( link + newBlob.url.toString() + " ")
                         
                    }                        
                    
@@ -81,17 +89,17 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     console.log("This is catch:" + e);                    
                     return;
                 }
-
-                if (newLink.trim() !== '' && links?.length > 0) {
-                    setLinks( [...links , newLink]);   
+                if(links.length === 0) {
+                    links.push(link); 
+                    onSelectFile(links.join(" "))
+                    return;           
+                }
+                if (links.length > 0) {
+                    setLinks( [...links , link]);   
                     console.log("if block:" + links!);
-                }
-                else{
-                    setLinks([newLink]);                
-                }
-                console.log("All links: "+ links?.join(" "));
-                onSelectFile(links?.join(" "))
-                
+                    onSelectFile(links.join(" "));
+                    return;
+                }                                                
 
             }
         
@@ -118,7 +126,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 )}    
                 />  
             </div>  
-            {links?.length > 0 && links?.map((item:string, index:number) => ( <>
+            {links.length > 0 && links.map((item:string, index:number) => ( <>
                 <a href={item} target="_blank" rel="noopener noreferrer">
                 <button type="button" className='mr-4'>Doc{index+1}</button>                                                                
                 </a>                
