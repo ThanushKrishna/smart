@@ -82,7 +82,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         const newBlob = (await response.json()) as PutBlobResult;     
                         console.log(newBlob.url.toString())  
                         setLink(newBlob.url.toString() + " ")
-                        links.push(link);
+                        setLinks([...links, link]);
                         console.log("All Links: " + links.join(" "))  
                         onSelectFile(links.join(" "))
                         
@@ -120,7 +120,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 )}    
                 />  
             </div>  
-            {links.map((item:string, index:number) => ( 
+            {links && links.map((item:string, index:number) => ( 
             <>
                 <a href={item} target="_blank" rel="noopener noreferrer">
                 <button type="button" className='mr-4'>Doc{index+1}</button>                                                                
