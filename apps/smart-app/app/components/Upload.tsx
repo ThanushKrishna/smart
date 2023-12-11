@@ -50,7 +50,9 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 }
                 if(links.length > 0){
                     console.log("Deleting Blob:" + links[index]);
-                    await del(links[index]);                    
+                    await del(links[index], {
+                        "token": process.env.BLOB_READ_WRITE_TOKEN
+                    });                    
                     links.splice(index, 1);                         
                     onSelectFile(links.join(" "))      
                 }
@@ -84,10 +86,10 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     newLinks.push(newBlob.url.toString());
                 }
                                         
-                const updatedLinks = [...newLinks, ...links];
-                setLinks(updatedLinks);
+                const updatedLinks = [...newLinks, ...links];                
                 console.log("All Links: " + updatedLinks.join(" ") )
                 onSelectFile(updatedLinks.join(' '))
+                setLinks(updatedLinks);
                 
             } catch (e) {
                 console.log('This is catch:' + e);
