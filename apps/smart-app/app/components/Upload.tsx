@@ -91,11 +91,12 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     console.log("This is catch:" + e);                    
                     return;
                 }                                 
-
-                setLinks([...links, ...link]);
-                console.log("All Links: " + links.join(" "))  
-                onSelectFile(links.join(" "))
-
+                
+                if(link.length > 0){
+                    setLinks([...links, ...link]);
+                    console.log("All Links: " + links.join(" "))  
+                    onSelectFile(links.join(" "))
+                }        
             }
         
 
