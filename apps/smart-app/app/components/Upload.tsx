@@ -32,8 +32,10 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             const inputFileRef = useRef<HTMLInputElement>(null);
             
             useEffect(()=>{
-                const urls = value?.split(" ");  
-                setLinks([ ...urls! ]);
+                if(value){
+                    const urls = value.split(" ");  
+                    setLinks([ ...urls ]);
+                }
             }, []); 
 
             
