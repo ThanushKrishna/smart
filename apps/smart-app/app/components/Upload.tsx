@@ -86,9 +86,9 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                                         
                 const updatedLinks = [...newLinks, ...links];
                 setLinks(updatedLinks);
+                console.log("All Links: " + updatedLinks.join(" ") )
                 onSelectFile(updatedLinks.join(' '))
-                console.log("All Links: " + links.join(" ") )
-                onSelectFile(links.join(' '));
+                
             } catch (e) {
                 console.log('This is catch:' + e);
                 return;
