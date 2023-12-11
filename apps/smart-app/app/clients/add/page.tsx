@@ -32,7 +32,6 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
-import { uploadfile } from '@/app/functions/uploadfile'
 import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE } from '@/json/enums'
 
 
@@ -74,12 +73,12 @@ const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,});
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
 const [isSubmitted, setisSubmitted] = useState(false);
-const [panfile, setpanfile] = useState<String | null>(null);
-const [adharfile, setadharfile] = useState<String | null>(null);
-const [VehRegDocfile, setVehRegDocfile] = useState<String | null>(null);
-const [OdPolicydocfile, setOdPolicydocfile] = useState<String | null>(null);
-const [TpPolicyDocfile, setTpPolicyDocfile] = useState<String | null>(null);
-const [GstCerfile, setGstCerfile] = useState<String | null>(null);
+const [panfile, setpanfile] = useState<string | null>(null);
+const [adharfile, setadharfile] = useState<string | null>(null);
+const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(null);
+const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(null);
+const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(null);
+const [GstCerfile, setGstCerfile] = useState<string | null>(null);
 
 
 const onSubmit = async (formValues: AddClientType) => {     
