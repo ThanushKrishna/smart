@@ -27,8 +27,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
         
         
          
-            const [links, setLinks] = useState<string[]>([]);
-            const [link, setLink] = useState<string>("");          
+            const [links, setLinks] = useState<string[]>([]);                 
             const inputFileRef = useRef<HTMLInputElement>(null);
             
             useEffect(()=>{
@@ -66,43 +65,33 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
         const handleFileChange = async () => {
             if (!inputFileRef.current?.files) {
                 throw new Error('No file selected');
-              }     
-                         
-
-                try{
-                    const files = inputFileRef.current.files;             
-                    console.log("Files now Selected: "+ files)   
-                                        
-       
-                   for(var i=0; i<files.length; i++){
-                       console.log(files[i].name) 
-                       const response = await fetch(
+            }
+        
+            try {
+                const files = inputFileRef.current.files;
+                const newLinks: string[] = [];
+        
+                for (let i = 0; i < files.length; i++) {
+                    const response = await fetch(
                         `/api/files/upload?filename=${files[i].name}`,
                         {
-                        method: 'POST',
-                        body: files[i],
+                            method: 'POST',
+                            body: files[i],
                         },
-                        );     
-                        const newBlob = (await response.json()) as PutBlobResult;     
-                        console.log(newBlob.url.toString()) 
-                        setLink( newBlob.url.toString());
-                        setLinks([ link, ...links ]);
-                        console.log("All Links: " + links.join(" ") )
-                        onSelectFile(links.join(" "))
-
-                   }                        
-                   
+                    );
+                    const newBlob = (await response.json()) as PutBlobResult;
+                    console.log(newBlob.url.toString());
+                    newLinks.push(newBlob.url.toString());
                 }
-
-                catch(e){
-                    console.log("This is catch:" + e);                    
-                    return;
-                }                                 
-                
-                
-                
-                        
+        
+                setLinks((prevLinks) => [...newLinks, ...prevLinks]);
+                console.log("All Links: " + links.join(" ") )
+                onSelectFile(links.join(' '));
+            } catch (e) {
+                console.log('This is catch:' + e);
+                return;
             }
+        };
         
 
 
@@ -127,7 +116,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 )}    
                 />  
             </div>  
-            {links && links.map((item:string, index:number) => ( 
+            {links.map((item:string, index:number) => ( 
             <>
                 <a href={item} target="_blank" rel="noopener noreferrer">
                 <button type="button" className='mr-4'>Doc{index+1}</button>                                                                
