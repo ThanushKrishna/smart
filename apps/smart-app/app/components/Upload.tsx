@@ -92,11 +92,11 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     return;
                 }                                 
                 
-                if(link.length > 0){
-                    setLinks([...links, ...link]);
-                    console.log("All Links: " + links.join(" "))  
-                    onSelectFile(links.join(" "))
-                }        
+                
+                setLinks([...links, ...link]);
+                console.log("All Links: " + links.join(" "))  
+                onSelectFile(links.join(" "))
+                        
             }
         
 
@@ -116,7 +116,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                         multiple                 
                         ref={inputFileRef} 
                         type="file"                                            
-                        onChange={handleFileChange} />	                        
+                        onChange={(e:any) => handleFileChange(e)} />	                        
 					</div>                    
                 </>
                 )}    
