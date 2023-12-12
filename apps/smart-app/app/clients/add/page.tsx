@@ -188,8 +188,22 @@ const onSubmit = async (formValues: AddClientType) => {
     <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                    
             <p>Vehicle Registration Number:</p>
             <TextField.Root>
-            <TextField.Input { ...register('Vehicle_No')}/>
-            </TextField.Root>            
+            <TextField.Input 
+             {...register('Vehicle_No', {
+                required: 'Vehicle Registration Number is required',
+                maxLength: {
+                  value: 10,
+                  message: 'Vehicle Registration Number should be at most 10 characters'
+                },
+                pattern: {
+                  value: /^[A-Za-z0-9]*$/,
+                  message: 'Vehicle Registration Number should be alphanumeric'
+                }
+              })}
+              onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
+            </TextField.Root>
+          {errors.Vehicle_No && <p className="error text-red-600">{errors.Vehicle_No.message}</p>}
             <FileUplaod 
                 name="Vehicle_Reg_Doc"
                 control={control}     
