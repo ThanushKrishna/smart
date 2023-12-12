@@ -2,6 +2,9 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { DELETE_CLIENT_BYID } from '@/graphql/queries';
+import { Button } from '@radix-ui/themes';
+import Spinner from '@/app/components/Spinner';
+import { TextField } from '@radix-ui/themes'
 
 const DeleteClient: React.FC = () => {
   const [deleteclient, { loading: clientdataload, error: deleteclienterror }] = useMutation(DELETE_CLIENT_BYID);
@@ -37,24 +40,24 @@ const DeleteClient: React.FC = () => {
       {!isVehicleNoprovided && (
         <>
           <label> Vehicle Registration Number: </label>
+          <br/>
           <input
-            type="text"
-            name="Vehicle_No"
-            onBlur={(e: any) => setVehicleno(e.target.value)}
-          />
+            className="p-2 h-8 border border-gray-300 rounded-md text-lg focus:outline-none focus:border-blue-500 mb-2"
+            id="vehicleNo"
+            name="Vehicle_No"            
+            onInput={(e:any) => setVehicleno(e.target.value)}
+      />
           <br />
-          <button
-            type="button"
-            onClick={handleVehicleNoSubmit}
-          >
-            {' '}
-            Search{' '}
-          </button>
-        </>
+        <Button        
+         onClick = {() => handleVehicleNoSubmit()}   
+        > 
+        Delete {clientdataload && <Spinner></Spinner>}
+        </Button>
+        </>        
       )}
 
       {clientdataload && <p>Loading...</p>}
-      {deleteclienterror && <p>Vehicle No does not exist</p>}
+      {deleteclienterror && <p className='text-red-600'>Vehicle No does not exist</p>}
       {isVehicleNoprovided && <p>Client Record Deleted Successfully!!! </p>}
 
       {isModalOpen && (
