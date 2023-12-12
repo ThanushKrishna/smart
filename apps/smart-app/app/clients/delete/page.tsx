@@ -54,7 +54,7 @@ const DeleteClient: React.FC = () => {
       )}
 
       {clientdataload && <p>Loading...</p>}
-      {deleteclienterror && <p>"Vehicle No does not exist"</p>}
+      {deleteclienterror && <p>Vehicle No does not exist</p>}
       {isVehicleNoprovided && <p>Client Record Deleted Successfully!!! </p>}
 
       {isModalOpen && (
