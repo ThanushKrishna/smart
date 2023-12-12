@@ -5,6 +5,8 @@ import Updatepage02 from '../../components/updatepag02'
 import Updatepage03 from '../../components/updatepag03'
 import { useQuery } from '@apollo/client';
 import { GET_USER_DATA_BYID } from '@/graphql/queries'
+import { Button } from '@radix-ui/themes'
+import  Spinner from '@/app/components/Spinner'
 
 const UpdateClient:React.FC = () => {
    
@@ -17,16 +19,16 @@ const UpdateClient:React.FC = () => {
 
         const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
             variables: { vechicleId: vehicleno },
-            }); 
+            skip: !vehicleno, // Skip the query if vehicleno is not provided            
+            });
 
         const handleVehicleNoSubmit = async () => {
             console.log("This is handleVehicleNoSubmit");
-            console.log(vehicleno);    
+            console.log(vehicleno);                                                   
+            setfirstpage(true);
+            setVehicleNoprovided(true);
+                 
             
-            if(vehicleno && gusrdatabyid) {
-                setfirstpage(true);
-                setVehicleNoprovided(true);
-            }  
         }  
 
     return (
@@ -39,17 +41,16 @@ const UpdateClient:React.FC = () => {
         onBlur={(e:any) => setVehicleno(e.target.value)}    
         /> 
         <br></br>
-        <button 
-        type="button" 
-        onClick = {handleVehicleNoSubmit}            
-        > Search </button>
+        <Button         
+         onClick = {() => handleVehicleNoSubmit()}   
+        > 
+        Search {gusrbyidload && <Spinner></Spinner>}
+        </Button>
         </>
-        }
-    
-    {gusrbyidload && <p>Loading...</p>}
+        }    
     {gusrbyiderror && <p>{gusrbyiderror.message}</p>}
 
-            {firstpage && <Updatepage01 value={vehicleno} ispagesubmitted={(e:Boolean) => {setsecndpage(e); setfirstpage(!e)}} /> }
+            { gusrdatabyid && firstpage && <Updatepage01 value={vehicleno} ispagesubmitted={(e:Boolean) => {setsecndpage(e); setfirstpage(!e)}} /> }
             {secndpage && <Updatepage02 value={vehicleno} ispagesubmitted={(e:Boolean) => {setthirddpage(e); setsecndpage(!e)}} /> }
             {thirddpage && <Updatepage03 value={vehicleno} ispagesubmitted={(e:Boolean) => { setthirddpage(!e)} } /> }
 
