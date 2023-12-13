@@ -32,6 +32,7 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
+import AddressForm from '@/app/components/AddressForm'
 import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE } from '@/json/enums'
 
 
@@ -185,7 +186,7 @@ const onSubmit = async (formValues: AddClientType) => {
   return (
     
     
-    <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                    
+    <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                
             <p>Vehicle Registration Number:</p>
             <TextField.Root>
             <TextField.Input 
@@ -843,7 +844,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 value={GstCerfile}
                 placeholder=""                       
             />                                                                                                 
-            <p>Address: </p>
+            {/* <p>Address: </p>
             <TextField.Root>
             <TextField.Input  { ...register('Address.street')} placeholder='Street'/>
             </TextField.Root>       
@@ -865,7 +866,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder='pin'
             />
             </TextField.Root>
-            {errors?.Address?.zip && <p className="error text-red-600">{errors.Address.zip.message}</p>}
+            {errors?.Address?.zip && <p className="error text-red-600">{errors.Address.zip.message}</p>} */}
+            <AddressForm register={register} errors={errors} />
             <p>Referred by: </p>
             <TextField.Root>
                 <TextField.Input
