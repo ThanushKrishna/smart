@@ -44,57 +44,49 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             
         
 
-        const handlefileDelete = async (index:number) => {
-            
-            try{
-
-                if(links.length===1){
-                    // await del(links[0].toString(), {
-                    //     "token": process.env.BLOB_READ_WRITE_TOKEN
-                    // }); 
-
-                    await addDelBlob( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": links[0] } }})
-                    .then(()=> {                            
+            const handlefileDelete = async (index: number) => {
+                try {
+                  let updatedLinks = [...links]; // Make a copy of the links array
+              
+                  if (links.length === 1) {
+                    await addDelBlob({
+                      variables: { input: { "data_owner_id": "6562047e649b76ef6a583b8d", "value": links[0] } }
                     })
-                    .catch((err) => {
-                      console.log(JSON.stringify(err, null, 2));                                      
-                    })      
-                
-                    links.splice(index, 1);   
-                    const updatedLinks = [...links];                
-                    console.log("Deleted Link: " + updatedLinks.join(" ") )
-                    onSelectFile(updatedLinks.join(' '))
-                    setLinks(updatedLinks);                    
-                }
-
-                if(links.length > 0){
+                      .then(() => {
+                        // Handle success if needed
+                      })
+                      .catch((err) => {
+                        console.log(JSON.stringify(err, null, 2));
+                      });
+              
+                    updatedLinks.splice(index, 1);
+                    console.log("Deleted Link: " + updatedLinks.join(" "));
+                  }
+              
+                  if (links.length > 0) {
                     console.log("Deleting Blob:" + links[index]);
-
-                    // await del(links[index].toString(),  {
-                    //     "token": process.env.BLOB_READ_WRITE_TOKEN
-                    // });                    
-
-                    await addDelBlob( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": links[index] } }})
-                    .then(()=> {                            
+              
+                    await addDelBlob({
+                      variables: { input: { "data_owner_id": "6562047e649b76ef6a583b8d", "value": links[index] } }
                     })
-                    .catch((err) => {
-                      console.log(JSON.stringify(err, null, 2));                                      
-                    })
-
-
-                    links.splice(index, 1);                                             
-                    const updatedLinks = [...links];                
-                    console.log("Deleted Links: " + updatedLinks.join(" ") )
-                    onSelectFile(updatedLinks.join(' '))
-                    setLinks(updatedLinks);
+                      .then(() => {
+                        // Handle success if needed
+                      })
+                      .catch((err) => {
+                        console.log(JSON.stringify(err, null, 2));
+                      });
+              
+                    updatedLinks.splice(index, 1);
+                    console.log("Deleted Links: " + updatedLinks.join(" "));
+                  }
+              
+                  onSelectFile(updatedLinks.join(' '));
+                  setLinks(updatedLinks);
+                } catch (e) {
+                  console.log(e);
+                  // Handle the error accordingly
                 }
-                
-            } catch(e){
-                console.log(e);
-                <p>Some Issue Occured During file Delete</p>
-                return;
-            }            
-        }
+              };
 
         const handleFileChange = async () => {
             if (!inputFileRef.current?.files) {

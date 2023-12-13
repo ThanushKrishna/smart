@@ -133,8 +133,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="OD_Policy_Doc"
                 control={control}     
                 onSelectFile={(e:String | null) => setOdPolicydocfile(e)}                 
-                placeholder=""  
-                value={gusrdatabyid.user_data_byid?.OD_Policy_Doc + OdPolicydocfile}                        
+                placeholder=""                  
+                value={(gusrdatabyid.user_data_byid?.OD_Policy_Doc || '') + (OdPolicydocfile || '')}                    
             />	   
             <DropDownControlWA 
                 name="Insurance_provider"
@@ -172,8 +172,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="TP_Policy_Doc"
                 control={control}     
                 onSelectFile={(e:String | null) => setTpPolicyDocfile(e)}                 
-                placeholder=""              
-                value={gusrdatabyid.user_data_byid?.TP_Policy_Doc + TpPolicyDocfile}            
+                placeholder=""                              
+                value={(gusrdatabyid.user_data_byid?.TP_Policy_Doc || '') + (TpPolicyDocfile || '')}      
             />	              
             <DropDownControlWA 
                 name="TP_Insurance_provider"
