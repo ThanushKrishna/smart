@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { useForm, Controller  } from 'react-hook-form'
+import { useForm, Controller, FieldError  } from 'react-hook-form'
 import { TextField, Button, TextArea } from '@radix-ui/themes'
 import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
@@ -21,7 +21,6 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
-import { uploadfile } from '@/app/functions/uploadfile'
 import { OWNER_TYPE, MARITAL_STATUS } from '@/json/enums'
 
 interface iupdatevalue {
@@ -177,8 +176,24 @@ const onSubmit = async (formValues: AddClientType) => {
             />                       
             <p>Permit No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Permit_No')} defaultValue={gusrdatabyid.user_data_byid?.Permit_No}/>
+            <TextField.Input
+                {...register('Permit_No', {
+                maxLength: {
+                    value: 25,
+                    message: 'Permit Number should be at most 25 characters',
+                },
+                pattern: {
+                    value: /^[A-Za-z0-9]*$/,
+                    message: 'Permit Number should be alphanumeric',
+                },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.Permit_No}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
             </TextField.Root>
+            {errors.Permit_No && (
+            <p className="error text-red-600">{errors.Permit_No.message}</p>
+            )}
             <DropDownControlWA 
                 name="Permit_category"
                 control={control}
@@ -190,24 +205,77 @@ const onSubmit = async (formValues: AddClientType) => {
             {gpermiterror && <p> {gpermiterror.message} </p>}
             <p>1st Mobile No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Mobile_No1')} defaultValue={gusrdatabyid.user_data_byid?.Mobile_No1}/>
+            <TextField.Input
+                {...register('Mobile_No1', {
+                pattern: {
+                    value: /^[6-9]\d{9}$/,
+                    message: 'Mobile Number should be a 10-digit number starting with 6, 7, 8, or 9',
+                },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.Mobile_No1}
+            />
             </TextField.Root>
+            {errors.Mobile_No1 && typeof errors.Mobile_No1 === 'object' && 'message' in errors.Mobile_No1 && (
+            <p className="error text-red-600">{(errors.Mobile_No1 as FieldError).message}</p>)} 
+
             <p>2nd Mobile No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Mobile_No2')} defaultValue={gusrdatabyid.user_data_byid?.Mobile_No2}/>
+            <TextField.Input
+                {...register('Mobile_No2', {
+                pattern: {
+                    value: /^[6-9]\d{9}$/,
+                    message: 'Mobile Number should be a 10-digit number starting with 6, 7, 8, or 9',
+                },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.Mobile_No2}
+            />
             </TextField.Root>
+            {errors.Mobile_No2 && typeof errors.Mobile_No2 === 'object' && 'message' in errors.Mobile_No2 && (
+            <p className="error text-red-600">{(errors.Mobile_No2 as FieldError).message}</p>)} 
+
             <p>3rd Mobile No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Mobile_No3')} defaultValue={gusrdatabyid.user_data_byid?.Mobile_No3}/>
+            <TextField.Input
+                {...register('Mobile_No3', {
+                pattern: {
+                    value: /^[6-9]\d{9}$/,
+                    message: 'Mobile Number should be a 10-digit number starting with 6, 7, 8, or 9',
+                },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.Mobile_No3}
+            />
             </TextField.Root>
+            {errors.Mobile_No3 && typeof errors.Mobile_No3 === 'object' && 'message' in errors.Mobile_No3 && (
+            <p className="error text-red-600">{(errors.Mobile_No3 as FieldError).message}</p>)} 
+
             <p>Email Id: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Email_id')} defaultValue={gusrdatabyid.user_data_byid?.Email_id}/>
+            <TextField.Input
+                {...register('Email_id', {
+                pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: 'Enter a valid email address',
+                },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.Email_id}
+            />
             </TextField.Root>
+            {errors.Email_id && <p className="error text-red-600">{errors.Email_id.message}</p>}
+
             <p>Aadhar Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Adhar_No')} defaultValue={gusrdatabyid.user_data_byid?.Adhar_No}/>
-            </TextField.Root>                     
+            <TextField.Input
+                {...register('Adhar_No', {
+                pattern: {
+                    value: /^\d{12}$/,
+                    message: 'Adhar Number should be a 12-digit number',
+                },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.Adhar_No}
+            />
+            </TextField.Root>          
+            {errors.Adhar_No && typeof errors.Adhar_No === 'object' && 'message' in errors.Adhar_No && (
+            <p className="error text-red-600">{(errors.Adhar_No as FieldError).message}</p>)}      
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}     
@@ -217,8 +285,19 @@ const onSubmit = async (formValues: AddClientType) => {
             />
             <p>PAN Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('PanCard_No')}/>
+            <TextField.Input
+                {...register('PanCard_No', {
+                pattern: {
+                    value: /^[A-Za-z0-9]{10}$/,
+                    message: 'Pan Card Number should be a 10-character alphanumeric string',
+                },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.PanCard_No}
+                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+            />
             </TextField.Root>
+            {errors.PanCard_No && typeof errors.PanCard_No === 'object' && 'message' in errors.PanCard_No && (
+            <p className="error text-red-600">{(errors.PanCard_No as FieldError).message}</p>)}      
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
@@ -228,12 +307,44 @@ const onSubmit = async (formValues: AddClientType) => {
             />
             <p>Nominee Name: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Nominee')} defaultValue={gusrdatabyid.user_data_byid?.Nominee}/>
+              <TextField.Input
+                {...register('Nominee', {
+                  maxLength: {
+                    value: 30,
+                    message: 'Nominee should be at most 30 characters',
+                  },
+                  pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Nominee should contain only alphabets and spaces',
+                  },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.Nominee}
+                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+              />
             </TextField.Root>
+            {errors.Nominee && typeof errors.Nominee === 'string' && (
+              <p className="error text-red-600">{errors.Nominee}</p>
+            )}
+
             <p>Nominee Relationship: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Nominee_Relationship')} defaultValue={gusrdatabyid.user_data_byid?.Nominee_Relationship}/>
+              <TextField.Input
+                {...register('Nominee_Relationship', {
+                  maxLength: {
+                    value: 20,
+                    message: 'Nominee Relationship should be at most 20 characters',
+                  },
+                  pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Nominee Relationship should contain only alphabets and spaces',
+                  },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.Nominee_Relationship}
+                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+              />
             </TextField.Root>
+            {errors.Nominee_Relationship && typeof errors.Nominee_Relationship === 'object' && 'message' in errors.Nominee_Relationship && (
+            <p className="error text-red-600">{(errors.Nominee_Relationship as FieldError).message}</p>)} 
             <Controller
                 name="Nominee_dob"
                 control={control}      
@@ -244,10 +355,21 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="Nominee DOB: "
                 />)}
             /> 
-            <p>PUC/Emission Number: </p>
+           <p>PUC/Emission Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('PUCC_Emission_No')} defaultValue={gusrdatabyid.user_data_byid?.PUCC_Emission_No}/>
+              <TextField.Input
+                {...register('PUCC_Emission_No', {
+                  pattern: {
+                    value: /^[A-Za-z0-9]{20}$/,
+                    message: 'PUCC Emission Number should be a 20-character alphanumeric string',
+                  },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.PUCC_Emission_No}
+                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+              />
             </TextField.Root>
+            {errors.PUCC_Emission_No && typeof errors.PUCC_Emission_No === 'object' && 'message' in errors.PUCC_Emission_No && (
+            <p className="error text-red-600">{(errors.PUCC_Emission_No as FieldError).message}</p>)} 
             <Controller
                 name="Emission_dueDate"
                 control={control}     
@@ -258,10 +380,21 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="PUC/Emission UpTo: "
                 />)}
             />      
-            <p className='mt-3'>GST No: </p>
+           <p className='mt-3'>GST No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('GST_No')} defaultValue={gusrdatabyid.user_data_byid?.GST_No}/>        
-            </TextField.Root>  
+              <TextField.Input
+                {...register('GST_No', {
+                  pattern: {
+                    value: /^[A-Za-z0-9]{15}$/,
+                    message: 'GST Number should be a 15-character alphanumeric string',
+                  },
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.GST_No}
+                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+              />
+            </TextField.Root>
+            {errors.GST_No && typeof errors.GST_No === 'object' && 'message' in errors.GST_No && (
+            <p className="error text-red-600">{(errors.GST_No as FieldError).message}</p>)} 
             <FileUplaod 
                 name="GST_Cer_Doc"
                 control={control}
@@ -271,25 +404,84 @@ const onSubmit = async (formValues: AddClientType) => {
             />                                                                                                                         
             <p>Address: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Address.street')} placeholder='Street' defaultValue={gusrdatabyid.user_data_byid?.Address?.street}/>
-            </TextField.Root>       
+              <TextField.Input
+                {...register('Address.street')}
+                placeholder="Street"
+                defaultValue={gusrdatabyid?.user_data_byid?.Address?.street}
+              />
+            </TextField.Root>
+
             <TextField.Root>
-            <TextField.Input  { ...register('Address.city')} defaultValue={gusrdatabyid.user_data_byid?.Address?.city}/>
-            </TextField.Root>       
+              <TextField.Input
+                {...register('Address.city')}
+                placeholder="City"
+                defaultValue={gusrdatabyid?.user_data_byid?.Address?.city}
+              />
+            </TextField.Root>
+
             <TextField.Root>
-            <TextField.Input  { ...register('Address.state')} defaultValue={gusrdatabyid.user_data_byid?.Address?.state}/>
-            </TextField.Root>       
+              <TextField.Input
+                {...register('Address.state')}
+                placeholder="State"
+                defaultValue={gusrdatabyid?.user_data_byid?.Address?.state}
+              />
+            </TextField.Root>
+
             <TextField.Root>
-            <TextField.Input  { ...register('Address.zip')} defaultValue={gusrdatabyid.user_data_byid?.Address?.zip}/>
-            </TextField.Root>       
+              <TextField.Input
+                {...register('Address.zip', {
+                  pattern: {
+                    value: /^\d{6}$/,
+                    message: 'Zip code should be a 6-digit number',
+                  },
+                })}
+                placeholder="ZIP Code"
+                defaultValue={gusrdatabyid?.user_data_byid?.Address.zip}
+                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+              />
+            </TextField.Root>           
+            {errors?.Address?.zip && typeof errors.Address.zip === 'object' && 'message' in errors.Address.zip && (
+            <p className="error text-red-600">{(errors.Address.zip as FieldError).message}</p>)} 
             <p>Referred by: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Referred_by')} defaultValue={gusrdatabyid.user_data_byid?.Referred_by}/>
+              <TextField.Input
+                {...register('Referred_by', {
+                  maxLength: {
+                    value: 30,
+                    message: 'Referred by should be at most 30 characters',
+                  },
+                  pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Referred by should contain only alphabets and spaces',
+                  },
+                })}
+                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+                defaultValue={gusrdatabyid?.user_data_byid?.Referred_by}
+              />
             </TextField.Root>
-            <p>Updated by: </p>
+            {errors.Referred_by && (
+              <p className="error text-red-600">{errors.Referred_by.message}</p>
+            )}
+           <p>Updated by: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('updated_by')} defaultValue={gusrdatabyid.user_data_byid?.updated_by}/>
+              <TextField.Input
+                {...register('updated_by', {
+                  maxLength: {
+                    value: 30,
+                    message: 'Updated by should be at most 30 characters',
+                  },
+                  pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Updated by should contain only alphabets and spaces',
+                  },
+                })}
+                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+                defaultValue={gusrdatabyid?.user_data_byid?.updated_by}
+              />
             </TextField.Root>
+            {errors.updated_by && (
+              <p className="error text-red-600">{errors.updated_by.message}</p>
+            )}
             <DropDownControlWA 
                 name="Customer_type"
                 control={control}
@@ -298,8 +490,16 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE.map((data:any) => (data.value)) }    
                 onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />                        
-            <p className='mt-3'>Comments: </p>
-            <TextArea  { ...register('Comments')} defaultValue={gusrdatabyid.user_data_byid?.Comments}/>
+            <p className="mt-3">Comments: </p>
+            <TextArea
+              {...register('Comments', {
+                maxLength: { value: 500, message: 'Comments should be at most 500 characters' },
+              })}
+              defaultValue={gusrdatabyid?.user_data_byid?.Comments}
+            />
+            {errors.Comments && (
+              <p className="error text-red-600">{errors.Comments.message}</p>
+            )}
             <br/>
             <Button disabled={isSubmitted}> Update {isSubmitted && <Spinner></Spinner>}</Button>        
     </form>

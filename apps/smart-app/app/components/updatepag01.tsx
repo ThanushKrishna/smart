@@ -28,7 +28,6 @@ import { DropDownControl }  from '@/app/components/DropDownControl'
 import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { FileUplaod } from '@/app/components/Upload'
-import { uploadfile } from '@/app/functions/uploadfile'
 import { FUEL_TYPE } from '@/json/enums'
 
 interface iupdatevalue {
@@ -133,38 +132,125 @@ const onSubmit = async (formValues: AddClientType) => {
   return (
    <>      
     <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
-            <p>Vehicle Registration Number:</p>
-            <TextField.Root >
-            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
-            </TextField.Root>        
-              
-            <FileUplaod 
-                name="Vehicle_Reg_Doc"
-                control={control}     
-                onSelectFile={(e:String | null) => setVehRegDocfile(e)}       
-                placeholder=""   
-                value={(gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc || '') + (VehRegDocfile || '')}
-            />
-             <p>Owner Name: </p>            
-            <TextField.Root> 
-            <TextField.Input { ...register('Owner')} defaultValue={gusrdatabyid.user_data_byid?.Owner}/>
-            </TextField.Root>
-            <p>Son/Wife/Daughter Of: </p>            
-            <TextField.Root> 
-            <TextField.Input { ...register('Son_Wife_Daughter_Of')} defaultValue={gusrdatabyid.user_data_byid?.Son_Wife_Daughter_Of}/>
-            </TextField.Root>
-            <p>Owner Serial Number: </p>
-            <TextField.Root>
-            <TextField.Input { ...register('RC_No')} defaultValue={gusrdatabyid.user_data_byid?.RC_No}/>
-            </TextField.Root>  
-            <p>Chassis Number: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Chasis_No')} defaultValue={gusrdatabyid.user_data_byid?.Chasis_No}/>
-            </TextField.Root>
-            <p>Engine Number: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Engine_No')} defaultValue={gusrdatabyid.user_data_byid?.Engine_No}/>
-            </TextField.Root>
+    <p>Vehicle Registration Number:</p>
+    <TextField.Root>
+        <TextField.Input
+        {...register('Vehicle_No', )}
+        defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No}
+        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+        disabled={true}
+        />
+    </TextField.Root>    
+    <FileUplaod
+        name="Vehicle_Reg_Doc"
+        control={control}
+        onSelectFile={(e: string | null) => setVehRegDocfile(e)}
+        value={(gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc || '') + (VehRegDocfile || '')}
+        placeholder=""
+    />
+    <p>Owner Name: </p>
+    <TextField.Root>
+        <TextField.Input
+        {...register('Owner', {
+            maxLength: {
+            value: 30,
+            message: 'Owner Name should be at most 30 characters',
+            },
+            pattern: {
+            value: /^[A-Za-z\s]*$/,
+            message: 'Owner Name  should contain only alphabets and spaces',
+            },
+        })}
+        defaultValue={gusrdatabyid.user_data_byid?.Owner}
+        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+        />
+    </TextField.Root>
+    {errors.Owner && (
+        <p className="error text-red-600">{errors.Owner.message}</p>
+    )}
+    <p>Son/Wife/Daughter Of: </p>
+    <TextField.Root>
+        <TextField.Input
+        {...register('Son_Wife_Daughter_Of', {
+            maxLength: {
+            value: 30,
+            message: 'Name should be at most 30 characters',
+            },
+            pattern: {
+            value: /^[A-Za-z\s]*$/,
+            message: 'Name  should contain only alphabets and spaces',
+            },
+        })}
+        defaultValue={gusrdatabyid.user_data_byid?.Son_Wife_Daughter_Of}
+        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+        />
+    </TextField.Root>
+    {errors.Son_Wife_Daughter_Of && (
+        <p className="error text-red-600">
+        {errors.Son_Wife_Daughter_Of.message}
+        </p>
+    )}
+    <p>Owner Serial Number: </p>
+    <TextField.Root>
+        <TextField.Input
+        {...register('RC_No', {
+            maxLength: {
+            value: 2,
+            message: 'Owner Serial Number should be at most 2 characters',
+            },
+            pattern: {
+            value: /^[0-9]{2}$/,
+            message: 'Owner Serial Number should be a two-digit number',
+            },
+        })}
+        defaultValue={gusrdatabyid.user_data_byid?.RC_No}
+        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+        />
+    </TextField.Root>
+    {errors.RC_No && (
+        <p className="error text-red-600">{errors.RC_No.message}</p>
+    )}
+             <p>Chassis Number: </p>
+    <TextField.Root>
+        <TextField.Input
+        {...register('Chasis_No', {
+            maxLength: {
+            value: 25,
+            message: 'Chassis Number should be at most 25 characters',
+            },
+            pattern: {
+            value: /^[A-Za-z0-9]{0,25}$/,
+            message: 'Chassis Number should be alphanumeric and at most 25 characters',
+            },
+        })}
+        defaultValue={gusrdatabyid.user_data_byid?.Chasis_No}
+        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+        />
+    </TextField.Root>
+    {errors.Chasis_No && (
+        <p className="error text-red-600">{errors.Chasis_No.message}</p>
+    )}
+
+    <p>Engine Number: </p>
+    <TextField.Root>
+        <TextField.Input
+        {...register('Engine_No', {
+            maxLength: {
+            value: 25,
+            message: 'Engine Number should be at most 25 characters',
+            },
+            pattern: {
+            value: /^[A-Za-z0-9]{0,25}$/,
+            message: 'Engine Number should be alphanumeric and at most 25 characters',
+            },
+        })}
+        defaultValue={gusrdatabyid.user_data_byid?.Engine_No}
+        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+        />
+    </TextField.Root>
+    {errors.Engine_No && (
+        <p className="error text-red-600">{errors.Engine_No.message}</p>
+    )}
             <DropDownControlWA
                 name="Make"
                 control={control}
@@ -256,16 +342,49 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gStanCapdata && gStanCapdata.STANDING_CAPACITY.map((data:any) => (data.value)) }  
                 onOptionAdd= {async (e: String) => await (addStanCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
             />      
-            <p>Hypothecation Bank: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Hypothecation_bank')} defaultValue={gusrdatabyid.user_data_byid?.Hypothecation_bank}/>
-            </TextField.Root>
-            <p>Hypothecation City: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Hypothecation_city')} defaultValue={gusrdatabyid.user_data_byid?.Hypothecation_city}/>
-            </TextField.Root>
+        <p>Hypothecation Bank: </p>
+        <TextField.Root>
+        <TextField.Input
+        {...register('Hypothecation_bank', {
+            maxLength: {
+            value: 40,
+            message: 'Hypothecation bank should be at most 40 characters',
+            },
+            pattern: {
+            value: /^[A-Za-z\s]*$/,
+            message: 'Hypothecation bank should contain only alphabets and spaces',
+            },
+        })}
+        defaultValue={gusrdatabyid.user_data_byid?.Hypothecation_bank}
+        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+        />
+        </TextField.Root>
+        {errors.Hypothecation_bank && (
+            <p className="error text-red-600">{errors.Hypothecation_bank.message}</p>
+        )}
+
+    <p>Hypothecation City: </p>
+    <TextField.Root>
+        <TextField.Input
+        {...register('Hypothecation_city', {
+            maxLength: {
+            value: 40,
+            message: 'Hypothecation city should be at most 40 characters',
+            },
+            pattern: {
+            value: /^[A-Za-z\s]*$/,
+            message: 'Hypothecation city should contain only alphabets and spaces',
+            },
+        })}
+        defaultValue={gusrdatabyid.user_data_byid?.Hypothecation_city}
+        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+        />
+    </TextField.Root>
+    {errors.Hypothecation_city && (
+        <p className="error text-red-600">{errors.Hypothecation_city.message}</p>
+    )}
             
-            <Button disabled={isSubmitted}> Save and Next {isSubmitted && <Spinner></Spinner>}</Button>        
+    <Button disabled={isSubmitted}> Save and Next {isSubmitted && <Spinner></Spinner>}</Button>        
     </form>    
     </> 
   )

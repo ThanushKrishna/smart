@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { useForm, Controller  } from 'react-hook-form'
+import { useForm, Controller, FieldError  } from 'react-hook-form'
 import { TextField, Button, TextArea } from '@radix-ui/themes'
 import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
@@ -20,9 +20,7 @@ import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
 import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
-import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
-import { uploadfile } from '@/app/functions/uploadfile'
 import { INSURANCE_TYPE } from '@/json/enums'
 
 
@@ -127,8 +125,22 @@ const onSubmit = async (formValues: AddClientType) => {
             />      
             <p>OD Policy No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Policy_No')} defaultValue={gusrdatabyid.user_data_byid?.Policy_No}/>
+                <TextField.Input  
+                {...register('Policy_No', {
+                    maxLength: {
+                    value: 30,
+                    message: 'Policy number should be at most 30 characters'
+                    },
+                    pattern: {
+                    value: /^[A-Za-z0-9]*$/,
+                    message: 'Policy number should be alphanumeric'
+                    }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+                defaultValue={gusrdatabyid.user_data_byid?.Policy_No}
+                />
             </TextField.Root>
+            {errors.Policy_No && <p className="error text-red-600">{errors.Policy_No.message}</p>}
             <FileUplaod 
                 name="OD_Policy_Doc"
                 control={control}     
@@ -166,8 +178,22 @@ const onSubmit = async (formValues: AddClientType) => {
             />         
             <p>TP Policy No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('TP_Policy_No')} defaultValue={gusrdatabyid.user_data_byid?.TP_Policy_No}/>
+            <TextField.Input
+                {...register('TP_Policy_No', {
+                maxLength: {
+                    value: 30,
+                    message: 'TP Policy number should be at most 30 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z0-9]*$/,
+                    message: 'TP Policy number should be alphanumeric'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+                defaultValue={gusrdatabyid.user_data_byid?.TP_Policy_No}
+            />
             </TextField.Root>
+            {errors.TP_Policy_No && <p className="error text-red-600">{errors.TP_Policy_No.message}</p>}
             <FileUplaod 
                 name="TP_Policy_Doc"
                 control={control}     
@@ -213,28 +239,98 @@ const onSubmit = async (formValues: AddClientType) => {
             />        
             <p>Unladen Weight: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Unladen_Weight')} defaultValue={gusrdatabyid.user_data_byid?.Unladen_Weight}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('Unladen_Weight', {
+                maxLength: {
+                    value: 6,
+                    message: 'Unladen Weight should be at most 6 characters'
+                },
+                pattern: {
+                    value: /^\d{1,6}$/,
+                    message: 'Unladen Weight should be at most a 6-digit number'
+                }
+                })}
+                defaultValue={gusrdatabyid.user_data_byid?.Unladen_Weight}
+            />
+            </TextField.Root>
+            {errors.Unladen_Weight && <p className="error text-red-600">{errors.Unladen_Weight.message}</p>}
+
             <p>Laden Weight (GVW): </p>
             <TextField.Root>
-            <TextField.Input  { ...register('GVW')} defaultValue={gusrdatabyid.user_data_byid?.GVW}/>
-            </TextField.Root>      
+            <TextField.Input
+                {...register('GVW', {
+                pattern: {
+                    value: /^\d{1,6}$/,
+                    message: 'GVW should be at most a 6-digit number'
+                }
+                })}
+                defaultValue={gusrdatabyid.user_data_byid?.GVW}
+            />
+            </TextField.Root>
+            {errors.GVW && typeof errors.GVW === 'object' && 'message' in errors.GVW && (
+            <p className="error text-red-600">{(errors.GVW as FieldError).message}</p>
+            )}
+
             <p>Vehicle Body: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Vehicle_Body')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Body}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('Vehicle_Body', {
+                maxLength: {
+                    value: 15,
+                    message: 'Vehicle Body should be at most 15 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z]*$/,
+                    message: 'Vehicle Body should contain only alphabets'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+                defaultValue={gusrdatabyid.user_data_byid?.Vehicle_Body}
+            />
+            </TextField.Root>
+            {errors.Vehicle_Body && <p className="error text-red-600">{errors.Vehicle_Body.message}</p>}
+
             <p>Wheel Base: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Wheel_Base')} defaultValue={gusrdatabyid.user_data_byid?.Wheel_Base}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('Wheel_Base', {
+                pattern: {
+                    value: /^\d{1,6}$/,
+                    message: 'Wheel Base should be at most a 6-digit number'
+                }
+                })}
+                defaultValue={gusrdatabyid.user_data_byid?.Wheel_Base}
+            />
+            </TextField.Root>
+            {errors.Wheel_Base && <p className="error text-red-600">{errors.Wheel_Base.message}</p>}
+
             <p>No Of Cylinder: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('No_Of_Cylinder')} defaultValue={gusrdatabyid.user_data_byid?.No_Of_Cylinder}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('No_Of_Cylinder', {
+                pattern: {
+                    value: /^\d{1,2}$/,
+                    message: 'Number of Cylinders should be at most a 2-digit number'
+                }
+                })}
+                defaultValue={gusrdatabyid.user_data_byid?.No_Of_Cylinder}
+            />
+            </TextField.Root>
+            {errors.No_Of_Cylinder && <p className="error text-red-600">{errors.No_Of_Cylinder.message}</p>}
+
             <p>Sleeper Capacity: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Sleeper_Capacity')} defaultValue={gusrdatabyid.user_data_byid?.Sleeper_Capacity}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('Sleeper_Capacity', {
+                pattern: {
+                    value: /^\d{1,2}$/,
+                    message: 'Sleeper Capacity should be at most a 2-digit number'
+                }
+                })}
+                defaultValue={gusrdatabyid.user_data_byid?.Sleeper_Capacity}
+            />
+            </TextField.Root>
+            {errors.Sleeper_Capacity && <p className="error text-red-600">{errors.Sleeper_Capacity.message}</p>}    
             
             <br/>
             <Button disabled={isSubmitted}> Save and Next {isSubmitted && <Spinner></Spinner>}</Button>        
