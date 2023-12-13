@@ -53,18 +53,20 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     //     "token": process.env.BLOB_READ_WRITE_TOKEN
                     // }); 
 
-                    addDelBlob( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": links[0] } }})
+                    await addDelBlob( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": links[0] } }})
                     .then(()=> {                            
                     })
                     .catch((err) => {
                       console.log(JSON.stringify(err, null, 2));                                      
-                    })
-            
-                    
-                    onSelectFile("");
-                    setLinks([]);
-                    return new Response();
+                    })      
+                
+                    links.splice(index, 1);   
+                    const updatedLinks = [...links];                
+                    console.log("Deleted Link: " + updatedLinks.join(" ") )
+                    onSelectFile(updatedLinks.join(' '))
+                    setLinks(updatedLinks);                    
                 }
+
                 if(links.length > 0){
                     console.log("Deleting Blob:" + links[index]);
 
@@ -72,7 +74,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     //     "token": process.env.BLOB_READ_WRITE_TOKEN
                     // });                    
 
-                    addDelBlob( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": links[index] } }})
+                    await addDelBlob( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": links[index] } }})
                     .then(()=> {                            
                     })
                     .catch((err) => {
@@ -80,12 +82,14 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     })
 
 
-                    links.splice(index, 1);                         
-                    onSelectFile(links.join(" "))    
-                    return new Response();  
+                    links.splice(index, 1);                                             
+                    const updatedLinks = [...links];                
+                    console.log("Deleted Links: " + updatedLinks.join(" ") )
+                    onSelectFile(updatedLinks.join(' '))
+                    setLinks(updatedLinks);
                 }
-            }
-            catch(e){
+                
+            } catch(e){
                 console.log(e);
                 <p>Some Issue Occured During file Delete</p>
                 return;
