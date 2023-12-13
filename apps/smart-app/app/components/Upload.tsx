@@ -63,7 +63,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     console.log("Deleted Link: " + updatedLinks.join(" "));
                   }
               
-                  if (links.length > 0) {
+                  if (links.length > 1) {
                     console.log("Deleting Blob:" + links[index]);
               
                     await addDelBlob({

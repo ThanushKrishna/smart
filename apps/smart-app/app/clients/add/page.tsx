@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { useForm, Controller  } from 'react-hook-form'
+import { useForm, Controller, FieldError  } from 'react-hook-form'
 import { TextField, Button, TextArea } from '@radix-ui/themes'
 import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
@@ -213,24 +213,84 @@ const onSubmit = async (formValues: AddClientType) => {
             />
              <p>Owner Name: </p>            
             <TextField.Root> 
-            <TextField.Input { ...register('Owner')}/>
+            <TextField.Input { ...register('Owner', {                
+                maxLength: {
+                  value: 30,
+                  message: 'Owner Name should be at most 30 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                  message: 'Owner Name  should contain only alphabets and spaces'
+                }
+              })}
+              onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
             </TextField.Root>
+            {errors.Owner && <p className="error text-red-600">{errors.Owner.message}</p>}
             <p>Son/Wife/Daughter Of: </p>            
             <TextField.Root> 
-            <TextField.Input { ...register('Son_Wife_Daughter_Of')}/>
+            <TextField.Input { ...register('Son_Wife_Daughter_Of', {                
+                maxLength: {
+                  value: 30,
+                  message: 'Name should be at most 30 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                  message: 'Name  should contain only alphabets and spaces'
+                }
+              })}
+              onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
             </TextField.Root>
+            {errors.Son_Wife_Daughter_Of && <p className="error text-red-600">{errors.Son_Wife_Daughter_Of.message}</p>}
             <p>Owner Serial Number: </p>
             <TextField.Root>
-            <TextField.Input { ...register('RC_No')}/>
-            </TextField.Root>  
+            <TextField.Input { ...register('RC_No', {                
+                maxLength: {
+                  value: 2,
+                  message: 'Owner Serial Number should be at most 2 characters'
+                },
+                pattern: {
+                    value: /^[0-9]{2}$/,
+                  message: 'Owner Serial Number should be a two-digit number'
+                }
+              })}
+              onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
+            </TextField.Root>
+            {errors.RC_No && <p className="error text-red-600">{errors.RC_No.message}</p>}
             <p>Chassis Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Chasis_No')}/>
+            <TextField.Input  { ...register('Chasis_No', {                
+                maxLength: {
+                  value: 25,
+                  message: 'Chassis Number should be at most 25 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z0-9]{0,25}$/,
+                  message: 'Chassis Number should be  alphanumeric and at most 25 characters'
+                }
+              })}
+              onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
             </TextField.Root>
+            {errors.Chasis_No && <p className="error text-red-600">{errors.Chasis_No.message}</p>}
             <p>Engine Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Engine_No')}/>
+            <TextField.Input  { ...register('Engine_No', {                
+                maxLength: {
+                  value: 25,
+                  message: 'Engine Number should be at most 25 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z0-9]{0,25}$/,
+                  message: 'Engine Number should be  alphanumeric and at most 25 characters'
+                }
+              })}
+              onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
             </TextField.Root>
+            {errors.Engine_No && <p className="error text-red-600">{errors.Engine_No.message}</p>}
             <DropDownControlWA
                 name="Make"
                 control={control}
@@ -313,12 +373,36 @@ const onSubmit = async (formValues: AddClientType) => {
             />      
             <p>Hypothecation Bank: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Hypothecation_bank')}/>
+            <TextField.Input  {...register('Hypothecation_bank', {                
+                maxLength: {
+                    value: 40,
+                    message: 'Hypothecation bank should be at most 40 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Hypothecation bank should contain only alphabets and spaces'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
             </TextField.Root>
+            {errors.Hypothecation_bank && <p className="error text-red-600">{errors.Hypothecation_bank.message}</p>}
             <p>Hypothecation City: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Hypothecation_city')}/>
+            <TextField.Input {...register('Hypothecation_city', {
+                maxLength: {
+                    value: 40,
+                    message: 'Hypothecation city should be at most 40 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Hypothecation city should contain only alphabets and spaces'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />            
             </TextField.Root>
+            {errors.Hypothecation_city && <p className="error text-red-600">{errors.Hypothecation_city.message}</p>}
             <DropDownControl 
                 name="Insurance_type"
                 control={control}
@@ -327,8 +411,21 @@ const onSubmit = async (formValues: AddClientType) => {
             />      
             <p>OD Policy No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Policy_No')}/>
+            <TextField.Input
+                {...register('Policy_No', {
+                maxLength: {
+                    value: 30,
+                    message: 'Policy number should be at most 30 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z0-9]*$/,
+                    message: 'Policy number should be alphanumeric'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />            
             </TextField.Root>
+            {errors.Policy_No && <p className="error text-red-600">{errors.Policy_No.message}</p>}
             <FileUplaod 
                 name="OD_Policy_Doc"
                 control={control}     
@@ -363,8 +460,21 @@ const onSubmit = async (formValues: AddClientType) => {
             />         
             <p>TP Policy No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('TP_Policy_No')}/>
+            <TextField.Input
+                {...register('TP_Policy_No', {
+                maxLength: {
+                    value: 30,
+                    message: 'TP Policy number should be at most 30 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z0-9]*$/,
+                    message: 'TP Policy number should be alphanumeric'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />            
             </TextField.Root>
+            {errors.TP_Policy_No && <p className="error text-red-600">{errors.TP_Policy_No.message}</p>}
             <FileUplaod 
                 name="TP_Policy_Doc"
                 control={control}     
@@ -406,28 +516,86 @@ const onSubmit = async (formValues: AddClientType) => {
             />        
             <p>Unladen Weight: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Unladen_Weight')}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('Unladen_Weight', {
+                maxLength: {
+                    value: 6,
+                    message: 'Unladen Weight should be at most 6 characters'
+                },
+                pattern: {
+                    value: /^\d{1,6}$/,
+                    message: 'Unladen Weight should be at most a 6-digit number'
+                }
+                })}
+            />            
+            </TextField.Root>
+            {errors.Unladen_Weight && <p className="error text-red-600">{errors.Unladen_Weight.message}</p>}
             <p>Laden Weight (GVW): </p>
             <TextField.Root>
-            <TextField.Input  { ...register('GVW')}/>
-            </TextField.Root>      
+            <TextField.Input
+                {...register('GVW', {
+                pattern: {
+                    value: /^\d{1,6}$/,
+                    message: 'GVW should be at most a 6-digit number'
+                }
+                })}
+            />                
+            </TextField.Root>            
+            {errors.GVW && typeof errors.GVW === 'object' && 'message' in errors.GVW && (
+    <p className="error text-red-600">{(errors.GVW as FieldError).message}</p>)}
             <p>Vehicle Body: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Vehicle_Body')}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('Vehicle_Body', {
+                maxLength: {
+                    value: 15,
+                    message: 'Vehicle Body should be at most 15 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z]*$/,
+                    message: 'Vehicle Body should contain only alphabets'
+                }                
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
+            </TextField.Root>
+            {errors.Vehicle_Body && <p className="error text-red-600">{errors.Vehicle_Body.message}</p>}
             <p>Wheel Base: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Wheel_Base')}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('Wheel_Base', {
+                pattern: {
+                    value: /^\d{1,6}$/,
+                    message: 'Wheel Base should be at most a 6-digit number'
+                }
+                })}
+            />
+            </TextField.Root>
+            {errors.Wheel_Base && <p className="error text-red-600">{errors.Wheel_Base.message}</p>}
             <p>No Of Cylinder: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('No_Of_Cylinder')}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('No_Of_Cylinder', {
+                pattern: {
+                    value: /^\d{1,2}$/,
+                    message: 'Number of Cylinders should be at most a 2-digit number'
+                }
+                })}
+            />
+            </TextField.Root>
+            {errors.No_Of_Cylinder && <p className="error text-red-600">{errors.No_Of_Cylinder.message}</p>}
             <p>Sleeper Capacity: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Sleeper_Capacity')}/>
-            </TextField.Root> 
+            <TextField.Input
+                {...register('Sleeper_Capacity', {
+                pattern: {
+                    value: /^\d{1,2}$/,
+                    message: 'Sleeper Capacity should be at most a 2-digit number'
+                }
+                })}
+            />            
+            </TextField.Root>
+            {errors.Sleeper_Capacity && <p className="error text-red-600">{errors.Sleeper_Capacity.message}</p>}
 
             <Controller
                 name="Owner_dob"
@@ -477,8 +645,21 @@ const onSubmit = async (formValues: AddClientType) => {
             />                       
             <p>Permit No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Permit_No')}/>
+            <TextField.Input
+                {...register('Permit_No', {
+                maxLength: {
+                    value: 25,
+                    message: 'Permit Number should be at most 25 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z0-9]*$/,
+                    message: 'Permit Number should be alphanumeric'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />            
             </TextField.Root>
+            {errors.Permit_No && <p className="error text-red-600">{errors.Permit_No.message}</p>}
             <DropDownControlWA 
                 name="Permit_category"
                 control={control}
@@ -488,24 +669,68 @@ const onSubmit = async (formValues: AddClientType) => {
             />
             <p>1st Mobile No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Mobile_No1')}/>
+            <TextField.Input
+                {...register('Mobile_No1', {
+                pattern: {
+                    value: /^[6-9]\d{9}$/,
+                    message: 'Mobile Number should be a 10-digit number starting with 6, 7, 8, or 9'
+                }
+                })}
+            />                                  
             </TextField.Root>
+            {errors.Mobile_No1 && typeof errors.Mobile_No1 === 'object' && 'message' in errors.Mobile_No1 && (
+            <p className="error text-red-600">{(errors.Mobile_No1 as FieldError).message}</p>)}  
             <p>2nd Mobile No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Mobile_No2')}/>
+            <TextField.Input
+                {...register('Mobile_No2', {
+                pattern: {
+                    value: /^[6-9]\d{9}$/,
+                    message: 'Mobile Number should be a 10-digit number starting with 6, 7, 8, or 9'
+                }
+                })}
+            />                                 
             </TextField.Root>
+            {errors.Mobile_No2 && typeof errors.Mobile_No2 === 'object' && 'message' in errors.Mobile_No2 && (
+            <p className="error text-red-600">{(errors.Mobile_No2 as FieldError).message}</p>)}   
             <p>3rd Mobile No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Mobile_No3')}/>
+            <TextField.Input
+                {...register('Mobile_No3', {
+                pattern: {
+                    value: /^[6-9]\d{9}$/,
+                    message: 'Mobile Number should be a 10-digit number starting with 6, 7, 8, or 9'
+                }
+                })}
+            />                      
             </TextField.Root>
+            {errors.Mobile_No3 && typeof errors.Mobile_No3 === 'object' && 'message' in errors.Mobile_No3 && (
+            <p className="error text-red-600">{(errors.Mobile_No3 as FieldError).message}</p>)}  
             <p>Email Id: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Email_id')}/>
+            <TextField.Input
+                {...register('Email_id', {
+                pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: 'Enter a valid email address'
+                }
+                })}
+            />            
             </TextField.Root>
+            {errors.Email_id && <p className="error text-red-600">{errors.Email_id.message}</p>}
             <p>Aadhar Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Adhar_No')}/>
-            </TextField.Root>                     
+            <TextField.Input
+                {...register('Adhar_No', {
+                pattern: {
+                    value: /^\d{12}$/,
+                    message: 'Adhar Number should be a 12-digit number'
+                }
+                })}
+            />                                 
+            </TextField.Root>                 
+            {errors.Adhar_No && typeof errors.Adhar_No === 'object' && 'message' in errors.Adhar_No && (
+            <p className="error text-red-600">{(errors.Adhar_No as FieldError).message}</p>)}   
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}     
@@ -515,8 +740,17 @@ const onSubmit = async (formValues: AddClientType) => {
             />
             <p>PAN Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('PanCard_No')}/>
+            <TextField.Input
+                {...register('PanCard_No', {
+                pattern: {
+                    value: /^[A-Za-z0-9]{10}$/,
+                    message: 'Pan Card Number should be a 10-character alphanumeric string'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />            
             </TextField.Root>
+            {errors.PanCard_No && <p className="error text-red-600">{errors.PanCard_No.message}</p>}
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
@@ -526,12 +760,38 @@ const onSubmit = async (formValues: AddClientType) => {
             />
             <p>Nominee Name: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Nominee')}/>
+            <TextField.Input
+                {...register('Nominee', {
+                maxLength: {
+                    value: 30,
+                    message: 'Nominee should be at most 30 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Nominee should contain only alphabets and spaces'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />            
             </TextField.Root>
+            {errors.Nominee && <p className="error text-red-600">{errors.Nominee.message}</p>}
             <p>Nominee Relationship: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Nominee_Relationship')}/>
+            <TextField.Input
+                {...register('Nominee_Relationship', {
+                maxLength: {
+                    value: 20,
+                    message: 'Nominee Relationship should be at most 20 characters'
+                },
+                pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Nominee Relationship should contain only alphabets and spaces'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />            
             </TextField.Root>
+            {errors.Nominee_Relationship && <p className="error text-red-600">{errors.Nominee_Relationship.message}</p>}
             <Controller
                 name="Nominee_dob"
                 control={control}             
@@ -543,8 +803,17 @@ const onSubmit = async (formValues: AddClientType) => {
             /> 
             <p>PUC/Emission Number: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('PUCC_Emission_No')}/>
+            <TextField.Input
+                {...register('PUCC_Emission_No', {
+                pattern: {
+                    value: /^[A-Za-z0-9]{20}$/,
+                    message: 'PUCC Emission Number should be a 20-character alphanumeric string'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />            
             </TextField.Root>
+            {errors.PUCC_Emission_No && <p className="error text-red-600">{errors.PUCC_Emission_No.message}</p>}
             <Controller
                 name="Emission_dueDate"
                 control={control}             
@@ -556,8 +825,17 @@ const onSubmit = async (formValues: AddClientType) => {
             />      
             <p className='mt-3'>GST No: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('GST_No')}/>        
-            </TextField.Root>  
+            <TextField.Input
+                {...register('GST_No', {
+                pattern: {
+                    value: /^[A-Za-z0-9]{15}$/,
+                    message: 'GST Number should be a 15-character alphanumeric string'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+            />
+            </TextField.Root>
+            {errors.GST_No && <p className="error text-red-600">{errors.GST_No.message}</p>}
             <FileUplaod 
                 name="GST_Cer_Doc"
                 control={control}
@@ -576,16 +854,53 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Input  { ...register('Address.state')} placeholder='state'/>
             </TextField.Root>       
             <TextField.Root>
-            <TextField.Input  { ...register('Address.zip')} placeholder='zip'/>
-            </TextField.Root>   
+            <TextField.Input
+                {...register('Address.zip', {
+                pattern: {
+                    value: /^\d{6}$/,
+                    message: 'Zip code should be a 6-digit number'
+                }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+                placeholder='pin'
+            />
+            </TextField.Root>
+            {errors?.Address?.zip && <p className="error text-red-600">{errors.Address.zip.message}</p>}
             <p>Referred by: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('Referred_by')}/>
+                <TextField.Input
+                {...register('Referred_by', {
+                    maxLength: {
+                    value: 30,
+                    message: 'Referred by should be at most 30 characters'
+                    },
+                    pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Referred by should contain only alphabets and spaces'
+                    }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+                />
             </TextField.Root>
+            {errors.Referred_by && <p className="error text-red-600">{errors.Referred_by.message}</p>}
+
             <p>Updated by: </p>
             <TextField.Root>
-            <TextField.Input  { ...register('updated_by')}/>
+                <TextField.Input
+                {...register('updated_by', {
+                    maxLength: {
+                    value: 30,
+                    message: 'Updated by should be at most 30 characters'
+                    },
+                    pattern: {
+                    value: /^[A-Za-z\s]*$/,
+                    message: 'Updated by should contain only alphabets and spaces'
+                    }
+                })}
+                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+                />
             </TextField.Root>
+            {errors.updated_by && <p className="error text-red-600">{errors.updated_by.message}</p>}
             <DropDownControlWA 
                 name="Customer_type"
                 control={control}
@@ -594,7 +909,15 @@ const onSubmit = async (formValues: AddClientType) => {
                 onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}                
             />                        
             <p className='mt-3'>Comments: </p>
-            <TextArea  { ...register('Comments')}/>
+            <TextArea
+            {...register('Comments', {
+                maxLength: {
+                value: 500,
+                message: 'Comments should be at most 500 characters'
+                }
+            })}
+            />
+            {errors.Comments && <p className="error text-red-600">{errors.Comments.message}</p>}
             <br/>
             <Button disabled={isSubmitted}> Submit {isSubmitted && <Spinner></Spinner>}</Button>        
     </form>

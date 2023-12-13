@@ -36,7 +36,8 @@ export const dateScalar = new GraphQLScalarType({
   },
 });
 
-
+//null --> is a value, that can be stored in DB if no value is provided.
+//undefined --> is no value and suggests to do nothing
 
 export const resolvers = {
   
@@ -632,8 +633,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     console.log("this is updateUserdata2 block");   		
     await context.prisma.user_data.update({
           where: { id: args.input.id },
-          data: {		
-          Vehicle_No: args.input.Vehicle_No, 
+          data: {		          
       Insurance_type: args.input.Insurance_type !== undefined ? args.input.Insurance_type: null,
       Policy_No: args.input.Policy_No !== undefined ? args.input.Policy_No: null,
       OD_Policy_Doc         : args.input.OD_Policy_Doc !== undefined ? args.input.OD_Policy_Doc: null,
