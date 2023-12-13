@@ -263,6 +263,11 @@ type RTO {
   value:                 String!
 }
 
+type DELETED_BLOBS {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
 
 type Query {
     user_data: [user_data]    
@@ -282,6 +287,7 @@ type Query {
     SEATING_CAPACITY: [SEATING_CAPACITY]
     STANDING_CAPACITY: [STANDING_CAPACITY]
     RTO: [RTO]
+    DELETED_BLOBS: [DELETED_BLOBS]
   }
 
 
@@ -679,6 +685,7 @@ input DDinput {
     createInsuranceProvider(input: DDinput!): INSURANCE_PROVIDER
     createPermitCategory(input: DDinput!): PERMIT_CATEGORY
     createTpInsuranceProvider(input: DDinput!): TP_INSURANCE_PROVIDER
+    createDeletedBlobs(input: DDinput!): DELETED_BLOBS
     createUserData(input: createUserDataInput!): createUserDataOutput
     testaddclient(data_owner_id: String!, Vehicle_No: String!, RC_No: String ): String
     deleteUserData(vehicleid: String!): String
@@ -688,7 +695,7 @@ input DDinput {
     updateUserData3(input: updateUserDataInput3!): String
     CreateAppuser(input: CreateAppuserInput!): CreateAppuserOutput
     replaceAppuser(id: ID!, input: replaceAppuserInput!): replaceAppuserOutput
-    deleteAppuser(id: ID!): String
+    deleteAppuser(id: ID!): String    
     
   }
 

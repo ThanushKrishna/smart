@@ -497,6 +497,16 @@ export const ADD_RTO = gql`
     }
 `;
 
+export const ADD_DELETED_BLOBS = gql` 
+    mutation CreateDeletedBlobs($input: DDinput!) {
+      createDeletedBlobs(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
 export const TEST_ADD_CLIENT = gql`
    mutation testaddclient($dataOwnerId: String!, $vehicleNo: String!, $rcNo: String) {
   testaddclient(data_owner_id: $dataOwnerId, Vehicle_No: $vehicleNo, RC_No: $rcNo)

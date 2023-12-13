@@ -4,6 +4,10 @@ import { Control, Controller } from 'react-hook-form';
 import { useRef } from 'react';
 import type { PutBlobResult } from '@vercel/blob';
 import { del } from '@vercel/blob';
+import { useMutation } from '@apollo/client';
+import { 
+    ADD_DELETED_BLOBS
+    } from '@/graphql/queries'
 export const runtime = 'edge';
 
 
@@ -26,7 +30,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     }) => {      
         
         
-         
+            const[addDelBlob, { data:clientdata, error:addDelBloberror } ] = useMutation(ADD_DELETED_BLOBS);
             const [links, setLinks] = useState<string[]>([]);                 
             const inputFileRef = useRef<HTMLInputElement>(null);
             
@@ -45,9 +49,17 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
             try{
 
                 if(links.length===1){
-                    await del(links[0].toString(), {
-                        "token": process.env.BLOB_READ_WRITE_TOKEN
-                    }); 
+                    // await del(links[0].toString(), {
+                    //     "token": process.env.BLOB_READ_WRITE_TOKEN
+                    // }); 
+
+                    addDelBlob( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": links[0] } }})
+                    .then(()=> {                            
+                    })
+                    .catch((err) => {
+                      console.log(JSON.stringify(err, null, 2));                                      
+                    })
+            
                     
                     onSelectFile("");
                     setLinks([]);
@@ -55,9 +67,19 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 }
                 if(links.length > 0){
                     console.log("Deleting Blob:" + links[index]);
-                    await del(links[index].toString(),  {
-                        "token": process.env.BLOB_READ_WRITE_TOKEN
-                    });                    
+
+                    // await del(links[index].toString(),  {
+                    //     "token": process.env.BLOB_READ_WRITE_TOKEN
+                    // });                    
+
+                    addDelBlob( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": links[index] } }})
+                    .then(()=> {                            
+                    })
+                    .catch((err) => {
+                      console.log(JSON.stringify(err, null, 2));                                      
+                    })
+
+
                     links.splice(index, 1);                         
                     onSelectFile(links.join(" "))    
                     return new Response();  

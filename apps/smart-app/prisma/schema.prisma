@@ -198,3 +198,9 @@ model RTO {
   data_owner_id String @db.ObjectId
   value         String @unique
 }
+
+model DELETED_BLOBS {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}

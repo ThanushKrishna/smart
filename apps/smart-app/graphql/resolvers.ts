@@ -205,6 +205,14 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       }
     },
   
+  DELETED_BLOBS : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.dELETED_BLOBS.findMany();
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
 
   },
 
@@ -341,6 +349,16 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 	createTpInsuranceProvider: async (parent: any, args: any, context: Context) => {
       console.log("this is createTpInsuranceProvider block");            
       return await context.prisma.tP_INSURANCE_PROVIDER.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+
+    createDeletedBlobs: async (parent: any, args: any, context: Context) => {
+      console.log("this is createDeletedBlobs block");            
+      return await context.prisma.dELETED_BLOBS.create({
         data: {
           data_owner_id: args.input.data_owner_id,
           value: args.input.value
