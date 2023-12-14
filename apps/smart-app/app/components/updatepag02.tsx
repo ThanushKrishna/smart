@@ -32,10 +32,12 @@ interface iupdatevalue {
 const Updatepage02:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
 const [vehicleno, setVehicleno] = useState<String>(value);
+const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
+    variables: { vechicleId: vehicleno },
+    }); 
 const [isSubmitted, setisSubmitted] = useState(false);
-const [OdPolicydocfile, setOdPolicydocfile] = useState<String | null>(null);
-const [TpPolicyDocfile, setTpPolicyDocfile] = useState<String | null>(null);
-
+const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.OD_Policy_Doc || '');
+const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.TP_Policy_Doc || '');
 
 const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_02);
 const[addiProvider, { data:iproviderdata} ] = useMutation(ADD_INSURANCE_PROVIDER);
@@ -44,12 +46,6 @@ const[addrto, { data:rtodata} ] = useMutation(ADD_RTO);
 const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
 const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});	
 const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
-
-
-
-const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
-    variables: { vechicleId: vehicleno },
-    }); 
 
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
@@ -144,9 +140,9 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="OD_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:String | null) => setOdPolicydocfile(e)}                 
+                onSelectFile={(e:string | null) => setOdPolicydocfile(e)}                 
                 placeholder=""                  
-                value={(gusrdatabyid.user_data_byid?.OD_Policy_Doc || '') + (OdPolicydocfile || '')}                    
+                value={OdPolicydocfile}                    
             />	   
             <DropDownControlWA 
                 name="Insurance_provider"
@@ -197,9 +193,9 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="TP_Policy_Doc"
                 control={control}     
-                onSelectFile={(e:String | null) => setTpPolicyDocfile(e)}                 
+                onSelectFile={(e:string | null) => setTpPolicyDocfile(e)}                 
                 placeholder=""                              
-                value={(gusrdatabyid.user_data_byid?.TP_Policy_Doc || '') + (TpPolicyDocfile || '')}      
+                value={TpPolicyDocfile}      
             />	              
             <DropDownControlWA 
                 name="TP_Insurance_provider"

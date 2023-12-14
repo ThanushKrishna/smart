@@ -38,14 +38,12 @@ interface iupdatevalue {
 const Updatepage01:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
 const [vehicleno, setVehicleno] = useState<String>(value);
-const [isSubmitted, setisSubmitted] = useState(false);
-const [VehRegDocfile, setVehRegDocfile] = useState<String | null>(null);
-const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
-
-
 const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
     variables: { vechicleId: vehicleno },
     }); 
+const [isSubmitted, setisSubmitted] = useState(false);
+const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc || '');
+const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});    
 
 const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_01);
 const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
@@ -70,12 +68,6 @@ const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,
 
 const onSubmit = async (formValues: AddClientType) => {     
 
-    // const VehicleRegistrationuploadlink = async () => {
-    //     if(isVehRegDocProvided && VehRegDocfile )
-    //         console.log("this is formvalue for doc:" +  formValues?.Vehicle_Reg_Doc);
-    //       return  await uploadfile(VehRegDocfile, formValues?.Vehicle_Reg_Doc); 
-    //     return;
-    //   }
         
     
     try{
@@ -145,7 +137,7 @@ const onSubmit = async (formValues: AddClientType) => {
         name="Vehicle_Reg_Doc"
         control={control}
         onSelectFile={(e: string | null) => setVehRegDocfile(e)}
-        value={(gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc || '') + (VehRegDocfile || '')}
+        value={VehRegDocfile}
         placeholder=""
     />
     <p>Owner Name: </p>

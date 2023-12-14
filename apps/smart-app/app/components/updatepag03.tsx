@@ -32,14 +32,13 @@ const Updatepage03: React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
 const router = useRouter();
 const [vehicleno, setVehicleno] = useState<String>(value);
-const [isSubmitted, setisSubmitted] = useState(false);
-const [panfile, setpanfile] = useState<String | null>(null);
-const [adharfile, setadharfile] = useState<String | null>(null);
-const [GstCerfile, setGstCerfile] = useState<String | null>(null);
-
 const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
-    variables: { vechicleId: vehicleno },
-    }); 
+  variables: { vechicleId: vehicleno },
+  }); 
+const [isSubmitted, setisSubmitted] = useState(false);
+const [panfile, setpanfile] = useState<string | null>(gusrdatabyid.user_data_byid?.Pan_doc || '');
+const [adharfile, setadharfile] = useState<string | null>(gusrdatabyid.user_data_byid?.Adhar_doc || '');
+const [GstCerfile, setGstCerfile] = useState<string | null>(gusrdatabyid.user_data_byid?.GST_Cer_Doc || '');
 const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
 const { data:gpermitdata, error:gpermiterror } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
 const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 	
@@ -279,9 +278,9 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Adhar_doc"
                 control={control}     
-                onSelectFile={(e:String | null) => setadharfile(e)}                      
+                onSelectFile={(e:string | null) => setadharfile(e)}                      
                 placeholder=""                          
-                value={(gusrdatabyid.user_data_byid?.Adhar_doc || '') + (adharfile || '')}                   
+                value={adharfile}                   
             />
             <p>PAN Number: </p>
             <TextField.Root>
@@ -301,9 +300,9 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
-                onSelectFile={(e:String | null) => setpanfile(e)}                
+                onSelectFile={(e:string | null) => setpanfile(e)}                
                 placeholder=""                                      
-                value={(gusrdatabyid.user_data_byid?.Pan_doc || '') + (panfile || '')}                   
+                value={panfile}                   
             />
             <p>Nominee Name: </p>
             <TextField.Root>
@@ -398,9 +397,9 @@ const onSubmit = async (formValues: AddClientType) => {
             <FileUplaod 
                 name="GST_Cer_Doc"
                 control={control}
-                onSelectFile={(e:String | null) => setGstCerfile(e)}                
+                onSelectFile={(e:string | null) => setGstCerfile(e)}                
                 placeholder=""                    
-                value={(gusrdatabyid.user_data_byid?.GST_Cer_Doc || '') + (GstCerfile || '')}                   
+                value={GstCerfile}                   
             />                                                                                                                         
             <p>Address: </p>
             <TextField.Root>

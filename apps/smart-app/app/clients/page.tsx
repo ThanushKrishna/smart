@@ -116,26 +116,20 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.Vehicle_No}</Table.Cell>                  
                   <Table.Cell>
                     {data.Vehicle_Reg_Doc &&
-                      data.Vehicle_Reg_Doc.split(' ').map((link:string, index:number) => {
-                        // Extract filename from the link
-                        const lastSlashIndex = link.lastIndexOf('/');
-                        const lastDashIndex = link.lastIndexOf('-');
-                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
-
-                        return (
-                          <a
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            key={index}
-                            className="document-link"
-                          >
-                            <button type="button" className="document-button">
-                              {`${fileName}`}
-                            </button>
-                          </a>
-                        );
-                      })}
+                      data.Vehicle_Reg_Doc.split(' ').map((link: string, index: number) => (
+                        <a
+                          href={link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          key={index}
+                          className="document-link"
+                        >
+                          <button type="button" className="document-button">
+                            {/* Replace "file-icon.svg" with the actual path to your file icon */}
+                            <img src="/file-icon.svg" alt={`Doc${index + 1} Icon`} className="file-icon" />
+                          </button>
+                        </a>
+                      ))}
                   </Table.Cell>
                   <Table.Cell>{data.Owner}</Table.Cell>
                   <Table.Cell>{data.Son_Wife_Daughter_Of}</Table.Cell>                  
@@ -159,53 +153,41 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.Policy_No}</Table.Cell>  
                   <Table.Cell>
                     {data.OD_Policy_Doc &&
-                      data.OD_Policy_Doc.split(' ').map((link:string, index:number) => {
-                        // Extract filename from the link
-                        const lastSlashIndex = link.lastIndexOf('/');
-                        const lastDashIndex = link.lastIndexOf('-');
-                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
-
-                        return (
-                          <a
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            key={index}
-                            className="document-link"
-                          >
-                            <button type="button" className="document-button">
-                              {`${fileName}`}
-                            </button>
-                          </a>
-                        );
-                      })}
-                  </Table.Cell> 
+                    data.OD_Policy_Doc.split(' ').map((link: string, index: number) => (
+                      <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={index}
+                      className="document-link"
+                      >
+                      <button type="button" className="document-button">
+                        {/* Replace "file-icon.svg" with the actual path to your file icon */}
+                        <img src="/file-icon.svg" alt={`Doc${index + 1} Icon`} className="file-icon" />
+                      </button>
+                      </a>
+                    ))}
+                  </Table.Cell>
                   <Table.Cell>{data.Insurance_provider}</Table.Cell>
                   <Table.Cell>{data.Insurance_Start && new Date(data?.Insurance_Start)?.toDateString().slice(4)}</Table.Cell>
                   <Table.Cell>{data.Insurance_dueDate && new Date(data?.Insurance_dueDate)?.toDateString().slice(4)}</Table.Cell>
                   <Table.Cell>{data.TP_Policy_No}</Table.Cell>  
                   <Table.Cell>
                     {data.TP_Policy_Doc &&
-                      data.TP_Policy_Doc.split(' ').map((link:string, index:number) => {
-                        // Extract filename from the link
-                        const lastSlashIndex = link.lastIndexOf('/');
-                        const lastDashIndex = link.lastIndexOf('-');
-                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
-
-                        return (
-                          <a
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            key={index}
-                            className="document-link"
-                          >
-                            <button type="button" className="document-button">
-                              {` ${fileName}`}
-                            </button>
-                          </a>
-                        );
-                      })}
+                    data.TP_Policy_Doc.split(' ').map((link: string, index: number) => (
+                      <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={index}
+                      className="document-link"
+                      >
+                      <button type="button" className="document-button">
+                        {/* Replace "file-icon.svg" with the actual path to your file icon */}
+                        <img src="/file-icon.svg" alt={`Doc${index + 1} Icon`} className="file-icon" />
+                      </button>
+                      </a>
+                    ))}
                   </Table.Cell>
                   <Table.Cell>{data.TP_Insurance_provider}</Table.Cell>
                   <Table.Cell>{data.TP_Insurance_Start && new Date(data?.TP_Insurance_Start)?.toDateString().slice(4)}</Table.Cell>
@@ -232,50 +214,38 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.Adhar_No}</Table.Cell>
                   <Table.Cell>
                     {data.Adhar_doc &&
-                      data.Adhar_doc.split(' ').map((link:string, index:number) => {
-                        // Extract filename from the link
-                        const lastSlashIndex = link.lastIndexOf('/');
-                        const lastDashIndex = link.lastIndexOf('-');
-                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
-
-                        return (
-                          <a
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            key={index}
-                            className="document-link"
-                          >
-                            <button type="button" className="document-button">
-                              {` ${fileName}`}
-                            </button>
-                          </a>
-                        );
-                      })}
+                    data.Adhar_doc.split(' ').map((link: string, index: number) => (
+                      <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={index}
+                      className="document-link"
+                      >
+                      <button type="button" className="document-button">
+                        {/* Replace "file-icon.svg" with the actual path to your file icon */}
+                        <img src="/file-icon.svg" alt={`Doc${index + 1} Icon`} className="file-icon" />
+                      </button>
+                      </a>
+                    ))}
                   </Table.Cell>
                   <Table.Cell>{data.PanCard_No}</Table.Cell>
                   <Table.Cell>
                     {data.Pan_doc &&
-                      data.Pan_doc.split(' ').map((link:string, index:number) => {
-                        // Extract filename from the link
-                        const lastSlashIndex = link.lastIndexOf('/');
-                        const lastDashIndex = link.lastIndexOf('-');
-                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
-
-                        return (
-                          <a
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            key={index}
-                            className="document-link"
-                          >
-                            <button type="button" className="document-button">
-                              {`Doc${index + 1}: ${fileName}`}
-                            </button>
-                          </a>
-                        );
-                      })}
+                    data.Pan_doc.split(' ').map((link: string, index: number) => (
+                      <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={index}
+                      className="document-link"
+                      >
+                      <button type="button" className="document-button">
+                        {/* Replace "file-icon.svg" with the actual path to your file icon */}
+                        <img src="/file-icon.svg" alt={`Doc${index + 1} Icon`} className="file-icon" />
+                      </button>
+                      </a>
+                    ))}
                   </Table.Cell>
                   <Table.Cell>{data.Nominee}</Table.Cell>
                   <Table.Cell>{data.Nominee_Relationship}</Table.Cell>
@@ -285,26 +255,20 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.GST_No}</Table.Cell>                  
                   <Table.Cell>
                     {data.GST_Cer_Doc &&
-                      data.GST_Cer_Doc.split(' ').map((link:string, index:number) => {
-                        // Extract filename from the link
-                        const lastSlashIndex = link.lastIndexOf('/');
-                        const lastDashIndex = link.lastIndexOf('-');
-                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
-
-                        return (
-                          <a
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            key={index}
-                            className="document-link"
-                          >
-                            <button type="button" className="document-button">
-                              {`${fileName}`}
-                            </button>
-                          </a>
-                        );
-                      })}
+                    data.GST_Cer_Doc.split(' ').map((link: string, index: number) => (
+                      <a
+                      href={link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      key={index}
+                      className="document-link"
+                      >
+                      <button type="button" className="document-button">
+                        {/* Replace "file-icon.svg" with the actual path to your file icon */}
+                        <img src="/file-icon.svg" alt={`Doc${index + 1} Icon`} className="file-icon" />
+                      </button>
+                      </a>
+                    ))}
                   </Table.Cell>
                   <Table.Cell className='w-30'>{data.Address.state && "Street: " + data.Address.street + "\n" + "City: " +  data.Address.city + "\n" + "State: " + data.Address.state + "\n" + "Zip: " + data.Address.zip }</Table.Cell>
                   <Table.Cell>{data.Referred_by}</Table.Cell>

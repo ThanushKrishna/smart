@@ -843,30 +843,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 onSelectFile={(e:string | null) => setGstCerfile(e)}
                 value={GstCerfile}
                 placeholder=""                       
-            />                                                                                                 
-            {/* <p>Address: </p>
-            <TextField.Root>
-            <TextField.Input  { ...register('Address.street')} placeholder='Street'/>
-            </TextField.Root>       
-            <TextField.Root>
-            <TextField.Input  { ...register('Address.city')} placeholder='city'/>
-            </TextField.Root>       
-            <TextField.Root>
-            <TextField.Input  { ...register('Address.state')} placeholder='state'/>
-            </TextField.Root>       
-            <TextField.Root>
-            <TextField.Input
-                {...register('Address.zip', {
-                pattern: {
-                    value: /^\d{6}$/,
-                    message: 'Zip code should be a 6-digit number'
-                }
-                })}
-                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
-                placeholder='pin'
-            />
-            </TextField.Root>
-            {errors?.Address?.zip && <p className="error text-red-600">{errors.Address.zip.message}</p>} */}
+            />                                                                                                            
             <AddressForm register={register} errors={errors} />
             <p>Referred by: </p>
             <TextField.Root>
