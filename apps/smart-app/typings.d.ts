@@ -29,7 +29,7 @@ export interface AddClientType {
     Vehicle_color:         String
     Vehice_norms:          String
     Address:               Address
-    CC:                    CC
+    CC:                    String
     Make:                  String
     Model:                 String
     Insurance_provider:    String
