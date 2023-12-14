@@ -115,7 +115,48 @@ const AutomobilePage = () => {
                 <Table.Row key={data.id}>
                   <Table.Cell>{data.Vehicle_No}</Table.Cell>
                   {/* <Table.Cell>{data.Vehicle_Reg_Doc && data.Vehicle_Reg_Doc.toString()}</Table.Cell> */}
-                  <Table.Cell>{data.Vehicle_Reg_Doc && data.Vehicle_Reg_Doc.toString()}</Table.Cell>
+                  {/* <Table.Cell>{data.Vehicle_Reg_Doc && data.Vehicle_Reg_Doc.toString()}</Table.Cell> */}
+                  {/* <Table.Cell>
+                    {data.Vehicle_Reg_Doc &&
+                      data.Vehicle_Reg_Doc.split(' ').map((link:string, index:number) => {
+                        // Extract filename from the link
+                        const lastSlashIndex = link.lastIndexOf('/');
+                        const lastDashIndex = link.lastIndexOf('-');
+                        
+                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
+
+                        return (
+                          <a href={link} target="_blank" rel="noopener noreferrer" key={index}>
+                            <button type="button" className="mr-4">
+                              {`Doc${index + 1}: ${fileName}`}
+                            </button>
+                          </a>
+                        );
+                      })}
+                  </Table.Cell> */}
+                  <Table.Cell>
+                    {data.Vehicle_Reg_Doc &&
+                      data.Vehicle_Reg_Doc.split(' ').map((link:string, index:number) => {
+                        // Extract filename from the link
+                        const lastSlashIndex = link.lastIndexOf('/');
+                        const lastDashIndex = link.lastIndexOf('-');
+                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
+
+                        return (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={index}
+                            className="document-link"
+                          >
+                            <button type="button" className="document-button">
+                              {`${fileName}`}
+                            </button>
+                          </a>
+                        );
+                      })}
+                  </Table.Cell>
                   <Table.Cell>{data.Owner}</Table.Cell>
                   <Table.Cell>{data.Son_Wife_Daughter_Of}</Table.Cell>                  
                   <Table.Cell>{data.RC_No}</Table.Cell>               

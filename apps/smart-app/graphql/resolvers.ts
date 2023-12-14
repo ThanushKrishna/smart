@@ -55,12 +55,14 @@ export const resolvers = {
     },   
 
     user_data: async (parent: any, args: any, context: Context) => {
-      
-      try{
-        return await context.prisma.user_data.findMany();
-      }
-      catch(err){
-          console.log(err);
+      try {
+        return await context.prisma.user_data.findMany({
+          orderBy: {
+            createdAt: 'desc' // 'desc' for descending order (most recent first)
+          }
+        });
+      } catch (err) {
+        console.log(err);
       }
     },
 

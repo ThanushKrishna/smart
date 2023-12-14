@@ -15,19 +15,20 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors }) => {
         <Grid item xs={12}>
           <p>Address: </p>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} style={{ height: '70px' }}>
           <TextField
-            {...register('Address.street', { required: 'Street is required' })}
+            {...register('Address.street')}
             fullWidth
-            label="Street"
+            label="Street"            
             variant="outlined"
             error={!!errors?.Address?.street}
             helperText={errors?.Address?.street?.message}
+            style={{ height: '2px' }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            {...register('Address.city', { required: 'City is required' })}
+            {...register('Address.city')}
             fullWidth
             label="City"
             variant="outlined"
@@ -37,7 +38,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors }) => {
         </Grid>
         <Grid item xs={6}>
           <TextField
-            {...register('Address.state', { required: 'State is required' })}
+            {...register('Address.state')}
             fullWidth
             label="State"
             variant="outlined"
