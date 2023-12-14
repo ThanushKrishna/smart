@@ -20,10 +20,31 @@ const AutomobilePage = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
-  console.log(data);
+
 
   // Check if data is undefined before accessing its properties
   if (!data) return <p>No data available</p>;
+
+  const FileIconRenderer: React.FC<{ data: string | null }> = ({ data }) => {
+    if (!data) return null;
+  
+    // Split the space-separated URLs
+    const urls = data.split(' ');
+  
+    return (
+      <>
+        {urls.map((url, index) => (
+          <div key={index}>
+            <a href={url} target="_blank" rel="noopener noreferrer" key={index} className="document-link">
+							<button type="button" className="document-button">
+							<img src="/file-icon.svg" alt={`Doc${index + 1} Icon`} className="file-icon h-6" />
+							</button>
+						</a>
+          </div>
+        ))}
+      </>
+    );
+  };
 
 
 
@@ -58,9 +79,9 @@ const AutomobilePage = () => {
 { headerName: 'Mobile Number 3', field: 'Mobile_No3'},
 { headerName: 'Email ID', field: 'Email_id'},
 { headerName: 'Aadhar Number', field: 'Adhar_No'},
-{ headerName: 'Aadhar Document', field: 'Adhar_doc'},
+{ headerName: 'Aadhar Document', field: 'Adhar_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, },
 { headerName: 'PAN Card Number', field: 'PanCard_No'},
-{ headerName: 'PAN Document', field: 'Pan_doc'},
+{ headerName: 'PAN Document', field: 'Pan_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, },
 { headerName: 'Nominee', field: 'Nominee'},
 { headerName: 'Nominee Relationship', field: 'Nominee_Relationship'},
 { headerName: 'Nominee Date of Birth', field: 'Nominee_dob'},
@@ -96,10 +117,10 @@ const AutomobilePage = () => {
 { headerName: 'Permit Number (Second Entry)', field: 'Permit_No'},
 { headerName: 'Insurance Start Date', field: 'Insurance_Start'},
 { headerName: 'Third-Party Insurance Start Date', field: 'TP_Insurance_Start'},
-{ headerName: 'Vehicle Registration Document', field: 'Vehicle_Reg_Doc'},
-{ headerName: 'Own Damage Policy Document', field: 'OD_Policy_Doc'},
-{ headerName: 'Third-Party Policy Document', field: 'TP_Policy_Doc'},
-{ headerName: 'GST Certificate Document', field: 'GST_Cer_Doc' }        
+{ headerName: 'RC Doc', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, },
+{ headerName: 'Own Damage Policy Document', field: 'OD_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, },
+{ headerName: 'Third-Party Policy Document', field: 'TP_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, },
+{ headerName: 'GST Certificate Document', field: 'GST_Cer_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, },
   ];
   
  
@@ -131,27 +152,15 @@ const AutomobilePage = () => {
           </div>
           <div
             className='ag-theme-alpine'
-            style={{ height: '500px', width: '100%' }}
+            style={{ height: '700px', width: '100%' }}
           >
             <AgGridReact
               columnDefs={columnDefs}
               rowData={data.user_data}
               pagination={true}
-              paginationPageSize={10}
+              paginationPageSize={20}              
             />
-          </div>
-          {/* <AgGridReact
-            // gridOptions={gridOptions}
-            // rowData={Array.isArray(data.user_data) ? data.user_data : []}
-            // columnDefs={columnDefs}
-            // rowData={data.user_data}            
-            // pagination={true}
-            // defaultColDef={defaultColDef}
-            // debug={true}  // Enable AG Grid debugging
-            // onFirstDataRendered={(params) => {
-            //   console.log('Grid rendered:', params);
-            // }}
-          /> */}
+          </div>          
         </div>
     )
 
