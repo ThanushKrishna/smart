@@ -113,27 +113,7 @@ const AutomobilePage = () => {
             <Table.Body>
               {data.user_data.map((data:any) => (
                 <Table.Row key={data.id}>
-                  <Table.Cell>{data.Vehicle_No}</Table.Cell>
-                  {/* <Table.Cell>{data.Vehicle_Reg_Doc && data.Vehicle_Reg_Doc.toString()}</Table.Cell> */}
-                  {/* <Table.Cell>{data.Vehicle_Reg_Doc && data.Vehicle_Reg_Doc.toString()}</Table.Cell> */}
-                  {/* <Table.Cell>
-                    {data.Vehicle_Reg_Doc &&
-                      data.Vehicle_Reg_Doc.split(' ').map((link:string, index:number) => {
-                        // Extract filename from the link
-                        const lastSlashIndex = link.lastIndexOf('/');
-                        const lastDashIndex = link.lastIndexOf('-');
-                        
-                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
-
-                        return (
-                          <a href={link} target="_blank" rel="noopener noreferrer" key={index}>
-                            <button type="button" className="mr-4">
-                              {`Doc${index + 1}: ${fileName}`}
-                            </button>
-                          </a>
-                        );
-                      })}
-                  </Table.Cell> */}
+                  <Table.Cell>{data.Vehicle_No}</Table.Cell>                  
                   <Table.Cell>
                     {data.Vehicle_Reg_Doc &&
                       data.Vehicle_Reg_Doc.split(' ').map((link:string, index:number) => {
@@ -177,12 +157,56 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.Hypothecation_city}</Table.Cell>  
                   <Table.Cell>{data.Insurance_type}</Table.Cell>                  
                   <Table.Cell>{data.Policy_No}</Table.Cell>  
-                  <Table.Cell>{data.OD_Policy_Doc}</Table.Cell>  
+                  <Table.Cell>
+                    {data.OD_Policy_Doc &&
+                      data.OD_Policy_Doc.split(' ').map((link:string, index:number) => {
+                        // Extract filename from the link
+                        const lastSlashIndex = link.lastIndexOf('/');
+                        const lastDashIndex = link.lastIndexOf('-');
+                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
+
+                        return (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={index}
+                            className="document-link"
+                          >
+                            <button type="button" className="document-button">
+                              {`${fileName}`}
+                            </button>
+                          </a>
+                        );
+                      })}
+                  </Table.Cell> 
                   <Table.Cell>{data.Insurance_provider}</Table.Cell>
                   <Table.Cell>{data.Insurance_Start && new Date(data?.Insurance_Start)?.toDateString().slice(4)}</Table.Cell>
                   <Table.Cell>{data.Insurance_dueDate && new Date(data?.Insurance_dueDate)?.toDateString().slice(4)}</Table.Cell>
                   <Table.Cell>{data.TP_Policy_No}</Table.Cell>  
-                  <Table.Cell>{data.TP_Policy_Doc}</Table.Cell>  
+                  <Table.Cell>
+                    {data.TP_Policy_Doc &&
+                      data.TP_Policy_Doc.split(' ').map((link:string, index:number) => {
+                        // Extract filename from the link
+                        const lastSlashIndex = link.lastIndexOf('/');
+                        const lastDashIndex = link.lastIndexOf('-');
+                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
+
+                        return (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={index}
+                            className="document-link"
+                          >
+                            <button type="button" className="document-button">
+                              {` ${fileName}`}
+                            </button>
+                          </a>
+                        );
+                      })}
+                  </Table.Cell>
                   <Table.Cell>{data.TP_Insurance_provider}</Table.Cell>
                   <Table.Cell>{data.TP_Insurance_Start && new Date(data?.TP_Insurance_Start)?.toDateString().slice(4)}</Table.Cell>
                   <Table.Cell>{data.TP_dueDate && new Date(data?.TP_dueDate)?.toDateString().slice(4)}</Table.Cell>
@@ -206,16 +230,82 @@ const AutomobilePage = () => {
                   <Table.Cell>{data.Mobile_No3}</Table.Cell>
                   <Table.Cell>{data.Email_id}</Table.Cell>
                   <Table.Cell>{data.Adhar_No}</Table.Cell>
-                  <Table.Cell>{data.Adhar_doc && data.Adhar_doc.toString()}</Table.Cell>
+                  <Table.Cell>
+                    {data.Adhar_doc &&
+                      data.Adhar_doc.split(' ').map((link:string, index:number) => {
+                        // Extract filename from the link
+                        const lastSlashIndex = link.lastIndexOf('/');
+                        const lastDashIndex = link.lastIndexOf('-');
+                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
+
+                        return (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={index}
+                            className="document-link"
+                          >
+                            <button type="button" className="document-button">
+                              {` ${fileName}`}
+                            </button>
+                          </a>
+                        );
+                      })}
+                  </Table.Cell>
                   <Table.Cell>{data.PanCard_No}</Table.Cell>
-                  <Table.Cell>{data.Pan_doc}</Table.Cell>
+                  <Table.Cell>
+                    {data.Pan_doc &&
+                      data.Pan_doc.split(' ').map((link:string, index:number) => {
+                        // Extract filename from the link
+                        const lastSlashIndex = link.lastIndexOf('/');
+                        const lastDashIndex = link.lastIndexOf('-');
+                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
+
+                        return (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={index}
+                            className="document-link"
+                          >
+                            <button type="button" className="document-button">
+                              {`Doc${index + 1}: ${fileName}`}
+                            </button>
+                          </a>
+                        );
+                      })}
+                  </Table.Cell>
                   <Table.Cell>{data.Nominee}</Table.Cell>
                   <Table.Cell>{data.Nominee_Relationship}</Table.Cell>
                   <Table.Cell>{data.Nominee_dob && new Date(data?.Nominee_dob)?.toDateString().slice(4)}</Table.Cell>
                   <Table.Cell>{data.PUCC_Emission_No}</Table.Cell>
                   <Table.Cell>{data.Emission_dueDate && new Date(data?.Emission_dueDate)?.toDateString().slice(4)}</Table.Cell>                                                    
                   <Table.Cell>{data.GST_No}</Table.Cell>                  
-                  <Table.Cell>{data.GST_Cer_Doc}</Table.Cell>
+                  <Table.Cell>
+                    {data.GST_Cer_Doc &&
+                      data.GST_Cer_Doc.split(' ').map((link:string, index:number) => {
+                        // Extract filename from the link
+                        const lastSlashIndex = link.lastIndexOf('/');
+                        const lastDashIndex = link.lastIndexOf('-');
+                        const fileName = link.substring(lastSlashIndex + 1, lastDashIndex);
+
+                        return (
+                          <a
+                            href={link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            key={index}
+                            className="document-link"
+                          >
+                            <button type="button" className="document-button">
+                              {`${fileName}`}
+                            </button>
+                          </a>
+                        );
+                      })}
+                  </Table.Cell>
                   <Table.Cell className='w-30'>{data.Address.state && "Street: " + data.Address.street + "\n" + "City: " +  data.Address.city + "\n" + "State: " + data.Address.state + "\n" + "Zip: " + data.Address.zip }</Table.Cell>
                   <Table.Cell>{data.Referred_by}</Table.Cell>
                   <Table.Cell>{data.updated_by}</Table.Cell>
