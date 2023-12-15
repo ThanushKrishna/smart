@@ -64,7 +64,7 @@ const AutomobilePage = () => {
 
   
   const columnDefs: ColDef<AddClientType, any>[] = [
-    { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber' },
+    { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber', pinned: 'left' },
     { headerName: 'RC Number', field: 'RC_No', colId: 'rcNumber' },
     { headerName: 'Registered Date', field: 'Registered_Date', colId: 'registeredDate' },
     { headerName: 'Owner', field: 'Owner', colId: 'owner' },
