@@ -10,6 +10,9 @@
     "postinstall": "prisma generate && prisma db push"
   },
   "dependencies": {
+    "@ag-grid-community/client-side-row-model": "^31.0.1",
+    "@ag-grid-community/core": "^31.0.1",
+    "@ag-grid-community/csv-export": "^31.0.1",
     "@apollo/client": "^3.8.6",
     "@apollo/server": "^4.9.5",
     "@as-integrations/next": "^2.0.2",

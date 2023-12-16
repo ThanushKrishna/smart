@@ -1,31 +1,31 @@
 'use client'
+
 import React, {
-  useCallback,
-  useMemo,
   useRef,
   useEffect,
   useState,
-  StrictMode,
 } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { ColDef, RowClassParams } from 'ag-grid-community';
+import { ColDef, RowClassParams, createGrid, GridApi, GridOptions, ColGroupDef } from 'ag-grid-community';
+import { ModuleRegistry } from '@ag-grid-community/core';
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+import { CsvExportModule } from '@ag-grid-community/csv-export';
 import { Button } from '@radix-ui/themes'
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { GET_USER_DATA } from '@/graphql/queries'
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
 import  { AddClientType }  from '@/typings';
-import { CSSProperties } from 'react';
+import 'ag-grid-community/styles/ag-grid.css';
+//import 'ag-grid-community/styles/ag-theme-alpine.css';
+import 'ag-grid-community/styles/ag-theme-quartz.css';
 
-
+ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 
 const AutomobilePage = () => {
   const [selectedRow, setSelectedRow] = useState(null);
   const { loading, error, data, refetch } = useQuery<{ user_data: AddClientType[] }>(GET_USER_DATA)
   const gridRef = useRef<AgGridReact>(null);
   const containerStyle =  { width: '100%', height: '100%' };
-  const gridStyle = { height: '100%', width: '100%' };
   
  // useEffect to trigger the initial data fetch
  useEffect(() => {
@@ -51,11 +51,9 @@ const AutomobilePage = () => {
 
   const FileIconRenderer: React.FC<{ data: string | null }> = ({ data }) => {
     if (!data) return null;
-  
-    // Split the space-separated URLs
+      
     const urls = data.split(' ');
-    // console.log( {...urls} );
-
+    
     return (
       <div style={{ display: 'flex' }}>
         {urls.map((url: string, index:number) => (
@@ -86,28 +84,7 @@ const saveState = () => {
     localStorage.setItem('columnState', JSON.stringify(columnState));
     console.log('column state saved to local storage');
   }
-};
-
-const restoreState = () => {
-   // Restore column state from local storage
-   const storedColumnState = localStorage.getItem('columnState');
-   if (storedColumnState && gridRef.current && gridRef.current.api) {
-     gridRef.current.api.applyColumnState({
-       state: JSON.parse(storedColumnState),
-       applyOrder: true,
-     });
-     console.log('column state restored from local');
-   }
-
-};
-
-const resetState = () => {
-  if (gridRef.current && gridRef.current.api) {
-    gridRef.current.api.resetColumnState();
-    console.log('column state reset');
-  }
-};
-
+}
 
 
   
@@ -187,8 +164,6 @@ const resetState = () => {
   ];
   
   const onGridReady = (params: any) => {
-    //setGridApi(params.api);
-    
     // Restore column state from local storage
     const storedColumnState = localStorage.getItem('columnState');
     if (storedColumnState && gridRef.current && gridRef.current.api) {
@@ -214,6 +189,26 @@ const resetState = () => {
   };
       
 
+  const onBtnExport = () => {
+    gridRef.current!.api.exportDataAsCsv();
+  }
+
+  const onBtnUpdate = () => {
+    const csvContent = gridRef.current?.api.getDataAsCsv();
+    // const csvResultElement = document.querySelector('#csvResult');
+  
+    if (csvContent) {
+      // Open a new window with specific dimensions
+      const newWindow = window.open('', '_blank', 'width=600,height=600');
+  
+      // Set the content of the new window
+      if (newWindow) {
+        newWindow.document.write(`<textarea style="width:100%; height:100vh">${csvContent}</textarea>`);
+        newWindow.document.title = 'CSV Export Content';
+      }
+    }
+  };
+
   return (
         <div>
           <div className='flex'>
@@ -232,33 +227,24 @@ const resetState = () => {
              > <Link href='/clients/delete'> Delete Client </Link>
              </Button>            
           </div>
-          </div>
-          {/* <div
-            className='ag-theme-alpine'
-            style={{ height: '80vh', width: '100%' }}
-          >
-            <AgGridReact              
-              columnDefs={columnDefs}          
-              rowData={data.user_data}              
-            />
-          </div>           */}
+          </div>         
      <div style={containerStyle}>
       <div className="test-container">
         <div className="test-header mb-2">
           <div className="example-section">            
             <div className='flex'>
-              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={saveState}>Save State</Button>  </div>
-              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={restoreState}>Restore State</Button>  </div>
-              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={resetState}>Reset State</Button> </div>          
+              <div> <Button  color="cyan" variant="soft" onClick={onBtnUpdate}>Show CSV export content text</Button>  </div>
+              <div className='ml-10'> <Button  color="cyan" variant="soft" onClick={onBtnExport}>Download CSV export file</Button>  </div>
+              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={saveState}>Save State</Button>  </div>                    
             </div>          
           </div>
         </div>
       
 
         <div
-          className='ag-theme-alpine'
+          className='ag-theme-quartz'
           style={{ height: '80vh', width: '100%' }}
-        >
+        >          
           <AgGridReact
             ref={gridRef}
             rowData={data.user_data}
@@ -272,7 +258,7 @@ const resetState = () => {
             getRowStyle={getRowStyle} 
             onGridReady={onGridReady}                     
           />
-        </div>
+        </div>        
       </div>
     </div>
         </div>
