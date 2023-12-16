@@ -38,17 +38,7 @@ const AutomobilePage = () => {
   };
 
   // Fetch data when the component mounts
-    fetchData();
-
-    // Restore column state from local storage
-    const storedColumnState = localStorage.getItem('columnState');
-    if (storedColumnState && gridRef.current && gridRef.current.api) {
-        gridRef.current.api.applyColumnState({
-          state: JSON.parse(storedColumnState),
-          applyOrder: true,
-        });
-    console.log('column state restored from localStorage');
-      }
+    fetchData();    
   }, [refetch]);
   
 
@@ -196,7 +186,19 @@ const resetState = () => {
     { headerName: 'GST Certificate Document', field: 'GST_Cer_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'gstCertificateDocument' },
   ];
   
- 
+  const onGridReady = (params: any) => {
+    //setGridApi(params.api);
+    
+    // Restore column state from local storage
+    const storedColumnState = localStorage.getItem('columnState');
+    if (storedColumnState && gridRef.current && gridRef.current.api) {
+        gridRef.current.api.applyColumnState({
+          state: JSON.parse(storedColumnState),
+          applyOrder: true,
+        });
+    console.log('column state restored from localStorage');
+      }
+  };
       
 
   return (
@@ -252,7 +254,8 @@ const resetState = () => {
             rowGroupPanelShow={'always'}
             pivotPanelShow={'always'}
             pagination={true}
-            paginationPageSize={20}                          
+            paginationPageSize={20}     
+            onGridReady={onGridReady}                     
           />
         </div>
       </div>
