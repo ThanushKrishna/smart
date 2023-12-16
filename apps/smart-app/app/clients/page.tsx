@@ -39,6 +39,16 @@ const AutomobilePage = () => {
 
   // Fetch data when the component mounts
     fetchData();
+
+    // Restore column state from local storage
+    const storedColumnState = localStorage.getItem('columnState');
+    if (storedColumnState && gridRef.current && gridRef.current.api) {
+        gridRef.current.api.applyColumnState({
+          state: JSON.parse(storedColumnState),
+          applyOrder: true,
+        });
+    console.log('column state restored from localStorage');
+      }
   }, [refetch]);
   
 
@@ -76,43 +86,29 @@ const defaultColDef =  {
       width: 100,
       sortable: true,
       filter: true,
-      enableRowGroup: true,
-      enablePivot: true,
-      enableValue: true,
   };
 
 
-  const sideBar =  {    
-      toolPanels: ['columns'],    
-  }
-
-// Define a custom property on the Window interface
-interface CustomWindow extends Window {
-  colState?: any; // Change 'any' to the actual type of your colState if possible
-}
-
-// Cast the window object to the custom interface
-const customWindow = window as CustomWindow;
 
 const saveState = () => {
   if (gridRef.current && gridRef.current.api) {
-    customWindow.colState = gridRef.current.api.getColumnState();
-    console.log('column state saved');
+    const columnState = gridRef.current.api.getColumnState();
+    localStorage.setItem('columnState', JSON.stringify(columnState));
+    console.log('column state saved to local storage');
   }
 };
 
 const restoreState = () => {
-  if (!customWindow.colState) {
-    console.log('no columns state to restore by, you must save state first');
-    return;
-  }
-  if (gridRef.current && gridRef.current.api) {
-    gridRef.current.api.applyColumnState({
-      state: customWindow.colState,
-      applyOrder: true,
-    });
-    console.log('column state restored');
-  }
+   // Restore column state from local storage
+   const storedColumnState = localStorage.getItem('columnState');
+   if (storedColumnState && gridRef.current && gridRef.current.api) {
+     gridRef.current.api.applyColumnState({
+       state: JSON.parse(storedColumnState),
+       applyOrder: true,
+     });
+     console.log('column state restored from local');
+   }
+
 };
 
 const resetState = () => {
@@ -253,7 +249,6 @@ const resetState = () => {
             rowData={data.user_data}
             columnDefs={columnDefs}
             defaultColDef={defaultColDef}            
-            sideBar={sideBar}
             rowGroupPanelShow={'always'}
             pivotPanelShow={'always'}
             pagination={true}
