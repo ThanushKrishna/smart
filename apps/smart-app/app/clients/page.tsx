@@ -1,7 +1,14 @@
 'use client'
-import React, { useState, useEffect, useMemo } from 'react';
+import React, {
+  useCallback,
+  useMemo,
+  useRef,
+  useEffect,
+  useState,
+  StrictMode,
+} from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { ColDef, GridApi, ColumnApi  } from 'ag-grid-community';
+import { ColDef, GridApi, ColumnApi } from 'ag-grid-community';
 import { Button } from '@radix-ui/themes'
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
@@ -16,7 +23,10 @@ const AutomobilePage = () => {
 
   const [gridApi, setGridApi] = useState<GridApi | null>(null);
   const { loading, error, data, refetch } = useQuery<{ user_data: AddClientType[] }>(GET_USER_DATA)
-
+  const gridRef = useRef<AgGridReact>(null);
+  const containerStyle =  { width: '100%', height: '100%' };
+  const gridStyle = { height: '100%', width: '100%' };
+  
  // useEffect to trigger the initial data fetch
  useEffect(() => {
   const fetchData = async () => {
@@ -62,9 +72,61 @@ const AutomobilePage = () => {
   };
 
 
+const defaultColDef =  {    
+      width: 100,
+      sortable: true,
+      filter: true,
+      enableRowGroup: true,
+      enablePivot: true,
+      enableValue: true,
+  };
+
+
+  const sideBar =  {    
+      toolPanels: ['columns'],    
+  }
+
+// Define a custom property on the Window interface
+interface CustomWindow extends Window {
+  colState?: any; // Change 'any' to the actual type of your colState if possible
+}
+
+// Cast the window object to the custom interface
+const customWindow = window as CustomWindow;
+
+const saveState = () => {
+  if (gridRef.current && gridRef.current.api) {
+    customWindow.colState = gridRef.current.api.getColumnState();
+    console.log('column state saved');
+  }
+};
+
+const restoreState = () => {
+  if (!customWindow.colState) {
+    console.log('no columns state to restore by, you must save state first');
+    return;
+  }
+  if (gridRef.current && gridRef.current.api) {
+    gridRef.current.api.applyColumnState({
+      state: customWindow.colState,
+      applyOrder: true,
+    });
+    console.log('column state restored');
+  }
+};
+
+const resetState = () => {
+  if (gridRef.current && gridRef.current.api) {
+    gridRef.current.api.resetColumnState();
+    console.log('column state reset');
+  }
+};
+
+
+
   
   const columnDefs: ColDef<AddClientType, any>[] = [
-    { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber', pinned: 'left' },
+    { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber' },
     { headerName: 'RC Number', field: 'RC_No', colId: 'rcNumber' },
     { headerName: 'Registered Date', field: 'Registered_Date', colId: 'registeredDate' },
     { headerName: 'Owner', field: 'Owner', colId: 'owner' },
@@ -139,11 +201,6 @@ const AutomobilePage = () => {
   ];
   
  
-
-    const defaultColDef = {
-      sortable: true,
-      filter: true,
-    };
       
 
   return (
@@ -165,17 +222,46 @@ const AutomobilePage = () => {
              </Button>            
           </div>
           </div>
-          <div
+          {/* <div
             className='ag-theme-alpine'
             style={{ height: '80vh', width: '100%' }}
           >
-            <AgGridReact
+            <AgGridReact              
               columnDefs={columnDefs}          
-              rowData={data.user_data}
-              pagination={true}
-              paginationPageSize={20}              
+              rowData={data.user_data}              
             />
-          </div>          
+          </div>           */}
+     <div style={containerStyle}>
+      <div className="test-container">
+        <div className="test-header mb-2">
+          <div className="example-section">            
+            <div className='flex'>
+              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={saveState}>Save State</Button>  </div>
+              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={restoreState}>Restore State</Button>  </div>
+              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={resetState}>Reset State</Button> </div>          
+            </div>          
+          </div>
+        </div>
+      
+
+        <div
+          className='ag-theme-alpine'
+          style={{ height: '80vh', width: '100%' }}
+        >
+          <AgGridReact
+            ref={gridRef}
+            rowData={data.user_data}
+            columnDefs={columnDefs}
+            defaultColDef={defaultColDef}            
+            sideBar={sideBar}
+            rowGroupPanelShow={'always'}
+            pivotPanelShow={'always'}
+            pagination={true}
+            paginationPageSize={20}                          
+          />
+        </div>
+      </div>
+    </div>
         </div>
     )
 
