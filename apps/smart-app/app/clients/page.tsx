@@ -8,7 +8,7 @@ import React, {
   StrictMode,
 } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { ColDef, GridApi, ColumnApi } from 'ag-grid-community';
+import { ColDef, RowClassParams } from 'ag-grid-community';
 import { Button } from '@radix-ui/themes'
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
@@ -16,12 +16,12 @@ import { GET_USER_DATA } from '@/graphql/queries'
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import  { AddClientType }  from '@/typings';
+import { CSSProperties } from 'react';
 
 
 
 const AutomobilePage = () => {
-
-  const [gridApi, setGridApi] = useState<GridApi | null>(null);
+  const [selectedRow, setSelectedRow] = useState(null);
   const { loading, error, data, refetch } = useQuery<{ user_data: AddClientType[] }>(GET_USER_DATA)
   const gridRef = useRef<AgGridReact>(null);
   const containerStyle =  { width: '100%', height: '100%' };
@@ -199,6 +199,19 @@ const resetState = () => {
     console.log('column state restored from localStorage');
       }
   };
+
+  const onRowClicked = (event: any) => {
+    // Toggle selection on row click
+    const newSelectedRow = event.data.id === selectedRow ? null : event.data.id;
+    setSelectedRow(newSelectedRow);
+  };
+
+  const getRowStyle = (params: RowClassParams<any, any>): any => {
+    // Check if the row is selected and apply styles accordingly
+    return params.data.id === selectedRow
+      ? { background: '#aaf0d1' } // Highlight color
+      : undefined;
+  };
       
 
   return (
@@ -254,7 +267,9 @@ const resetState = () => {
             rowGroupPanelShow={'always'}
             pivotPanelShow={'always'}
             pagination={true}
-            paginationPageSize={20}     
+            paginationPageSize={20}    
+            onRowClicked={onRowClicked}
+            getRowStyle={getRowStyle} 
             onGridReady={onGridReady}                     
           />
         </div>
