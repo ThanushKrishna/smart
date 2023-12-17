@@ -155,13 +155,13 @@ const onSubmit = async (formValues: AddClientType) => {
             <DatePickerComponent 
                 name="Insurance_Start"
                 control={control}
-                placeholder="Insurance Start From:  "                           
+                placeholder="Own Damage Insurance Starts From:  "                           
                 selectedDate={gusrdatabyid.user_data_byid.Insurance_Start && new Date(gusrdatabyid.user_data_byid?.Insurance_Start)}     
                 />  
              <DatePickerComponent 
                 name="Insurance_dueDate"
                 control={control}
-                placeholder="Insurance Valid UpTo: "                           
+                placeholder="Own Damage Insurance UpTo: "                           
                 selectedDate={gusrdatabyid.user_data_byid.Insurance_dueDate && new Date(gusrdatabyid.user_data_byid?.Insurance_dueDate)}        
                 />    
             <p>TP Policy No: </p>

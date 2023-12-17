@@ -263,7 +263,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <DatePickerComponent 
                 name="Registered_Date"
                 control={control}
-                placeholder="Registered_Date:   "                           
+                placeholder="Registration Date:   "                           
                 selectedDate={gusrdatabyid.user_data_byid?.Registered_Date && new Date(gusrdatabyid.user_data_byid?.Registered_Date)}         
             />         
              <DatePickerComponent 
