@@ -14,7 +14,7 @@ import { Button } from '@radix-ui/themes'
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { GET_USER_DATA } from '@/graphql/queries'
-import  { AddClientType }  from '@/typings';
+import  { AddClientType, tAddress }  from '@/typings';
 import 'ag-grid-community/styles/ag-grid.css';
 //import 'ag-grid-community/styles/ag-theme-alpine.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
