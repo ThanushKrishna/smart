@@ -51,6 +51,7 @@ const UpdateClient:React.FC = () => {
         type="text" 
         name='Vehicle_No'  
         onBlur={(e:any) => setVehicleno(e.target.value)}    
+        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
         /> 
         <br></br>
         <Button         

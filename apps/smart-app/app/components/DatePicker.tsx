@@ -37,7 +37,7 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
                     sx={{ mb: 10, width: '100%' }}
                     {...field}
                     value={parsedDate}                        
-                    format="DD-MM-YYYY"                                     
+                    format="DD/MM/YYYY"                                     
                     // Add other props like 'error' if needed
                   />
                   </DemoContainer>

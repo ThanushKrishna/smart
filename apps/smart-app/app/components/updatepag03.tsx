@@ -22,6 +22,7 @@ import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import { OWNER_TYPE, MARITAL_STATUS } from '@/json/enums'
+import AddressForm from './AddressForm';
 
 interface iupdatevalue {
     value: String,
@@ -380,47 +381,12 @@ const onSubmit = async (formValues: AddClientType) => {
                 onSelectFile={(e:string | null) => setGstCerfile(e)}                
                 placeholder=""                    
                 value={GstCerfile}                   
-            />                                                                                                                         
-            <p>Address: </p>
-            <TextField.Root>
-              <TextField.Input
-                {...register('Address.street')}
-                placeholder="Street"
-                defaultValue={gusrdatabyid?.user_data_byid?.Address?.street}
-              />
-            </TextField.Root>
-
-            <TextField.Root>
-              <TextField.Input
-                {...register('Address.city')}
-                placeholder="City"
-                defaultValue={gusrdatabyid?.user_data_byid?.Address?.city}
-              />
-            </TextField.Root>
-
-            <TextField.Root>
-              <TextField.Input
-                {...register('Address.state')}
-                placeholder="State"
-                defaultValue={gusrdatabyid?.user_data_byid?.Address?.state}
-              />
-            </TextField.Root>
-
-            <TextField.Root>
-              <TextField.Input
-                {...register('Address.zip', {
-                  pattern: {
-                    value: /^\d{6}$/,
-                    message: 'Zip code should be a 6-digit number',
-                  },
-                })}
-                placeholder="ZIP Code"
-                defaultValue={gusrdatabyid?.user_data_byid?.Address.zip}
-                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-              />
-            </TextField.Root>           
-            {errors?.Address?.zip && typeof errors.Address.zip === 'object' && 'message' in errors.Address.zip && (
-            <p className="error text-red-600">{(errors.Address.zip as FieldError).message}</p>)} 
+            />                                                                                                                                     
+            <AddressForm
+            register={register} 
+            errors={errors} 
+            defaultaddress={gusrdatabyid?.user_data_byid?.Address}
+            />           
             <p>Referred by: </p>
             <TextField.Root>
               <TextField.Input

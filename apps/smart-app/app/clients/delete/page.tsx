@@ -46,6 +46,7 @@ const DeleteClient: React.FC = () => {
             id="vehicleNo"
             name="Vehicle_No"            
             onInput={(e:any) => setVehicleno(e.target.value)}
+            onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
       />
           <br />
         <Button        

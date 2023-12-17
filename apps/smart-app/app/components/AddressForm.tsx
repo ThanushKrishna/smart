@@ -2,13 +2,15 @@ import React from 'react';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import { UseFormRegister } from 'react-hook-form';
+import { tAddress } from '@/typings';
 
 interface AddressFormProps {
   register: UseFormRegister<any>; // Adjust the type accordingly
   errors: any; // Adjust the type accordingly
+  defaultaddress?: tAddress;
 }
 
-const AddressForm: React.FC<AddressFormProps> = ({ register, errors }) => {
+const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultaddress }) => {
   return (
     <>
       <Grid container spacing={2}>
@@ -21,6 +23,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors }) => {
             fullWidth
             label="Street"            
             variant="outlined"
+            value={defaultaddress?.street}   
             error={!!errors?.Address?.street}
             helperText={errors?.Address?.street?.message}
             style={{ height: '2px' }}
@@ -32,6 +35,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors }) => {
             fullWidth
             label="City"
             variant="outlined"
+            value={defaultaddress?.city}   
             error={!!errors?.Address?.city}
             helperText={errors?.Address?.city?.message}
           />
@@ -42,6 +46,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors }) => {
             fullWidth
             label="State"
             variant="outlined"
+            value={defaultaddress?.state}   
             error={!!errors?.Address?.state}
             helperText={errors?.Address?.state?.message}
           />
@@ -58,6 +63,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors }) => {
             fullWidth
             label="Pin"
             variant="outlined"
+            value={defaultaddress?.zip}   
             error={!!errors?.Address?.zip}
             helperText={errors?.Address?.zip?.message}
           />

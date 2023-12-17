@@ -5,12 +5,13 @@ export interface iappUser extends app_user{
 }
 
 
-  type Address = {
+export  type tAddress = {
       street: String
       city:   String
       state:  String
       zip:    String
     }
+
 export interface AddClientType {
     data_owner_id:         String!
     Vehicle_No:            String!  
@@ -28,7 +29,7 @@ export interface AddClientType {
     tax_due_Date:       	 Date
     Vehicle_color:         String
     Vehice_norms:          String
-    Address:               Address
+    Address:               tAddress
     CC:                    String
     Make:                  String
     Model:                 String

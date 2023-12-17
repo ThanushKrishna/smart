@@ -108,6 +108,16 @@ const yearFormatter = (params: any) => {
 // Helper function to pad zero for single-digit values
 const padZero = (value: any) => (value < 10 ? `0${value}` : value);
 
+const addressFormatter = (params: any) => {
+  // Assuming params.value contains the raw address data
+  const rawAddress: tAddress = params.value;
+
+  // Format the address as needed (e.g., combine street, city, state, and zip)
+  const formattedAddress = `${rawAddress.street}, ${rawAddress.city}, ${rawAddress.state} ${rawAddress.zip}`;
+
+  return formattedAddress;
+};
+
   
   const columnDefs: ColDef<AddClientType, any>[] = [
     { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber' },
@@ -125,7 +135,7 @@ const padZero = (value: any) => (value < 10 ? `0${value}` : value);
     { headerName: 'Tax Due Date', field: 'tax_due_Date', colId: 'taxDueDate', valueFormatter: dateFormatter, },
     { headerName: 'Vehicle Color', field: 'Vehicle_color', colId: 'vehicleColor' },
     { headerName: 'Vehicle Norms', field: 'Vehice_norms', colId: 'vehicleNorms' },
-    { headerName: 'Address', field: 'Address', colId: 'address' },
+    { headerName: 'Address', field: 'Address', colId: 'address', valueFormatter: addressFormatter, },
     { headerName: 'Cubic Capacity', field: 'CC', colId: 'cubicCapacity' },
     { headerName: 'Make', field: 'Make', colId: 'make' },
     { headerName: 'Model', field: 'Model', colId: 'model' },
