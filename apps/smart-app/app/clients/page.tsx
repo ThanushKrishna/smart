@@ -82,26 +82,38 @@ const saveState = () => {
   if (gridRef.current && gridRef.current.api) {
     const columnState = gridRef.current.api.getColumnState();
     localStorage.setItem('columnState', JSON.stringify(columnState));
-    console.log('column state saved to local storage');
+    //console.log('column state saved to local storage');
   }
 }
 
+
+const dateFormatter = (params: any) => {
+  if (params.value) {
+    const date = new Date(params.value);
+    const formattedDate = `${padZero(date.getDate())}-${padZero(date.getMonth() + 1)}-${date.getFullYear()}`;
+    return formattedDate;
+  }
+  return params.value;
+};
+
+// Helper function to pad zero for single-digit values
+const padZero = (value: any) => (value < 10 ? `0${value}` : value);
 
   
   const columnDefs: ColDef<AddClientType, any>[] = [
     { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber' },
     { headerName: 'RC Number', field: 'RC_No', colId: 'rcNumber' },
-    { headerName: 'Registered Date', field: 'Registered_Date', colId: 'registeredDate' },
+    { headerName: 'Registered Date', field: 'Registered_Date', colId: 'registeredDate', valueFormatter: dateFormatter, },
     { headerName: 'Owner', field: 'Owner', colId: 'owner' },
-    { headerName: 'Owner Date of Birth', field: 'Owner_dob', colId: 'ownerDOB' },
+    { headerName: 'Owner Date of Birth', field: 'Owner_dob', colId: 'ownerDOB', valueFormatter: dateFormatter, },
     { headerName: 'Ownership Type', field: 'Ownership_type', colId: 'ownershipType' },
     { headerName: 'Vehicle Type', field: 'Vehicle_type', colId: 'vehicleType' },
-    { headerName: 'Year of Manufacturing', field: 'Year_of_manufacuring', colId: 'manufacturingYear' },
+    { headerName: 'Year of Manufacturing', field: 'Year_of_manufacuring', colId: 'manufacturingYear', valueFormatter: dateFormatter, },
     { headerName: 'Gross Vehicle Weight', field: 'GVW', colId: 'grossVehicleWeight' },
     { headerName: 'Chasis Number', field: 'Chasis_No', colId: 'chasisNumber' },
     { headerName: 'Engine Number', field: 'Engine_No', colId: 'engineNumber' },
-    { headerName: 'FC Due Date', field: 'FC_due_Date', colId: 'fcDueDate' },
-    { headerName: 'Tax Due Date', field: 'tax_due_Date', colId: 'taxDueDate' },
+    { headerName: 'FC Due Date', field: 'FC_due_Date', colId: 'fcDueDate', valueFormatter: dateFormatter, },
+    { headerName: 'Tax Due Date', field: 'tax_due_Date', colId: 'taxDueDate', valueFormatter: dateFormatter, },
     { headerName: 'Vehicle Color', field: 'Vehicle_color', colId: 'vehicleColor' },
     { headerName: 'Vehicle Norms', field: 'Vehice_norms', colId: 'vehicleNorms' },
     { headerName: 'Address', field: 'Address', colId: 'address' },
@@ -109,7 +121,7 @@ const saveState = () => {
     { headerName: 'Make', field: 'Make', colId: 'make' },
     { headerName: 'Model', field: 'Model', colId: 'model' },
     { headerName: 'Insurance Provider', field: 'Insurance_provider', colId: 'insuranceProvider' },
-    { headerName: 'Insurance Due Date', field: 'Insurance_dueDate', colId: 'insuranceDueDate' },
+    { headerName: 'Insurance Due Date', field: 'Insurance_dueDate', colId: 'insuranceDueDate', valueFormatter: dateFormatter, },
     { headerName: 'Policy Number', field: 'Policy_No', colId: 'policyNumber' },
     { headerName: 'Policy URL', field: 'Policy_url', colId: 'policyURL' },
     { headerName: 'Permit Number', field: 'Permit_No', colId: 'permitNumber' },
@@ -124,8 +136,8 @@ const saveState = () => {
     { headerName: 'PAN Document', field: 'Pan_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'panDocument' },
     { headerName: 'Nominee', field: 'Nominee', colId: 'nominee' },
     { headerName: 'Nominee Relationship', field: 'Nominee_Relationship', colId: 'nomineeRelationship' },
-    { headerName: 'Nominee Date of Birth', field: 'Nominee_dob', colId: 'nomineeDOB' },
-    { headerName: 'Emission Due Date', field: 'Emission_dueDate', colId: 'emissionDueDate' },
+    { headerName: 'Nominee Date of Birth', field: 'Nominee_dob', colId: 'nomineeDOB', valueFormatter: dateFormatter, },
+    { headerName: 'Emission Due Date', field: 'Emission_dueDate', colId: 'emissionDueDate', valueFormatter: dateFormatter, },
     { headerName: 'Fuel Type', field: 'Fuel_type', colId: 'fuelType' },
     { headerName: 'Hypothecation Bank', field: 'Hypothecation_bank', colId: 'hypothecationBank' },
     { headerName: 'Hypothecation City', field: 'Hypothecation_city', colId: 'hypothecationCity' },
@@ -135,8 +147,8 @@ const saveState = () => {
     { headerName: 'Customer Type', field: 'Customer_type', colId: 'customerType' },
     { headerName: 'Marital Status', field: 'Martial_status', colId: 'maritalStatus' },
     { headerName: 'Third-Party Insurance Provider', field: 'TP_Insurance_provider', colId: 'thirdPartyInsuranceProvider' },
-    { headerName: 'Third-Party Insurance Due Date', field: 'TP_dueDate', colId: 'thirdPartyInsuranceDueDate' },
-    { headerName: 'Own Damage Insurance Due Date', field: 'OD_dueDate', colId: 'ownDamageInsuranceDueDate' },
+    { headerName: 'Third-Party Insurance Due Date', field: 'TP_dueDate', colId: 'thirdPartyInsuranceDueDate', valueFormatter: dateFormatter, },
+    { headerName: 'Own Damage Insurance Due Date', field: 'OD_dueDate', colId: 'ownDamageInsuranceDueDate', valueFormatter: dateFormatter, },
     { headerName: 'GST Number', field: 'GST_No', colId: 'gstNumber' },
     { headerName: 'Insurance Type', field: 'Insurance_type', colId: 'insuranceType' },
     { headerName: 'Customer Type', field: 'Customer_Type', colId: 'customerType' },
@@ -155,8 +167,8 @@ const saveState = () => {
     { headerName: 'Updated By', field: 'updated_by', colId: 'updatedBy' },
     { headerName: 'Third-Party Policy Number', field: 'TP_Policy_No', colId: 'thirdPartyPolicyNumber' },
     { headerName: 'Permit Number (Second Entry)', field: 'Permit_No', colId: 'permitNumberSecondEntry' },
-    { headerName: 'Insurance Start Date', field: 'Insurance_Start', colId: 'insuranceStartDate' },
-    { headerName: 'Third-Party Insurance Start Date', field: 'TP_Insurance_Start', colId: 'thirdPartyInsuranceStartDate' },
+    { headerName: 'Insurance Start Date', field: 'Insurance_Start', colId: 'insuranceStartDate', valueFormatter: dateFormatter, },
+    { headerName: 'Third-Party Insurance Start Date', field: 'TP_Insurance_Start', colId: 'thirdPartyInsuranceStartDate', valueFormatter: dateFormatter, },
     { headerName: 'RC Doc', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'rcDocument' },
     { headerName: 'Own Damage Policy Document', field: 'OD_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'ownDamagePolicyDocument' },
     { headerName: 'Third-Party Policy Document', field: 'TP_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'thirdPartyPolicyDocument' },
@@ -171,7 +183,7 @@ const saveState = () => {
           state: JSON.parse(storedColumnState),
           applyOrder: true,
         });
-    console.log('column state restored from localStorage');
+    //console.log('column state restored from localStorage');
       }
   };
 
