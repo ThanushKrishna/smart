@@ -96,6 +96,15 @@ const dateFormatter = (params: any) => {
   return params.value;
 };
 
+const yearFormatter = (params: any) => {
+  if (params.value) {
+    const date = new Date(params.value);
+    const formattedyear = `${date.getFullYear()}`;
+    return formattedyear;
+  }
+  return params.value;
+};
+
 // Helper function to pad zero for single-digit values
 const padZero = (value: any) => (value < 10 ? `0${value}` : value);
 
@@ -108,7 +117,7 @@ const padZero = (value: any) => (value < 10 ? `0${value}` : value);
     { headerName: 'Owner Date of Birth', field: 'Owner_dob', colId: 'ownerDOB', valueFormatter: dateFormatter, },
     { headerName: 'Ownership Type', field: 'Ownership_type', colId: 'ownershipType' },
     { headerName: 'Vehicle Type', field: 'Vehicle_type', colId: 'vehicleType' },
-    { headerName: 'Year of Manufacturing', field: 'Year_of_manufacuring', colId: 'manufacturingYear', valueFormatter: dateFormatter, },
+    { headerName: 'Year of Manufacturing', field: 'Year_of_manufacuring', colId: 'manufacturingYear', valueFormatter: yearFormatter, },
     { headerName: 'Gross Vehicle Weight', field: 'GVW', colId: 'grossVehicleWeight' },
     { headerName: 'Chasis Number', field: 'Chasis_No', colId: 'chasisNumber' },
     { headerName: 'Engine Number', field: 'Engine_No', colId: 'engineNumber' },

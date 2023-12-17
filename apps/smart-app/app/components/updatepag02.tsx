@@ -64,13 +64,13 @@ const onSubmit = async (formValues: AddClientType) => {
 			Policy_No: formValues?.Policy_No || undefined,
 			OD_Policy_Doc: OdPolicydocfile || undefined,
 			Insurance_provider: formValues?.Insurance_provider || undefined,
-            Insurance_dueDate: formValues?.Insurance_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Insurance_dueDate: new Date(formValues?.Insurance_dueDate)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
 			TP_Policy_No: formValues?.TP_Policy_No || undefined, 
-            Insurance_Start: formValues?.Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            TP_Insurance_Start: formValues?.TP_Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,            
+            Insurance_Start: new Date(formValues?.Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            TP_Insurance_Start: new Date(formValues?.TP_Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,         
             TP_Policy_Doc: TpPolicyDocfile || undefined,
 			TP_Insurance_provider: formValues?.TP_Insurance_provider || undefined,
-            TP_dueDate: formValues?.TP_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,            
+            TP_dueDate: new Date(formValues?.TP_dueDate)?.getTime() + 60 * 60 *1000 * 5.5|| undefined,                     
 			RTO: formValues?.RTO || undefined,
 			Unladen_Weight: formValues?.Unladen_Weight || undefined, 
 			GVW: formValues?.GVW || undefined,            
@@ -152,26 +152,18 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={giproviderdata && giproviderdata.INSURANCE_PROVIDER.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
             />
-             <Controller
+            <DatePickerComponent 
                 name="Insurance_Start"
-                control={control}        
-                defaultValue={gusrdatabyid.user_data_byid.Insurance_Start && new Date(gusrdatabyid.user_data_byid?.Insurance_Start)}     
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Own Damage Insurance Starts From: "
-                />)}
-            />
-             <Controller
+                control={control}
+                placeholder="Insurance Start From:  "                           
+                selectedDate={gusrdatabyid.user_data_byid.Insurance_Start && new Date(gusrdatabyid.user_data_byid?.Insurance_Start)}     
+                />  
+             <DatePickerComponent 
                 name="Insurance_dueDate"
-                control={control}     
-                defaultValue={gusrdatabyid.user_data_byid.Insurance_dueDate && new Date(gusrdatabyid.user_data_byid?.Insurance_dueDate)}        
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Own Damage Insurance UpTo: "
-                />)}
-            />         
+                control={control}
+                placeholder="Insurance Valid UpTo: "                           
+                selectedDate={gusrdatabyid.user_data_byid.Insurance_dueDate && new Date(gusrdatabyid.user_data_byid?.Insurance_dueDate)}        
+                />    
             <p>TP Policy No: </p>
             <TextField.Root>
             <TextField.Input
@@ -205,26 +197,18 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
                 onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
-            <Controller
+            <DatePickerComponent 
                 name="TP_Insurance_Start"
-                control={control}       
-                defaultValue={gusrdatabyid.user_data_byid.TP_Insurance_Start && new Date(gusrdatabyid.user_data_byid?.TP_Insurance_Start)}      
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Thrid Party Insurance Starts From: "
-                />)}
-            />              
-            <Controller
+                control={control}
+                placeholder="Thrid Party Insurance Starts From: "                           
+                selectedDate={gusrdatabyid.user_data_byid.TP_Insurance_Start && new Date(gusrdatabyid.user_data_byid?.TP_Insurance_Start)} 
+                />            
+           <DatePickerComponent 
                 name="TP_dueDate"
-                control={control}  
-                defaultValue={gusrdatabyid.user_data_byid.TP_dueDate && new Date(gusrdatabyid.user_data_byid?.TP_dueDate)}           
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Thrid Party Insurance UpTo: "
-                />)}
-            />        
+                control={control}
+                placeholder="TP Insurance Valid UpTo:  "                           
+                selectedDate={gusrdatabyid.user_data_byid.TP_dueDate && new Date(gusrdatabyid.user_data_byid?.TP_dueDate)}           
+            /> 
             <DropDownControlWA 
                 name="RTO"
                 control={control}     

@@ -77,14 +77,14 @@ const onSubmit = async (formValues: AddClientType) => {
             id: gusrdatabyid.user_data_byid.id,
             Vehicle_Reg_Doc:  VehRegDocfile || undefined,			
             RC_No: formValues?.RC_No || undefined,
-            Registered_Date: formValues?.Registered_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                       
+            Registered_Date: new Date(formValues?.Registered_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                      
             Owner: formValues?.Owner || undefined,
 			Son_Wife_Daughter_Of: formValues?.Son_Wife_Daughter_Of || undefined, 
 			Chasis_No: formValues?.Chasis_No || undefined,
             Engine_No: formValues?.Engine_No || undefined,
 			Make: formValues?.Make || undefined,
             Model: formValues?.Model || undefined,
-			tax_due_Date: formValues?.tax_due_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+			tax_due_Date: new Date(formValues?.tax_due_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
 			Vehicle_type: formValues?.Vehicle_type || undefined,
 			Vehicle_Description: formValues?.Vehicle_Description || undefined,
 			Fuel_type: formValues?.Fuel_type || undefined,
@@ -259,26 +259,19 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
-            <Controller
+                       
+            <DatePickerComponent 
                 name="Registered_Date"
-                control={control}      
-                defaultValue={gusrdatabyid.user_data_byid?.Registered_Date && new Date(gusrdatabyid.user_data_byid?.Registered_Date)}       
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Registration Date: "
-                />)}
-            />        
-             <Controller
+                control={control}
+                placeholder="Registered_Date:   "                           
+                selectedDate={gusrdatabyid.user_data_byid?.Registered_Date && new Date(gusrdatabyid.user_data_byid?.Registered_Date)}         
+            />         
+             <DatePickerComponent 
                 name="tax_due_Date"
-                control={control}    
-                defaultValue={gusrdatabyid.user_data_byid?.tax_due_Date && new Date(gusrdatabyid.user_data_byid?.tax_due_Date)}         
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Tax Valid UpTo: "
-                />)}
-            />          
+                control={control}
+                placeholder="Tax Valid UpTo:  "                           
+                selectedDate={gusrdatabyid.user_data_byid?.tax_due_Date && new Date(gusrdatabyid.user_data_byid?.tax_due_Date)}             
+            />            
             <DropDownControlWA 
                 name="Vehicle_type"
                 control={control}

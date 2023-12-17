@@ -92,17 +92,17 @@ const onSubmit = async (formValues: AddClientType) => {
             data_owner_id: "65420cde2e5ffc26bed53918",
             Vehicle_No: formValues?.Vehicle_No || undefined,            
             RC_No: formValues?.RC_No || undefined,
-            Registered_Date: formValues?.Registered_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                       
+            Registered_Date: new Date(formValues?.Registered_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                       
             Owner: formValues?.Owner || undefined,
-            Owner_dob: formValues?.Owner_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Owner_dob: new Date(formValues?.Owner_dob)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Ownership_type: formValues?.Ownership_type || undefined,
             Vehicle_type: formValues?.Vehicle_type || undefined,
-            Year_of_manufacuring: formValues?.Year_of_manufacuring?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Year_of_manufacuring: new Date(formValues?.Year_of_manufacuring)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             GVW: formValues?.GVW || undefined,
             Chasis_No: formValues?.Chasis_No || undefined,
             Engine_No: formValues?.Engine_No || undefined,
-            FC_due_Date: formValues?.FC_due_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            tax_due_Date: formValues?.tax_due_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            FC_due_Date: new Date(formValues?.FC_due_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            tax_due_Date: new Date(formValues?.tax_due_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Vehicle_color: formValues?.Vehicle_color || undefined,
             Vehice_norms: formValues?.Vehice_norms || undefined,
             Address: formValues?.Address || undefined,
@@ -110,7 +110,7 @@ const onSubmit = async (formValues: AddClientType) => {
             Make: formValues?.Make || undefined,
             Model: formValues?.Model || undefined,
             Insurance_provider: formValues?.Insurance_provider || undefined,
-            Insurance_dueDate: formValues?.Insurance_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Insurance_dueDate: new Date(formValues?.Insurance_dueDate)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Policy_No: formValues?.Policy_No || undefined,
             Permit_No: formValues?.Permit_No || undefined,
             Permit_category: formValues?.Permit_category || undefined,
@@ -124,8 +124,8 @@ const onSubmit = async (formValues: AddClientType) => {
             Pan_doc: panfile || undefined,
             Nominee: formValues?.Nominee || undefined,
             Nominee_Relationship: formValues?.Nominee_Relationship || undefined,
-            Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            Emission_dueDate: formValues?.Emission_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Nominee_dob: new Date(formValues?.Nominee_dob)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Emission_dueDate: new Date(formValues?.Emission_dueDate)?.getTime() + 60 * 60 *1000 * 5.5|| undefined,
             Fuel_type: formValues?.Fuel_type || undefined,
             Hypothecation_bank: formValues?.Hypothecation_bank || undefined,
             Hypothecation_city: formValues?.Hypothecation_city || undefined,
@@ -135,7 +135,7 @@ const onSubmit = async (formValues: AddClientType) => {
             Customer_type: formValues?.Customer_type || undefined,
             Martial_status: formValues?.Martial_status || undefined,
             TP_Insurance_provider: formValues?.TP_Insurance_provider || undefined,
-            TP_dueDate: formValues?.TP_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,            
+            TP_dueDate: new Date(formValues?.TP_dueDate)?.getTime() + 60 * 60 *1000 * 5.5|| undefined,            
             GST_No: formValues?.GST_No || undefined,
             Insurance_type: formValues?.Insurance_type || undefined,
             Son_Wife_Daughter_Of: formValues?.Son_Wife_Daughter_Of || undefined, 
@@ -147,8 +147,8 @@ const onSubmit = async (formValues: AddClientType) => {
             PUCC_Emission_No: formValues?.PUCC_Emission_No || undefined,
             updated_by: formValues?.updated_by || undefined,
             TP_Policy_No: formValues?.TP_Policy_No || undefined, 
-            Insurance_Start: formValues?.Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            TP_Insurance_Start: formValues?.TP_Insurance_Start?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Insurance_Start: new Date(formValues?.Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            TP_Insurance_Start: new Date(formValues?.TP_Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Vehicle_Reg_Doc: VehRegDocfile || undefined,
             OD_Policy_Doc: OdPolicydocfile || undefined,
             TP_Policy_Doc: TpPolicyDocfile || undefined,
@@ -157,7 +157,7 @@ const onSubmit = async (formValues: AddClientType) => {
             Seating_Capacity: formValues?.Seating_Capacity || undefined,
             Standing_Capacity: formValues?.Standing_Capacity || undefined,
         }
-        
+                
         console.log( result );
         addclient( { variables: { input: result}})
         .then(()=> {        
@@ -175,7 +175,7 @@ const onSubmit = async (formValues: AddClientType) => {
     }   
     catch(e: any){        
         console.log("This is try-catch-error block");
-        console.log(e?.message);
+        console.log(e?.message);        
         setisSubmitted(false); 
     }   
     
@@ -306,24 +306,17 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
-            <Controller
+
+            <DatePickerComponent 
                 name="Registered_Date"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Registration Date: "
-                />)}
+                control={control}
+                placeholder="Registered_Date:   "                           
             />        
-             <Controller
-                name="tax_due_Date"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Tax Valid UpTo: "
-                />)}
-            />          
+            <DatePickerComponent 
+               name="tax_due_Date"
+               control={control}
+               placeholder="Tax Valid UpTo: "                           
+            />
             <DropDownControlWA 
                 name="Vehicle_type"
                 control={control}
@@ -441,24 +434,16 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={giproviderdata && giproviderdata.INSURANCE_PROVIDER.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
             />
-             <Controller
-                name="Insurance_Start"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Own Damage Insurance Starts From: "
-                />)}
+            <DatePickerComponent 
+               name="Insurance_Start"
+               control={control}
+               placeholder="Own Damage Insurance Starts From: "                           
             />
-             <Controller
-                name="Insurance_dueDate"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Own Damage Insurance UpTo: "
-                />)}
-            />         
+            <DatePickerComponent 
+               name="Insurance_dueDate"
+               control={control}
+               placeholder="Own Damage Insurance UpTo:  "                           
+            />            
             <p>TP Policy No: </p>
             <TextField.Root>
             <TextField.Input
@@ -490,24 +475,16 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
                 onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
-            <Controller
-                name="TP_Insurance_Start"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Thrid Party Insurance Starts From: "
-                />)}
-            />              
-            <Controller
-                name="TP_dueDate"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Thrid Party Insurance UpTo: "
-                />)}
-            />        
+            <DatePickerComponent 
+               name="TP_Insurance_Start"
+               control={control}
+               placeholder="Thrid Party Insurance Starts From:  "                           
+            />     
+            <DatePickerComponent 
+               name="TP_dueDate"
+               control={control}
+               placeholder="Thrid Party Insurance UpTo: "                           
+            />                
             <DropDownControlWA 
                 name="RTO"
                 control={control}            
@@ -597,16 +574,13 @@ const onSubmit = async (formValues: AddClientType) => {
             />            
             </TextField.Root>
             {errors.Sleeper_Capacity && <p className="error text-red-600">{errors.Sleeper_Capacity.message}</p>}
+            
+            <DatePickerComponent 
+               name="Owner_dob"
+               control={control}
+               placeholder="Owner DOB:   "                           
+            />      
 
-            <Controller
-                name="Owner_dob"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Owner DOB: "
-                />)}
-            />   
             <DropDownControl 
                 name="Martial_status"
                 control={control}
@@ -619,24 +593,16 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="Owner Type:   "                                      
                 options={OWNER_TYPE}
             />                        
-            <Controller
-                name="Year_of_manufacuring"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Manufacturing Date: "
-                />)}
+             <DatePickerComponent 
+               name="Year_of_manufacuring"
+               control={control}
+               placeholder="Manufacturing Date:  "                           
+            />      
+             <DatePickerComponent 
+               name="FC_due_Date"
+               control={control}
+               placeholder="REG/FC UpTo:  "                           
             />                 
-            <Controller
-                name="FC_due_Date"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="REG/FC UpTo: "
-                />)}
-            />                                                 
             <DropDownControlWA 
                 name="CC"
                 control={control}            
@@ -793,15 +759,11 @@ const onSubmit = async (formValues: AddClientType) => {
             />            
             </TextField.Root>
             {errors.Nominee_Relationship && <p className="error text-red-600">{errors.Nominee_Relationship.message}</p>}
-            <Controller
-                name="Nominee_dob"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Nominee DOB: "
-                />)}
-            /> 
+            <DatePickerComponent 
+               name="Nominee_dob"
+               control={control}
+               placeholder="Nominee DOB: "                           
+            />          
             <p>PUC/Emission Number: </p>
             <TextField.Root>
             <TextField.Input
@@ -815,15 +777,11 @@ const onSubmit = async (formValues: AddClientType) => {
             />            
             </TextField.Root>
             {errors.PUCC_Emission_No && <p className="error text-red-600">{errors.PUCC_Emission_No.message}</p>}
-            <Controller
-                name="Emission_dueDate"
-                control={control}             
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="PUC/Emission UpTo: "
-                />)}
-            />      
+            <DatePickerComponent 
+               name="Emission_dueDate"
+               control={control}
+               placeholder="PUC/Emission UpTo: "                           
+            />    
             <p className='mt-3'>GST No: </p>
             <TextField.Root>
             <TextField.Input

@@ -58,10 +58,10 @@ const onSubmit = async (formValues: AddClientType) => {
 
         const result = {
             id: gusrdatabyid.user_data_byid.id,
-			Owner_dob: formValues?.Owner_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Owner_dob: new Date(formValues?.Owner_dob)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Ownership_type: formValues?.Ownership_type || undefined,            
-            Year_of_manufacuring: formValues?.Year_of_manufacuring?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            FC_due_Date: formValues?.FC_due_Date?.getTime() + 60 * 60 *1000 * 5.5 || undefined,           
+            Year_of_manufacuring: new Date(formValues?.Year_of_manufacuring)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            FC_due_Date: new Date(formValues?.FC_due_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Address: formValues?.Address || undefined,
             CC: formValues?.CC || undefined,
             Permit_No: formValues?.Permit_No || undefined,
@@ -76,8 +76,8 @@ const onSubmit = async (formValues: AddClientType) => {
             Pan_doc: panfile || undefined,
             Nominee: formValues?.Nominee || undefined,
             Nominee_Relationship: formValues?.Nominee_Relationship || undefined,
-            Nominee_dob: formValues?.Nominee_dob?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            Emission_dueDate: formValues?.Emission_dueDate?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                        
+            Nominee_dob: new Date(formValues?.Nominee_dob)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Emission_dueDate: new Date(formValues?.Emission_dueDate)?.getTime() + 60 * 60 *1000 * 5.5|| undefined,
             RTO: formValues?.RTO || undefined,
             Referred_by: formValues?.Referred_by || undefined,
             Comments: formValues?.Comments || undefined,
@@ -121,16 +121,12 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root >
             <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
             </TextField.Root>              
-             <Controller
-             name="Owner_dob"
-             control={control}       
-             defaultValue={gusrdatabyid.user_data_byid.Owner_dob && new Date(gusrdatabyid.user_data_byid?.Owner_dob)}      
-             render={({ field }) => (
-             <DatePickerComponent 
-             {...field} 
-             placeholder="Owner DOB: "
-             />)}
-            />   
+            <DatePickerComponent 
+              name="Owner_dob"
+              control={control}
+              placeholder="Owner DOB: "
+              selectedDate={gusrdatabyid.user_data_byid.Owner_dob && new Date(gusrdatabyid.user_data_byid?.Owner_dob)}      
+            />    
             <DropDownControl 
                 name="Martial_status"
                 control={control}
@@ -145,26 +141,18 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="Owner Type:   "                                      
                 options={OWNER_TYPE}
             />                        
-            <Controller
-                name="Year_of_manufacuring"
-                control={control}         
-                defaultValue={gusrdatabyid.user_data_byid.Year_of_manufacuring && new Date(gusrdatabyid.user_data_byid?.Year_of_manufacuring)}    
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="Manufacturing Date: "
-                />)}
-            />                 
-            <Controller
-                name="FC_due_Date"
-                control={control} 
-                defaultValue={gusrdatabyid.user_data_byid.FC_due_Date && new Date(gusrdatabyid.user_data_byid?.FC_due_Date)}            
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="REG/FC UpTo: "
-                />)}
-            />                                                 
+            <DatePickerComponent 
+              name="Year_of_manufacuring"
+              control={control}
+              placeholder="Manufacturing Date: "
+              selectedDate={gusrdatabyid.user_data_byid.Year_of_manufacuring && new Date(gusrdatabyid.user_data_byid?.Year_of_manufacuring)}    
+            />           
+            <DatePickerComponent 
+              name="FC_due_Date"
+              control={control}
+              placeholder="REG/FC UpTo: "
+              selectedDate={gusrdatabyid.user_data_byid.FC_due_Date && new Date(gusrdatabyid.user_data_byid?.FC_due_Date)}            
+            />                                                
             <DropDownControlWA 
                 name="CC"
                 control={control}       
@@ -344,16 +332,12 @@ const onSubmit = async (formValues: AddClientType) => {
             </TextField.Root>
             {errors.Nominee_Relationship && typeof errors.Nominee_Relationship === 'object' && 'message' in errors.Nominee_Relationship && (
             <p className="error text-red-600">{(errors.Nominee_Relationship as FieldError).message}</p>)} 
-            <Controller
+            <DatePickerComponent 
                 name="Nominee_dob"
-                control={control}      
-                defaultValue={gusrdatabyid.user_data_byid.Nominee_dob && new Date(gusrdatabyid.user_data_byid?.Nominee_dob)}           
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
+                control={control}
                 placeholder="Nominee DOB: "
-                />)}
-            /> 
+                selectedDate={gusrdatabyid.user_data_byid.Nominee_dob && new Date(gusrdatabyid.user_data_byid?.Nominee_dob)}           
+              />    
            <p>PUC/Emission Number: </p>
             <TextField.Root>
               <TextField.Input
@@ -369,16 +353,12 @@ const onSubmit = async (formValues: AddClientType) => {
             </TextField.Root>
             {errors.PUCC_Emission_No && typeof errors.PUCC_Emission_No === 'object' && 'message' in errors.PUCC_Emission_No && (
             <p className="error text-red-600">{(errors.PUCC_Emission_No as FieldError).message}</p>)} 
-            <Controller
-                name="Emission_dueDate"
-                control={control}     
-                defaultValue={gusrdatabyid.user_data_byid.Emission_dueDate && new Date(gusrdatabyid.user_data_byid?.Emission_dueDate)}        
-                render={({ field }) => (
-                <DatePickerComponent 
-                {...field} 
-                placeholder="PUC/Emission UpTo: "
-                />)}
-            />      
+            <DatePickerComponent 
+              name="Emission_dueDate"
+              control={control}
+              placeholder="PUC/Emission UpTo: "
+              selectedDate={gusrdatabyid.user_data_byid.Emission_dueDate && new Date(gusrdatabyid.user_data_byid?.Emission_dueDate)}  
+            />    
            <p className='mt-3'>GST No: </p>
             <TextField.Root>
               <TextField.Input
