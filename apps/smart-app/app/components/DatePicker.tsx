@@ -20,8 +20,8 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
 	control
 }) => {
   
-  const parsedDate = dayjs(selectedDate);
-  
+  const parsedDate = selectedDate ? dayjs(selectedDate) : null;
+
   return (  
     <div className='relative h-20' >
         {placeholder}    
