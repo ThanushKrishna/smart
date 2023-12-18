@@ -23,7 +23,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultaddr
             fullWidth
             label="Street"            
             variant="outlined"
-            value={defaultaddress?.street}   
+            defaultValue={defaultaddress?.street}   
             error={!!errors?.Address?.street}
             helperText={errors?.Address?.street?.message}
             style={{ height: '2px' }}
@@ -35,7 +35,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultaddr
             fullWidth
             label="City"
             variant="outlined"
-            value={defaultaddress?.city}   
+            defaultValue={defaultaddress?.city}   
             error={!!errors?.Address?.city}
             helperText={errors?.Address?.city?.message}
           />
@@ -46,7 +46,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultaddr
             fullWidth
             label="State"
             variant="outlined"
-            value={defaultaddress?.state}   
+            defaultValue={defaultaddress?.state}   
             error={!!errors?.Address?.state}
             helperText={errors?.Address?.state?.message}
           />
@@ -63,7 +63,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultaddr
             fullWidth
             label="Pin"
             variant="outlined"
-            value={defaultaddress?.zip}   
+            defaultValue={defaultaddress?.zip}   
             error={!!errors?.Address?.zip}
             helperText={errors?.Address?.zip?.message}
           />

@@ -20,7 +20,8 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
 	control
 }) => {
   
-  const parsedDate = selectedDate ? dayjs(selectedDate) : null;
+  //const parsedDate = selectedDate ? dayjs(selectedDate) : null;
+  const parsedDate = selectedDate !== undefined ? dayjs(selectedDate) : undefined;
 
   return (  
     <LocalizationProvider  dateAdapter={AdapterDayjs} > 
@@ -35,8 +36,7 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
                   <DemoContainer components={['DatePicker']}>
                   <DatePicker          
                     sx={{ mb: 10, width: '100%' }}
-                    {...field}
-                    value={parsedDate}                        
+                    {...field}                                          
                     format="DD/MM/YYYY"                                     
                     // Add other props like 'error' if needed
                   />

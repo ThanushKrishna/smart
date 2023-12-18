@@ -86,7 +86,7 @@ const saveState = () => {
   }
 }
 
-
+const padZero = (value: any) => (value < 10 ? `0${value}` : value);
 const dateFormatter = (params: any) => {
   if (params.value) {
     const date = new Date(params.value);
@@ -95,6 +95,7 @@ const dateFormatter = (params: any) => {
   }
   return params.value;
 };
+
 
 const yearFormatter = (params: any) => {
   if (params.value) {
@@ -105,14 +106,10 @@ const yearFormatter = (params: any) => {
   return params.value;
 };
 
-// Helper function to pad zero for single-digit values
-const padZero = (value: any) => (value < 10 ? `0${value}` : value);
 
 const addressFormatter = (params: any) => {
-  // Assuming params.value contains the raw address data
-  const rawAddress: tAddress = params.value;
-
-  // Format the address as needed (e.g., combine street, city, state, and zip)
+  
+  const rawAddress: tAddress = params.value;  
   const formattedAddress = `${rawAddress.street}, ${rawAddress.city}, ${rawAddress.state} ${rawAddress.zip}`;
 
   return formattedAddress;
