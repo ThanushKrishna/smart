@@ -132,7 +132,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 name="Martial_status"
                 control={control}
                 value={gusrdatabyid.user_data_byid?.Martial_status}  
-                placeholder="Marital Staus:   "           
+                placeholder="Marital Status:   "           
                 options={MARITAL_STATUS}              
             />                 
             <DropDownControl 
@@ -343,11 +343,11 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root>
               <TextField.Input
                 {...register('PUCC_Emission_No', {
-                  pattern: {
-                    value: /^[A-Za-z0-9]{20}$/,
-                    message: 'PUCC Emission Number should be a 20-character alphanumeric string',
-                  },
-                })}
+                  maxLength: {
+                      value: 30,
+                      message: 'Emission number should be at most 30 characters'
+                  }                
+                  })}   
                 defaultValue={gusrdatabyid?.user_data_byid?.PUCC_Emission_No}
                 onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
               />

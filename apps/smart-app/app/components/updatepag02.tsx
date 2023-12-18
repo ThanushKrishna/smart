@@ -126,10 +126,6 @@ const onSubmit = async (formValues: AddClientType) => {
                     maxLength: {
                     value: 30,
                     message: 'Policy number should be at most 30 characters'
-                    },
-                    pattern: {
-                    value: /^[A-Za-z0-9]*$/,
-                    message: 'Policy number should be alphanumeric'
                     }
                 })}
                 onChange={(e) => e.target.value = e.target.value.toUpperCase()}

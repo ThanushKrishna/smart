@@ -42,6 +42,31 @@ const AutomobilePage = () => {
   }, [refetch]);
   
 
+  // Save column state to local storage whenever it changes
+  useEffect(() => {
+    const saveColumnState = () => {
+      if (gridRef.current && gridRef.current.api) {
+        const columnState = gridRef.current.api.getColumnState();
+        localStorage.setItem('columnState', JSON.stringify(columnState));
+      }
+    };
+
+    if (gridRef.current && gridRef.current.api) {
+      gridRef.current.api.addEventListener('columnVisible', saveColumnState);
+      gridRef.current.api.addEventListener('columnResized', saveColumnState);
+      gridRef.current.api.addEventListener('columnMoved', saveColumnState);
+    }
+
+    return () => {
+      // Cleanup event listeners on component unmount
+      if (gridRef.current && gridRef.current.api) {
+        gridRef.current.api.removeEventListener('columnVisible', saveColumnState);
+        gridRef.current.api.removeEventListener('columnResized', saveColumnState);
+        gridRef.current.api.removeEventListener('columnMoved', saveColumnState);
+      }
+    };
+  }, [gridRef]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
@@ -79,10 +104,17 @@ const defaultColDef =  {
 
 
 const saveState = () => {
-  if (gridRef.current && gridRef.current.api) {
+  if (gridRef.current && gridRef.current.api) {  
     const columnState = gridRef.current.api.getColumnState();
     localStorage.setItem('columnState', JSON.stringify(columnState));
     //console.log('column state saved to local storage');
+  }
+}
+
+const resetState = () => {
+  gridRef.current!.api.resetColumnState();  
+  if (gridRef.current && gridRef.current.api) {      
+    localStorage.removeItem('columnState');    
   }
 }
 
@@ -117,78 +149,73 @@ const addressFormatter = (params: any) => {
 
   
   const columnDefs: ColDef<AddClientType, any>[] = [
-    { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber' },
-    { headerName: 'RC Number', field: 'RC_No', colId: 'rcNumber' },
-    { headerName: 'Registered Date', field: 'Registered_Date', colId: 'registeredDate', valueFormatter: dateFormatter, },
-    { headerName: 'Owner', field: 'Owner', colId: 'owner' },
-    { headerName: 'Owner Date of Birth', field: 'Owner_dob', colId: 'ownerDOB', valueFormatter: dateFormatter, },
-    { headerName: 'Ownership Type', field: 'Ownership_type', colId: 'ownershipType' },
-    { headerName: 'Vehicle Type', field: 'Vehicle_type', colId: 'vehicleType' },
-    { headerName: 'Year of Manufacturing', field: 'Year_of_manufacuring', colId: 'manufacturingYear', valueFormatter: yearFormatter, },
-    { headerName: 'Gross Vehicle Weight', field: 'GVW', colId: 'grossVehicleWeight' },
-    { headerName: 'Chasis Number', field: 'Chasis_No', colId: 'chasisNumber' },
-    { headerName: 'Engine Number', field: 'Engine_No', colId: 'engineNumber' },
-    { headerName: 'FC Due Date', field: 'FC_due_Date', colId: 'fcDueDate', valueFormatter: dateFormatter, },
-    { headerName: 'Tax Due Date', field: 'tax_due_Date', colId: 'taxDueDate', valueFormatter: dateFormatter, },
-    { headerName: 'Vehicle Color', field: 'Vehicle_color', colId: 'vehicleColor' },
-    { headerName: 'Vehicle Norms', field: 'Vehice_norms', colId: 'vehicleNorms' },
-    { headerName: 'Address', field: 'Address', colId: 'address', valueFormatter: addressFormatter, },
-    { headerName: 'Cubic Capacity', field: 'CC', colId: 'cubicCapacity' },
-    { headerName: 'Make', field: 'Make', colId: 'make' },
-    { headerName: 'Model', field: 'Model', colId: 'model' },
-    { headerName: 'Insurance Provider', field: 'Insurance_provider', colId: 'insuranceProvider' },
-    { headerName: 'Insurance Due Date', field: 'Insurance_dueDate', colId: 'insuranceDueDate', valueFormatter: dateFormatter, },
-    { headerName: 'Policy Number', field: 'Policy_No', colId: 'policyNumber' },
-    { headerName: 'Policy URL', field: 'Policy_url', colId: 'policyURL' },
-    { headerName: 'Permit Number', field: 'Permit_No', colId: 'permitNumber' },
-    { headerName: 'Permit Category', field: 'Permit_category', colId: 'permitCategory' },
-    { headerName: 'Mobile Number 1', field: 'Mobile_No1', colId: 'mobileNumber1' },
-    { headerName: 'Mobile Number 2', field: 'Mobile_No2', colId: 'mobileNumber2' },
-    { headerName: 'Mobile Number 3', field: 'Mobile_No3', colId: 'mobileNumber3' },
-    { headerName: 'Email ID', field: 'Email_id', colId: 'emailID' },
-    { headerName: 'Aadhar Number', field: 'Adhar_No', colId: 'aadharNumber' },
-    { headerName: 'Aadhar Document', field: 'Adhar_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'aadharDocument' },
-    { headerName: 'PAN Card Number', field: 'PanCard_No', colId: 'panCardNumber' },
-    { headerName: 'PAN Document', field: 'Pan_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'panDocument' },
-    { headerName: 'Nominee', field: 'Nominee', colId: 'nominee' },
-    { headerName: 'Nominee Relationship', field: 'Nominee_Relationship', colId: 'nomineeRelationship' },
-    { headerName: 'Nominee Date of Birth', field: 'Nominee_dob', colId: 'nomineeDOB', valueFormatter: dateFormatter, },
-    { headerName: 'Emission Due Date', field: 'Emission_dueDate', colId: 'emissionDueDate', valueFormatter: dateFormatter, },
-    { headerName: 'Fuel Type', field: 'Fuel_type', colId: 'fuelType' },
-    { headerName: 'Hypothecation Bank', field: 'Hypothecation_bank', colId: 'hypothecationBank' },
-    { headerName: 'Hypothecation City', field: 'Hypothecation_city', colId: 'hypothecationCity' },
-    { headerName: 'RTO', field: 'RTO', colId: 'rto' },
-    { headerName: 'Referred By', field: 'Referred_by', colId: 'referredBy' },
-    { headerName: 'Comments', field: 'Comments', colId: 'comments' },
-    { headerName: 'Customer Type', field: 'Customer_type', colId: 'customerType' },
-    { headerName: 'Marital Status', field: 'Martial_status', colId: 'maritalStatus' },
-    { headerName: 'Third-Party Insurance Provider', field: 'TP_Insurance_provider', colId: 'thirdPartyInsuranceProvider' },
-    { headerName: 'Third-Party Insurance Due Date', field: 'TP_dueDate', colId: 'thirdPartyInsuranceDueDate', valueFormatter: dateFormatter, },
-    { headerName: 'Own Damage Insurance Due Date', field: 'OD_dueDate', colId: 'ownDamageInsuranceDueDate', valueFormatter: dateFormatter, },
-    { headerName: 'GST Number', field: 'GST_No', colId: 'gstNumber' },
-    { headerName: 'Insurance Type', field: 'Insurance_type', colId: 'insuranceType' },
-    { headerName: 'Customer Type', field: 'Customer_Type', colId: 'customerType' },
-    { headerName: 'Vehicle Description', field: 'Vehicle_Description', colId: 'vehicleDescription' },
-    { headerName: 'Seating Capacity', field: 'Seating_Capacity', colId: 'seatingCapacity' },
-    { headerName: 'Standing Capacity', field: 'Standing_Capacity', colId: 'standingCapacity' },
-    { headerName: 'Mobile Number 3 (Second Entry)', field: 'Mobile_No3', colId: 'mobileNumber3SecondEntry' },
-    { headerName: 'Nominee Relationship (Second Entry)', field: 'Nominee_Relationship', colId: 'nomineeRelationshipSecondEntry' },
-    { headerName: 'Son/Wife/Daughter Of', field: 'Son_Wife_Daughter_Of', colId: 'sonWifeDaughterOf' },
-    { headerName: 'Vehicle Body', field: 'Vehicle_Body', colId: 'vehicleBody' },
-    { headerName: 'Wheel Base', field: 'Wheel_Base', colId: 'wheelBase' },
-    { headerName: 'Number of Cylinders', field: 'No_Of_Cylinder', colId: 'numberOfCylinders' },
-    { headerName: 'Unladen Weight', field: 'Unladen_Weight', colId: 'unladenWeight' },
-    { headerName: 'Sleeper Capacity', field: 'Sleeper_Capacity', colId: 'sleeperCapacity' },
-    { headerName: 'PUCC Emission Number', field: 'PUCC_Emission_No', colId: 'puccEmissionNumber' },
-    { headerName: 'Updated By', field: 'updated_by', colId: 'updatedBy' },
-    { headerName: 'Third-Party Policy Number', field: 'TP_Policy_No', colId: 'thirdPartyPolicyNumber' },
-    { headerName: 'Permit Number (Second Entry)', field: 'Permit_No', colId: 'permitNumberSecondEntry' },
-    { headerName: 'Insurance Start Date', field: 'Insurance_Start', colId: 'insuranceStartDate', valueFormatter: dateFormatter, },
-    { headerName: 'Third-Party Insurance Start Date', field: 'TP_Insurance_Start', colId: 'thirdPartyInsuranceStartDate', valueFormatter: dateFormatter, },
-    { headerName: 'RC Doc', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'rcDocument' },
-    { headerName: 'Own Damage Policy Document', field: 'OD_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'ownDamagePolicyDocument' },
-    { headerName: 'Third-Party Policy Document', field: 'TP_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'thirdPartyPolicyDocument' },
-    { headerName: 'GST Certificate Document', field: 'GST_Cer_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'gstCertificateDocument' },
+    { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber', autoHeight: true },
+    { headerName: 'Vehicle Registration Doc', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'rcDocument', autoHeight: true },
+    { headerName: 'Owner Name', field: 'Owner', colId: 'owner', autoHeight: true },
+    { headerName: 'Son/Wife/Daughter Of', field: 'Son_Wife_Daughter_Of', colId: 'sonWifeDaughterOf', autoHeight: true },
+    { headerName: 'Owner Serial Number', field: 'RC_No', colId: 'rcNumber', autoHeight: true },
+    { headerName: 'Chassis Number', field: 'Chasis_No', colId: 'chasisNumber', autoHeight: true },
+    { headerName: 'Engine Number', field: 'Engine_No', colId: 'engineNumber', autoHeight: true },
+    { headerName: 'Make', field: 'Make', colId: 'make', autoHeight: true },
+    { headerName: 'Model', field: 'Model', colId: 'model', autoHeight: true },    
+    { headerName: 'Registered Date', field: 'Registered_Date', colId: 'registeredDate', valueFormatter: dateFormatter, autoHeight: true  },    
+    { headerName: 'Tax Valid UpTo', field: 'tax_due_Date', colId: 'taxDueDate', valueFormatter: dateFormatter, autoHeight: true  },
+    { headerName: 'Vehicle Class', field: 'Vehicle_type', colId: 'vehicleType', autoHeight: true },
+    { headerName: 'Vehicle Description', field: 'Vehicle_Description', colId: 'vehicleDescription', autoHeight: true },
+    { headerName: 'Fuel Type', field: 'Fuel_type', colId: 'fuelType', autoHeight: true },
+    { headerName: 'Emission Norms', field: 'Vehice_norms', colId: 'vehicleNorms', autoHeight: true },
+    { headerName: 'Vehicle Color', field: 'Vehicle_color', colId: 'vehicleColor', autoHeight: true },
+    { headerName: 'Seating Capacity', field: 'Seating_Capacity', colId: 'seatingCapacity', autoHeight: true },
+    { headerName: 'Standing Capacity', field: 'Standing_Capacity', colId: 'standingCapacity', autoHeight: true },
+    { headerName: 'Hypothecation Bank', field: 'Hypothecation_bank', colId: 'hypothecationBank', autoHeight: true },
+    { headerName: 'Hypothecation City', field: 'Hypothecation_city', colId: 'hypothecationCity', autoHeight: true },
+    { headerName: 'Insurance Type', field: 'Insurance_type', colId: 'insuranceType', autoHeight: true },    
+    { headerName: 'OD Policy No', field: 'Policy_No', colId: 'policyNumber', autoHeight: true },
+    { headerName: 'Own Damage Policy Document', field: 'OD_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'ownDamagePolicyDocument', autoHeight: true },
+    { headerName: 'Own Damage Insurance Provider', field: 'Insurance_provider', colId: 'insuranceProvider', autoHeight: true },
+    { headerName: 'Own Damage Insurance Starts From', field: 'Insurance_Start', colId: 'insuranceStartDate', valueFormatter: dateFormatter, autoHeight: true  },
+    { headerName: 'Own Damage Insurance Due Date', field: 'Insurance_dueDate', colId: 'ownDamageInsuranceDueDate', valueFormatter: dateFormatter, autoHeight: true  },
+    { headerName: 'Third-Party Policy Number', field: 'TP_Policy_No', colId: 'thirdPartyPolicyNumber', autoHeight: true },    
+    { headerName: 'Third-Party Policy Document', field: 'TP_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'thirdPartyPolicyDocument', autoHeight: true },
+    { headerName: 'Third-Party Insurance Provider', field: 'TP_Insurance_provider', colId: 'thirdPartyInsuranceProvider', autoHeight: true },
+    { headerName: 'Third-Party Insurance Due Date', field: 'TP_dueDate', colId: 'thirdPartyInsuranceDueDate', valueFormatter: dateFormatter, autoHeight: true  },    
+    { headerName: 'Third-Party Insurance Start Date', field: 'TP_Insurance_Start', colId: 'thirdPartyInsuranceStartDate', valueFormatter: dateFormatter, autoHeight: true  },        
+    { headerName: 'Registering Authority', field: 'RTO', colId: 'rto', autoHeight: true },
+    { headerName: 'Unladen Weight', field: 'Unladen_Weight', colId: 'unladenWeight', autoHeight: true },
+    { headerName: 'Laden Weight (GVW)', field: 'GVW', colId: 'grossVehicleWeight', autoHeight: true },   
+    { headerName: 'Vehicle Body', field: 'Vehicle_Body', colId: 'vehicleBody', autoHeight: true },
+    { headerName: 'Wheel Base', field: 'Wheel_Base', colId: 'wheelBase', autoHeight: true },
+    { headerName: 'No Of Cylinder', field: 'No_Of_Cylinder', colId: 'numberOfCylinders', autoHeight: true },   
+    { headerName: 'Sleeper Capacity', field: 'Sleeper_Capacity', colId: 'sleeperCapacity', autoHeight: true },
+    { headerName: 'Owner DOB', field: 'Owner_dob', colId: 'ownerDOB', valueFormatter: dateFormatter, autoHeight: true  },
+    { headerName: 'Marital Status', field: 'Martial_status', colId: 'maritalStatus', autoHeight: true },
+    { headerName: 'Owner Type', field: 'Ownership_type', colId: 'ownershipType', autoHeight: true },
+    { headerName: 'Manufacturing Date', field: 'Year_of_manufacuring', colId: 'manufacturingYear', valueFormatter: yearFormatter, autoHeight: true  },     
+    { headerName: 'REG/FC UpTo', field: 'FC_due_Date', colId: 'fcDueDate', valueFormatter: dateFormatter, autoHeight: true  },
+    { headerName: 'CC', field: 'CC', colId: 'cubicCapacity', autoHeight: true },    
+    { headerName: 'Permit No', field: 'Permit_No', colId: 'permitNumber', autoHeight: true },
+    { headerName: 'Permit Category', field: 'Permit_category', colId: 'permitCategory', autoHeight: true },
+    { headerName: '1st Mobile No', field: 'Mobile_No1', colId: 'mobileNumber1', autoHeight: true },
+    { headerName: '2nd Mobile No', field: 'Mobile_No2', colId: 'mobileNumber2', autoHeight: true },
+    { headerName: '3rd Mobile No:', field: 'Mobile_No3', colId: 'mobileNumber3', autoHeight: true },
+    { headerName: 'Email Id', field: 'Email_id', colId: 'emailID', autoHeight: true },
+    { headerName: 'Aadhar Number', field: 'Adhar_No', colId: 'aadharNumber', autoHeight: true },
+    { headerName: 'Aadhar Document', field: 'Adhar_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'aadharDocument', autoHeight: true },
+    { headerName: 'PAN Number', field: 'PanCard_No', colId: 'panCardNumber', autoHeight: true },
+    { headerName: 'PAN Document', field: 'Pan_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'panDocument', autoHeight: true },
+    { headerName: 'Nominee Name', field: 'Nominee', colId: 'nominee', autoHeight: true },
+    { headerName: 'Nominee Relationship', field: 'Nominee_Relationship', colId: 'nomineeRelationship', autoHeight: true },
+    { headerName: 'Nominee DOB', field: 'Nominee_dob', colId: 'nomineeDOB', valueFormatter: dateFormatter, autoHeight: true  },
+    { headerName: 'PUC/Emission Number', field: 'PUCC_Emission_No', colId: 'puccEmissionNumber', autoHeight: true },
+    { headerName: 'PUC/Emission UpTo', field: 'Emission_dueDate', colId: 'emissionDueDate', valueFormatter: dateFormatter, autoHeight: true  },        
+    { headerName: 'GST No', field: 'GST_No', colId: 'gstNumber', autoHeight: true },
+    { headerName: 'GST Certificate', field: 'GST_Cer_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'gstCertificateDocument', autoHeight: true },
+    { headerName: 'Address', field: 'Address', colId: 'address', valueFormatter: addressFormatter, autoHeight: true  },    
+    { headerName: 'Referred By', field: 'Referred_by', colId: 'referredBy', autoHeight: true },
+    { headerName: 'Updated By', field: 'updated_by', colId: 'updatedBy', autoHeight: true },                               
+    { headerName: 'Customer Type', field: 'Customer_type', colId: 'customerType', autoHeight: true },  
+    { headerName: 'Comments', field: 'Comments', colId: 'comments'},
+                       
   ];
   
   const onGridReady = (params: any) => {
@@ -197,7 +224,7 @@ const addressFormatter = (params: any) => {
     if (storedColumnState && gridRef.current && gridRef.current.api) {
         gridRef.current.api.applyColumnState({
           state: JSON.parse(storedColumnState),
-          applyOrder: true,
+//          applyOrder: true,
         });
     //console.log('column state restored from localStorage');
       }
@@ -264,6 +291,7 @@ const addressFormatter = (params: any) => {
               <div> <Button  color="cyan" variant="soft" onClick={onBtnUpdate}>Show CSV export content text</Button>  </div>
               <div className='ml-10'> <Button  color="cyan" variant="soft" onClick={onBtnExport}>Download CSV export file</Button>  </div>
               <div className='ml-10'> <Button  color="orange" variant="soft" onClick={saveState}>Save State</Button>  </div>                    
+              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={resetState}>Reset State</Button>  </div>    
             </div>          
           </div>
         </div>
@@ -273,7 +301,7 @@ const addressFormatter = (params: any) => {
           className='ag-theme-quartz'
           style={{ height: '80vh', width: '100%' }}
         >          
-          <AgGridReact
+          <AgGridReact<AddClientType>
             ref={gridRef}
             rowData={data.user_data}
             columnDefs={columnDefs}

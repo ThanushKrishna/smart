@@ -36,7 +36,6 @@ export interface AddClientType {
     Insurance_provider:    String
     Insurance_dueDate:     Date
     Policy_No:             String
-    Policy_url:            String
     Permit_No:             String
     Permit_category:       String
     Mobile_No1:            Int
@@ -60,11 +59,9 @@ export interface AddClientType {
     Customer_type:         String
     Martial_status:        String
     TP_Insurance_provider: String
-    TP_dueDate:            Date
-    OD_dueDate:            Date
+    TP_dueDate:            Date    
     GST_No:                String
     Insurance_type:        String
-    Customer_Type:         String
     Vehicle_Description:   String
     Seating_Capacity:      String
     Standing_Capacity:     String   

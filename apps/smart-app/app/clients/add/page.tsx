@@ -410,11 +410,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 maxLength: {
                     value: 30,
                     message: 'Policy number should be at most 30 characters'
-                },
-                pattern: {
-                    value: /^[A-Za-z0-9]*$/,
-                    message: 'Policy number should be alphanumeric'
-                }
+                }                
                 })}
                 onChange={(e) => e.target.value = e.target.value.toUpperCase()}
             />            
@@ -584,7 +580,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <DropDownControl 
                 name="Martial_status"
                 control={control}
-                placeholder="Marital Staus:   "           
+                placeholder="Marital Status:   "           
                 options={MARITAL_STATUS}              
             />                 
             <DropDownControl 
@@ -768,11 +764,11 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Root>
             <TextField.Input
                 {...register('PUCC_Emission_No', {
-                pattern: {
-                    value: /^[A-Za-z0-9]{20}$/,
-                    message: 'PUCC Emission Number should be a 20-character alphanumeric string'
-                }
-                })}
+                    maxLength: {
+                        value: 30,
+                        message: 'Emission number should be at most 30 characters'
+                    }                
+                    })}   
                 onChange={(e) => e.target.value = e.target.value.toUpperCase()}
             />            
             </TextField.Root>
