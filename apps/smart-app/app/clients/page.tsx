@@ -174,12 +174,12 @@ const addressFormatter = (params: any) => {
     { headerName: 'Own Damage Policy Document', field: 'OD_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'ownDamagePolicyDocument', autoHeight: true },
     { headerName: 'Own Damage Insurance Provider', field: 'Insurance_provider', colId: 'insuranceProvider', autoHeight: true },
     { headerName: 'Own Damage Insurance Starts From', field: 'Insurance_Start', colId: 'insuranceStartDate', valueFormatter: dateFormatter, autoHeight: true  },
-    { headerName: 'Own Damage Insurance Due Date', field: 'Insurance_dueDate', colId: 'ownDamageInsuranceDueDate', valueFormatter: dateFormatter, autoHeight: true  },
-    { headerName: 'Third-Party Policy Number', field: 'TP_Policy_No', colId: 'thirdPartyPolicyNumber', autoHeight: true },    
-    { headerName: 'Third-Party Policy Document', field: 'TP_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'thirdPartyPolicyDocument', autoHeight: true },
-    { headerName: 'Third-Party Insurance Provider', field: 'TP_Insurance_provider', colId: 'thirdPartyInsuranceProvider', autoHeight: true },
-    { headerName: 'Third-Party Insurance Due Date', field: 'TP_dueDate', colId: 'thirdPartyInsuranceDueDate', valueFormatter: dateFormatter, autoHeight: true  },    
-    { headerName: 'Third-Party Insurance Start Date', field: 'TP_Insurance_Start', colId: 'thirdPartyInsuranceStartDate', valueFormatter: dateFormatter, autoHeight: true  },        
+    { headerName: 'Own Damage Insurance UpTo', field: 'Insurance_dueDate', colId: 'ownDamageInsuranceDueDate', valueFormatter: dateFormatter, autoHeight: true  },
+    { headerName: 'TP Policy No', field: 'TP_Policy_No', colId: 'thirdPartyPolicyNumber', autoHeight: true },    
+    { headerName: 'TP Policy Doc', field: 'TP_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'thirdPartyPolicyDocument', autoHeight: true },
+    { headerName: 'Third-Party Insurance Provider', field: 'TP_Insurance_provider', colId: 'thirdPartyInsuranceProvider', autoHeight: true },    
+    { headerName: 'Third-Party Insurance Starts From', field: 'TP_Insurance_Start', colId: 'thirdPartyInsuranceStartDate', valueFormatter: dateFormatter, autoHeight: true  },        
+    { headerName: 'Third-Party Insurance UpTo', field: 'TP_dueDate', colId: 'thirdPartyInsuranceDueDate', valueFormatter: dateFormatter, autoHeight: true  },            
     { headerName: 'Registering Authority', field: 'RTO', colId: 'rto', autoHeight: true },
     { headerName: 'Unladen Weight', field: 'Unladen_Weight', colId: 'unladenWeight', autoHeight: true },
     { headerName: 'Laden Weight (GVW)', field: 'GVW', colId: 'grossVehicleWeight', autoHeight: true },   
@@ -213,7 +213,7 @@ const addressFormatter = (params: any) => {
     { headerName: 'Address', field: 'Address', colId: 'address', valueFormatter: addressFormatter, autoHeight: true  },    
     { headerName: 'Referred By', field: 'Referred_by', colId: 'referredBy', autoHeight: true },
     { headerName: 'Updated By', field: 'updated_by', colId: 'updatedBy', autoHeight: true },                               
-    { headerName: 'Customer Type', field: 'Customer_type', colId: 'customerType', autoHeight: true },  
+    { headerName: 'Policy Issued Through', field: 'Customer_type', colId: 'customerType', autoHeight: true },  
     { headerName: 'Comments', field: 'Comments', colId: 'comments'},
                        
   ];
@@ -224,20 +224,27 @@ const addressFormatter = (params: any) => {
     if (storedColumnState && gridRef.current && gridRef.current.api) {
         gridRef.current.api.applyColumnState({
           state: JSON.parse(storedColumnState),
-//          applyOrder: true,
+          applyOrder: true,
         });
     //console.log('column state restored from localStorage');
       }
   };
 
-  const onRowClicked = (event: any) => {
+  const onRowClicked = (event: any) => {   
     // Toggle selection on row click
     const newSelectedRow = event.data.id === selectedRow ? null : event.data.id;
     setSelectedRow(newSelectedRow);
   };
 
-  const getRowStyle = (params: RowClassParams<any, any>): any => {
-    // Check if the row is selected and apply styles accordingly
+  const getRowStyle = (params: RowClassParams<any, any>): any => {    
+    const storedColumnState = localStorage.getItem('columnState');
+    if (storedColumnState && gridRef.current && gridRef.current.api) {
+        gridRef.current.api.applyColumnState({
+          state: JSON.parse(storedColumnState),
+          applyOrder: true,
+        });
+      }      
+        // Check if the row is selected and apply styles accordingly
     return params.data.id === selectedRow
       ? { background: '#aaf0d1' } // Highlight color
       : undefined;
