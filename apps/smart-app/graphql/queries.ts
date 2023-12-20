@@ -229,7 +229,10 @@ export const GET_USER_DATA = gql`
     Vehicle_Reg_Doc     
     OD_Policy_Doc       
     TP_Policy_Doc       
-    GST_Cer_Doc         
+    GST_Cer_Doc      
+    Vehicle_Description
+    Seating_Capacity
+    Standing_Capacity   
     createdAt
     updatedAt
     }

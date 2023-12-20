@@ -68,6 +68,7 @@ const AutomobilePage = () => {
   }, [gridRef]);
 
   if (loading) return <p>Loading...</p>;
+  console.log(data);
   if (error) return <p>Error: {error.message}</p>;
 
 
