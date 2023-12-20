@@ -83,6 +83,9 @@ export interface AddClientType {
     OD_Policy_Doc:         String
     TP_Policy_Doc:         String
     GST_Cer_Doc:           String
+    Permit_dueDate:        Date
+    CAddress:              tAddress
+    Prospect:              String
   }
   
 

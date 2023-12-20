@@ -61,6 +61,7 @@ model user_data {
   Vehicle_color         String?
   Vehice_norms          String?
   Address               ADDRESS?
+  CAddress              ADDRESS?
   CC                    String?
   Make                  String?
   Model                 String?
@@ -69,6 +70,7 @@ model user_data {
   Policy_No             String?
   Permit_No             String?
   Permit_category       String?
+  Permit_dueDate        DateTime?
   Mobile_No1            String?
   Mobile_No2            String?
   Email_id              String?
@@ -111,6 +113,7 @@ model user_data {
   Vehicle_Description   String?
   Seating_Capacity      String?
   Standing_Capacity     String?
+  Prospect              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
 }

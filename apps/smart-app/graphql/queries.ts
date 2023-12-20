@@ -233,6 +233,14 @@ export const GET_USER_DATA = gql`
     Vehicle_Description
     Seating_Capacity
     Standing_Capacity   
+    Permit_dueDate
+    CAddress {
+      street
+      city
+      state
+      zip
+    }
+    Prospect
     createdAt
     updatedAt
     }
@@ -317,6 +325,14 @@ query User_data_byid($vechicleId: String!) {
     Vehicle_Description
     Seating_Capacity
     Standing_Capacity
+    Permit_dueDate
+    CAddress {
+      street
+      city
+      state
+      zip
+    }
+    Prospect
     createdAt
     updatedAt
   }

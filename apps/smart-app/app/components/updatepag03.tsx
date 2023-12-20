@@ -21,7 +21,7 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
-import { OWNER_TYPE, MARITAL_STATUS } from '@/json/enums'
+import { OWNER_TYPE, MARITAL_STATUS, PROSPECT } from '@/json/enums'
 import AddressForm from './AddressForm';
 
 interface iupdatevalue {
@@ -87,7 +87,10 @@ const onSubmit = async (formValues: AddClientType) => {
             GST_No: formValues?.GST_No || undefined,
             PUCC_Emission_No: formValues?.PUCC_Emission_No || undefined,
             updated_by: formValues?.updated_by || undefined,            
-            GST_Cer_Doc: GstCerfile || undefined,                        
+            GST_Cer_Doc: GstCerfile || undefined,     
+            Permit_dueDate: (formValues?.Permit_dueDate ? new Date(formValues?.Permit_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
+            CAddress: formValues?.CAddress || undefined,
+            Prospect: formValues?.Prospect || undefined,                   
         }
         
         console.log( result );
@@ -191,6 +194,12 @@ const onSubmit = async (formValues: AddClientType) => {
                 onOptionAdd= {async (e: String) => await (addPermitCategory( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
             {gpermiterror && <p> {gpermiterror.message} </p>}
+            <DatePickerComponent 
+              name="Permit_dueDate"
+              control={control}
+              placeholder="Permit Valid Upto:   "    
+              selectedDate={gusrdatabyid.user_data_byid.Permit_dueDate && new Date(gusrdatabyid.user_data_byid?.Permit_dueDate)}  	
+            />  
             <p>1st Mobile No: </p>
             <TextField.Root>
             <TextField.Input
@@ -382,11 +391,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder=""                    
                 value={GstCerfile}                   
             />                                                                                                                                     
-            <AddressForm
-            register={register} 
-            errors={errors} 
-            defaultaddress={gusrdatabyid?.user_data_byid?.Address}
-            />           
+            <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.Address} />
+            <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.CAddress} /> 
+
             <p>Referred by: </p>
             <TextField.Root>
               <TextField.Input
@@ -445,6 +452,13 @@ const onSubmit = async (formValues: AddClientType) => {
             {errors.Comments && (
               <p className="error text-red-600">{errors.Comments.message}</p>
             )}
+            <DropDownControl 
+              name="Prospect"
+              control={control}      
+              value={gusrdatabyid.user_data_byid?.Prospect}  	
+              placeholder="Prospect:   "           
+              options={PROSPECT}              
+            />
             <br/>
             <Button disabled={isSubmitted}> Update {isSubmitted && <Spinner></Spinner>}</Button>        
     </form>

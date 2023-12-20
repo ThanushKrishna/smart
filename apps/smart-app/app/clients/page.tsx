@@ -143,7 +143,8 @@ const yearFormatter = (params: any) => {
 const addressFormatter = (params: any) => {
   
   const rawAddress: tAddress = params.value;  
-  const formattedAddress = `${rawAddress.street}, ${rawAddress.city}, ${rawAddress.state} ${rawAddress.zip}`;
+  if(rawAddress == undefined || rawAddress == null) return "";
+  const formattedAddress = `${rawAddress?.street}, ${rawAddress?.city}, ${rawAddress?.state} ${rawAddress?.zip}`;
 
   return formattedAddress;
 };
@@ -196,6 +197,7 @@ const addressFormatter = (params: any) => {
     { headerName: 'CC', field: 'CC', colId: 'cubicCapacity', autoHeight: true },    
     { headerName: 'Permit No', field: 'Permit_No', colId: 'permitNumber', autoHeight: true },
     { headerName: 'Permit Category', field: 'Permit_category', colId: 'permitCategory', autoHeight: true },
+    { headerName: 'Permit Valid Upto:', field: 'Permit_dueDate', colId: 'permitDueDate', valueFormatter: dateFormatter, autoHeight: true  },   
     { headerName: '1st Mobile No', field: 'Mobile_No1', colId: 'mobileNumber1', autoHeight: true },
     { headerName: '2nd Mobile No', field: 'Mobile_No2', colId: 'mobileNumber2', autoHeight: true },
     { headerName: '3rd Mobile No:', field: 'Mobile_No3', colId: 'mobileNumber3', autoHeight: true },
@@ -211,11 +213,13 @@ const addressFormatter = (params: any) => {
     { headerName: 'PUC/Emission UpTo', field: 'Emission_dueDate', colId: 'emissionDueDate', valueFormatter: dateFormatter, autoHeight: true  },        
     { headerName: 'GST No', field: 'GST_No', colId: 'gstNumber', autoHeight: true },
     { headerName: 'GST Certificate', field: 'GST_Cer_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'gstCertificateDocument', autoHeight: true },
-    { headerName: 'Address', field: 'Address', colId: 'address', valueFormatter: addressFormatter, autoHeight: true  },    
+    { headerName: 'RC Address', field: 'Address', colId: 'address', valueFormatter: addressFormatter, autoHeight: true  },    
+    { headerName: 'Communication Address', field: 'CAddress', colId: 'caddress', valueFormatter: addressFormatter, autoHeight: true  },    
     { headerName: 'Referred By', field: 'Referred_by', colId: 'referredBy', autoHeight: true },
     { headerName: 'Updated By', field: 'updated_by', colId: 'updatedBy', autoHeight: true },                               
     { headerName: 'Policy Issued Through', field: 'Customer_type', colId: 'customerType', autoHeight: true },  
     { headerName: 'Comments', field: 'Comments', colId: 'comments'},
+    { headerName: 'Prospect', field: 'Prospect', colId: 'Prospect'},
                        
   ];
   

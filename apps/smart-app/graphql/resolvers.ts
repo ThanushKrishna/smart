@@ -501,7 +501,14 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
             Vehicle_Description:   args.input.Vehicle_Description,
             Seating_Capacity:      args.input.Seating_Capacity,
             Standing_Capacity:     args.input.Standing_Capacity,
-
+            Permit_dueDate:        args.input.Permit_dueDate,
+            CAddress: {
+                        street: args.input.CAddress.street,
+                        city: args.input.CAddress.city,
+                        state: args.input.CAddress.state,
+                        zip: args.input.CAddress.zip
+                      },
+            Prospect:              args.input.Prospect  
           },       
       })
     }
@@ -598,6 +605,14 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           Vehicle_Description:   args.input.Vehicle_Description,
           Seating_Capacity:      args.input.Seating_Capacity,
           Standing_Capacity:     args.input.Standing_Capacity,
+          Permit_dueDate:        args.input.Permit_dueDate,
+          CAddress: {
+                        street: args.input.CAddress.street,
+                        city: args.input.CAddress.city,
+                        state: args.input.CAddress.state,
+                        zip: args.input.CAddress.zip
+                      },
+          Prospect:              args.input.Prospect  
         }, 
       })    
     },
@@ -697,6 +712,14 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
             PUCC_Emission_No      : args.input.PUCC_Emission_No !== undefined ? args.input.PUCC_Emission_No: null,
             updated_by            : args.input.updated_by !== undefined ? args.input.updated_by: null,
             GST_Cer_Doc           : args.input.GST_Cer_Doc !== undefined ? args.input.GST_Cer_Doc: null,
+            Permit_dueDate:        args.input.Permit_dueDate,
+            CAddress: {
+                        street: args.input.CAddress.street,
+                        city: args.input.CAddress.city,
+                        state: args.input.CAddress.state,
+                        zip: args.input.CAddress.zip
+                      },
+            Prospect:              args.input.Prospect  
           }, 
         })   
       return "Updated !"     

@@ -179,6 +179,9 @@ type user_data {
   Vehicle_Description:   String
   Seating_Capacity:      String
   Standing_Capacity:     String   
+  Permit_dueDate:        Date
+  CAddress:              Address
+  Prospect:              String
   createdAt:             Date               
   updatedAt:             Date               
 }
@@ -365,6 +368,9 @@ input createUserDataInput {
   Vehicle_Description:   String
   Seating_Capacity:      String
   Standing_Capacity:     String   
+  Permit_dueDate:        Date
+  CAddress:              CreateAddressInput
+  Prospect:              String
 }
 
 input updateUserDataInput { 
@@ -435,6 +441,9 @@ input updateUserDataInput {
   Vehicle_Description:   String
   Seating_Capacity:      String
   Standing_Capacity:     String   
+  Permit_dueDate:        Date
+  CAddress:              CreateAddressInput
+  Prospect:              String
 }
 
 input updateUserDataInput1 {
@@ -493,6 +502,7 @@ FC_due_Date: 			Date
 CC:             		String
 Permit_No:             	String
 Permit_category:        String
+Permit_dueDate:        Date  
 Mobile_No1:             String
 Mobile_No2:             String
 Mobile_No3:             String
@@ -506,9 +516,11 @@ Nominee_Relationship:   String
 Nominee_dob: 			Date
 PUCC_Emission_No:       String
 Emission_dueDate:       Date
-GST_No:             	String
+GST_No:               	String
 GST_Cer_Doc:            String
-Address:             	CreateAddressInput
+Address:              	CreateAddressInput
+CAddress:               CreateAddressInput
+Prospect:               String
 Referred_by:            String
 updated_by:             String
 Customer_type:          String
@@ -584,7 +596,10 @@ type createUserDataOutput {
   GST_Cer_Doc:           String  
   Vehicle_Description:   String
   Seating_Capacity:      String
-  Standing_Capacity:     String          
+  Standing_Capacity:     String      
+  Permit_dueDate:        Date
+  CAddress:              Address
+  Prospect:              String    
 }
 
 type updateUserDataOutput {  
@@ -653,7 +668,10 @@ type updateUserDataOutput {
   GST_Cer_Doc:           String  
   Vehicle_Description:   String
   Seating_Capacity:      String
-  Standing_Capacity:     String          
+  Standing_Capacity:     String   
+  Permit_dueDate:        Date
+  CAddress:              Address
+  Prospect:              String           
 }
 
 input TestaddClientinput {

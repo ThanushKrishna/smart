@@ -5,55 +5,57 @@ import { UseFormRegister } from 'react-hook-form';
 import { tAddress } from '@/typings';
 
 interface AddressFormProps {
-  register: UseFormRegister<any>; // Adjust the type accordingly
-  errors: any; // Adjust the type accordingly
-  defaultaddress?: tAddress;
+  register: UseFormRegister<any>, // Adjust the type accordingly
+  errors: any, // Adjust the type accordingly
+  addressType: string,
+  placehoder: string
+  defaultAddress?: tAddress
 }
 
-const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultaddress }) => {
+const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddress, addressType, placehoder }) => {
   return (
     <>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <p>Address: </p>
+          <p> {placehoder} </p>
         </Grid>
         <Grid item xs={12} style={{ height: '70px' }}>
           <TextField
-            {...register('Address.street')}
+            {...register( addressType + '.street' )}
             fullWidth
             label="Street"            
             variant="outlined"
-            defaultValue={defaultaddress?.street}   
-            error={!!errors?.Address?.street}
-            helperText={errors?.Address?.street?.message}
+            defaultValue={defaultAddress?.street}   
+            error={!!errors?.[addressType]?.street}
+            helperText={errors?.[addressType]?.street?.message}
             style={{ height: '2px' }}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            {...register('Address.city')}
+            {...register( addressType + '.city' )}
             fullWidth
             label="City"
             variant="outlined"
-            defaultValue={defaultaddress?.city}   
-            error={!!errors?.Address?.city}
-            helperText={errors?.Address?.city?.message}
+            defaultValue={defaultAddress?.city}   
+            error={!!errors?.[addressType]?.city}
+            helperText={errors?.[addressType]?.city?.message}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            {...register('Address.state')}
+            {...register( addressType + '.state' )}
             fullWidth
             label="State"
             variant="outlined"
-            defaultValue={defaultaddress?.state}   
-            error={!!errors?.Address?.state}
-            helperText={errors?.Address?.state?.message}
+            defaultValue={defaultAddress?.state}   
+            error={!!errors?.[addressType]?.state}
+            helperText={errors?.[addressType]?.state?.message}
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            {...register('Address.zip', {
+            {...register( addressType + '.zip', {
               pattern: {
                 value: /^\d{6}$/,
                 message: 'Zip code should be a 6-digit number',
@@ -63,9 +65,9 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultaddr
             fullWidth
             label="Pin"
             variant="outlined"
-            defaultValue={defaultaddress?.zip}   
-            error={!!errors?.Address?.zip}
-            helperText={errors?.Address?.zip?.message}
+            defaultValue={defaultAddress?.zip}   
+            error={!!errors?.[addressType]?.zip}
+            helperText={errors?.[addressType]?.zip?.message}
           />
         </Grid>
       </Grid>

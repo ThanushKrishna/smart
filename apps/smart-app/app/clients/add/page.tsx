@@ -33,7 +33,7 @@ import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import AddressForm from '@/app/components/AddressForm'
-import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE } from '@/json/enums'
+import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT } from '@/json/enums'
 
 
 const AddClient:React.FC = () => {
@@ -156,6 +156,9 @@ const onSubmit = async (formValues: AddClientType) => {
             Vehicle_Description: formValues?.Vehicle_Description || undefined,
             Seating_Capacity: formValues?.Seating_Capacity || undefined,
             Standing_Capacity: formValues?.Standing_Capacity || undefined,
+            Permit_dueDate: (formValues?.Permit_dueDate ? new Date(formValues?.Permit_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
+            CAddress: formValues?.CAddress || undefined,
+            Prospect: formValues?.Prospect || undefined,
         }
                 
         console.log( result );
@@ -626,6 +629,11 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gpermitdata && gpermitdata.PERMIT_CATEGORY.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addPermitCategory( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
+            <DatePickerComponent 
+                name="Permit_dueDate"
+                control={control}
+                placeholder="Permit Valid Upto:   "                           
+            />        
             <p>1st Mobile No: </p>
             <TextField.Root>
             <TextField.Input
@@ -794,7 +802,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 value={GstCerfile}
                 placeholder=""                       
             />                                                                                                            
-            <AddressForm register={register} errors={errors} />
+            <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} />
+            <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} /> 
             <p>Referred by: </p>
             <TextField.Root>
                 <TextField.Input
@@ -847,6 +856,13 @@ const onSubmit = async (formValues: AddClientType) => {
             })}
             />
             {errors.Comments && <p className="error text-red-600">{errors.Comments.message}</p>}
+            <DropDownControl 
+                name="Prospect"
+                control={control}   
+                value="Lead"     
+                placeholder="Prospect:   "           
+                options={PROSPECT}              
+            />
             <br/>
             <Button disabled={isSubmitted}> Submit {isSubmitted && <Spinner></Spinner>}</Button>        
     </form>
