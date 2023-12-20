@@ -231,26 +231,6 @@ const addressFormatter = (params: any) => {
       }
   };
 
-  const onRowClicked = (event: any) => {   
-    // Toggle selection on row click
-    const newSelectedRow = event.data.id === selectedRow ? null : event.data.id;
-    setSelectedRow(newSelectedRow);
-  };
-
-  const getRowStyle = (params: RowClassParams<any, any>): any => {    
-    const storedColumnState = localStorage.getItem('columnState');
-    if (storedColumnState && gridRef.current && gridRef.current.api) {
-        gridRef.current.api.applyColumnState({
-          state: JSON.parse(storedColumnState),
-          applyOrder: true,
-        });
-      }      
-        // Check if the row is selected and apply styles accordingly
-    return params.data.id === selectedRow
-      ? { background: '#aaf0d1' } // Highlight color
-      : undefined;
-  };
-      
 
   const onBtnExport = () => {
     gridRef.current!.api.exportDataAsCsv();
@@ -317,9 +297,7 @@ const addressFormatter = (params: any) => {
             rowGroupPanelShow={'always'}
             pivotPanelShow={'always'}
             pagination={true}
-            paginationPageSize={20}    
-            onRowClicked={onRowClicked}
-            getRowStyle={getRowStyle} 
+            paginationPageSize={20}                
             onGridReady={onGridReady}                     
           />
         </div>        
