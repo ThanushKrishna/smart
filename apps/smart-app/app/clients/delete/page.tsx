@@ -45,7 +45,7 @@ const DeleteClient: React.FC = () => {
             className="p-2 h-8 border border-gray-300 rounded-md text-lg focus:outline-none focus:border-blue-500 mb-2"
             id="vehicleNo"
             name="Vehicle_No"            
-            onInput={(e:any) => setVehicleno(e.target.value)}
+            onBlur={(e:any) => setVehicleno(e.target.value)}
             onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
       />
           <br />

@@ -23,6 +23,8 @@ import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import { OWNER_TYPE, MARITAL_STATUS, PROSPECT } from '@/json/enums'
 import AddressForm from './AddressForm';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 interface iupdatevalue {
     value: String,
@@ -40,6 +42,15 @@ const [isSubmitted, setisSubmitted] = useState(false);
 const [panfile, setpanfile] = useState<string | null>(gusrdatabyid.user_data_byid?.Pan_doc || '');
 const [adharfile, setadharfile] = useState<string | null>(gusrdatabyid.user_data_byid?.Adhar_doc || '');
 const [GstCerfile, setGstCerfile] = useState<string | null>(gusrdatabyid.user_data_byid?.GST_Cer_Doc || '');
+const [isAddressChecked, setAddressChecked] = useState(false);
+
+
+const handleAddressCheckBox = (event: any) => {
+    setAddressChecked(event.target.checked);        
+  };
+
+
+
 const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
 const { data:gpermitdata, error:gpermiterror } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
 const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 	
@@ -89,7 +100,7 @@ const onSubmit = async (formValues: AddClientType) => {
             updated_by: formValues?.updated_by || undefined,            
             GST_Cer_Doc: GstCerfile || undefined,     
             Permit_dueDate: (formValues?.Permit_dueDate ? new Date(formValues?.Permit_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
-            CAddress: formValues?.CAddress || undefined,
+            CAddress: (isAddressChecked ? formValues?.Address:formValues?.CAddress || undefined ),
             Prospect: formValues?.Prospect || undefined,                   
         }
         
@@ -391,8 +402,14 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder=""                    
                 value={GstCerfile}                   
             />                                                                                                                                     
+            {/* <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.Address} />
+            <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.CAddress} />  */}
             <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.Address} />
-            <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.CAddress} /> 
+            <FormControlLabel
+                control={<Checkbox checked={isAddressChecked} onChange={handleAddressCheckBox} />}
+                label="Communication Address same as RC Address"
+            />
+            {!isAddressChecked && <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.CAddress} />  }
 
             <p>Referred by: </p>
             <TextField.Root>

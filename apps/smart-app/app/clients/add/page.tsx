@@ -34,12 +34,13 @@ import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import AddressForm from '@/app/components/AddressForm'
 import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT } from '@/json/enums'
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 const AddClient:React.FC = () => {
 
 const router = useRouter();
-
 const[addclient, { data:clientdata, error:addclienterror } ] = useMutation(ADD_CLIENT);
 const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
 const[addVehicleNorms, { data:normsdata} ] = useMutation(ADD_VEHICE_NORMS);
@@ -71,7 +72,7 @@ const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY, { pollInterval: 10
 const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,}); 	
 const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
 
-const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
+const { register, handleSubmit, control, formState:{errors}, setValue } = useForm<AddClientType>({});
 
 const [isSubmitted, setisSubmitted] = useState(false);
 const [panfile, setpanfile] = useState<string | null>(null);
@@ -80,7 +81,16 @@ const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(null);
 const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(null);
 const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(null);
 const [GstCerfile, setGstCerfile] = useState<string | null>(null);
+const [isAddressChecked, setAddressChecked] = useState(false);
+const [isPolicyChecked, setPolicyChecked] = useState(false);
 
+const handleAddressCheckBox = (event: any) => {
+    setAddressChecked(event.target.checked);        
+  };
+
+  const handlePolicyCheckBox = (event: any) => {
+    setPolicyChecked(event.target.checked);
+  };
 
 const onSubmit = async (formValues: AddClientType) => {     
 
@@ -146,7 +156,7 @@ const onSubmit = async (formValues: AddClientType) => {
             Sleeper_Capacity: formValues?.Sleeper_Capacity || undefined,
             PUCC_Emission_No: formValues?.PUCC_Emission_No || undefined,
             updated_by: formValues?.updated_by || undefined,
-            TP_Policy_No: formValues?.TP_Policy_No || undefined, 
+            TP_Policy_No: (isPolicyChecked ? formValues?.Policy_No:formValues?.TP_Policy_No || undefined), 
             Insurance_Start: (formValues?.Insurance_Start ? new Date(formValues?.Insurance_Start).getTime() + 60 * 60 *1000 * 5.5 : null), 
             TP_Insurance_Start: (formValues?.TP_Insurance_Start ? new Date(formValues?.TP_Insurance_Start).getTime() + 60 * 60 *1000 * 5.5 : null), 
             Vehicle_Reg_Doc: VehRegDocfile || undefined,
@@ -157,11 +167,11 @@ const onSubmit = async (formValues: AddClientType) => {
             Seating_Capacity: formValues?.Seating_Capacity || undefined,
             Standing_Capacity: formValues?.Standing_Capacity || undefined,
             Permit_dueDate: (formValues?.Permit_dueDate ? new Date(formValues?.Permit_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
-            CAddress: formValues?.CAddress || undefined,
+            CAddress: (isAddressChecked ? formValues?.Address:formValues?.CAddress || undefined ),
             Prospect: formValues?.Prospect || undefined,
         }
-                
-        console.log( result );
+        console.log( result );        
+        console.log( "tax_dueDate: " + formValues.tax_due_Date );
         addclient( { variables: { input: result}})
         .then(()=> {        
         router.push('/clients')
@@ -318,8 +328,11 @@ const onSubmit = async (formValues: AddClientType) => {
             <DatePickerComponent 
                name="tax_due_Date"
                control={control}
-               placeholder="Tax Valid UpTo: "                           
+               placeholder="Tax Valid UpTo: "    
+            //    setValue={setValue(tax_due_Date, value:any)}
+               LTT={true}                    
             />
+            {/* <p>{(getValues(tax_due_Date))}</p> */}
             <DropDownControlWA 
                 name="Vehicle_type"
                 control={control}
@@ -442,7 +455,14 @@ const onSubmit = async (formValues: AddClientType) => {
                name="Insurance_dueDate"
                control={control}
                placeholder="Own Damage Insurance UpTo:  "                           
-            />            
+            /> 
+            
+            <FormControlLabel
+                control={<Checkbox checked={isPolicyChecked} onChange={handlePolicyCheckBox} />}
+                label="TP Policy No is same as OD Policy No"
+            />
+
+            { !isPolicyChecked && <>            
             <p>TP Policy No: </p>
             <TextField.Root>
             <TextField.Input
@@ -456,6 +476,7 @@ const onSubmit = async (formValues: AddClientType) => {
             />            
             </TextField.Root>
             {errors.TP_Policy_No && <p className="error text-red-600">{errors.TP_Policy_No.message}</p>}
+
             <FileUplaod 
                 name="TP_Policy_Doc"
                 control={control}     
@@ -479,7 +500,8 @@ const onSubmit = async (formValues: AddClientType) => {
                name="TP_dueDate"
                control={control}
                placeholder="Thrid Party Insurance UpTo: "                           
-            />                
+            />    
+            </> }                     
             <DropDownControlWA 
                 name="RTO"
                 control={control}            
@@ -803,7 +825,12 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder=""                       
             />                                                                                                            
             <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} />
-            <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} /> 
+            <FormControlLabel
+                control={<Checkbox checked={isAddressChecked} onChange={handleAddressCheckBox} />}
+                label="Communication Address same as RC Address"
+            />
+            {!isAddressChecked && <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} /> }
+
             <p>Referred by: </p>
             <TextField.Root>
                 <TextField.Input

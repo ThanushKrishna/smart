@@ -271,6 +271,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}
                 placeholder="Tax Valid UpTo:  "                           
                 selectedDate={gusrdatabyid.user_data_byid?.tax_due_Date && new Date(gusrdatabyid.user_data_byid?.tax_due_Date)}             
+                LTT={true}  
             />            
             <DropDownControlWA 
                 name="Vehicle_type"

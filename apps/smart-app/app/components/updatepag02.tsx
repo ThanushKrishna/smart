@@ -22,6 +22,8 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { FileUplaod } from '@/app/components/Upload'
 import { INSURANCE_TYPE } from '@/json/enums'
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 interface iupdatevalue {
@@ -38,6 +40,11 @@ const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQue
 const [isSubmitted, setisSubmitted] = useState(false);
 const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.OD_Policy_Doc || '');
 const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.TP_Policy_Doc || '');
+const [isPolicyChecked, setPolicyChecked] = useState(false);
+
+const handlePolicyCheckBox = (event: any) => {
+    setPolicyChecked(event.target.checked);
+  };
 
 const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_02);
 const[addiProvider, { data:iproviderdata} ] = useMutation(ADD_INSURANCE_PROVIDER);
@@ -65,7 +72,7 @@ const onSubmit = async (formValues: AddClientType) => {
 			OD_Policy_Doc: OdPolicydocfile || undefined,
 			Insurance_provider: formValues?.Insurance_provider || undefined,
             Insurance_dueDate: new Date(formValues?.Insurance_dueDate)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-			TP_Policy_No: formValues?.TP_Policy_No || undefined, 
+			TP_Policy_No: (isPolicyChecked ? formValues?.Policy_No:formValues?.TP_Policy_No || undefined), 
             Insurance_Start: new Date(formValues?.Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             TP_Insurance_Start: new Date(formValues?.TP_Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,         
             TP_Policy_Doc: TpPolicyDocfile || undefined,
@@ -160,6 +167,12 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="Own Damage Insurance UpTo: "                           
                 selectedDate={gusrdatabyid.user_data_byid.Insurance_dueDate && new Date(gusrdatabyid.user_data_byid?.Insurance_dueDate)}        
                 />    
+             <FormControlLabel
+                control={<Checkbox checked={isPolicyChecked} onChange={handlePolicyCheckBox} />}
+                label="TP Policy No is same as OD Policy No"
+            />
+
+             { !isPolicyChecked && <>
             <p>TP Policy No: </p>
             <TextField.Root>
             <TextField.Input
@@ -201,6 +214,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="TP Insurance Valid UpTo:  "                           
                 selectedDate={gusrdatabyid.user_data_byid.TP_dueDate && new Date(gusrdatabyid.user_data_byid?.TP_dueDate)}           
             /> 
+            </>  }
             <DropDownControlWA 
                 name="RTO"
                 control={control}     

@@ -145,14 +145,13 @@ const addressFormatter = (params: any) => {
   const rawAddress: tAddress = params.value;  
   if(rawAddress == undefined || rawAddress == null) return "";
   const formattedAddress = `${rawAddress?.street}, ${rawAddress?.city}, ${rawAddress?.state} ${rawAddress?.zip}`;
-
   return formattedAddress;
 };
 
   
   const columnDefs: ColDef<AddClientType, any>[] = [
     { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber', autoHeight: true },
-    { headerName: 'Vehicle Registration Doc', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'rcDocument', autoHeight: true },
+    { headerName: 'Vehicle Registration Number Document', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'rcDocument', autoHeight: true },
     { headerName: 'Owner Name', field: 'Owner', colId: 'owner', autoHeight: true },
     { headerName: 'Son/Wife/Daughter Of', field: 'Son_Wife_Daughter_Of', colId: 'sonWifeDaughterOf', autoHeight: true },
     { headerName: 'Owner Serial Number', field: 'RC_No', colId: 'rcNumber', autoHeight: true },
@@ -160,7 +159,10 @@ const addressFormatter = (params: any) => {
     { headerName: 'Engine Number', field: 'Engine_No', colId: 'engineNumber', autoHeight: true },
     { headerName: 'Make', field: 'Make', colId: 'make', autoHeight: true },
     { headerName: 'Model', field: 'Model', colId: 'model', autoHeight: true },    
-    { headerName: 'Registered Date', field: 'Registered_Date', colId: 'registeredDate', valueFormatter: dateFormatter, autoHeight: true  },    
+    { headerName: 'Registered Date', field: 'Registered_Date', colId: 'registeredDate', 
+                  valueFormatter: dateFormatter, autoHeight: true,
+                  filter: 'agDateColumnFilter'                 
+                  },    
     { headerName: 'Tax Valid UpTo', field: 'tax_due_Date', colId: 'taxDueDate', valueFormatter: dateFormatter, autoHeight: true  },
     { headerName: 'Vehicle Class', field: 'Vehicle_type', colId: 'vehicleType', autoHeight: true },
     { headerName: 'Vehicle Description', field: 'Vehicle_Description', colId: 'vehicleDescription', autoHeight: true },
@@ -178,7 +180,7 @@ const addressFormatter = (params: any) => {
     { headerName: 'Own Damage Insurance Starts From', field: 'Insurance_Start', colId: 'insuranceStartDate', valueFormatter: dateFormatter, autoHeight: true  },
     { headerName: 'Own Damage Insurance UpTo', field: 'Insurance_dueDate', colId: 'ownDamageInsuranceDueDate', valueFormatter: dateFormatter, autoHeight: true  },
     { headerName: 'TP Policy No', field: 'TP_Policy_No', colId: 'thirdPartyPolicyNumber', autoHeight: true },    
-    { headerName: 'TP Policy Doc', field: 'TP_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'thirdPartyPolicyDocument', autoHeight: true },
+    { headerName: 'Third-Party Policy Doc', field: 'TP_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'thirdPartyPolicyDocument', autoHeight: true },
     { headerName: 'Third-Party Insurance Provider', field: 'TP_Insurance_provider', colId: 'thirdPartyInsuranceProvider', autoHeight: true },    
     { headerName: 'Third-Party Insurance Starts From', field: 'TP_Insurance_Start', colId: 'thirdPartyInsuranceStartDate', valueFormatter: dateFormatter, autoHeight: true  },        
     { headerName: 'Third-Party Insurance UpTo', field: 'TP_dueDate', colId: 'thirdPartyInsuranceDueDate', valueFormatter: dateFormatter, autoHeight: true  },            
@@ -203,9 +205,9 @@ const addressFormatter = (params: any) => {
     { headerName: '3rd Mobile No:', field: 'Mobile_No3', colId: 'mobileNumber3', autoHeight: true },
     { headerName: 'Email Id', field: 'Email_id', colId: 'emailID', autoHeight: true },
     { headerName: 'Aadhar Number', field: 'Adhar_No', colId: 'aadharNumber', autoHeight: true },
-    { headerName: 'Aadhar Document', field: 'Adhar_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'aadharDocument', autoHeight: true },
+    { headerName: 'Aadhar Number Document', field: 'Adhar_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'aadharDocument', autoHeight: true },
     { headerName: 'PAN Number', field: 'PanCard_No', colId: 'panCardNumber', autoHeight: true },
-    { headerName: 'PAN Document', field: 'Pan_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'panDocument', autoHeight: true },
+    { headerName: 'PAN Number Document', field: 'Pan_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'panDocument', autoHeight: true },
     { headerName: 'Nominee Name', field: 'Nominee', colId: 'nominee', autoHeight: true },
     { headerName: 'Nominee Relationship', field: 'Nominee_Relationship', colId: 'nomineeRelationship', autoHeight: true },
     { headerName: 'Nominee DOB', field: 'Nominee_dob', colId: 'nomineeDOB', valueFormatter: dateFormatter, autoHeight: true  },
