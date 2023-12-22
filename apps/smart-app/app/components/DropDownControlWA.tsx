@@ -6,7 +6,7 @@ import { e } from '@vercel/blob/dist/put-96a1f07e';
 interface DropDownControlWAProps<T> {
     name: string;
     control: Control<any>;
-    options: String[];
+    options: String[] | number[];
     placeholder: string;
     onOptionAdd: (item: String) => void;
     value?: String | undefined;
@@ -23,7 +23,19 @@ export const DropDownControlWA: React.FC<DropDownControlWAProps<any>> = ({
     value
     }) => {
 
-      
+            
+
+            if(name == "Seating_Capacity" || name == "Standing_Capacity"){
+                // Convert strings to numbers and filter out non-numeric values
+                const numericArray = options?.map(Number).filter(value => !isNaN(value));
+
+                // Sort the numeric array
+                const sortedArray = numericArray?.sort((a, b) => a - b);                
+                options=sortedArray;
+                // console.log(name + sortedArray);              
+            }
+
+
 
         return (  
         <div className='relative h-20' >

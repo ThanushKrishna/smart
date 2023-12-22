@@ -229,9 +229,9 @@ SEATING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try{
         return await context.prisma.sEATING_CAPACITY.findMany({
           orderBy: {            
-            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+            value: 'desc', // 'asc' for ascending order, 'desc' for descending order
           },
-        });
+        })
       }
       catch(err){
           console.log(err);
