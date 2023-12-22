@@ -135,6 +135,26 @@ export const GET_TP_INSURANCE_PROVIDER = gql`
 }
 `;
 
+export const GET_HYPOTHECATION_CITY = gql`
+    query HYPOTHECATION_CITY {
+              HYPOTHECATION_CITY {
+              id
+              data_owner_id
+              value
+  }
+}
+`;
+
+export const GET_HYPOTHECATION_BANK = gql`
+    query HYPOTHECATION_BANK {
+              HYPOTHECATION_BANK {
+              id
+              data_owner_id
+              value
+  }
+}
+`;
+
 
 export const GET_APP_USERS = gql`
     query App_user {
@@ -509,6 +529,26 @@ export const ADD_STANDING_CAPACITY = gql`
 export const ADD_RTO = gql` 
     mutation CreateRTO($input: DDinput!) {
       createRTO(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_HYPOTHECATION_CITY = gql` 
+    mutation CreateHypothecationCity($input: DDinput!) {
+      createHypothecationCity(input: $input) {
+        id
+        data_owner_id
+        value
+      }
+    }
+`;
+
+export const ADD_HYPOTHECATION_BANK = gql` 
+    mutation CreateHypothecationBank($input: DDinput!) {
+      createHypothecationBank(input: $input) {
         id
         data_owner_id
         value

@@ -8,18 +8,18 @@ import { useMutation } from '@apollo/client';
 import { 
     ADD_CLIENT, 
     ADD_VEHICLE_COLORS,
-    ADD_VEHICE_NORMS,
-    ADD_CC, ADD_RTO,
+    ADD_VEHICE_NORMS, ADD_HYPOTHECATION_CITY,
+    ADD_CC, ADD_RTO, ADD_HYPOTHECATION_BANK,
     ADD_MAKE, ADD_STANDING_CAPACITY,
     ADD_MODEL, ADD_SEATING_CAPACITY,
     ADD_INSURANCE_PROVIDER, ADD_VEHICLE_DESCRIPTION,
     ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE,
-    ADD_TP_INSURANCE_PROVIDER, ADD_VEHICLE_CLASS
+    ADD_TP_INSURANCE_PROVIDER, ADD_VEHICLE_CLASS,
     } from '@/graphql/queries'
 import {     
     GET_VEHICLE_COLORS,
-    GET_VEHICLE_NORMS,  
-    GET_CC, GET_RTO,
+    GET_VEHICLE_NORMS,  GET_HYPOTHECATION_CITY,
+    GET_CC, GET_RTO, GET_HYPOTHECATION_BANK,
     GET_MAKE, GET_STANDING_CAPACITY,
     GET_MODEL, GET_VEHICLE_CLASS,
     GET_INSURANCE_PROVIDER, GET_CUSTOMER_TYPE,
@@ -56,6 +56,8 @@ const[addVehDes, { data:vehicledescdata} ] = useMutation(ADD_VEHICLE_DESCRIPTION
 const[addSeatCap, { data:seatcapdata} ] = useMutation(ADD_SEATING_CAPACITY);
 const[addStanCap, { data:standcapdata} ] = useMutation(ADD_STANDING_CAPACITY);
 const[addrto, { data:rtodata} ] = useMutation(ADD_RTO);
+const[addHcity, { data:Hcitydata} ] = useMutation(ADD_HYPOTHECATION_CITY);
+const[addHbank, { data:Hbankdata} ] = useMutation(ADD_HYPOTHECATION_BANK);
 
 const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLORS, { pollInterval: 1000,}); 
 const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS, { pollInterval: 1000,}); 
@@ -71,6 +73,8 @@ const { data:gSeatCapdata } = useQuery(GET_SEATING_CAPACITY, { pollInterval: 100
 const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY, { pollInterval: 1000,}); 	
 const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,}); 	
 const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
+const { data:gHcitydata } = useQuery(GET_HYPOTHECATION_CITY, { pollInterval: 1000,}); 
+const { data:gHbankdata } = useQuery(GET_HYPOTHECATION_BANK, { pollInterval: 1000,}); 
 
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
@@ -393,38 +397,22 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gStanCapdata && gStanCapdata.STANDING_CAPACITY.map((data:any) => (data.value)) }  
                 onOptionAdd= {async (e: String) => await (addStanCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
             />      
-            <p>Hypothecation Bank: </p>
-            <TextField.Root>
-            <TextField.Input  {...register('Hypothecation_bank', {                
-                maxLength: {
-                    value: 40,
-                    message: 'Hypothecation bank should be at most 40 characters'
-                },
-                pattern: {
-                    value: /^[A-Za-z\s]*$/,
-                    message: 'Hypothecation bank should contain only alphabets and spaces'
-                }
-                })}
-                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
-            />
-            </TextField.Root>
-            {errors.Hypothecation_bank && <p className="error text-red-600">{errors.Hypothecation_bank.message}</p>}
-            <p>Hypothecation City: </p>
-            <TextField.Root>
-            <TextField.Input {...register('Hypothecation_city', {
-                maxLength: {
-                    value: 40,
-                    message: 'Hypothecation city should be at most 40 characters'
-                },
-                pattern: {
-                    value: /^[A-Za-z\s]*$/,
-                    message: 'Hypothecation city should contain only alphabets and spaces'
-                }
-                })}
-                onChange={(e) => e.target.value = e.target.value.toUpperCase()}
-            />            
-            </TextField.Root>
-            {errors.Hypothecation_city && <p className="error text-red-600">{errors.Hypothecation_city.message}</p>}
+           
+            <DropDownControlWA 
+                name="Hypothecation_bank"
+                control={control}            
+                placeholder="Hypothecation Bank:   "           
+                options={gHbankdata && gHbankdata.HYPOTHECATION_BANK.map((data:any) => (data.value)) }           
+                onOptionAdd= {async (e: String) => await (addHbank( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+            />  
+            
+            <DropDownControlWA 
+                name="Hypothecation_city"
+                control={control}            
+                placeholder="Hypothecation City:   "           
+                options={gHcitydata && gHcitydata.HYPOTHECATION_CITY.map((data:any) => (data.value)) }           
+                onOptionAdd= {async (e: String) => await (addHcity( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+            />  
             <DropDownControl 
                 name="Insurance_type"
                 control={control}

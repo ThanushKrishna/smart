@@ -266,6 +266,17 @@ type RTO {
   value:                 String!
 }
 
+type HYPOTHECATION_CITY {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+
+type HYPOTHECATION_BANK {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
 type DELETED_BLOBS {
   id:                    String!
   data_owner_id:         String!    
@@ -290,6 +301,8 @@ type Query {
     SEATING_CAPACITY: [SEATING_CAPACITY]
     STANDING_CAPACITY: [STANDING_CAPACITY]
     RTO: [RTO]
+    HYPOTHECATION_CITY: [HYPOTHECATION_CITY]
+    HYPOTHECATION_BANK: [HYPOTHECATION_BANK]
     DELETED_BLOBS: [DELETED_BLOBS]
   }
 
@@ -703,6 +716,8 @@ input DDinput {
     createInsuranceProvider(input: DDinput!): INSURANCE_PROVIDER
     createPermitCategory(input: DDinput!): PERMIT_CATEGORY
     createTpInsuranceProvider(input: DDinput!): TP_INSURANCE_PROVIDER
+    createHypothecationCity(input:DDinput!): HYPOTHECATION_CITY
+    createHypothecationBank(input:DDinput!): HYPOTHECATION_BANK
     createDeletedBlobs(input: DDinput!): DELETED_BLOBS
     createUserData(input: createUserDataInput!): createUserDataOutput
     testaddclient(data_owner_id: String!, Vehicle_No: String!, RC_No: String ): String

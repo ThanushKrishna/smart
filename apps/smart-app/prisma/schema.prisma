@@ -202,6 +202,18 @@ model RTO {
   value         String @unique
 }
 
+model HYPOTHECATION_BANK {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model HYPOTHECATION_CITY {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
 model DELETED_BLOBS {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId

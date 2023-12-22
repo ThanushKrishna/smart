@@ -263,6 +263,32 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           console.log(err);
       }
     },
+
+    HYPOTHECATION_CITY : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.hYPOTHECATION_CITY.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+    HYPOTHECATION_BANK : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.hYPOTHECATION_BANK.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
   
   DELETED_BLOBS : async (parent: any, args: any, context: Context) => {      
       try{
@@ -412,6 +438,26 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 	createTpInsuranceProvider: async (parent: any, args: any, context: Context) => {
       console.log("this is createTpInsuranceProvider block");            
       return await context.prisma.tP_INSURANCE_PROVIDER.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+
+    createHypothecationCity: async (parent: any, args: any, context: Context) => {
+      console.log("this is createHypothecationCity block");            
+      return await context.prisma.hYPOTHECATION_CITY.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value
+        },
+      })
+    },
+
+    createHypothecationBank: async (parent: any, args: any, context: Context) => {
+      console.log("this is createHypothecationBank block");            
+      return await context.prisma.hYPOTHECATION_BANK.create({
         data: {
           data_owner_id: args.input.data_owner_id,
           value: args.input.value
