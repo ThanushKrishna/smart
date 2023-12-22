@@ -29,6 +29,9 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { FileUplaod } from '@/app/components/Upload'
 import { FUEL_TYPE } from '@/json/enums'
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 interface iupdatevalue {
     value: String,
@@ -43,6 +46,8 @@ const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQue
     }); 
 const [isSubmitted, setisSubmitted] = useState(false);
 const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc || '');
+const [isLttChecked, setLttChecked] = useState(false);
+const [lttValue, setlttValue] = useState<number | undefined>();
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});    
 
 const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_01);
@@ -65,6 +70,10 @@ const { data:gSeatCapdata } = useQuery(GET_SEATING_CAPACITY, { pollInterval: 100
 const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY, { pollInterval: 1000,}); 	
 const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,}); 	
 
+const handleLttCheckBox = (event: any) => {
+    setLttChecked(event.target.checked);
+    setlttValue(new Date('2099-12-31').getTime() + 60 * 60 *1000 * 5.5)
+  };
 
 const onSubmit = async (formValues: AddClientType) => {     
 
@@ -84,7 +93,8 @@ const onSubmit = async (formValues: AddClientType) => {
             Engine_No: formValues?.Engine_No || undefined,
 			Make: formValues?.Make || undefined,
             Model: formValues?.Model || undefined,
-			tax_due_Date: new Date(formValues?.tax_due_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+			// tax_due_Date: new Date(formValues?.tax_due_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            tax_due_Date: (isLttChecked ? lttValue : formValues?.tax_due_Date ? new Date(formValues?.tax_due_Date).getTime() + 60 * 60 *1000 * 5.5 : null), 
 			Vehicle_type: formValues?.Vehicle_type || undefined,
 			Vehicle_Description: formValues?.Vehicle_Description || undefined,
 			Fuel_type: formValues?.Fuel_type || undefined,
@@ -271,8 +281,13 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}
                 placeholder="Tax Valid UpTo:  "                           
                 selectedDate={gusrdatabyid.user_data_byid?.tax_due_Date && new Date(gusrdatabyid.user_data_byid?.tax_due_Date)}             
-                LTT={true}  
+                LTT={isLttChecked} 
             />            
+             {<FormControlLabel
+               control={<Checkbox checked={isLttChecked} onChange={handleLttCheckBox} />}
+               label="LTT"
+             />
+            }   
             <DropDownControlWA 
                 name="Vehicle_type"
                 control={control}
