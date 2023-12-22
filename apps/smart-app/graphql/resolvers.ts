@@ -83,7 +83,11 @@ export const resolvers = {
 
   VEHICLE_COLOR : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.vEHICLE_COLOR.findMany();
+        return await context.prisma.vEHICLE_COLOR.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -93,7 +97,11 @@ export const resolvers = {
 
 	VEHICE_NORMS : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.vEHICE_NORMS.findMany();
+        return await context.prisma.vEHICE_NORMS.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -102,7 +110,11 @@ export const resolvers = {
 
 	CC : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.cC.findMany();
+        return await context.prisma.cC.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -111,7 +123,11 @@ export const resolvers = {
 
 	MAKE : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.mAKE.findMany();
+        return await context.prisma.mAKE.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -120,7 +136,11 @@ export const resolvers = {
 
 	MODEL : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.mODEL.findMany();
+        return await context.prisma.mODEL.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -129,7 +149,11 @@ export const resolvers = {
 
 	INSURANCE_PROVIDER : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.iNSURANCE_PROVIDER.findMany();
+        return await context.prisma.iNSURANCE_PROVIDER.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -138,7 +162,11 @@ export const resolvers = {
 
 	PERMIT_CATEGORY : async (parent: any, args: any, context: Context) => {      
       try{        
-        return await context.prisma.pERMIT_CATEGORY.findMany();
+        return await context.prisma.pERMIT_CATEGORY.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -147,7 +175,11 @@ export const resolvers = {
 
 	TP_INSURANCE_PROVIDER : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.tP_INSURANCE_PROVIDER.findMany();
+        return await context.prisma.tP_INSURANCE_PROVIDER.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -156,7 +188,11 @@ export const resolvers = {
 
     VEHICLE_CLASS : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.vEHICLE_CLASS.findMany();
+        return await context.prisma.vEHICLE_CLASS.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -165,7 +201,11 @@ export const resolvers = {
 
 CUSTOMER_TYPE : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.cUSTOMER_TYPE.findMany();
+        return await context.prisma.cUSTOMER_TYPE.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -174,7 +214,11 @@ CUSTOMER_TYPE : async (parent: any, args: any, context: Context) => {
 
 VEHICLE_DESCRIPTION : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.vEHICLE_DESCRIPTION.findMany();
+        return await context.prisma.vEHICLE_DESCRIPTION.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -183,7 +227,11 @@ VEHICLE_DESCRIPTION : async (parent: any, args: any, context: Context) => {
 
 SEATING_CAPACITY : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.sEATING_CAPACITY.findMany();
+        return await context.prisma.sEATING_CAPACITY.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -192,7 +240,11 @@ SEATING_CAPACITY : async (parent: any, args: any, context: Context) => {
 
 STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.sTANDING_CAPACITY.findMany();
+        return await context.prisma.sTANDING_CAPACITY.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -201,7 +253,11 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 
   RTO : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.rTO.findMany();
+        return await context.prisma.rTO.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);
@@ -210,7 +266,11 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   
   DELETED_BLOBS : async (parent: any, args: any, context: Context) => {      
       try{
-        return await context.prisma.dELETED_BLOBS.findMany();
+        return await context.prisma.dELETED_BLOBS.findMany({
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+          },
+        });
       }
       catch(err){
           console.log(err);

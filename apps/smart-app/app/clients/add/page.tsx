@@ -644,13 +644,9 @@ const onSubmit = async (formValues: AddClientType) => {
             <TextField.Input
                 {...register('Permit_No', {
                 maxLength: {
-                    value: 25,
+                    value: 30,
                     message: 'Permit Number should be at most 25 characters'
-                },
-                pattern: {
-                    value: /^[A-Za-z0-9]*$/,
-                    message: 'Permit Number should be alphanumeric'
-                }
+                },               
                 })}
                 onChange={(e) => e.target.value = e.target.value.toUpperCase()}
             />            
