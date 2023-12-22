@@ -14,7 +14,7 @@ interface IDatePickerProps {
   control: Control<any>;
   placeholder: string;
   selectedDate?: Date | undefined;
-  LTT?: Boolean;
+  LTT?: boolean;
 }
 
 export const DatePickerComponent: React.FC<IDatePickerProps> = ({
@@ -25,16 +25,11 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
   LTT,
 }) => {  
 
-  const [isLttChecked, setLttChecked] = useState(false);
 
   //const lastDate = dayjs('2030-12-31');
-  const lastDate = new Date('2030-12-30');
+  //const lastDate = new Date('2030-12-30');
 
   const parsedDate = selectedDate !== undefined ? dayjs(selectedDate) : undefined;
-
-  const handleLttCheckBox = (event: any) => {
-    setLttChecked(event.target.checked);
-  };
  
 
   return (  
@@ -44,13 +39,13 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
             <Controller  
               name={name}  
               control={control}          
-              defaultValue={isLttChecked ? lastDate : parsedDate}                    
+              defaultValue={parsedDate}                    
               render={({ field }) => (                                                    
                   <DemoContainer components={['DatePicker']}>
                   <DatePicker          
                     sx={{ mb: 10, width: '100%' }}
                     {...field}       
-                    disabled={isLttChecked}                                    
+                    disabled={LTT}                                    
                     format="DD/MM/YYYY"                       
                     // Add other props like 'error' if needed                    
                   />                                       
@@ -58,11 +53,7 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
                                                                 
             )}    
             />  
-            {LTT && <FormControlLabel
-               control={<Checkbox checked={isLttChecked} onChange={handleLttCheckBox} />}
-               label="LTT"
-             />
-            }                
+                         
         </div>                
       </LocalizationProvider>  
   )

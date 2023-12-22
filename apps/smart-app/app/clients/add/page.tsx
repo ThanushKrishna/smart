@@ -72,7 +72,7 @@ const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY, { pollInterval: 10
 const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,}); 	
 const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
 
-const { register, handleSubmit, control, formState:{errors}, setValue } = useForm<AddClientType>({});
+const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
 const [isSubmitted, setisSubmitted] = useState(false);
 const [panfile, setpanfile] = useState<string | null>(null);
@@ -83,6 +83,13 @@ const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(null);
 const [GstCerfile, setGstCerfile] = useState<string | null>(null);
 const [isAddressChecked, setAddressChecked] = useState(false);
 const [isPolicyChecked, setPolicyChecked] = useState(false);
+const [isLttChecked, setLttChecked] = useState(false);
+const [lttValue, setlttValue] = useState<number | undefined>();
+
+const handleLttCheckBox = (event: any) => {
+    setLttChecked(event.target.checked);
+    setlttValue(new Date('2099-12-31').getTime() + 60 * 60 *1000 * 5.5)
+  };
 
 const handleAddressCheckBox = (event: any) => {
     setAddressChecked(event.target.checked);        
@@ -112,7 +119,7 @@ const onSubmit = async (formValues: AddClientType) => {
             Chasis_No: formValues?.Chasis_No || undefined,
             Engine_No: formValues?.Engine_No || undefined,
             FC_due_Date: (formValues?.FC_due_Date ? new Date(formValues?.FC_due_Date).getTime() + 60 * 60 *1000 * 5.5 : null), 
-            tax_due_Date: (formValues?.tax_due_Date ? new Date(formValues?.tax_due_Date).getTime() + 60 * 60 *1000 * 5.5 : null), 
+            tax_due_Date: (isLttChecked ? lttValue : formValues?.tax_due_Date ? new Date(formValues?.tax_due_Date).getTime() + 60 * 60 *1000 * 5.5 : null), 
             Vehicle_color: formValues?.Vehicle_color || undefined,
             Vehice_norms: formValues?.Vehice_norms || undefined,
             Address: formValues?.Address || undefined,
@@ -330,8 +337,13 @@ const onSubmit = async (formValues: AddClientType) => {
                control={control}
                placeholder="Tax Valid UpTo: "    
             //    setValue={setValue(tax_due_Date, value:any)}
-               LTT={true}                    
+               LTT={isLttChecked}                    
             />
+            {<FormControlLabel
+               control={<Checkbox checked={isLttChecked} onChange={handleLttCheckBox} />}
+               label="LTT"
+             />
+            }   
             {/* <p>{(getValues(tax_due_Date))}</p> */}
             <DropDownControlWA 
                 name="Vehicle_type"
