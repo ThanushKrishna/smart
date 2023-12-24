@@ -286,6 +286,7 @@ type DELETED_BLOBS {
 type Query {
     user_data: [user_data]    
     app_user: [app_user]
+    CheckvehicleNoUniqueness(vechicle_id: String!): Boolean
     user_data_byid(vechicle_id: String!): user_data
     VEHICLE_COLOR: [VEHICLE_COLOR]
     VEHICE_NORMS: [VEHICE_NORMS]

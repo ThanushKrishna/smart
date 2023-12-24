@@ -81,6 +81,24 @@ export const resolvers = {
       }
     },
 
+
+    CheckvehicleNoUniqueness: async (parent: any, args: any, context: Context) => {
+      console.log("this is user_data_byid block");  
+      try{
+        const result = await context.prisma.user_data.findUnique({
+          where: {
+            Vehicle_No: args.vechicle_id,
+          },
+        })
+
+        return !!result;
+      }
+
+      catch(err){
+        console.log(err);
+      }
+    },
+
   VEHICLE_COLOR : async (parent: any, args: any, context: Context) => {      
       try{
         return await context.prisma.vEHICLE_COLOR.findMany({
