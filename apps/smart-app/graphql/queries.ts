@@ -358,6 +358,15 @@ query User_data_byid($vechicleId: String!) {
   }
 }
 `
+
+export const CHECK_VEHICLE_UNIQUE = gql` 
+  query checkvehicleNoUniqueness($vechicleId: String!) {
+    CheckvehicleNoUniqueness(vechicle_id: $vechicleId) {    
+      }
+    }
+`;
+
+
 export const ADD_CLIENT = gql` 
     mutation CreateUserData($input: createUserDataInput!) {
      createUserData(input: $input) {
