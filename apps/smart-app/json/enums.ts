@@ -1,7 +1,8 @@
-//export const OWNER_TYPE:String[] = ["NA", "personal", "commercial"];
-export const VEHICLE_TYPE=[{ "value": ""}, { "value": "2-Wheeler"}, {"value": "3-Wheeler"} ]  
-export const PROSPECT=[{ "value": "Client"}, { "value": "Lead"} ]  
-export const OWNER_TYPE=[{ "value": ""},  {"value": "Corporate"}, { "value": "Individual"} ]  
-export const FUEL_TYPE =[{ "value": ""}, {"value": "CNG"}, {"value": "Diesel"} , {"value": "Electric"}, {"value": "LPG"}, {"value": "Petrol"}, {"value": "Petrol/CNG "}, {"value": "Petrol/LPG"} ]
-export const MARITAL_STATUS =[{ "value": ""}, {"value": "Single"}, {"value": "Married"}, {"value": "Widower"}, {"value": "Divorced"} ]
-export const INSURANCE_TYPE=[{ "value": ""}, { "value": "Comprehensive"}, {"value": "Third Party"}, {"value": "SAOD"} ]  
+//export const OWNER_TYPE:String[] = ["NA", "PERSONAL", "COMMERCIAL"];
+export const VEHICLE_TYPE=[{ "value": ""}, { "value": "2-WHEELER"}, {"value": "3-WHEELER"} ]  
+export const PROSPECT=[{ "value": "CLIENT"}, { "value": "LEAD"} ]  
+export const OWNER_TYPE=[{ "value": ""},  {"value": "CORPORATE"}, { "value": "INDIVIDUAL"} ]  
+export const FUEL_TYPE =[{ "value": ""}, {"value": "CNG"}, {"value": "DIESEL"} , {"value": "ELECTRIC"}, {"value": "LPG"}, {"value": "PETROL"}, {"value": "PETROL/CNG "}, {"value": "PETROL/LPG"} ]
+export const MARITAL_STATUS =[{ "value": ""}, {"value": "SINGLE"}, {"value": "MARRIED"}, {"value": "WIDOWED"}, {"value": "DIVORCED"} ]
+export const INSURANCE_TYPE=[{ "value": ""}, { "value": "COMPREHENSIVE"}, {"value": "THIRD PARTY"}, {"value": "SAOD"} ]  
+export const GENDER = [{ "value": ""}, { "value": "MALE"}, {"value": "FEMALE"}]

@@ -33,7 +33,7 @@ import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import AddressForm from '@/app/components/AddressForm'
-import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT } from '@/json/enums'
+import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT, GENDER } from '@/json/enums'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -82,6 +82,7 @@ const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
 const [vehicleno, setVehicleno] = useState<string>("");   
 const [firstpage, setfirstpage ] = useState<Boolean>(false);
 const [isSubmitted, setisSubmitted] = useState(false);
+const [corporate, setCorporate] = useState<Boolean>(false);
 const [panfile, setpanfile] = useState<string | null>(null);
 const [adharfile, setadharfile] = useState<string | null>(null);
 const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(null);
@@ -135,7 +136,7 @@ const onSubmit = async (formValues: AddClientType) => {
 
         const result = {
             data_owner_id: "65420cde2e5ffc26bed53918",
-            Vehicle_No: formValues?.Vehicle_No || undefined,            
+            Vehicle_No: formValues?.Vehicle_No || undefined,                        
             RC_No: formValues?.RC_No || undefined,
             Registered_Date: (formValues?.Registered_Date ? new Date(formValues?.Registered_Date).getTime() + 60 * 60 *1000 * 5.5 : null),
             Owner: formValues?.Owner || undefined,
@@ -298,6 +299,17 @@ const onSubmit = async (formValues: AddClientType) => {
                     value={VehRegDocfile}
                     placeholder=""                       
                 />
+
+                <DropDownControl 
+                    name="Ownership_type"
+                    control={control}
+                    placeholder="Owner Type:   "                                      
+                    options={OWNER_TYPE}
+                    isCorporate={(e:Boolean) => { setCorporate(e)} } 
+                />           
+
+
+                 {!corporate && <>
                  <p>Owner Name: </p>            
                 <TextField.Root> 
                 <TextField.Input { ...register('Owner', {                
@@ -314,6 +326,10 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.Owner && <p className="error text-red-600">{errors.Owner.message}</p>}
+                </>
+                }
+                
+                {!corporate && <>
                 <p>Son/Wife/Daughter Of: </p>            
                 <TextField.Root> 
                 <TextField.Input { ...register('Son_Wife_Daughter_Of', {                
@@ -330,6 +346,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.Son_Wife_Daughter_Of && <p className="error text-red-600">{errors.Son_Wife_Daughter_Of.message}</p>}
+                </> }
+
+                {!corporate && <>
                 <p>Owner Serial Number: </p>
                 <TextField.Root>
                 <TextField.Input { ...register('RC_No', {                
@@ -346,6 +365,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.RC_No && <p className="error text-red-600">{errors.RC_No.message}</p>}
+                </> }
+
                 <p>Chassis Number: </p>
                 <TextField.Root>
                 <TextField.Input  { ...register('Chasis_No', {                
@@ -384,6 +405,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     placeholder="Make:   "           
                     options={gmakedata && gmakedata.MAKE.map((data:any) => (data.value)) }             
                     onOptionAdd= {async (e: String) => await (addMake( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
+                    
                 />
                 <DropDownControlWA 
                     name="Model"
@@ -657,21 +679,16 @@ const onSubmit = async (formValues: AddClientType) => {
                 <DatePickerComponent 
                    name="Owner_dob"
                    control={control}
-                   placeholder="Owner DOB:   "                           
+                   placeholder="Owner DOB/Date of Incorporation:     "                           
                 />      
-    
+                {!corporate && <>
                 <DropDownControl 
                     name="Martial_status"
                     control={control}
                     placeholder="Marital Status:   "           
                     options={MARITAL_STATUS}              
-                />                 
-                <DropDownControl 
-                    name="Ownership_type"
-                    control={control}
-                    placeholder="Owner Type:   "                                      
-                    options={OWNER_TYPE}
-                />                        
+                />       
+                </>}                                       
                  <DatePickerComponent 
                    name="Year_of_manufacuring"
                    control={control}
@@ -765,6 +782,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 />            
                 </TextField.Root>
                 {errors.Email_id && <p className="error text-red-600">{errors.Email_id.message}</p>}
+                {!corporate && <>
                 <p>Aadhar Number: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -785,6 +803,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     value={ adharfile }                 
                     placeholder=""                       
                 />
+                </>}
                 <p>PAN Number: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -805,6 +824,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     value={panfile}
                     placeholder=""                       
                 />
+                {  !corporate && <>
                 <p>Nominee Name: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -843,9 +863,12 @@ const onSubmit = async (formValues: AddClientType) => {
                    name="Nominee_dob"
                    control={control}
                    placeholder="Nominee DOB: "                           
-                />          
+                />  
+                </>}
+
                 <p>PUC/Emission Number: </p>
                 <TextField.Root>
+                    
                 <TextField.Input
                     {...register('PUCC_Emission_No', {
                         maxLength: {

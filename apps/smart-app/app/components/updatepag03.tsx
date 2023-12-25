@@ -139,7 +139,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <DatePickerComponent 
               name="Owner_dob"
               control={control}
-              placeholder="Owner DOB: "
+              placeholder="Owner DOB/Date of Incorporation:   "
               selectedDate={gusrdatabyid.user_data_byid.Owner_dob && new Date(gusrdatabyid.user_data_byid?.Owner_dob)}      
             />    
             <DropDownControl 

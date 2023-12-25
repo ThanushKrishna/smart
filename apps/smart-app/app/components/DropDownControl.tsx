@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Control, Controller } from 'react-hook-form';
 
 interface DropDownControlProps<T> {
@@ -7,6 +7,7 @@ interface DropDownControlProps<T> {
     options: {value: string}[];
     placeholder: string;
     value?: string;
+    isCorporate?: (value:Boolean) => void;
 }
 
 
@@ -16,8 +17,21 @@ export const DropDownControl: React.FC<DropDownControlProps<any>> = ({
     control, 
     options, 
     placeholder,
-    value
+    value,
+    isCorporate
     }) => {
+
+        const handleValueChange = (selectedValue: string) => {
+            if(selectedValue === "CORPORATE" && isCorporate){
+                isCorporate(true); 
+                console.log("is Corporate")                
+                return;
+            }
+                isCorporate!(false);             
+            
+          };
+
+
         return (  
         <div>
             {placeholder}    
@@ -25,9 +39,15 @@ export const DropDownControl: React.FC<DropDownControlProps<any>> = ({
                 <Controller  
                 name={name}  
                 control={control}
-                defaultValue= {value || ''}
+                defaultValue= {value || ''}                
                 render={({ field }) => (
-                    <select {...field} className='w-full py-1.48 rounded pl-1 bottom-0 h-full text-slate-500 pt-1 border-slate-300 border-2'>                  
+                    <select {...field} 
+                    className='w-full py-1.48 rounded pl-1 bottom-0 h-full text-slate-500 pt-1 border-slate-300 border-2'
+                    onChange={(e) => {
+                        field.onChange(e);
+                        handleValueChange(e.target.value); // Call the callback function when the value changes                        
+                      }}
+                    >                  
                      {value && <option> {value} </option> } 
                      {<option key="dummy" value=""></option>}   
                     console.log(value)
@@ -36,8 +56,8 @@ export const DropDownControl: React.FC<DropDownControlProps<any>> = ({
                         {option.value}
                         </option>  
                     ))}     
-                    </select>  
-                )}    
+                    </select>                                          
+                )}                    
                 />  
             </div>     
         </div>     

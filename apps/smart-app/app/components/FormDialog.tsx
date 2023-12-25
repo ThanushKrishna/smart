@@ -52,7 +52,7 @@ export default function FormDialog( {placeholder, onItemAdd }: iFormDialog ) {
             type="email"
             fullWidth
             variant="standard"
-            onChange={(event:any)=> setValue(event.target.value)}
+            onChange={(event:any)=> setValue(event.target.value.toUpperCase())}            
           />
         </DialogContent>
         <DialogActions>

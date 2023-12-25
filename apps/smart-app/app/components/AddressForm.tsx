@@ -29,6 +29,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddr
             error={!!errors?.[addressType]?.street}
             helperText={errors?.[addressType]?.street?.message}
             style={{ height: '2px' }}
+            onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
           />
         </Grid>
         <Grid item xs={6}>
@@ -40,6 +41,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddr
             defaultValue={defaultAddress?.city}   
             error={!!errors?.[addressType]?.city}
             helperText={errors?.[addressType]?.city?.message}
+            onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
           />
         </Grid>
         <Grid item xs={6}>
@@ -51,6 +53,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddr
             defaultValue={defaultAddress?.state}   
             error={!!errors?.[addressType]?.state}
             helperText={errors?.[addressType]?.state?.message}
+            onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
           />
         </Grid>
         <Grid item xs={12}>
