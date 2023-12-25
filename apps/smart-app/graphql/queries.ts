@@ -265,8 +265,7 @@ export const GET_USER_DATA = gql`
     updatedAt
     }
   }
-`
-
+`;
 
 
 export const GET_USER_DATA_BYID = gql`
@@ -357,13 +356,12 @@ query User_data_byid($vechicleId: String!) {
     updatedAt
   }
 }
-`
+`;
 
 export const CHECK_VEHICLE_UNIQUE = gql` 
-  query checkvehicleNoUniqueness($vechicleId: String!) {
-    CheckvehicleNoUniqueness(vechicle_id: $vechicleId) {    
-      }
-    }
+  query checkvehicleNoUniqueness($VechicleId: String!) {
+  CheckvehicleNoUniqueness(vechicle_id: $VechicleId)
+}
 `;
 
 

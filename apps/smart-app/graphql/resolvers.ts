@@ -83,7 +83,7 @@ export const resolvers = {
 
 
     CheckvehicleNoUniqueness: async (parent: any, args: any, context: Context) => {
-      console.log("this is user_data_byid block");  
+      console.log("this is CheckvehicleNoUniqueness block");  
       try{
         const result = await context.prisma.user_data.findUnique({
           where: {

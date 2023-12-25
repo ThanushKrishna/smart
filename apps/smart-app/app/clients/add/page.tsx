@@ -17,7 +17,7 @@ import {
     ADD_TP_INSURANCE_PROVIDER, ADD_VEHICLE_CLASS,
     } from '@/graphql/queries'
 import {     
-    GET_VEHICLE_COLORS,
+    GET_VEHICLE_COLORS, CHECK_VEHICLE_UNIQUE,
     GET_VEHICLE_NORMS,  GET_HYPOTHECATION_CITY,
     GET_CC, GET_RTO, GET_HYPOTHECATION_BANK,
     GET_MAKE, GET_STANDING_CAPACITY,
@@ -76,8 +76,9 @@ const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,});
 const { data:gHcitydata } = useQuery(GET_HYPOTHECATION_CITY, { pollInterval: 1000,}); 
 const { data:gHbankdata } = useQuery(GET_HYPOTHECATION_BANK, { pollInterval: 1000,}); 
 
-const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
+const { register, handleSubmit, control, setError, formState:{errors} } = useForm<AddClientType>({});
 
+const [vehicleno, setVehicleno] = useState<String>("");   
 const [isSubmitted, setisSubmitted] = useState(false);
 const [panfile, setpanfile] = useState<string | null>(null);
 const [adharfile, setadharfile] = useState<string | null>(null);
@@ -102,6 +103,30 @@ const handleAddressCheckBox = (event: any) => {
   const handlePolicyCheckBox = (event: any) => {
     setPolicyChecked(event.target.checked);
   };
+
+  //const { data: {checkVehicleUnique} } = useQuery(CHECK_VEHICLE_UNIQUE); // Ensure you pass the required variables
+  const { data:checkVehicleUnique, error: uniqueError } = useQuery(CHECK_VEHICLE_UNIQUE, {
+    variables: { VechicleId: vehicleno },
+    skip: !vehicleno, // Skip the query if vehicleno is not provided            
+    });
+
+    if (uniqueError) {
+        console.error('Error fetching data:', uniqueError);
+      }
+
+  const validateVehicleNo = async () => {    
+    console.log("unique: " + vehicleno);
+    console.log(await checkVehicleUnique);
+    if(await checkVehicleUnique?.CheckvehicleNoUniqueness){
+        setError('Vehicle_No', {
+            type: 'manual',
+            message: 'Vehicle No already exist',
+          });
+        console.log("unique: " + checkVehicleUnique?.CheckvehicleNoUniqueness);
+        }
+    }
+
+  
 
 const onSubmit = async (formValues: AddClientType) => {     
 
@@ -223,9 +248,11 @@ const onSubmit = async (formValues: AddClientType) => {
                 pattern: {
                   value: /^[A-Za-z0-9]*$/,
                   message: 'Vehicle Registration Number should be alphanumeric'
-                }
+                },
               })}
-              onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+              onBlur={() => validateVehicleNo()}
+              onChange={(e) => setVehicleno(e.target.value = e.target.value.toUpperCase())}
+              
             />
             </TextField.Root>
           {errors.Vehicle_No && <p className="error text-red-600">{errors.Vehicle_No.message}</p>}
