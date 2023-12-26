@@ -31,6 +31,7 @@ import { FileUplaod } from '@/app/components/Upload'
 import { FUEL_TYPE, OWNER_TYPE } from '@/json/enums'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { useRouter } from 'next/navigation';
 
 
 interface iupdatevalue {
@@ -40,7 +41,8 @@ interface iupdatevalue {
 }
 
 const Updatepage01:React.FC<iupdatevalue> = ( { value, ispagesubmitted, isCorporateLocal, } ) => {
-
+    
+const router = useRouter();
 const [vehicleno, setVehicleno] = useState<String>(value);
 const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
     variables: { vechicleId: vehicleno },
@@ -50,8 +52,9 @@ const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(gusrdatabyid.u
 const [isLttChecked, setLttChecked] = useState(false);
 const [lttValue, setlttValue] = useState<number | undefined>();
 const [isCorporateUpdate, setCorporateUpdate ] = useState<Boolean>(false);
-const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});    
+const [isFinalSubmit, setFinalSubmit] = useState<Boolean>(false);
 
+const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});    
 const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_01);
 const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
 const[addVehicleNorms, { data:normsdata} ] = useMutation(ADD_VEHICE_NORMS);
@@ -115,6 +118,10 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log( result );
         updateclient( { variables: { input: result}})
         .then(()=> {        
+            if(isFinalSubmit){
+                router.push('/clients')
+                return;
+            }
         ispagesubmitted(true);
         })
         .catch((err) => {
@@ -139,7 +146,27 @@ const onSubmit = async (formValues: AddClientType) => {
 
   return (
    <>      
-    <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
+    <form  onSubmit={handleSubmit(onSubmit)}>     
+
+        <div className='w-full mb-5'>
+        <Button 
+        className='w-full'
+        disabled={isSubmitted}
+        onClick={() => {setFinalSubmit(true)}}
+        > 
+        Save and Submit {isSubmitted && <Spinner></Spinner>}
+        </Button>   
+        </div>
+
+        <div className='w-full mt-5 mb-5'>
+        <Button 
+        className='w-full'
+        disabled={isSubmitted}
+        > Save and Next {isSubmitted && <Spinner></Spinner>}
+        </Button>  
+        </div>
+    
+    <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' >                            
     <p>Vehicle Registration Number:</p>
     <TextField.Root>
         <TextField.Input
@@ -378,8 +405,26 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gHcitydata && gHcitydata.HYPOTHECATION_CITY.map((data:any) => (data.value)) }           
                 onOptionAdd= {async (e: String) => await (addHcity( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
             />  
-            
-    <Button disabled={isSubmitted}> Save and Next {isSubmitted && <Spinner></Spinner>}</Button>        
+        </div>           
+
+        <div className='w-full mt-5'>
+        <Button 
+        className='w-full'
+        disabled={isSubmitted}
+        > Save and Next {isSubmitted && <Spinner></Spinner>}
+        </Button>  
+        </div>
+
+        <div className='w-full mb-5 mt-5'>
+        <Button 
+        className='w-full'
+        disabled={isSubmitted}
+        onClick={() => {setFinalSubmit(true)}}
+        > 
+        Save and Submit {isSubmitted && <Spinner></Spinner>}
+        </Button>   
+        </div>
+           
     </form>    
     </> 
   )

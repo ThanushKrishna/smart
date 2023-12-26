@@ -24,7 +24,7 @@ import { FileUplaod } from '@/app/components/Upload'
 import { INSURANCE_TYPE } from '@/json/enums'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
-
+import { useRouter } from 'next/navigation';
 
 interface iupdatevalue {
     value: String,
@@ -34,7 +34,8 @@ interface iupdatevalue {
 
 const Updatepage02:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
 
-const [vehicleno, setVehicleno] = useState<String>(value);
+    const router = useRouter();
+    const [vehicleno, setVehicleno] = useState<String>(value);
 const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
     variables: { vechicleId: vehicleno },
     }); 
@@ -42,6 +43,7 @@ const [isSubmitted, setisSubmitted] = useState(false);
 const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.OD_Policy_Doc || '');
 const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.TP_Policy_Doc || '');
 const [isPolicyChecked, setPolicyChecked] = useState(false);
+const [isFinalSubmit, setFinalSubmit] = useState<Boolean>(false);
 
 const handlePolicyCheckBox = (event: any) => {
     setPolicyChecked(event.target.checked);
@@ -93,6 +95,10 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log( result );
         updateclient( { variables: { input: result}})
         .then(()=> {        
+            if(isFinalSubmit){
+                router.push('/clients')
+                return;
+            }
         ispagesubmitted(true);
         })
         .catch((err) => {
@@ -115,10 +121,30 @@ const onSubmit = async (formValues: AddClientType) => {
 }
 
 
-  return (
-   <>
-        <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
-        <p>Vehicle Registration Number:</p>
+return (
+    <>      
+     <form  onSubmit={handleSubmit(onSubmit)}>     
+ 
+         <div className='w-full mb-5'>
+         <Button 
+         className='w-full'
+         disabled={isSubmitted}
+         onClick={() => {setFinalSubmit(true)}}
+         > 
+         Save and Submit {isSubmitted && <Spinner></Spinner>}
+         </Button>   
+         </div>
+ 
+         <div className='w-full mt-5 mb-5'>
+         <Button 
+         className='w-full'
+         disabled={isSubmitted}
+         > Save and Next {isSubmitted && <Spinner></Spinner>}
+         </Button>  
+         </div>
+     
+     <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' >                            
+     <p>Vehicle Registration Number:</p>
             <TextField.Root >
             <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
             </TextField.Root>                                 
@@ -321,11 +347,29 @@ const onSubmit = async (formValues: AddClientType) => {
             </TextField.Root>
             {errors.Sleeper_Capacity && <p className="error text-red-600">{errors.Sleeper_Capacity.message}</p>}    
             
-            <br/>
-            <Button disabled={isSubmitted}> Save and Next {isSubmitted && <Spinner></Spinner>}</Button>        
-    </form>    
+            </div>                   
+                <div className='w-full mt-5'>
+                <Button 
+                className='w-full'
+                disabled={isSubmitted}
+                > Save and Next {isSubmitted && <Spinner></Spinner>}
+                </Button>  
+                </div>
+
+                <div className='w-full mb-5 mt-5'>
+                <Button 
+                className='w-full'
+                disabled={isSubmitted}
+                onClick={() => {setFinalSubmit(true)}}
+                > 
+                Save and Submit {isSubmitted && <Spinner></Spinner>}
+                </Button>   
+                </div>
+
+
+     </form>    
     </> 
-  )
+    )
 }
 
 export default Updatepage02

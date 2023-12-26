@@ -131,8 +131,18 @@ const onSubmit = async (formValues: AddClientType) => {
   return (
    <>    
 
-    <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                      
-    <p>Vehicle Registration Number:</p>
+    <form onSubmit={handleSubmit(onSubmit)}>                                         
+ 
+         <div className='w-full mt-5 mb-5'>
+         <Button 
+         className='w-full'
+         disabled={isSubmitted}
+         > Update {isSubmitted && <Spinner></Spinner>}
+         </Button>  
+         </div>
+     
+     <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' > 
+        <p>Vehicle Registration Number:</p>
             <TextField.Root >
             <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
             </TextField.Root>              
@@ -471,11 +481,18 @@ const onSubmit = async (formValues: AddClientType) => {
               placeholder="Prospect:   "           
               options={PROSPECT}              
             />
-            <br/>
-            <Button disabled={isSubmitted}> Update {isSubmitted && <Spinner></Spinner>}</Button>        
-    </form>
-    
-    </> 
+            </div>    
+
+
+            <div className='w-full mt-5'>
+            <Button 
+            className='w-full'
+            disabled={isSubmitted}
+            > Update {isSubmitted && <Spinner></Spinner>}
+            </Button>  
+            </div>
+  </form>    
+  </> 
   )
 }
 

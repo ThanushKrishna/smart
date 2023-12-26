@@ -28,8 +28,8 @@ export const DropDownControl: React.FC<DropDownControlProps<any>> = ({
                 isCorporate(true); 
                 console.log("is Corporate")                
                 return;
-            }
-                isCorporate!(false);             
+            }   
+                if(isCorporate) isCorporate(false);             
             
           };
         

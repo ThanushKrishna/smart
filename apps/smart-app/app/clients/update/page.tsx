@@ -7,7 +7,6 @@ import { useQuery } from '@apollo/client';
 import { GET_USER_DATA_BYID } from '@/graphql/queries'
 import { Button } from '@radix-ui/themes'
 import  Spinner from '@/app/components/Spinner'
-import Link from 'next/link';
 
 const UpdateClient:React.FC = () => {
    
@@ -17,7 +16,7 @@ const UpdateClient:React.FC = () => {
         const [firstpage, setfirstpage ] = useState<Boolean>(false);
         const [secndpage, setsecndpage ] = useState<Boolean>(false);
         const [thirddpage, setthirddpage ] = useState<Boolean>(false);
-        const [isCorporateGlobal, setCorporateGlobal] = useState<Boolean>(false);
+        const [isCorporateGlobal, setCorporateGlobal] = useState<Boolean>(false);        
 
         const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
             variables: { vechicleId: vehicleno },
@@ -86,8 +85,10 @@ const UpdateClient:React.FC = () => {
         <Updatepage01 
         value={vehicleno} 
         ispagesubmitted={(e:Boolean) => {setsecndpage(e); setfirstpage(!e)}}         
-        isCorporateLocal={(e:Boolean) => {setCorporateGlobal(e)}}
+        isCorporateLocal={(e:Boolean) => {setCorporateGlobal(e)}}        
         />  }
+
+
         {secndpage && 
         <Updatepage02 
         value={vehicleno} 
