@@ -233,8 +233,18 @@ const onSubmit = async (formValues: AddClientType) => {
     
     return (
         <div>
-            <form className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' onSubmit={handleSubmit(onSubmit)}>                                
+            <form onSubmit={handleSubmit(onSubmit)}>                                
             
+            { gusrdatabyid?.user_data_byid === null && firstpage &&
+                <div
+                className ='mb-4'
+                > 
+                <Button className='w-full' disabled={isSubmitted}> Submit {isSubmitted && <Spinner></Spinner>}</Button> 
+                </div>
+                
+            }
+
+            <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base'>
             {!isVehicleNoprovided &&
             <>
             <label> Vehicle Registration Number: </label> 
@@ -261,7 +271,7 @@ const onSubmit = async (formValues: AddClientType) => {
             <Button         
              onClick = {() => handleVehicleNoSubmit()}   
             > 
-            Go {gusrbyidload && <Spinner></Spinner>}
+             GO {gusrbyidload && <Spinner></Spinner>}            
             </Button>
             </>
             }    
@@ -279,10 +289,13 @@ const onSubmit = async (formValues: AddClientType) => {
                 </div>       
             </> 
             }
-                            
+            </div >                
     
             {gusrdatabyid?.user_data_byid === null && firstpage && 
-                <> 
+                <div>    
+                    <div className='text-slate-500 text-base grid grid-cols-4 gap-4'>
+               
+                <div>
                 <p>Vehicle Registration Number:</p>
                 <TextField.Root>
                 <TextField.Input
@@ -299,14 +312,19 @@ const onSubmit = async (formValues: AddClientType) => {
                     value={VehRegDocfile}
                     placeholder=""                       
                 />
+                </div>
 
+                <div>
                 <DropDownControl 
                     name="Ownership_type"
                     control={control}
                     placeholder="Owner Type:   "                                      
                     options={OWNER_TYPE}
                     isCorporate={(e:Boolean) => { setCorporate(e)} } 
-                />                            
+                />    
+                </div>            		
+
+                <div>
                  <p>Owner Name: </p>            
                 <TextField.Root> 
                 <TextField.Input { ...register('Owner', {                
@@ -323,8 +341,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.Owner && <p className="error text-red-600">{errors.Owner.message}</p>}
+                </div>                        
                 
-                
+                <div>
                 {!corporate && <>
                 <p>Son/Wife/Daughter Of: </p>            
                 <TextField.Root> 
@@ -343,7 +362,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 </TextField.Root>
                 {errors.Son_Wife_Daughter_Of && <p className="error text-red-600">{errors.Son_Wife_Daughter_Of.message}</p>}
                 </> }
-
+                </div>
+                
+                <div>
                 <p>Owner Serial Number: </p>
                 <TextField.Root>
                 <TextField.Input { ...register('RC_No', {                
@@ -360,8 +381,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.RC_No && <p className="error text-red-600">{errors.RC_No.message}</p>}
-                
+                </div>
 
+                <div>
                 <p>Chassis Number: </p>
                 <TextField.Root>
                 <TextField.Input  { ...register('Chasis_No', {                
@@ -378,6 +400,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.Chasis_No && <p className="error text-red-600">{errors.Chasis_No.message}</p>}
+                </div>
+
+                <div>
                 <p>Engine Number: </p>
                 <TextField.Root>
                 <TextField.Input  { ...register('Engine_No', {                
@@ -394,6 +419,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.Engine_No && <p className="error text-red-600">{errors.Engine_No.message}</p>}
+                </div>
+
                 <DropDownControlWA
                     name="Make"
                     control={control}
@@ -409,12 +436,15 @@ const onSubmit = async (formValues: AddClientType) => {
                     options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
                     onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
                 />
-    
+                <div>
                 <DatePickerComponent 
                     name="Registered_Date"
                     control={control}
                     placeholder="Registration Date:   "                           
-                />        
+                />  
+                </div>
+
+                <div>
                 <DatePickerComponent 
                    name="tax_due_Date"
                    control={control}
@@ -427,7 +457,8 @@ const onSubmit = async (formValues: AddClientType) => {
                    label="LTT"
                  />
                 }   
-                {/* <p>{(getValues(tax_due_Date))}</p> */}
+                </div> 
+
                 <DropDownControlWA 
                     name="Vehicle_type"
                     control={control}
@@ -497,7 +528,9 @@ const onSubmit = async (formValues: AddClientType) => {
                     control={control}
                     placeholder="Insurance Type:   "           
                     options={INSURANCE_TYPE}              
-                />      
+                />     
+
+                <div>  
                 <p>OD Policy No: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -518,6 +551,8 @@ const onSubmit = async (formValues: AddClientType) => {
                     value={OdPolicydocfile} 
                     placeholder=""                       
                 />	   
+                </div> 
+
                 <DropDownControlWA 
                     name="Insurance_provider"
                     control={control}
@@ -525,22 +560,28 @@ const onSubmit = async (formValues: AddClientType) => {
                     options={giproviderdata && giproviderdata.INSURANCE_PROVIDER.map((data:any) => (data.value)) }
                     onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
                 />
+                <div>
                 <DatePickerComponent 
                    name="Insurance_Start"
                    control={control}
                    placeholder="Own Damage Insurance Starts From: "                           
                 />
+                </div>
+
+                <div>
                 <DatePickerComponent 
                    name="Insurance_dueDate"
                    control={control}
                    placeholder="Own Damage Insurance UpTo:  "                           
                 /> 
-                
+
                 <FormControlLabel
                     control={<Checkbox checked={isPolicyChecked} onChange={handlePolicyCheckBox} />}
                     label="TP Policy No is same as OD Policy No"
                 />
-    
+                </div>
+                
+                <div>
                 { !isPolicyChecked && <>            
                 <p>TP Policy No: </p>
                 <TextField.Root>
@@ -562,7 +603,12 @@ const onSubmit = async (formValues: AddClientType) => {
                     onSelectFile={(e:string | null) => setTpPolicyDocfile(e)}     
                     value={TpPolicyDocfile }
                     placeholder=""                       
-                />	              
+                />	                  
+                </>}
+                </div>
+                
+
+                { !isPolicyChecked && <>   
                 <DropDownControlWA 
                     name="TP_Insurance_provider"
                     control={control}
@@ -570,24 +616,38 @@ const onSubmit = async (formValues: AddClientType) => {
                     options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
                     onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
                 />
+                </>}
+
+                { !isPolicyChecked && <>   
+                <div>
                 <DatePickerComponent 
                    name="TP_Insurance_Start"
                    control={control}
                    placeholder="Thrid Party Insurance Starts From:  "                           
                 />     
+                </div>
+                </> }
+                
+
+                <div>
+                { !isPolicyChecked && <>   
                 <DatePickerComponent 
                    name="TP_dueDate"
                    control={control}
                    placeholder="Thrid Party Insurance UpTo: "                           
-                />    
-                </> }                     
+                />                   
+                </> }      
+                </div>
+
                 <DropDownControlWA 
                     name="RTO"
                     control={control}            
                     placeholder="Registering Authority:   "           
                     options={grtodata && grtodata.RTO.map((data:any) => (data.value)) }           
                     onOptionAdd= {async (e: String) => await (addrto( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-                />        
+                />    
+
+                <div>
                 <p>Unladen Weight: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -604,6 +664,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 />            
                 </TextField.Root>
                 {errors.Unladen_Weight && <p className="error text-red-600">{errors.Unladen_Weight.message}</p>}
+                </div>    
+
+                <div>
                 <p>Laden Weight (GVW): </p>
                 <TextField.Root>
                 <TextField.Input
@@ -616,7 +679,10 @@ const onSubmit = async (formValues: AddClientType) => {
                 />                
                 </TextField.Root>            
                 {errors.GVW && typeof errors.GVW === 'object' && 'message' in errors.GVW && (
-        <p className="error text-red-600">{(errors.GVW as FieldError).message}</p>)}
+                <p className="error text-red-600">{(errors.GVW as FieldError).message}</p>)}
+                </div>
+                
+                <div>
                 <p>Vehicle Body: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -634,6 +700,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.Vehicle_Body && <p className="error text-red-600">{errors.Vehicle_Body.message}</p>}
+                </div>
+
+                <div>
                 <p>Wheel Base: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -646,6 +715,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.Wheel_Base && <p className="error text-red-600">{errors.Wheel_Base.message}</p>}
+                </div>
+
+                <div>
                 <p>No Of Cylinder: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -658,6 +730,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.No_Of_Cylinder && <p className="error text-red-600">{errors.No_Of_Cylinder.message}</p>}
+                </div>
+
+                <div>
                 <p>Sleeper Capacity: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -670,12 +745,16 @@ const onSubmit = async (formValues: AddClientType) => {
                 />            
                 </TextField.Root>
                 {errors.Sleeper_Capacity && <p className="error text-red-600">{errors.Sleeper_Capacity.message}</p>}
+                </div>
                 
+                <div>
                 <DatePickerComponent 
                    name="Owner_dob"
                    control={control}
                    placeholder="Owner DOB/Date of Incorporation:     "                           
-                />      
+                />   
+                </div>
+
                 {!corporate && <>
                 <DropDownControl 
                     name="Martial_status"
@@ -683,24 +762,32 @@ const onSubmit = async (formValues: AddClientType) => {
                     placeholder="Marital Status:   "           
                     options={MARITAL_STATUS}              
                 />       
-                </>}                                       
+                </>}    
+
+                <div>
                  <DatePickerComponent 
                    name="Year_of_manufacuring"
                    control={control}
                    placeholder="Manufacturing Date:  "                           
-                />      
+                />   
+                </div>                                   
+
+                <div>                                      
                  <DatePickerComponent 
                    name="FC_due_Date"
                    control={control}
                    placeholder="REG/FC UpTo:  "                           
                 />                 
+                </div>                                   
+
                 <DropDownControlWA 
                     name="CC"
                     control={control}            
                     placeholder="CC:   "           
                     options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
                     onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-                />                       
+                />      
+                <div>                 
                 <p>Permit No: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -714,6 +801,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 />            
                 </TextField.Root>
                 {errors.Permit_No && <p className="error text-red-600">{errors.Permit_No.message}</p>}
+                </div>
+
                 <DropDownControlWA 
                     name="Permit_category"
                     control={control}
@@ -721,11 +810,16 @@ const onSubmit = async (formValues: AddClientType) => {
                     options={gpermitdata && gpermitdata.PERMIT_CATEGORY.map((data:any) => (data.value)) }
                     onOptionAdd= {async (e: String) => await (addPermitCategory( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
                 />
+
+                <div>
                 <DatePickerComponent 
                     name="Permit_dueDate"
                     control={control}
                     placeholder="Permit Valid Upto:   "                           
                 />        
+                </div>
+
+                <div>
                 <p>1st Mobile No: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -739,6 +833,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 </TextField.Root>
                 {errors.Mobile_No1 && typeof errors.Mobile_No1 === 'object' && 'message' in errors.Mobile_No1 && (
                 <p className="error text-red-600">{(errors.Mobile_No1 as FieldError).message}</p>)}  
+                </div>
+                
+                <div>
                 <p>2nd Mobile No: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -752,6 +849,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 </TextField.Root>
                 {errors.Mobile_No2 && typeof errors.Mobile_No2 === 'object' && 'message' in errors.Mobile_No2 && (
                 <p className="error text-red-600">{(errors.Mobile_No2 as FieldError).message}</p>)}   
+                </div>
+                <div>
                 <p>3rd Mobile No: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -765,6 +864,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 </TextField.Root>
                 {errors.Mobile_No3 && typeof errors.Mobile_No3 === 'object' && 'message' in errors.Mobile_No3 && (
                 <p className="error text-red-600">{(errors.Mobile_No3 as FieldError).message}</p>)}  
+                </div>
+
+                <div>
                 <p>Email Id: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -777,6 +879,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 />            
                 </TextField.Root>
                 {errors.Email_id && <p className="error text-red-600">{errors.Email_id.message}</p>}
+                </div>
+
+                <div>
                 {!corporate && <>
                 <p>Aadhar Number: </p>
                 <TextField.Root>
@@ -799,6 +904,9 @@ const onSubmit = async (formValues: AddClientType) => {
                     placeholder=""                       
                 />
                 </>}
+                </div>
+
+                <div>
                 <p>PAN Number: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -819,7 +927,10 @@ const onSubmit = async (formValues: AddClientType) => {
                     value={panfile}
                     placeholder=""                       
                 />
-                {  !corporate && <>
+                </div>
+
+                
+                { !corporate &&  <div>
                 <p>Nominee Name: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -837,6 +948,10 @@ const onSubmit = async (formValues: AddClientType) => {
                 />            
                 </TextField.Root>
                 {errors.Nominee && <p className="error text-red-600">{errors.Nominee.message}</p>}
+                </div> }
+
+                
+                { !corporate &&  <div>
                 <p>Nominee Relationship: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -854,13 +969,18 @@ const onSubmit = async (formValues: AddClientType) => {
                 />            
                 </TextField.Root>
                 {errors.Nominee_Relationship && <p className="error text-red-600">{errors.Nominee_Relationship.message}</p>}
+
+                </div> }
+
+                { !corporate &&  <div>                                
                 <DatePickerComponent 
                    name="Nominee_dob"
                    control={control}
                    placeholder="Nominee DOB: "                           
-                />  
-                </>}
+                />                                  
+                </div> }
 
+                <div>
                 <p>PUC/Emission Number: </p>
                 <TextField.Root>
                     
@@ -875,11 +995,17 @@ const onSubmit = async (formValues: AddClientType) => {
                 />            
                 </TextField.Root>
                 {errors.PUCC_Emission_No && <p className="error text-red-600">{errors.PUCC_Emission_No.message}</p>}
+                </div>    
+                
+                <div>
                 <DatePickerComponent 
                    name="Emission_dueDate"
                    control={control}
                    placeholder="PUC/Emission UpTo: "                           
                 />    
+                </div>
+
+                <div>    
                 <p className='mt-3'>GST No: </p>
                 <TextField.Root>
                 <TextField.Input
@@ -899,14 +1025,22 @@ const onSubmit = async (formValues: AddClientType) => {
                     onSelectFile={(e:string | null) => setGstCerfile(e)}
                     value={GstCerfile}
                     placeholder=""                       
-                />                                                                                                            
+                />    
+                </div>    
+
+                <div className='col-span-4'>
                 <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} />
                 <FormControlLabel
                     control={<Checkbox checked={isAddressChecked} onChange={handleAddressCheckBox} />}
                     label="Communication Address same as RC Address"
                 />
+                </div>  
+
+                <div className='col-span-4'>
                 {!isAddressChecked && <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} /> }
+                </div>
     
+                <div>
                 <p>Referred by: </p>
                 <TextField.Root>
                     <TextField.Input
@@ -924,7 +1058,9 @@ const onSubmit = async (formValues: AddClientType) => {
                     />
                 </TextField.Root>
                 {errors.Referred_by && <p className="error text-red-600">{errors.Referred_by.message}</p>}
-    
+                </div>
+
+                <div>
                 <p>Updated by: </p>
                 <TextField.Root>
                     <TextField.Input
@@ -942,13 +1078,17 @@ const onSubmit = async (formValues: AddClientType) => {
                     />
                 </TextField.Root>
                 {errors.updated_by && <p className="error text-red-600">{errors.updated_by.message}</p>}
+                </div>
+
                 <DropDownControlWA 
                     name="Customer_type"
                     control={control}
                     placeholder="Policy Issued Through:  "           
                     options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE.map((data:any) => (data.value)) }    
                     onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}                
-                />                        
+                />                   
+
+                <div>     
                 <p className='mt-3'>Comments: </p>
                 <TextArea
                 {...register('Comments', {
@@ -959,16 +1099,28 @@ const onSubmit = async (formValues: AddClientType) => {
                 })}
                 />
                 {errors.Comments && <p className="error text-red-600">{errors.Comments.message}</p>}
+                </div>
+                
                 <DropDownControl 
                     name="Prospect"
                     control={control}   
                     value="Lead"     
                     placeholder="Prospect:   "           
                     options={PROSPECT}              
-                />
-                <br/>
-                <Button disabled={isSubmitted}> Submit {isSubmitted && <Spinner></Spinner>}</Button>        			
-            </> }        
+                />                               
+            </div>       
+
+            <div
+            className='mt-10'
+            >
+            <Button             
+            disabled={isSubmitted}
+            className='w-full'
+            > 
+            Submit {isSubmitted && <Spinner></Spinner>}
+            </Button> 
+            </div>
+            </div> }
             </form>
         </div>
       )

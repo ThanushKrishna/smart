@@ -15,11 +15,18 @@ interface AddressFormProps {
 const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddress, addressType, placehoder }) => {
   return (
     <>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <p> {placehoder} </p>
-        </Grid>
-        <Grid item xs={12} style={{ height: '70px' }}>
+     <p> {placehoder} </p>
+      <Grid container       
+      sx={{
+        display: 'grid',              
+        gridTemplateColumns: 'repeat(4, 1fr)',
+
+      }}
+      >        
+        <Grid 
+        item xs={12} style={{ height: '70px' }}
+        sx={{ gridColumn: '1' }}
+        >         
           <TextField
             {...register( addressType + '.street' )}
             fullWidth
@@ -32,7 +39,10 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddr
             onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid 
+        item xs={6}
+        sx={{ gridColumn: '2', ml: 2, width: '100%' }}
+        >
           <TextField
             {...register( addressType + '.city' )}
             fullWidth
@@ -44,7 +54,10 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddr
             onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid 
+        item xs={6}
+        sx={{ gridColumn: '3', ml: 2, width: '100%' }}
+        >
           <TextField
             {...register( addressType + '.state' )}
             fullWidth
@@ -56,7 +69,10 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddr
             onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid 
+        item xs={12}
+        sx={{ gridColumn: '4', ml: 2, width: '100%' }}
+        >
           <TextField
             {...register( addressType + '.zip', {
               pattern: {
