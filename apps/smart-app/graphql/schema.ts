@@ -464,6 +464,7 @@ input updateUserDataInput1 {
 id:                    	String!
 Vehicle_Reg_Doc:   	   	String
 Owner:                 	String
+Ownership_type:         String
 Son_Wife_Daughter_Of:  	String
 RC_No:                 	String
 Chasis_No:             	String
@@ -510,7 +511,6 @@ input updateUserDataInput3 {
 id:                    	String!
 Owner_dob:      		Date
 Martial_status:         String
-Ownership_type:         String
 Year_of_manufacuring:   Date
 FC_due_Date: 			Date
 CC:             		String

@@ -29,6 +29,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 interface iupdatevalue {
     value: String,
     ispagesubmitted: (res: Boolean) => void
+    isCorporateGlobal: Boolean
 }
 
 const Updatepage02:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {

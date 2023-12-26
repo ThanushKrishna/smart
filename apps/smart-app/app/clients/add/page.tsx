@@ -306,10 +306,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     placeholder="Owner Type:   "                                      
                     options={OWNER_TYPE}
                     isCorporate={(e:Boolean) => { setCorporate(e)} } 
-                />           
-
-
-                 {!corporate && <>
+                />                            
                  <p>Owner Name: </p>            
                 <TextField.Root> 
                 <TextField.Input { ...register('Owner', {                
@@ -326,8 +323,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.Owner && <p className="error text-red-600">{errors.Owner.message}</p>}
-                </>
-                }
+                
                 
                 {!corporate && <>
                 <p>Son/Wife/Daughter Of: </p>            
@@ -348,7 +344,6 @@ const onSubmit = async (formValues: AddClientType) => {
                 {errors.Son_Wife_Daughter_Of && <p className="error text-red-600">{errors.Son_Wife_Daughter_Of.message}</p>}
                 </> }
 
-                {!corporate && <>
                 <p>Owner Serial Number: </p>
                 <TextField.Root>
                 <TextField.Input { ...register('RC_No', {                
@@ -365,7 +360,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.RC_No && <p className="error text-red-600">{errors.RC_No.message}</p>}
-                </> }
+                
 
                 <p>Chassis Number: </p>
                 <TextField.Root>

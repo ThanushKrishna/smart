@@ -765,6 +765,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       Standing_Capacity:     args.input.Standing_Capacity !== undefined ? args.input.Standing_Capacity: null,
       Hypothecation_bank: args.input.Hypothecation_bank !== undefined ? args.input.Hypothecation_bank: null,
       Hypothecation_city: args.input.Hypothecation_city !== undefined ? args.input.Hypothecation_city: null,
+      Ownership_type: args.input.Ownership_type !== undefined ? args.input.Ownership_type: null,
           }, 
         })  
     return "Updated !"    
@@ -803,8 +804,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
      await context.prisma.user_data.update({
           where: { id: args.input.id },
           data: {                   	                
-            Owner_dob: args.input.Owner_dob !== undefined ? args.input.Owner_dob: null,
-            Ownership_type: args.input.Ownership_type !== undefined ? args.input.Ownership_type: null,
+            Owner_dob: args.input.Owner_dob !== undefined ? args.input.Owner_dob: null,             
             Address: {
               street: args.input.Address.street !== undefined ? args.input.Address.street: null,
               city: args.input.Address.city !== undefined ? args.input.Address.city: null,

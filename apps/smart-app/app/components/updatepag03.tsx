@@ -21,17 +21,18 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
-import { OWNER_TYPE, MARITAL_STATUS, PROSPECT } from '@/json/enums'
+import {  MARITAL_STATUS, PROSPECT } from '@/json/enums'
 import AddressForm from './AddressForm';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 interface iupdatevalue {
     value: String,
-    ispagesubmitted: (res: Boolean) => void
+    ispagesubmitted: (res: Boolean) => void,
+    isCorporateGlobal: Boolean
 }
 
-const Updatepage03: React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
+const Updatepage03: React.FC<iupdatevalue> = ( { value, ispagesubmitted, isCorporateGlobal } ) => {
 
 const router = useRouter();
 const [vehicleno, setVehicleno] = useState<String>(value);
@@ -70,8 +71,7 @@ const onSubmit = async (formValues: AddClientType) => {
 
         const result = {
             id: gusrdatabyid.user_data_byid.id,
-            Owner_dob: new Date(formValues?.Owner_dob)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            Ownership_type: formValues?.Ownership_type || undefined,            
+            Owner_dob: new Date(formValues?.Owner_dob)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,            
             Year_of_manufacuring: new Date(formValues?.Year_of_manufacuring)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             FC_due_Date: new Date(formValues?.FC_due_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             Address: formValues?.Address || undefined,
@@ -142,20 +142,15 @@ const onSubmit = async (formValues: AddClientType) => {
               placeholder="Owner DOB/Date of Incorporation:   "
               selectedDate={gusrdatabyid.user_data_byid.Owner_dob && new Date(gusrdatabyid.user_data_byid?.Owner_dob)}      
             />    
+            { ! isCorporateGlobal && <>
             <DropDownControl 
                 name="Martial_status"
                 control={control}
                 value={gusrdatabyid.user_data_byid?.Martial_status}  
                 placeholder="Marital Status:   "           
                 options={MARITAL_STATUS}              
-            />                 
-            <DropDownControl 
-                name="Ownership_type"
-                control={control}
-                value={gusrdatabyid.user_data_byid?.Ownership_type}  
-                placeholder="Owner Type:   "                                      
-                options={OWNER_TYPE}
             />                        
+            </>}                
             <DatePickerComponent 
               name="Year_of_manufacuring"
               control={control}
@@ -265,7 +260,7 @@ const onSubmit = async (formValues: AddClientType) => {
             />
             </TextField.Root>
             {errors.Email_id && <p className="error text-red-600">{errors.Email_id.message}</p>}
-
+            { ! isCorporateGlobal && <> 
             <p>Aadhar Number: </p>
             <TextField.Root>
             <TextField.Input
@@ -287,6 +282,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder=""                          
                 value={adharfile}                   
             />
+            </>}
             <p>PAN Number: </p>
             <TextField.Root>
             <TextField.Input
@@ -309,6 +305,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder=""                                      
                 value={panfile}                   
             />
+            { ! isCorporateGlobal && <> 
             <p>Nominee Name: </p>
             <TextField.Root>
               <TextField.Input
@@ -355,6 +352,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 placeholder="Nominee DOB: "
                 selectedDate={gusrdatabyid.user_data_byid.Nominee_dob && new Date(gusrdatabyid.user_data_byid?.Nominee_dob)}           
               />    
+            </>}
+
            <p>PUC/Emission Number: </p>
             <TextField.Root>
               <TextField.Input

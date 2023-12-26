@@ -28,17 +28,18 @@ import { DropDownControl }  from '@/app/components/DropDownControl'
 import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { FileUplaod } from '@/app/components/Upload'
-import { FUEL_TYPE } from '@/json/enums'
+import { FUEL_TYPE, OWNER_TYPE } from '@/json/enums'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 
 interface iupdatevalue {
     value: String,
-    ispagesubmitted: (res: Boolean) => void
+    ispagesubmitted: (res: Boolean) => void,
+    isCorporateLocal: (res: Boolean) => void,
 }
 
-const Updatepage01:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
+const Updatepage01:React.FC<iupdatevalue> = ( { value, ispagesubmitted, isCorporateLocal, } ) => {
 
 const [vehicleno, setVehicleno] = useState<String>(value);
 const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
@@ -48,6 +49,7 @@ const [isSubmitted, setisSubmitted] = useState(false);
 const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.Vehicle_Reg_Doc || '');
 const [isLttChecked, setLttChecked] = useState(false);
 const [lttValue, setlttValue] = useState<number | undefined>();
+const [isCorporateUpdate, setCorporateUpdate ] = useState<Boolean>(false);
 const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});    
 
 const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_01);
@@ -96,6 +98,7 @@ const onSubmit = async (formValues: AddClientType) => {
             Engine_No: formValues?.Engine_No || undefined,
 			Make: formValues?.Make || undefined,
             Model: formValues?.Model || undefined,
+            Ownership_type: formValues?.Ownership_type || undefined,            
 			// tax_due_Date: new Date(formValues?.tax_due_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
             tax_due_Date: (isLttChecked ? lttValue : formValues?.tax_due_Date ? new Date(formValues?.tax_due_Date).getTime() + 60 * 60 *1000 * 5.5 : null), 
 			Vehicle_type: formValues?.Vehicle_type || undefined,
@@ -153,6 +156,16 @@ const onSubmit = async (formValues: AddClientType) => {
         value={VehRegDocfile}
         placeholder=""
     />
+
+    <DropDownControl 
+        name="Ownership_type"
+        control={control}
+        value={gusrdatabyid.user_data_byid?.Ownership_type}  
+        placeholder="Owner Type:   "                                      
+        options={OWNER_TYPE}
+        isCorporate={(e:Boolean) => { isCorporateLocal(e); setCorporateUpdate(e)} } 
+    />            
+
     <p>Owner Name: </p>
     <TextField.Root>
         <TextField.Input
@@ -173,6 +186,7 @@ const onSubmit = async (formValues: AddClientType) => {
     {errors.Owner && (
         <p className="error text-red-600">{errors.Owner.message}</p>
     )}
+    {! isCorporateUpdate && <> 
     <p>Son/Wife/Daughter Of: </p>
     <TextField.Root>
         <TextField.Input
@@ -188,13 +202,14 @@ const onSubmit = async (formValues: AddClientType) => {
         })}
         defaultValue={gusrdatabyid.user_data_byid?.Son_Wife_Daughter_Of}
         onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-        />
+        />        
     </TextField.Root>
     {errors.Son_Wife_Daughter_Of && (
         <p className="error text-red-600">
         {errors.Son_Wife_Daughter_Of.message}
         </p>
     )}
+    </>}
     <p>Owner Serial Number: </p>
     <TextField.Root>
         <TextField.Input

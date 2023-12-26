@@ -17,6 +17,7 @@ const UpdateClient:React.FC = () => {
         const [firstpage, setfirstpage ] = useState<Boolean>(false);
         const [secndpage, setsecndpage ] = useState<Boolean>(false);
         const [thirddpage, setthirddpage ] = useState<Boolean>(false);
+        const [isCorporateGlobal, setCorporateGlobal] = useState<Boolean>(false);
 
         const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
             variables: { vechicleId: vehicleno },
@@ -81,9 +82,26 @@ const UpdateClient:React.FC = () => {
 
 
 
-        {gusrdatabyid?.user_data_byid?.Vehicle_No && firstpage && <Updatepage01 value={vehicleno} ispagesubmitted={(e:Boolean) => {setsecndpage(e); setfirstpage(!e)}} /> }
-        {secndpage && <Updatepage02 value={vehicleno} ispagesubmitted={(e:Boolean) => {setthirddpage(e); setsecndpage(!e)}} /> }
-        {thirddpage && <Updatepage03 value={vehicleno} ispagesubmitted={(e:Boolean) => { setthirddpage(!e)} } /> }
+        { gusrdatabyid?.user_data_byid?.Vehicle_No && firstpage && 
+        <Updatepage01 
+        value={vehicleno} 
+        ispagesubmitted={(e:Boolean) => {setsecndpage(e); setfirstpage(!e)}}         
+        isCorporateLocal={(e:Boolean) => {setCorporateGlobal(e)}}
+        />  }
+        {secndpage && 
+        <Updatepage02 
+        value={vehicleno} 
+        ispagesubmitted={(e:Boolean) => {setthirddpage(e); setsecndpage(!e)}} 
+        isCorporateGlobal={isCorporateGlobal}         
+        /> }
+
+
+        {thirddpage && 
+        <Updatepage03 
+        value={vehicleno} 
+        ispagesubmitted={(e:Boolean) => { setthirddpage(!e)} } 
+        isCorporateGlobal={isCorporateGlobal}                
+        /> }
 
     </div>
   )
