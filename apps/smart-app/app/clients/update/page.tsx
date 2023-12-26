@@ -93,7 +93,8 @@ const UpdateClient:React.FC = () => {
         <Updatepage02 
         value={vehicleno} 
         ispagesubmitted={(e:Boolean) => {setthirddpage(e); setsecndpage(!e)}} 
-        isCorporateGlobal={isCorporateGlobal}         
+        isCorporateGlobal={isCorporateGlobal}  
+        back = {(e:Boolean) => {setfirstpage(e); setsecndpage(!e)}}       
         /> }
 
 
@@ -102,6 +103,7 @@ const UpdateClient:React.FC = () => {
         value={vehicleno} 
         ispagesubmitted={(e:Boolean) => { setthirddpage(!e)} } 
         isCorporateGlobal={isCorporateGlobal}                
+        back = {(e:Boolean) => {setsecndpage(e); setthirddpage(!e)}} 
         /> }
 
     </div>

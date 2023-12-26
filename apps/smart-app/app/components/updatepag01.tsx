@@ -147,8 +147,9 @@ const onSubmit = async (formValues: AddClientType) => {
   return (
    <>      
     <form  onSubmit={handleSubmit(onSubmit)}>     
+    <div className='flex flex-col items-center justify-center'> 
 
-        <div className='w-full mb-5'>
+        <div className='w-2/3 mb-5'>
         <Button 
         className='w-full'
         disabled={isSubmitted}
@@ -158,15 +159,15 @@ const onSubmit = async (formValues: AddClientType) => {
         </Button>   
         </div>
 
-        <div className='w-full mt-5 mb-5'>
+        <div className='w-2/3 mb-5'>
         <Button 
         className='w-full'
         disabled={isSubmitted}
         > Save and Next {isSubmitted && <Spinner></Spinner>}
         </Button>  
-        </div>
-    
-    <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' >                            
+        </div>    
+
+    <div className='w-2/3 max-w-md pb-2 text-slate-500 text-base' >                            
     <p>Vehicle Registration Number:</p>
     <TextField.Root>
         <TextField.Input
@@ -405,9 +406,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 options={gHcitydata && gHcitydata.HYPOTHECATION_CITY.map((data:any) => (data.value)) }           
                 onOptionAdd= {async (e: String) => await (addHcity( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
             />  
-        </div>           
+        </div>             
 
-        <div className='w-full mt-5'>
+        <div className='w-2/3 mt-5'>
         <Button 
         className='w-full'
         disabled={isSubmitted}
@@ -415,7 +416,7 @@ const onSubmit = async (formValues: AddClientType) => {
         </Button>  
         </div>
 
-        <div className='w-full mb-5 mt-5'>
+        <div className='w-2/3 mb-5 mt-5'>
         <Button 
         className='w-full'
         disabled={isSubmitted}
@@ -424,7 +425,8 @@ const onSubmit = async (formValues: AddClientType) => {
         Save and Submit {isSubmitted && <Spinner></Spinner>}
         </Button>   
         </div>
-           
+
+    </div>
     </form>    
     </> 
   )

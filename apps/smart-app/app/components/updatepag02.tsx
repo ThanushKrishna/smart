@@ -30,9 +30,10 @@ interface iupdatevalue {
     value: String,
     ispagesubmitted: (res: Boolean) => void
     isCorporateGlobal: Boolean
+    back: (res:Boolean) => void
 }
 
-const Updatepage02:React.FC<iupdatevalue> = ( { value, ispagesubmitted } ) => {
+const Updatepage02:React.FC<iupdatevalue> = ( { value, ispagesubmitted, back } ) => {
 
     const router = useRouter();
     const [vehicleno, setVehicleno] = useState<String>(value);
@@ -44,6 +45,7 @@ const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(gusrdataby
 const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.TP_Policy_Doc || '');
 const [isPolicyChecked, setPolicyChecked] = useState(false);
 const [isFinalSubmit, setFinalSubmit] = useState<Boolean>(false);
+const [isBack, setBack] = useState(false);
 
 const handlePolicyCheckBox = (event: any) => {
     setPolicyChecked(event.target.checked);
@@ -124,8 +126,9 @@ const onSubmit = async (formValues: AddClientType) => {
 return (
     <>      
      <form  onSubmit={handleSubmit(onSubmit)}>     
+     <div className='flex flex-col items-center justify-center'> 
  
-         <div className='w-full mb-5'>
+         <div className='w-2/3 mb-5'>
          <Button 
          className='w-full'
          disabled={isSubmitted}
@@ -135,15 +138,25 @@ return (
          </Button>   
          </div>
  
-         <div className='w-full mt-5 mb-5'>
+         <div className='w-2/3 mb-5'>
          <Button 
          className='w-full'
          disabled={isSubmitted}
          > Save and Next {isSubmitted && <Spinner></Spinner>}
          </Button>  
-         </div>
-     
-     <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' >                            
+         </div>    
+
+         <div className='w-2/3 mb-5'>
+         <Button 
+         type="button"
+         className='w-full'
+         disabled={isBack}
+         onClick={() => {back(true); setBack(true)}}
+         >Back {isBack && <Spinner></Spinner>}
+         </Button>  
+         </div>    
+ 
+     <div className='w-2/3 max-w-md pb-2 text-slate-500 text-base' >                        
      <p>Vehicle Registration Number:</p>
             <TextField.Root >
             <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
@@ -345,28 +358,39 @@ return (
                 defaultValue={gusrdatabyid.user_data_byid?.Sleeper_Capacity}
             />
             </TextField.Root>
-            {errors.Sleeper_Capacity && <p className="error text-red-600">{errors.Sleeper_Capacity.message}</p>}    
-            
-            </div>                   
-                <div className='w-full mt-5'>
-                <Button 
-                className='w-full'
-                disabled={isSubmitted}
-                > Save and Next {isSubmitted && <Spinner></Spinner>}
-                </Button>  
-                </div>
+            {errors.Sleeper_Capacity && <p className="error text-red-600">{errors.Sleeper_Capacity.message}</p>}                
 
-                <div className='w-full mb-5 mt-5'>
-                <Button 
-                className='w-full'
-                disabled={isSubmitted}
-                onClick={() => {setFinalSubmit(true)}}
-                > 
-                Save and Submit {isSubmitted && <Spinner></Spinner>}
-                </Button>   
-                </div>
+            </div>  
 
+        <div className='w-2/3 mt-5'>
+         <Button 
+         type="button"
+         className='w-full'
+         disabled={isBack}
+         onClick={() => {back(true); setBack(true)}}
+         >Back {isBack && <Spinner></Spinner>}
+         </Button>  
+         </div>    
 
+            <div className='w-2/3 mt-5'>
+            <Button 
+            className='w-full'
+            disabled={isSubmitted}
+            > Save and Next {isSubmitted && <Spinner></Spinner>}
+            </Button>  
+            </div>
+
+            <div className='w-2/3 mb-5 mt-5'>
+            <Button 
+            className='w-full'
+            disabled={isSubmitted}
+            onClick={() => {setFinalSubmit(true)}}
+            > 
+            Save and Submit {isSubmitted && <Spinner></Spinner>}
+            </Button>   
+            </div>
+
+        </div>
      </form>    
     </> 
     )

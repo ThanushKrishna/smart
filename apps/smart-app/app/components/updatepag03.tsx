@@ -30,9 +30,10 @@ interface iupdatevalue {
     value: String,
     ispagesubmitted: (res: Boolean) => void,
     isCorporateGlobal: Boolean
+    back: (res:Boolean) => void
 }
 
-const Updatepage03: React.FC<iupdatevalue> = ( { value, ispagesubmitted, isCorporateGlobal } ) => {
+const Updatepage03: React.FC<iupdatevalue> = ( { value, ispagesubmitted, isCorporateGlobal, back } ) => {
 
 const router = useRouter();
 const [vehicleno, setVehicleno] = useState<String>(value);
@@ -44,6 +45,7 @@ const [panfile, setpanfile] = useState<string | null>(gusrdatabyid.user_data_byi
 const [adharfile, setadharfile] = useState<string | null>(gusrdatabyid.user_data_byid?.Adhar_doc || '');
 const [GstCerfile, setGstCerfile] = useState<string | null>(gusrdatabyid.user_data_byid?.GST_Cer_Doc || '');
 const [isAddressChecked, setAddressChecked] = useState(false);
+const [isBack, setBack] = useState(false);
 
 
 const handleAddressCheckBox = (event: any) => {
@@ -128,20 +130,31 @@ const onSubmit = async (formValues: AddClientType) => {
     }   
 
 }
-  return (
-   <>    
+return (
+  <>      
+      <form  onSubmit={handleSubmit(onSubmit)}>     
 
-    <form onSubmit={handleSubmit(onSubmit)}>                                         
- 
-         <div className='w-full mt-5 mb-5'>
+      <div className='flex flex-col items-center justify-center'>           
+
+          <div className='w-2/3 mb-5'>
+          <Button 
+          className='w-full'
+          disabled={isSubmitted}
+          > Update {isSubmitted && <Spinner></Spinner>}
+          </Button>  
+          </div>    
+          
+        <div className='w-2/3 mb-5'>
          <Button 
+         type="button"
          className='w-full'
-         disabled={isSubmitted}
-         > Update {isSubmitted && <Spinner></Spinner>}
+         disabled={isBack}
+         onClick={() => {back(true); setBack(true)}}
+         >Back {isBack && <Spinner></Spinner>}
          </Button>  
-         </div>
-     
-     <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base' > 
+         </div>    
+
+   <div className='w-2/3 max-w-md pb-2 text-slate-500 text-base' >   
         <p>Vehicle Registration Number:</p>
             <TextField.Root >
             <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
@@ -483,14 +496,26 @@ const onSubmit = async (formValues: AddClientType) => {
             />
             </div>    
 
+            <div className='w-2/3 mt-5'>
+            <Button 
+            type="button"
+            className='w-full'
+            disabled={isBack}
+            onClick={() => {back(true); setBack(true)}}
+            >Back {isBack && <Spinner></Spinner>}
+            </Button>  
+            </div>    
 
-            <div className='w-full mt-5'>
+
+            <div className='w-2/3 mt-5'>
             <Button 
             className='w-full'
             disabled={isSubmitted}
             > Update {isSubmitted && <Spinner></Spinner>}
             </Button>  
             </div>
+      
+      </div>
   </form>    
   </> 
   )
