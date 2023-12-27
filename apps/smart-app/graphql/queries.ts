@@ -96,6 +96,17 @@ export const GET_MAKE = gql`
           }
 }
 `;
+
+export const GET_MAKE_BY_VALUE = gql`
+    query MAKE_BY_VALUE($input: String!) {
+      MAKE_BY_VALUE(input: $input) {
+        id
+        data_owner_id
+        value
+  }
+}
+`;
+
 export const GET_MODEL = gql`
     query model{
               MODEL {
@@ -406,13 +417,6 @@ export const UPDATE_MAKE = gql`
 }
 `;
 
-
-export const DELETE_CLIENT_BYID = gql` 
-    mutation DeleteUserData($vehicleid: String!) {
-      deleteUserData(vehicleid: $vehicleid)
-    }
-`;
-
 export const ADD_VEHICLE_COLORS = gql` 
     mutation CreateVehicleColor($input: DDinput!) {
       createVehicleColor(input: $input) {
@@ -585,4 +589,23 @@ export const TEST_ADD_CLIENT = gql`
   testaddclient(data_owner_id: $dataOwnerId, Vehicle_No: $vehicleNo, RC_No: $rcNo)
 }
 
+`;
+
+
+
+
+
+
+export const DELETE_CLIENT_BYID = gql` 
+    mutation DeleteUserData($vehicleid: String!) {
+      deleteUserData(vehicleid: $vehicleid)
+    }
+`;
+
+
+
+export const DELETE_MAKEDATA = gql` 
+    mutation DeleteMakeData($id: ID!) {
+      deleteMakeData(id: $id)
+}
 `;

@@ -292,6 +292,7 @@ type Query {
     VEHICE_NORMS: [VEHICE_NORMS]
     CC: [CC]
     MAKE: [MAKE]
+    MAKE_BY_VALUE(input: String!): [MAKE]
     MODEL: [MODEL]
     INSURANCE_PROVIDER: [INSURANCE_PROVIDER]
     PERMIT_CATEGORY: [PERMIT_CATEGORY]
@@ -739,6 +740,7 @@ input DDUpdateInput {
     
     deleteAppuser(id: ID!): String    
     deleteUserData(vehicleid: String!): String
+    deleteMakeData(id: ID!): String
   }
 
 `;

@@ -152,6 +152,26 @@ export const resolvers = {
       }
     },
 
+    MAKE_BY_VALUE : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.mAKE.findMany({
+          where: {          
+            value: args.input
+            ? {
+              contains: args.input,
+            }
+            : undefined, // If searchValue is falsy, don't apply any search condition
+        },
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+        },
+      })
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
 	MODEL : async (parent: any, args: any, context: Context) => {      
       try{
         return await context.prisma.mODEL.findMany({
@@ -538,16 +558,6 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       
     },
 
-    deleteAppuser: async (parent: any, args: any, context: Context) => {
-      console.log("this is deleteAppuser block");      
-      await context.prisma.app_user.delete({
-        where: { userid: args.id },        
-      })
-      
-      return "App User Deleted Successfully!"
-      
-    },
-
     createUserData: async (parent: any, args: any, context: Context) => {
       console.log("this is CreateUserData block");    
       try{        
@@ -860,6 +870,18 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   return "Updated !!"
   },
 
+
+
+  deleteAppuser: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteAppuser block");      
+    await context.prisma.app_user.delete({
+      where: { userid: args.id },        
+    })
+    
+    return "App User Deleted Successfully!"
+    
+  },
+
   deleteUserData: async (parent: any, args: any, context: Context) => {
     console.log("this is deleteAppuser block");    
     await context.prisma.user_data.delete({
@@ -867,7 +889,16 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     })
     return "UserData Deleted Successfully!"
     
-  }
+  },
+
+  deleteMakeData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteMakeData block");    
+    await context.prisma.mAKE.delete({
+      where: { id: args.id },      
+    })
+    return "MakeData Deleted Successfully!"    
+  },
+
 
   }
 };
