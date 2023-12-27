@@ -1,21 +1,9 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  IconButton,
-  TextField,
-  Button,
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { UPDATE_MAKE, DELETE_MAKEDATA, ADD_MAKE, GET_MAKE_BY_VALUE } from '@/graphql/queries'
+import React, { useState } from 'react';
+import { styled, useTheme } from '@mui/system'; // Use the newer styled from @mui/system
+import {List, ListItem, ListItemText, Paper,} from '@mui/material';
+import MasterComponent from '@/app/components/MasterComponent';
+import {ADD_MAKE, UPDATE_MAKE, DELETE_MAKEDATA, GET_MAKE_BY_VALUE } from '@/graphql/queries';
 import {ADD_VEHICLE_COLORS,UPDATE_VEHICLE_COLOR,DELETE_VEHICLE_COLOR_DATA,GET_VEHICLE_COLOR_BY_VALUE,} from '@/graphql/queries';
 import {ADD_VEHICE_NORMS,UPDATE_VEHICLE_NORMS,DELETE_VEHICLE_NORMS_DATA,GET_VEHICLE_NORMS_BY_VALUE,} from '@/graphql/queries';
 import {ADD_CC,UPDATE_CC,DELETE_CC_DATA,GET_CC_BY_VALUE,} from '@/graphql/queries';
@@ -31,250 +19,66 @@ import {ADD_STANDING_CAPACITY,UPDATE_STANDING_CAPACITY,DELETE_STANDING_CAPACITY_
 import {ADD_RTO,UPDATE_RTO,DELETE_RTO_DATA,GET_RTO_BY_VALUE,} from '@/graphql/queries';
 import {ADD_HYPOTHECATION_BANK,UPDATE_HYPOTHECATION_BANK,DELETE_HYPOTHECATION_BANK_DATA,GET_HYPOTHECATION_BANK_BY_VALUE,} from '@/graphql/queries';
 import {ADD_HYPOTHECATION_CITY,UPDATE_HYPOTHECATION_CITY,DELETE_HYPOTHECATION_CITY_DATA,GET_HYPOTHECATION_CITY_BY_VALUE,} from '@/graphql/queries';
-import DeleteConfirmationDialog from '@/app/components/DeleteConfirmationDialog';
 
+const RootContainer = styled('div')(({ theme }) => ({
+  display: 'flex',
+  margin: theme.spacing(2), // Access the spacing function from the theme
+}));
 
-interface iDDValues {
-  id: string;
-  value: string;
-}
+const ListContainer = styled(Paper)(({ theme }) => ({
+  width: '200px',
+  marginRight: theme.spacing(2),
+}));
 
-const MasterTable: React.FC = () => {
+const ContentContainer = styled(Paper)(({ theme }) => ({
+  flex: 1,
+  padding: theme.spacing(2),
+  border: '1px solid #ccc',
+}));
 
- 
-  
+const entities = [
+  { name: 'MAKE', queries: { getAll: GET_MAKE_BY_VALUE, add: ADD_MAKE, update: UPDATE_MAKE, delete: DELETE_MAKEDATA } },
+  { name: 'MODEL', queries: { getAll: GET_MODEL_BY_VALUE, add: ADD_MODEL, update: UPDATE_MODEL, delete: DELETE_MODEL_DATA } },
+  { name: 'VEHICLE_COLOR', queries: { getAll: GET_VEHICLE_COLOR_BY_VALUE, add: ADD_VEHICLE_COLORS, update: UPDATE_VEHICLE_COLOR, delete: DELETE_VEHICLE_COLOR_DATA } },
+  { name: 'VEHICLE_NORMS', queries: { getAll: GET_VEHICLE_NORMS_BY_VALUE, add: ADD_VEHICE_NORMS, update: UPDATE_VEHICLE_NORMS, delete: DELETE_VEHICLE_NORMS_DATA } },
+  { name: 'CC', queries: { getAll: GET_CC_BY_VALUE, add: ADD_CC, update: UPDATE_CC, delete: DELETE_CC_DATA } },
+  { name: 'INSURANCE_PROVIDER', queries: { getAll: GET_INSURANCE_PROVIDER_BY_VALUE, add: ADD_INSURANCE_PROVIDER, update: UPDATE_INSURANCE_PROVIDER, delete: DELETE_INSURANCE_PROVIDER_DATA } },
+  { name: 'PERMIT_CATEGORY', queries: { getAll: GET_PERMIT_CATEGORY_BY_VALUE, add: ADD_PERMIT_CATEGORY, update: UPDATE_PERMIT_CATEGORY, delete: DELETE_PERMIT_CATEGORY_DATA } },
+  { name: 'TP_INSURANCE_PROVIDER', queries: { getAll: GET_TP_INSURANCE_PROVIDER_BY_VALUE, add: ADD_TP_INSURANCE_PROVIDER, update: UPDATE_TP_INSURANCE_PROVIDER, delete: DELETE_TP_INSURANCE_PROVIDER_DATA } },
+  { name: 'VEHICLE_CLASS', queries: { getAll: GET_VEHICLE_CLASS_BY_VALUE, add: ADD_VEHICLE_CLASS, update: UPDATE_VEHICLE_CLASS, delete: DELETE_VEHICLE_CLASS_DATA } },
+  { name: 'CUSTOMER_TYPE', queries: { getAll: GET_CUSTOMER_TYPE_BY_VALUE, add: ADD_CUSTOMER_TYPE, update: UPDATE_CUSTOMER_TYPE, delete: DELETE_CUSTOMER_TYPE_DATA } },
+  { name: 'VEHICLE_DESCRIPTION', queries: { getAll: GET_VEHICLE_DESCRIPTION_BY_VALUE, add: ADD_VEHICLE_DESCRIPTION, update: UPDATE_VEHICLE_DESCRIPTION, delete: DELETE_VEHICLE_DESCRIPTION_DATA } },
+  { name: 'SEATING_CAPACITY', queries: { getAll: GET_SEATING_CAPACITY_BY_VALUE, add: ADD_SEATING_CAPACITY, update: UPDATE_SEATING_CAPACITY, delete: DELETE_SEATING_CAPACITY_DATA } },
+  { name: 'STANDING_CAPACITY', queries: { getAll: GET_STANDING_CAPACITY_BY_VALUE, add: ADD_STANDING_CAPACITY, update: UPDATE_STANDING_CAPACITY, delete: DELETE_STANDING_CAPACITY_DATA } },
+  { name: 'RTO', queries: { getAll: GET_RTO_BY_VALUE, add: ADD_RTO, update: UPDATE_RTO, delete: DELETE_RTO_DATA } },
+  { name: 'HYPOTHECATION_BANK', queries: { getAll: GET_HYPOTHECATION_BANK_BY_VALUE, add: ADD_HYPOTHECATION_BANK, update: UPDATE_HYPOTHECATION_BANK, delete: DELETE_HYPOTHECATION_BANK_DATA } },
+  { name: 'HYPOTHECATION_CITY', queries: { getAll: GET_HYPOTHECATION_CITY_BY_VALUE, add: ADD_HYPOTHECATION_CITY, update: UPDATE_HYPOTHECATION_CITY, delete: DELETE_HYPOTHECATION_CITY_DATA } },
+];
 
-  const [editableRows, setEditableRows] = useState<string[]>([]);
-  const [editedValues, setEditedValues] = useState<Record<string, string>>({});
-  const [deleteItemId, setDeleteItemId] = useState<string | null>(null);
-  const [newValue, setNewValue] = useState<string>('');
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const[isSearching, setisSearching] = useState<Boolean>(false);
-  
+function Master() {
+  const theme = useTheme();
+  const [selectedEntity, setSelectedEntity] = useState(entities[0]); // Default to the first entity
 
-  const { loading: gmakedataLoad, error: gmakedataError, data: gmakedata, refetch  } = useQuery(GET_MAKE_BY_VALUE, {
-    variables: {
-      input: searchTerm,
-      },
-  });
-
-  const[addMake, { data:makedata} ] = useMutation(ADD_MAKE);
-  const [updateMake, { data: updateMakedata, error: updateMakeerror }] = useMutation(UPDATE_MAKE);
-  const [deleteMakeData, { loading: deleteMakeDataLoad, error: deleteMakeDataError }] = useMutation(DELETE_MAKEDATA);
-
-  const handleEdit = (id: string) => {
-    setEditableRows((prevEditableRows) => {
-      if (prevEditableRows.includes(id)) {
-        return prevEditableRows.filter((rowId) => rowId !== id);
-      } else {
-        return [...prevEditableRows, id];
-      }
-    });
+  const handleEntityClick = (entity: any) => {
+    setSelectedEntity(entity);
   };
-
-  const handleDelete = (id: string) => {
-    setDeleteItemId(id);
-  };
-
-  const handleDeleteConfirm  = async (id: string) => {
-    try {
-      await deleteMakeData({
-        variables: {
-          id: id,
-        },
-        refetchQueries: [{ query: GET_MAKE_BY_VALUE, variables: { input: searchTerm } }],
-      });
-    } catch (error) {
-      console.error('Error deleting data:', error);
-    }
-  };
-
-
-  const handleValueChange = (id: string, newValue: string) => {
-    setEditedValues((prevEditedValues) => {
-      const updatedValues = { ...prevEditedValues };
-  
-      // Update the value only if it's different from the original value
-      if (newValue !== editedValues[id]) {
-        updatedValues[id] = newValue;
-      } else {
-        // If it's the same as the original value, remove it from the edited values
-        delete updatedValues[id];
-      }
-  
-      return updatedValues;
-    });
-  };
-
-
-  const handleSubmit = async (id: string) => {
-    try {
-      const updatedValue = editedValues[id];      
-
-      if(updatedValue == undefined) return;
-
-      // Call the update mutation
-      await updateMake({
-        variables: {
-          input: {
-            id,
-            value: updatedValue
-          },
-        },
-        refetchQueries: [{ query: GET_MAKE_BY_VALUE, variables: { input: searchTerm } }], // Refetch the data after mutation for updated results
-      });
-
-      // Reset editable state for the row
-      handleEdit(id);
-    } catch (error) {
-      console.error('Error updating data:', error);
-    }
-  };
-
-
-  const handleAddRecord = async () => {
-    try {
-      await addMake({
-        variables: {
-          input: {
-            data_owner_id: '6562047e649b76ef6a583b8d', // Replace with your actual data_owner_id
-            value: newValue,
-          },
-        },
-        refetchQueries: [{ query: GET_MAKE_BY_VALUE, variables: { input: searchTerm } }],
-      });
-
-      // Clear the input after adding a record
-      setNewValue('');
-    } catch (error) {
-      console.error('Error adding record:', error);
-    }
-  };
-
-
-  
-
-  if (gmakedataLoad && !isSearching) {
-    // Optional: Show a loading indicator or skeleton while data is being fetched
-    return <p>Loading...</p>;
-  }
-
-
-  if (gmakedataError ||  updateMakeerror || deleteMakeDataError) {
-    return <p>Error fetching data</p> || <p> {gmakedataError && gmakedataError.message }</p> || <p> {updateMakeerror && updateMakeerror.message }</p> || <p> {deleteMakeDataError && deleteMakeDataError.message }</p>  
-  }
-
-  //console.log(gmakedata?.MAKE_BY_VALUE)
-  const tableData: iDDValues[] = gmakedata?.MAKE_BY_VALUE || [];
-  
 
   return (
-    <>
-    <div >
-     <TextField
-        label="Search by Value"
-        variant="outlined"
-        value={searchTerm}
-        onChange={(e) => { setSearchTerm(e.target.value); setisSearching(true) }}
-        onBlur={() => setisSearching(false)  }
-        style={{ marginBottom: '16px' ,width: '100%', maxWidth: '400px' }}
-      />   
-      </div>   
-
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>SL No</TableCell>
-            <TableCell>Value</TableCell>
-            <TableCell>Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>          
-        <TableRow>
-              <TableCell></TableCell>
-              <TableCell>
-                <TextField
-                  label="New Value"
-                  variant="standard"
-                  value={newValue}
-                  onChange={(e) => setNewValue(e.target.value.toUpperCase())}
-                  style={{ width: '100%' }}
-                  InputProps={{
-                    disableUnderline: false
-                  }}
-                />
-              </TableCell>
-              <TableCell>
-                <Button variant="contained" color="primary" onClick={handleAddRecord}>
-                  Add Record
-                </Button>
-              </TableCell>
-            </TableRow>
-          {tableData && tableData.map((row: iDDValues, index:number) => (
-            <TableRow key={row.id}>
-              <TableCell>{index+1}</TableCell>
-              <TableCell>
-                {editableRows.includes(row.id) ? (
-                  <TextField
-                    defaultValue={row.value}
-                    variant="standard" 
-                    onChange={(e) => {
-                      const newValue = e.target.value !== null ? e.target.value : row.value;                      
-                      if (newValue !== row.value) {
-                        handleValueChange(row.id, newValue);
-                      }
-                    }}
-                    style={{ width: '100%' }}                    
-                    InputProps={{
-                      disableUnderline: false, 
-                    }}
-                  />
-                ) : (
-                  row.value
-                )}
-              </TableCell>
-              <TableCell>
-                {editableRows.includes(row.id) ? (
-                  <>
-                  <Button variant="contained" color="primary" onClick={() => handleSubmit(row.id)}>
-                    Save
-                  </Button>                  
-                  <Button variant="contained" 
-                  color="primary" 
-                  onClick={() => handleEdit(row.id)}
-                  style={{marginLeft: 2}}                
-                  >
-                    Cancel
-                  </Button>
-
-                  </>
-                ) : (
-                  <>
-                    <IconButton onClick={() => handleEdit(row.id)} aria-label="Edit">
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton onClick={() => handleDelete(row.id)} aria-label="Delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </>
-                )}
-              </TableCell>
-            </TableRow>
+    <RootContainer>
+      <ListContainer>
+        <List>
+          {entities.map((entity) => (
+            <ListItem button key={entity.name} selected={selectedEntity.name === entity.name} onClick={() => handleEntityClick(entity)}>
+              <ListItemText primary={entity.name} />
+            </ListItem>
           ))}
-        </TableBody>
-      </Table>
-    </TableContainer>    
-
-        <DeleteConfirmationDialog
-          open={!!deleteItemId}
-          onClose={() => setDeleteItemId(null)}
-          onConfirm={() => handleDeleteConfirm(deleteItemId ?? '')} // Use '' as default value
-          itemName={tableData.find((row) => row.id === deleteItemId)?.value || ''}
-        />
-
-    </>
+        </List>
+      </ListContainer>
+      <ContentContainer>
+        <MasterComponent entityName={selectedEntity.name} queries={selectedEntity.queries} />
+      </ContentContainer>
+    </RootContainer>
   );
-};
+}
 
-export default MasterTable;
+export default Master;
