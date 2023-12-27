@@ -847,7 +847,18 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           }, 
         })   
       return "Updated !"     
-  },	    
+  },	   
+  
+  updateMake: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateMake block");    
+    await context.prisma.mAKE.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,              
+      },
+    })      
+  return "Updated !!"
+  },
 
   deleteUserData: async (parent: any, args: any, context: Context) => {
     console.log("this is deleteAppuser block");    

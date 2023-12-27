@@ -400,6 +400,13 @@ export const UPDATE_CLIENT_03 = gql`
     }
 `;
 
+export const UPDATE_MAKE = gql` 
+    mutation UpdateMake($input: DDUpdateInput!) {
+      updateMake(input: $input)
+}
+`;
+
+
 export const DELETE_CLIENT_BYID = gql` 
     mutation DeleteUserData($vehicleid: String!) {
       deleteUserData(vehicleid: $vehicleid)

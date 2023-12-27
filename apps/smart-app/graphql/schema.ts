@@ -700,6 +700,11 @@ input DDinput {
   value:                 String!
 }
 
+input DDUpdateInput {
+  id:                    String!    
+  value:                 String!
+}
+
 
 
   type Mutation{
@@ -722,15 +727,18 @@ input DDinput {
     createDeletedBlobs(input: DDinput!): DELETED_BLOBS
     createUserData(input: createUserDataInput!): createUserDataOutput
     testaddclient(data_owner_id: String!, Vehicle_No: String!, RC_No: String ): String
-    deleteUserData(vehicleid: String!): String
+    CreateAppuser(input: CreateAppuserInput!): CreateAppuserOutput
+
+
     updateUserData(input: updateUserDataInput!): updateUserDataOutput
     updateUserData1(input: updateUserDataInput1!): String
     updateUserData2(input: updateUserDataInput2!): String
     updateUserData3(input: updateUserDataInput3!): String
-    CreateAppuser(input: CreateAppuserInput!): CreateAppuserOutput
     replaceAppuser(id: ID!, input: replaceAppuserInput!): replaceAppuserOutput
-    deleteAppuser(id: ID!): String    
+    updateMake(input: DDUpdateInput!): String
     
+    deleteAppuser(id: ID!): String    
+    deleteUserData(vehicleid: String!): String
   }
 
 `;
