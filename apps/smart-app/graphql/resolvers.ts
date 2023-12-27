@@ -151,26 +151,7 @@ export const resolvers = {
           console.log(err);
       }
     },
-
-    MAKE_BY_VALUE : async (parent: any, args: any, context: Context) => {      
-      try{
-        return await context.prisma.mAKE.findMany({
-          where: {          
-            value: args.input
-            ? {
-              contains: args.input,
-            }
-            : undefined, // If searchValue is falsy, don't apply any search condition
-        },
-          orderBy: {            
-            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
-        },
-      })
-      }
-      catch(err){
-          console.log(err);
-      }
-    },
+   
 
 	MODEL : async (parent: any, args: any, context: Context) => {      
       try{
@@ -340,6 +321,316 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           console.log(err);
       }
     },
+
+    MAKE_BY_VALUE : async (parent: any, args: any, context: Context) => {      
+      try{
+        return await context.prisma.mAKE.findMany({
+          where: {          
+            value: args.input
+            ? {
+              contains: args.input,
+              mode: 'insensitive',
+            }
+            : undefined, // If searchValue is falsy, don't apply any search condition
+        },
+          orderBy: {            
+            value: 'asc', // 'asc' for ascending order, 'desc' for descending order
+        },
+      })
+      }
+      catch(err){
+          console.log(err);
+      }
+    },
+
+    VEHICLE_COLOR_BY_VALUE: async (parent: any, args: any, context: Context) => {      
+      try {
+        return await context.prisma.vEHICLE_COLOR.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    VEHICLE_NORMS_BY_VALUE: async (parent: any, args: any, context: Context) => {      
+      try {
+        return await context.prisma.vEHICE_NORMS.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },  
+	
+	
+	CC_BY_VALUE: async (parent: any, args: any, context: Context) => {      
+      try {
+        return await context.prisma.cC.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    MODEL_BY_VALUE: async (parent: any, args: any, context: Context) => {      
+      try {
+        return await context.prisma.mODEL.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    INSURANCE_PROVIDER_BY_VALUE: async (parent: any, args: any, context: Context) => {      
+      try {
+        return await context.prisma.iNSURANCE_PROVIDER.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    PERMIT_CATEGORY_BY_VALUE: async (parent: any, args: any, context: Context) => {      
+      try {
+        return await context.prisma.pERMIT_CATEGORY.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    TP_INSURANCE_PROVIDER_BY_VALUE: async (parent: any, args: any, context: Context) => {      
+      try {
+        return await context.prisma.tP_INSURANCE_PROVIDER.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    VEHICLE_CLASS_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.vEHICLE_CLASS.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    CUSTOMER_TYPE_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.cUSTOMER_TYPE.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    VEHICLE_DESCRIPTION_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.vEHICLE_DESCRIPTION.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    SEATING_CAPACITY_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.sEATING_CAPACITY.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    STANDING_CAPACITY_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.sTANDING_CAPACITY.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    RTO_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.rTO.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    HYPOTHECATION_BANK_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.hYPOTHECATION_BANK.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    HYPOTHECATION_CITY_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.hYPOTHECATION_CITY.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },    
 
   },
 
@@ -870,6 +1161,157 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   return "Updated !!"
   },
 
+  updateVehicleColor: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateVehicleColor block");
+    await context.prisma.vEHICLE_COLOR.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateVehicleNorms: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateVehicleNorms block");
+    await context.prisma.vEHICE_NORMS.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateCC: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateCC block");
+    await context.prisma.cC.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateModel: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateModel block");
+    await context.prisma.mODEL.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateInsuranceProvider: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateInsuranceProvider block");
+    await context.prisma.iNSURANCE_PROVIDER.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updatePermitCategory: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdatePermitCategory block");
+    await context.prisma.pERMIT_CATEGORY.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateTpInsuranceProvider: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateTpInsuranceProvider block");
+    await context.prisma.tP_INSURANCE_PROVIDER.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateVehicleClass: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateVehicleClass block");
+    await context.prisma.vEHICLE_CLASS.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateCustomerType: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateCustomerType block");
+    await context.prisma.cUSTOMER_TYPE.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateVehicleDescription: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateVehicleDescription block");
+    await context.prisma.vEHICLE_DESCRIPTION.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateSeatingCapacity: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateSeatingCapacity block");
+    await context.prisma.sEATING_CAPACITY.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateStandingCapacity: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateStandingCapacity block");
+    await context.prisma.sTANDING_CAPACITY.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateRTO: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateRTO block");
+    await context.prisma.rTO.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateHypothecationBank: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateHypothecationBank block");
+    await context.prisma.hYPOTHECATION_BANK.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateHypothecationCity: async (parent: any, args: any, context: Context) => {
+    console.log("this is UpdateHypothecationCity block");
+    await context.prisma.hYPOTHECATION_CITY.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+
 
 
   deleteAppuser: async (parent: any, args: any, context: Context) => {
@@ -897,6 +1339,111 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       where: { id: args.id },      
     })
     return "MakeData Deleted Successfully!"    
+  },
+  deleteVehicleColorData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteVehicleColorData block");
+    await context.prisma.vEHICLE_COLOR.delete({
+      where: { id: args.id },
+    });
+    return "VehicleColorData Deleted Successfully!";
+  },
+  deleteVehicleNormsData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteVehicleNormsData block");
+    await context.prisma.vEHICE_NORMS.delete({
+      where: { id: args.id },
+    });
+    return "VehicleNormsData Deleted Successfully!";
+  },
+  deleteCCData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteCCData block");
+    await context.prisma.cC.delete({
+      where: { id: args.id },
+    });
+    return "CCData Deleted Successfully!";
+  },
+  deleteModelData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteModelData block");
+    await context.prisma.mODEL.delete({
+      where: { id: args.id },
+    });
+    return "ModelData Deleted Successfully!";
+  },
+  deleteInsuranceProviderData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteInsuranceProviderData block");
+    await context.prisma.iNSURANCE_PROVIDER.delete({
+      where: { id: args.id },
+    });
+    return "InsuranceProviderData Deleted Successfully!";
+  },
+  deletePermitCategoryData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deletePermitCategoryData block");
+    await context.prisma.pERMIT_CATEGORY.delete({
+      where: { id: args.id },
+    });
+    return "PermitCategoryData Deleted Successfully!";
+  },
+  deleteTpInsuranceProviderData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteTpInsuranceProviderData block");
+    await context.prisma.tP_INSURANCE_PROVIDER.delete({
+      where: { id: args.id },
+    });
+    return "TpInsuranceProviderData Deleted Successfully!";
+  },
+  deleteVehicleClassData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteVehicleClassData block");
+    await context.prisma.vEHICLE_CLASS.delete({
+      where: { id: args.id },
+    });
+    return "VehicleClassData Deleted Successfully!";
+  },
+  deleteCustomerTypeData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteCustomerTypeData block");
+    await context.prisma.cUSTOMER_TYPE.delete({
+      where: { id: args.id },
+    });
+    return "CustomerTypeData Deleted Successfully!";
+  },
+  deleteVehicleDescriptionData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteVehicleDescriptionData block");
+    await context.prisma.vEHICLE_DESCRIPTION.delete({
+      where: { id: args.id },
+    });
+    return "VehicleDescriptionData Deleted Successfully!";
+  },
+  deleteSeatingCapacityData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteSeatingCapacityData block");
+    await context.prisma.sEATING_CAPACITY.delete({
+      where: { id: args.id },
+    });
+    return "SeatingCapacityData Deleted Successfully!";
+  },
+  deleteStandingCapacityData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteStandingCapacityData block");
+    await context.prisma.sTANDING_CAPACITY.delete({
+      where: { id: args.id },
+    });
+    return "StandingCapacityData Deleted Successfully!";
+  },
+  deleteRTOData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteRTOData block");
+    await context.prisma.rTO.delete({
+      where: { id: args.id },
+    });
+    return "RTOData Deleted Successfully!";
+  },
+  deleteHypothecationBankData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteHypothecationBankData block");
+    await context.prisma.hYPOTHECATION_BANK.delete({
+      where: { id: args.id },
+    });
+    return "HypothecationBankData Deleted Successfully!";
+  },
+  deleteHypothecationCityData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteHypothecationCityData block");
+    await context.prisma.hYPOTHECATION_CITY.delete({
+      where: { id: args.id },
+    });
+    return "HypothecationCityData Deleted Successfully!";
   },
 
 

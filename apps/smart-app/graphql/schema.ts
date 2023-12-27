@@ -291,8 +291,7 @@ type Query {
     VEHICLE_COLOR: [VEHICLE_COLOR]
     VEHICE_NORMS: [VEHICE_NORMS]
     CC: [CC]
-    MAKE: [MAKE]
-    MAKE_BY_VALUE(input: String!): [MAKE]
+    MAKE: [MAKE]    
     MODEL: [MODEL]
     INSURANCE_PROVIDER: [INSURANCE_PROVIDER]
     PERMIT_CATEGORY: [PERMIT_CATEGORY]
@@ -306,6 +305,23 @@ type Query {
     HYPOTHECATION_CITY: [HYPOTHECATION_CITY]
     HYPOTHECATION_BANK: [HYPOTHECATION_BANK]
     DELETED_BLOBS: [DELETED_BLOBS]
+
+    MAKE_BY_VALUE(input: String!): [MAKE]
+    VEHICLE_COLOR_BY_VALUE(input: String!): [VEHICLE_COLOR]
+    VEHICLE_NORMS_BY_VALUE(input: String!): [VEHICE_NORMS]
+    CC_BY_VALUE(input: String!): [CC]
+    MODEL_BY_VALUE(input: String!): [MODEL]
+    INSURANCE_PROVIDER_BY_VALUE(input: String!): [INSURANCE_PROVIDER]
+    PERMIT_CATEGORY_BY_VALUE(input: String!): [PERMIT_CATEGORY]
+    TP_INSURANCE_PROVIDER_BY_VALUE(input: String!): [TP_INSURANCE_PROVIDER]
+    VEHICLE_CLASS_BY_VALUE(input: String!): [VEHICLE_CLASS]
+    CUSTOMER_TYPE_BY_VALUE(input: String!): [CUSTOMER_TYPE]
+    VEHICLE_DESCRIPTION_BY_VALUE(input: String!): [VEHICLE_DESCRIPTION]
+    SEATING_CAPACITY_BY_VALUE(input: String!): [SEATING_CAPACITY]
+    STANDING_CAPACITY_BY_VALUE(input: String!): [STANDING_CAPACITY]
+    RTO_BY_VALUE(input: String!): [RTO]
+    HYPOTHECATION_BANK_BY_VALUE(input: String!): [HYPOTHECATION_BANK]
+    HYPOTHECATION_CITY_BY_VALUE(input: String!): [HYPOTHECATION_CITY]
   }
 
 
@@ -737,10 +753,40 @@ input DDUpdateInput {
     updateUserData3(input: updateUserDataInput3!): String
     replaceAppuser(id: ID!, input: replaceAppuserInput!): replaceAppuserOutput
     updateMake(input: DDUpdateInput!): String
+    updateVehicleColor(input: DDUpdateInput!): String
+    updateVehicleNorms(input: DDUpdateInput!): String
+    updateCC(input: DDUpdateInput!): String
+    updateModel(input: DDUpdateInput!): String
+    updateInsuranceProvider(input: DDUpdateInput!): String
+    updatePermitCategory(input: DDUpdateInput!): String
+    updateTpInsuranceProvider(input: DDUpdateInput!): String
+    updateVehicleClass(input: DDUpdateInput!): String
+    updateCustomerType(input: DDUpdateInput!): String
+    updateVehicleDescription(input: DDUpdateInput!): String
+    updateSeatingCapacity(input: DDUpdateInput!): String
+    updateStandingCapacity(input: DDUpdateInput!): String
+    updateRTO(input: DDUpdateInput!): String
+    updateHypothecationBank(input: DDUpdateInput!): String
+    updateHypothecationCity(input: DDUpdateInput!): String
     
     deleteAppuser(id: ID!): String    
     deleteUserData(vehicleid: String!): String
     deleteMakeData(id: ID!): String
+    deleteVehicleColorData(id: ID!): String
+    deleteVehicleNormsData(id: ID!): String
+    deleteCCData(id: ID!): String
+    deleteModelData(id: ID!): String
+    deleteInsuranceProviderData(id: ID!): String
+    deletePermitCategoryData(id: ID!): String
+    deleteTpInsuranceProviderData(id: ID!): String
+    deleteVehicleClassData(id: ID!): String
+    deleteCustomerTypeData(id: ID!): String
+    deleteVehicleDescriptionData(id: ID!): String
+    deleteSeatingCapacityData(id: ID!): String
+    deleteStandingCapacityData(id: ID!): String
+    deleteRTOData(id: ID!): String
+    deleteHypothecationBankData(id: ID!): String
+    deleteHypothecationCityData(id: ID!): String
   }
 
 `;

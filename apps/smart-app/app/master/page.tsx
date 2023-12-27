@@ -15,9 +15,24 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { GET_MAKE, UPDATE_MAKE, DELETE_MAKEDATA, ADD_MAKE, GET_MAKE_BY_VALUE } from '@/graphql/queries'
+import { UPDATE_MAKE, DELETE_MAKEDATA, ADD_MAKE, GET_MAKE_BY_VALUE } from '@/graphql/queries'
+import {ADD_VEHICLE_COLORS,UPDATE_VEHICLE_COLOR,DELETE_VEHICLE_COLOR_DATA,GET_VEHICLE_COLOR_BY_VALUE,} from '@/graphql/queries';
+import {ADD_VEHICE_NORMS,UPDATE_VEHICLE_NORMS,DELETE_VEHICLE_NORMS_DATA,GET_VEHICLE_NORMS_BY_VALUE,} from '@/graphql/queries';
+import {ADD_CC,UPDATE_CC,DELETE_CC_DATA,GET_CC_BY_VALUE,} from '@/graphql/queries';
+import {ADD_MODEL,UPDATE_MODEL,DELETE_MODEL_DATA,GET_MODEL_BY_VALUE,} from '@/graphql/queries';
+import {ADD_INSURANCE_PROVIDER,UPDATE_INSURANCE_PROVIDER,DELETE_INSURANCE_PROVIDER_DATA,GET_INSURANCE_PROVIDER_BY_VALUE,} from '@/graphql/queries';
+import {ADD_PERMIT_CATEGORY,UPDATE_PERMIT_CATEGORY,DELETE_PERMIT_CATEGORY_DATA,GET_PERMIT_CATEGORY_BY_VALUE,} from '@/graphql/queries';
+import {ADD_TP_INSURANCE_PROVIDER,UPDATE_TP_INSURANCE_PROVIDER,DELETE_TP_INSURANCE_PROVIDER_DATA,GET_TP_INSURANCE_PROVIDER_BY_VALUE,} from '@/graphql/queries';
+import {ADD_VEHICLE_CLASS,UPDATE_VEHICLE_CLASS,DELETE_VEHICLE_CLASS_DATA,GET_VEHICLE_CLASS_BY_VALUE,} from '@/graphql/queries';
+import {ADD_CUSTOMER_TYPE,UPDATE_CUSTOMER_TYPE,DELETE_CUSTOMER_TYPE_DATA,GET_CUSTOMER_TYPE_BY_VALUE,} from '@/graphql/queries';
+import {ADD_VEHICLE_DESCRIPTION,UPDATE_VEHICLE_DESCRIPTION,DELETE_VEHICLE_DESCRIPTION_DATA,GET_VEHICLE_DESCRIPTION_BY_VALUE,} from '@/graphql/queries';
+import {ADD_SEATING_CAPACITY,UPDATE_SEATING_CAPACITY,DELETE_SEATING_CAPACITY_DATA,GET_SEATING_CAPACITY_BY_VALUE,} from '@/graphql/queries';
+import {ADD_STANDING_CAPACITY,UPDATE_STANDING_CAPACITY,DELETE_STANDING_CAPACITY_DATA,GET_STANDING_CAPACITY_BY_VALUE,} from '@/graphql/queries';
+import {ADD_RTO,UPDATE_RTO,DELETE_RTO_DATA,GET_RTO_BY_VALUE,} from '@/graphql/queries';
+import {ADD_HYPOTHECATION_BANK,UPDATE_HYPOTHECATION_BANK,DELETE_HYPOTHECATION_BANK_DATA,GET_HYPOTHECATION_BANK_BY_VALUE,} from '@/graphql/queries';
+import {ADD_HYPOTHECATION_CITY,UPDATE_HYPOTHECATION_CITY,DELETE_HYPOTHECATION_CITY_DATA,GET_HYPOTHECATION_CITY_BY_VALUE,} from '@/graphql/queries';
 import DeleteConfirmationDialog from '@/app/components/DeleteConfirmationDialog';
-import debounce from 'lodash/debounce';
+
 
 interface iDDValues {
   id: string;
@@ -42,10 +57,6 @@ const MasterTable: React.FC = () => {
       input: searchTerm,
       },
   });
-
-  // const { loading: gmakedataLoadbyValue, error: gmakedataErrorbyValue, data: gmakedatabyValue } = useQuery(GET_MAKE, {});
-
-
 
   const[addMake, { data:makedata} ] = useMutation(ADD_MAKE);
   const [updateMake, { data: updateMakedata, error: updateMakeerror }] = useMutation(UPDATE_MAKE);

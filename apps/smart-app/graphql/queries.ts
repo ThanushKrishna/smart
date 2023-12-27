@@ -97,16 +97,6 @@ export const GET_MAKE = gql`
 }
 `;
 
-export const GET_MAKE_BY_VALUE = gql`
-    query MAKE_BY_VALUE($input: String!) {
-      MAKE_BY_VALUE(input: $input) {
-        id
-        data_owner_id
-        value
-  }
-}
-`;
-
 export const GET_MODEL = gql`
     query model{
               MODEL {
@@ -369,6 +359,168 @@ query User_data_byid($vechicleId: String!) {
 }
 `;
 
+
+export const GET_MAKE_BY_VALUE = gql`
+    query MAKE_BY_VALUE($input: String!) {
+      MAKE_BY_VALUE(input: $input) {
+        id
+        data_owner_id
+        value
+  }
+}
+`;
+
+export const GET_VEHICLE_COLOR_BY_VALUE = gql`
+  query VEHICLE_COLOR_BY_VALUE($input: String!) {
+    VEHICLE_COLOR_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_VEHICLE_NORMS_BY_VALUE = gql`
+  query VEHICLE_NORMS_BY_VALUE($input: String!) {
+    VEHICLE_NORMS_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_CC_BY_VALUE = gql`
+  query CC_BY_VALUE($input: String!) {
+    CC_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_MODEL_BY_VALUE = gql`
+  query MODEL_BY_VALUE($input: String!) {
+    MODEL_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_INSURANCE_PROVIDER_BY_VALUE = gql`
+  query INSURANCE_PROVIDER_BY_VALUE($input: String!) {
+    INSURANCE_PROVIDER_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_PERMIT_CATEGORY_BY_VALUE = gql`
+  query PERMIT_CATEGORY_BY_VALUE($input: String!) {
+    PERMIT_CATEGORY_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_TP_INSURANCE_PROVIDER_BY_VALUE = gql`
+  query TP_INSURANCE_PROVIDER_BY_VALUE($input: String!) {
+    TP_INSURANCE_PROVIDER_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_VEHICLE_CLASS_BY_VALUE = gql`
+  query VEHICLE_CLASS_BY_VALUE($input: String!) {
+    VEHICLE_CLASS_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_CUSTOMER_TYPE_BY_VALUE = gql`
+  query CUSTOMER_TYPE_BY_VALUE($input: String!) {
+    CUSTOMER_TYPE_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_VEHICLE_DESCRIPTION_BY_VALUE = gql`
+  query VEHICLE_DESCRIPTION_BY_VALUE($input: String!) {
+    VEHICLE_DESCRIPTION_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_SEATING_CAPACITY_BY_VALUE = gql`
+  query SEATING_CAPACITY_BY_VALUE($input: String!) {
+    SEATING_CAPACITY_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_STANDING_CAPACITY_BY_VALUE = gql`
+  query STANDING_CAPACITY_BY_VALUE($input: String!) {
+    STANDING_CAPACITY_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_RTO_BY_VALUE = gql`
+  query RTO_BY_VALUE($input: String!) {
+    RTO_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_HYPOTHECATION_BANK_BY_VALUE = gql`
+  query HYPOTHECATION_BANK_BY_VALUE($input: String!) {
+    HYPOTHECATION_BANK_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_HYPOTHECATION_CITY_BY_VALUE = gql`
+  query HYPOTHECATION_CITY_BY_VALUE($input: String!) {
+    HYPOTHECATION_CITY_BY_VALUE(input: $input) {
+      id      
+      data_owner_id
+      value
+    }
+  }
+`;
+
+
 export const CHECK_VEHICLE_UNIQUE = gql` 
   query checkvehicleNoUniqueness($VechicleId: String!) {
   CheckvehicleNoUniqueness(vechicle_id: $VechicleId)
@@ -383,38 +535,6 @@ export const ADD_CLIENT = gql`
       Vehicle_No
       }
     }
-`;
-
-export const UPDATE_CLIENT = gql` 
-    mutation UpdateUserData($input: updateUserDataInput!) {
-      updateUserData(input: $input) {      
-      Vehicle_No
-      }
-    }
-`;
-
-export const UPDATE_CLIENT_01 = gql` 
-    mutation UpdateUserData_01($input: updateUserDataInput1!) {
-      updateUserData1(input: $input)
-    }
-`;
-
-export const UPDATE_CLIENT_02 = gql` 
-    mutation UpdateUserData_02($input: updateUserDataInput2!) {
-      updateUserData2(input: $input) 
-    }
-`;
-
-export const UPDATE_CLIENT_03 = gql` 
-    mutation UpdateUserData_03($input: updateUserDataInput3!) {
-      updateUserData3(input: $input)
-    }
-`;
-
-export const UPDATE_MAKE = gql` 
-    mutation UpdateMake($input: DDUpdateInput!) {
-      updateMake(input: $input)
-}
 `;
 
 export const ADD_VEHICLE_COLORS = gql` 
@@ -592,8 +712,127 @@ export const TEST_ADD_CLIENT = gql`
 `;
 
 
+export const UPDATE_CLIENT = gql` 
+    mutation UpdateUserData($input: updateUserDataInput!) {
+      updateUserData(input: $input) {      
+      Vehicle_No
+      }
+    }
+`;
 
+export const UPDATE_CLIENT_01 = gql` 
+    mutation UpdateUserData_01($input: updateUserDataInput1!) {
+      updateUserData1(input: $input)
+    }
+`;
 
+export const UPDATE_CLIENT_02 = gql` 
+    mutation UpdateUserData_02($input: updateUserDataInput2!) {
+      updateUserData2(input: $input) 
+    }
+`;
+
+export const UPDATE_CLIENT_03 = gql` 
+    mutation UpdateUserData_03($input: updateUserDataInput3!) {
+      updateUserData3(input: $input)
+    }
+`;
+
+export const UPDATE_MAKE = gql` 
+    mutation UpdateMake($input: DDUpdateInput!) {
+      updateMake(input: $input)
+}
+`;
+
+export const UPDATE_VEHICLE_COLOR = gql`
+  mutation UpdateVehicleColor($input: DDUpdateInput!) {
+    updateVehicleColor(input: $input)
+  }
+`;
+
+export const UPDATE_VEHICLE_NORMS = gql`
+  mutation UpdateVehicleNorms($input: DDUpdateInput!) {
+    updateVehicleNorms(input: $input)
+  }
+`;
+
+export const UPDATE_CC = gql`
+  mutation UpdateCC($input: DDUpdateInput!) {
+    updateCC(input: $input)
+  }
+`;
+
+export const UPDATE_MODEL = gql`
+  mutation UpdateModel($input: DDUpdateInput!) {
+    updateModel(input: $input)
+  }
+`;
+
+export const UPDATE_INSURANCE_PROVIDER = gql`
+  mutation UpdateInsuranceProvider($input: DDUpdateInput!) {
+    updateInsuranceProvider(input: $input)
+  }
+`;
+
+export const UPDATE_PERMIT_CATEGORY = gql`
+  mutation UpdatePermitCategory($input: DDUpdateInput!) {
+    updatePermitCategory(input: $input)
+  }
+`;
+
+export const UPDATE_TP_INSURANCE_PROVIDER = gql`
+  mutation UpdateTpInsuranceProvider($input: DDUpdateInput!) {
+    updateTpInsuranceProvider(input: $input)
+  }
+`;
+
+export const UPDATE_VEHICLE_CLASS = gql`
+  mutation UpdateVehicleClass($input: DDUpdateInput!) {
+    updateVehicleClass(input: $input)
+  }
+`;
+
+export const UPDATE_CUSTOMER_TYPE = gql`
+  mutation UpdateCustomerType($input: DDUpdateInput!) {
+    updateCustomerType(input: $input)
+  }
+`;
+
+export const UPDATE_VEHICLE_DESCRIPTION = gql`
+  mutation UpdateVehicleDescription($input: DDUpdateInput!) {
+    updateVehicleDescription(input: $input)
+  }
+`;
+
+export const UPDATE_SEATING_CAPACITY = gql`
+  mutation UpdateSeatingCapacity($input: DDUpdateInput!) {
+    updateSeatingCapacity(input: $input)
+  }
+`;
+
+export const UPDATE_STANDING_CAPACITY = gql`
+  mutation UpdateStandingCapacity($input: DDUpdateInput!) {
+    updateStandingCapacity(input: $input)
+  }
+`;
+
+export const UPDATE_RTO = gql`
+  mutation UpdateRTO($input: DDUpdateInput!) {
+    updateRTO(input: $input)
+  }
+`;
+
+export const UPDATE_HYPOTHECATION_BANK = gql`
+  mutation UpdateHypothecationBank($input: DDUpdateInput!) {
+    updateHypothecationBank(input: $input)
+  }
+`;
+
+export const UPDATE_HYPOTHECATION_CITY = gql`
+  mutation UpdateHypothecationCity($input: DDUpdateInput!) {
+    updateHypothecationCity(input: $input)
+  }
+`;
 
 
 export const DELETE_CLIENT_BYID = gql` 
@@ -608,4 +847,94 @@ export const DELETE_MAKEDATA = gql`
     mutation DeleteMakeData($id: ID!) {
       deleteMakeData(id: $id)
 }
+`;
+
+export const DELETE_VEHICLE_COLOR_DATA = gql`
+  mutation DeleteVehicleColorData($id: ID!) {
+    deleteVehicleColorData(id: $id)
+  }
+`;
+
+export const DELETE_VEHICLE_NORMS_DATA = gql`
+  mutation DeleteVehicleNormsData($id: ID!) {
+    deleteVehicleNormsData(id: $id)
+  }
+`;
+
+export const DELETE_CC_DATA = gql`
+  mutation DeleteCCData($id: ID!) {
+    deleteCCData(id: $id)
+  }
+`;
+
+export const DELETE_MODEL_DATA = gql`
+  mutation DeleteModelData($id: ID!) {
+    deleteModelData(id: $id)
+  }
+`;
+
+export const DELETE_INSURANCE_PROVIDER_DATA = gql`
+  mutation DeleteInsuranceProviderData($id: ID!) {
+    deleteInsuranceProviderData(id: $id)
+  }
+`;
+
+export const DELETE_PERMIT_CATEGORY_DATA = gql`
+  mutation DeletePermitCategoryData($id: ID!) {
+    deletePermitCategoryData(id: $id)
+  }
+`;
+
+export const DELETE_TP_INSURANCE_PROVIDER_DATA = gql`
+  mutation DeleteTpInsuranceProviderData($id: ID!) {
+    deleteTpInsuranceProviderData(id: $id)
+  }
+`;
+
+export const DELETE_VEHICLE_CLASS_DATA = gql`
+  mutation DeleteVehicleClassData($id: ID!) {
+    deleteVehicleClassData(id: $id)
+  }
+`;
+
+export const DELETE_CUSTOMER_TYPE_DATA = gql`
+  mutation DeleteCustomerTypeData($id: ID!) {
+    deleteCustomerTypeData(id: $id)
+  }
+`;
+
+export const DELETE_VEHICLE_DESCRIPTION_DATA = gql`
+  mutation DeleteVehicleDescriptionData($id: ID!) {
+    deleteVehicleDescriptionData(id: $id)
+  }
+`;
+
+export const DELETE_SEATING_CAPACITY_DATA = gql`
+  mutation DeleteSeatingCapacityData($id: ID!) {
+    deleteSeatingCapacityData(id: $id)
+  }
+`;
+
+export const DELETE_STANDING_CAPACITY_DATA = gql`
+  mutation DeleteStandingCapacityData($id: ID!) {
+    deleteStandingCapacityData(id: $id)
+  }
+`;
+
+export const DELETE_RTO_DATA = gql`
+  mutation DeleteRTOData($id: ID!) {
+    deleteRTOData(id: $id)
+  }
+`;
+
+export const DELETE_HYPOTHECATION_BANK_DATA = gql`
+  mutation DeleteHypothecationBankData($id: ID!) {
+    deleteHypothecationBankData(id: $id)
+  }
+`;
+
+export const DELETE_HYPOTHECATION_CITY_DATA = gql`
+  mutation DeleteHypothecationCityData($id: ID!) {
+    deleteHypothecationCityData(id: $id)
+  }
 `;
