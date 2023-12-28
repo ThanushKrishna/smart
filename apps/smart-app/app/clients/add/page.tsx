@@ -14,7 +14,9 @@ import {
     ADD_MODEL, ADD_SEATING_CAPACITY,
     ADD_INSURANCE_PROVIDER, ADD_VEHICLE_DESCRIPTION,
     ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE,
-    ADD_TP_INSURANCE_PROVIDER, ADD_VEHICLE_CLASS,
+    ADD_TP_INSURANCE_PROVIDER, ADD_VEHICLE_CLASS, ADD_UNLADEN_WEIGHT,
+    ADD_GVW, ADD_VEHICLE_BODY, ADD_WHEEL_BASE, ADD_NO_OF_CYLINDER, ADD_SLEEPER_CAPACITY,
+    ADD_UPDATED_BY, ADD_REFERRED_BY
     } from '@/graphql/queries'
 import {     
     GET_VEHICLE_COLORS, CHECK_VEHICLE_UNIQUE,
@@ -24,7 +26,10 @@ import {
     GET_MODEL, GET_VEHICLE_CLASS,
     GET_INSURANCE_PROVIDER, GET_CUSTOMER_TYPE,
     GET_PERMIT_CATEGORY, GET_VEHICLE_DESCRIPTION,
-    GET_TP_INSURANCE_PROVIDER, GET_SEATING_CAPACITY, GET_USER_DATA_BYID
+    GET_TP_INSURANCE_PROVIDER, GET_SEATING_CAPACITY, GET_USER_DATA_BYID,
+    GET_UNLADEN_WEIGHT_BY_VALUE, GET_GVW_BY_VALUE, GET_VEHICLE_BODY_BY_VALUE,
+    GET_WHEEL_BASE_BY_VALUE, GET_NO_OF_CYLINDER_BY_VALUE, GET_SLEEPER_CAPACITY_BY_VALUE,
+    GET_UPDATED_BY_BY_VALUE, GET_REFERRED_BY_BY_VALUE
     } from '@/graphql/queries'
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
@@ -447,8 +452,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     control={control}
                     placeholder="Make:   "           
                     options={gmakedata && gmakedata.MAKE.map((data:any) => (data.value)) }             
-                    onOptionAdd= {async (e: String) => await (addMake( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
-                    
+                    onOptionAdd= {async (e: String) => await (addMake( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}                             
                 />
                 <DropDownControlWA 
                     name="Model"

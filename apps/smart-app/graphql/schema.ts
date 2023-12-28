@@ -285,6 +285,68 @@ type DELETED_BLOBS {
   value:                 String!
 }
 
+type UNLADEN_WEIGHT {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+
+
+
+type GVW {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+
+
+
+type VEHICLE_BODY {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+
+
+
+type WHEEL_BASE {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+
+
+
+type NO_OF_CYLINDER {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+
+
+
+type SLEEPER_CAPACITY {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+
+
+
+type UPDATED_BY {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+
+
+
+type REFERRED_BY {
+  id:                    String!
+  data_owner_id:         String!    
+  value:                 String!
+}
+
 type Query {
     user_data: [user_data]    
     app_user: [app_user]
@@ -307,6 +369,14 @@ type Query {
     HYPOTHECATION_CITY: [HYPOTHECATION_CITY]
     HYPOTHECATION_BANK: [HYPOTHECATION_BANK]
     DELETED_BLOBS: [DELETED_BLOBS]
+    UNLADEN_WEIGHT: [UNLADEN_WEIGHT]
+    GVW: [GVW]
+    VEHICLE_BODY: [VEHICLE_BODY]
+    WHEEL_BASE: [WHEEL_BASE]
+    NO_OF_CYLINDER: [NO_OF_CYLINDER]
+    SLEEPER_CAPACITY: [SLEEPER_CAPACITY]
+    UPDATED_BY: [UPDATED_BY]
+    REFERRED_BY: [REFERRED_BY]
 
     MAKE_BY_VALUE(input: String!): [MAKE]
     VEHICLE_COLOR_BY_VALUE(input: String!): [VEHICLE_COLOR]
@@ -324,6 +394,14 @@ type Query {
     RTO_BY_VALUE(input: String!): [RTO]
     HYPOTHECATION_BANK_BY_VALUE(input: String!): [HYPOTHECATION_BANK]
     HYPOTHECATION_CITY_BY_VALUE(input: String!): [HYPOTHECATION_CITY]
+    UNLADEN_WEIGHT_BY_VALUE(input: String!): [UNLADEN_WEIGHT]
+    GVW_BY_VALUE(input: String!): [GVW]
+    VEHICLE_BODY_BY_VALUE(input: String!): [VEHICLE_BODY]
+    WHEEL_BASE_BY_VALUE(input: String!): [WHEEL_BASE]
+    NO_OF_CYLINDER_BY_VALUE(input: String!): [NO_OF_CYLINDER]
+    SLEEPER_CAPACITY_BY_VALUE(input: String!): [SLEEPER_CAPACITY]
+    UPDATED_BY_BY_VALUE(input: String!): [UPDATED_BY]
+    REFERRED_BY_BY_VALUE(input: String!): [REFERRED_BY]
   }
 
 
@@ -753,6 +831,14 @@ input DDUpdateInput {
     createTpInsuranceProvider(input: DDinput!): TP_INSURANCE_PROVIDER
     createHypothecationCity(input:DDinput!): HYPOTHECATION_CITY
     createHypothecationBank(input:DDinput!): HYPOTHECATION_BANK
+    createUnladenWeight(input: DDinput!): UNLADEN_WEIGHT
+    createGvw(input: DDinput!): GVW
+    createVehicleBody(input: DDinput!): VEHICLE_BODY
+    createWheelBase(input: DDinput!): WHEEL_BASE
+    createNoOfCylinder(input: DDinput!): NO_OF_CYLINDER
+    createSleeperCapacity(input: DDinput!): SLEEPER_CAPACITY
+    createUpdatedBy(input: DDinput!): UPDATED_BY
+    createReferredBy(input: DDinput!): REFERRED_BY
     createDeletedBlobs(input: DDinput!): DELETED_BLOBS
     createUserData(input: createUserDataInput!): createUserDataOutput
     testaddclient(data_owner_id: String!, Vehicle_No: String!, RC_No: String ): String
@@ -780,6 +866,14 @@ input DDUpdateInput {
     updateRTO(input: DDUpdateInput!): String
     updateHypothecationBank(input: DDUpdateInput!): String
     updateHypothecationCity(input: DDUpdateInput!): String
+    updateUnladenWeight(input: DDUpdateInput!): String
+    updateGvw(input: DDUpdateInput!): String
+    updateVehicleBody(input: DDUpdateInput!): String
+    updateWheelBase(input: DDUpdateInput!): String
+    updateNoOfCylinder(input: DDUpdateInput!): String
+    updateSleeperCapacity(input: DDUpdateInput!): String
+    updateUpdatedBy(input: DDUpdateInput!): String
+    updateReferredBy(input: DDUpdateInput!): String
     
     deleteAppuser(id: ID!): String    
     deleteUserData(vehicleid: String!): String
@@ -799,6 +893,14 @@ input DDUpdateInput {
     deleteRTOData(id: ID!): String
     deleteHypothecationBankData(id: ID!): String
     deleteHypothecationCityData(id: ID!): String
+    deleteUnladenWeightData(id: ID!): String
+    deleteGvwData(id: ID!): String
+    deleteVehicleBodyData(id: ID!): String
+    deleteWheelBaseData(id: ID!): String
+    deleteNoOfCylinderData(id: ID!): String
+    deleteSleeperCapacityData(id: ID!): String
+    deleteUpdatedByData(id: ID!): String
+    deleteReferredByData(id: ID!): String
   }
 
 `;

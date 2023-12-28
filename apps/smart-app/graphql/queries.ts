@@ -524,6 +524,86 @@ export const GET_HYPOTHECATION_CITY_BY_VALUE = gql`
   }
 `;
 
+export const GET_UNLADEN_WEIGHT_BY_VALUE = gql`
+  query UNLADEN_WEIGHT_BY_VALUE($input: String!) {
+    UNLADEN_WEIGHT_BY_VALUE(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_GVW_BY_VALUE = gql`
+  query GVW_BY_VALUE($input: String!) {
+    GVW_BY_VALUE(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_VEHICLE_BODY_BY_VALUE = gql`
+  query VEHICLE_BODY_BY_VALUE($input: String!) {
+    VEHICLE_BODY_BY_VALUE(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_WHEEL_BASE_BY_VALUE = gql`
+  query WHEEL_BASE_BY_VALUE($input: String!) {
+    WHEEL_BASE_BY_VALUE(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_NO_OF_CYLINDER_BY_VALUE = gql`
+  query NO_OF_CYLINDER_BY_VALUE($input: String!) {
+    NO_OF_CYLINDER_BY_VALUE(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_SLEEPER_CAPACITY_BY_VALUE = gql`
+  query SLEEPER_CAPACITY_BY_VALUE($input: String!) {
+    SLEEPER_CAPACITY_BY_VALUE(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_UPDATED_BY_BY_VALUE = gql`
+  query UPDATED_BY_BY_VALUE($input: String!) {
+    UPDATED_BY_BY_VALUE(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const GET_REFERRED_BY_BY_VALUE = gql`
+  query REFERRED_BY_BY_VALUE($input: String!) {
+    REFERRED_BY_BY_VALUE(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
 
 export const CHECK_VEHICLE_UNIQUE = gql` 
   query checkvehicleNoUniqueness($VechicleId: String!) {
@@ -698,6 +778,86 @@ export const ADD_HYPOTHECATION_BANK = gql`
     }
 `;
 
+export const ADD_UNLADEN_WEIGHT = gql`
+  mutation CreateUnladenWeight($input: DDinput!) {
+    createUnladenWeight(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const ADD_GVW = gql`
+  mutation CreateGvw($input: DDinput!) {
+    createGvw(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const ADD_VEHICLE_BODY = gql`
+  mutation CreateVehicleBody($input: DDinput!) {
+    createVehicleBody(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const ADD_WHEEL_BASE = gql`
+  mutation CreateWheelBase($input: DDinput!) {
+    createWheelBase(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const ADD_NO_OF_CYLINDER = gql`
+  mutation CreateNoOfCylinder($input: DDinput!) {
+    createNoOfCylinder(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const ADD_SLEEPER_CAPACITY = gql`
+  mutation CreateSleeperCapacity($input: DDinput!) {
+    createSleeperCapacity(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const ADD_UPDATED_BY = gql`
+  mutation CreateUpdatedBy($input: DDinput!) {
+    createUpdatedBy(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
+export const ADD_REFERRED_BY = gql`
+  mutation CreateReferredBy($input: DDinput!) {
+    createReferredBy(input: $input) {
+      id
+      data_owner_id
+      value
+    }
+  }
+`;
+
 export const ADD_DELETED_BLOBS = gql` 
     mutation CreateDeletedBlobs($input: DDinput!) {
       createDeletedBlobs(input: $input) {
@@ -838,6 +998,58 @@ export const UPDATE_HYPOTHECATION_CITY = gql`
   }
 `;
 
+export const UPDATE_UNLADEN_WEIGHT = gql`
+  mutation UpdateUnladenWeight($input: DDUpdateInput!) {
+    updateUnladenWeight(input: $input)
+  }
+`;
+
+export const UPDATE_GVW = gql`
+  mutation UpdateGvw($input: DDUpdateInput!) {
+    updateGvw(input: $input)
+  }
+`;
+
+export const UPDATE_VEHICLE_BODY = gql`
+  mutation UpdateVehicleBody($input: DDUpdateInput!) {
+    updateVehicleBody(input: $input)
+  }
+`;
+
+export const UPDATE_WHEEL_BASE = gql`
+  mutation UpdateWheelBase($input: DDUpdateInput!) {
+    updateWheelBase(input: $input)
+  }
+`;
+
+export const UPDATE_NO_OF_CYLINDER = gql`
+  mutation UpdateNoOfCylinder($input: DDUpdateInput!) {
+    updateNoOfCylinder(input: $input)
+  }
+`;
+
+export const UPDATE_SLEEPER_CAPACITY = gql`
+  mutation UpdateSleeperCapacity($input: DDUpdateInput!) {
+    updateSleeperCapacity(input: $input)
+  }
+`;
+
+export const UPDATE_UPDATED_BY = gql`
+  mutation UpdateUpdatedBy($input: DDUpdateInput!) {
+    updateUpdatedBy(input: $input)
+  }
+`;
+
+export const UPDATE_REFERRED_BY = gql`
+  mutation UpdateReferredBy($input: DDUpdateInput!) {
+    updateReferredBy(input: $input)
+  }
+`;
+
+
+
+
+
 
 export const DELETE_CLIENT_BYID = gql` 
     mutation DeleteUserData($vehicleid: String!) {
@@ -940,5 +1152,53 @@ export const DELETE_HYPOTHECATION_BANK_DATA = gql`
 export const DELETE_HYPOTHECATION_CITY_DATA = gql`
   mutation DeleteHypothecationCityData($id: ID!) {
     deleteHypothecationCityData(id: $id)
+  }
+`;
+
+export const DELETE_UNLADEN_WEIGHT_DATA = gql`
+  mutation DeleteUnladenWeightData($id: ID!) {
+    deleteUnladenWeightData(id: $id)
+  }
+`;
+
+export const DELETE_GVW_DATA = gql`
+  mutation DeleteGvwData($id: ID!) {
+    deleteGvwData(id: $id)
+  }
+`;
+
+export const DELETE_VEHICLE_BODY_DATA = gql`
+  mutation DeleteVehicleBodyData($id: ID!) {
+    deleteVehicleBodyData(id: $id)
+  }
+`;
+
+export const DELETE_WHEEL_BASE_DATA = gql`
+  mutation DeleteWheelBaseData($id: ID!) {
+    deleteWheelBaseData(id: $id)
+  }
+`;
+
+export const DELETE_NO_OF_CYLINDER_DATA = gql`
+  mutation DeleteNoOfCylinderData($id: ID!) {
+    deleteNoOfCylinderData(id: $id)
+  }
+`;
+
+export const DELETE_SLEEPER_CAPACITY_DATA = gql`
+  mutation DeleteSleeperCapacityData($id: ID!) {
+    deleteSleeperCapacityData(id: $id)
+  }
+`;
+
+export const DELETE_UPDATED_BY_DATA = gql`
+  mutation DeleteUpdatedByData($id: ID!) {
+    deleteUpdatedByData(id: $id)
+  }
+`;
+
+export const DELETE_REFERRED_BY_DATA = gql`
+  mutation DeleteReferredByData($id: ID!) {
+    deleteReferredByData(id: $id)
   }
 `;

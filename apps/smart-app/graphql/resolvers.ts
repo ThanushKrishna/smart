@@ -630,7 +630,160 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       } catch (err) {
         console.log(err);
       }
-    },    
+    },   
+    
+    UNLADEN_WEIGHT_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.uNLADEN_WEIGHT.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    GVW_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.gVW.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    VEHICLE_BODY_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.vEHICLE_BODY.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    WHEEL_BASE_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.wHEEL_BASE.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    NO_OF_CYLINDER_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.nO_OF_CYLINDER.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    SLEEPER_CAPACITY_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.sLEEPER_CAPACITY.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    UPDATED_BY_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.uPDATED_BY.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    REFERRED_BY_BY_VALUE: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.rEFERRED_BY.findMany({
+          where: {
+            value: args.input
+              ? {
+                  contains: args.input,
+                  mode: 'insensitive',
+                }
+              : undefined,
+          },
+          orderBy: {
+            value: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
 
   },
 
@@ -793,6 +946,80 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         },
       })
     },
+
+    createUnladenWeight: async (parent: any, args: any, context: Context) => {
+      console.log("this is createUnladenWeight block");
+      return await context.prisma.uNLADEN_WEIGHT.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value,
+        },
+      });
+    },
+    createGvw: async (parent: any, args: any, context: Context) => {
+      console.log("this is createGvw block");
+      return await context.prisma.gVW.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value,
+        },
+      });
+    },
+    createVehicleBody: async (parent: any, args: any, context: Context) => {
+      console.log("this is createVehicleBody block");
+      return await context.prisma.vEHICLE_BODY.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value,
+        },
+      });
+    },
+    createWheelBase: async (parent: any, args: any, context: Context) => {
+      console.log("this is createWheelBase block");
+      return await context.prisma.wHEEL_BASE.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value,
+        },
+      });
+    },
+    createNoOfCylinder: async (parent: any, args: any, context: Context) => {
+      console.log("this is createNoOfCylinder block");
+      return await context.prisma.nO_OF_CYLINDER.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value,
+        },
+      });
+    },
+    createSleeperCapacity: async (parent: any, args: any, context: Context) => {
+      console.log("this is createSleeperCapacity block");
+      return await context.prisma.sLEEPER_CAPACITY.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value,
+        },
+      });
+    },
+    createUpdatedBy: async (parent: any, args: any, context: Context) => {
+      console.log("this is createUpdatedBy block");
+      return await context.prisma.uPDATED_BY.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value,
+        },
+      });
+    },
+    createReferredBy: async (parent: any, args: any, context: Context) => {
+      console.log("this is createReferredBy block");
+      return await context.prisma.rEFERRED_BY.create({
+        data: {
+          data_owner_id: args.input.data_owner_id,
+          value: args.input.value,
+        },
+      });
+    },
+
 
     createDeletedBlobs: async (parent: any, args: any, context: Context) => {
       console.log("this is createDeletedBlobs block");            
@@ -1317,6 +1544,89 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     });
     return "Updated !!";
   },
+  updateUnladenWeight: async (parent: any, args: any, context: Context) => {
+    console.log("this is updateUnladenWeight block");
+    await context.prisma.uNLADEN_WEIGHT.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateGvw: async (parent: any, args: any, context: Context) => {
+    console.log("this is updateGvw block");
+    await context.prisma.gVW.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateVehicleBody: async (parent: any, args: any, context: Context) => {
+    console.log("this is updateVehicleBody block");
+    await context.prisma.vEHICLE_BODY.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateWheelBase: async (parent: any, args: any, context: Context) => {
+    console.log("this is updateWheelBase block");
+    await context.prisma.wHEEL_BASE.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateNoOfCylinder: async (parent: any, args: any, context: Context) => {
+    console.log("this is updateNoOfCylinder block");
+    await context.prisma.nO_OF_CYLINDER.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateSleeperCapacity: async (parent: any, args: any, context: Context) => {
+    console.log("this is updateSleeperCapacity block");
+    await context.prisma.sLEEPER_CAPACITY.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateUpdatedBy: async (parent: any, args: any, context: Context) => {
+    console.log("this is updateUpdatedBy block");
+    await context.prisma.uPDATED_BY.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+  updateReferredBy: async (parent: any, args: any, context: Context) => {
+    console.log("this is updateReferredBy block");
+    await context.prisma.rEFERRED_BY.update({
+      where: { id: args.input.id },
+      data: {
+        value: args.input.value,
+      },
+    });
+    return "Updated !!";
+  },
+
+
+
 
 
 
@@ -1450,6 +1760,62 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       where: { id: args.id },
     });
     return "HypothecationCityData Deleted Successfully!";
+  },
+  deleteUnladenWeightData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteUnladenWeightData block");
+    await context.prisma.uNLADEN_WEIGHT.delete({
+      where: { id: args.id },
+    });
+    return "UnladenWeightData Deleted Successfully!";
+  },
+  deleteGvwData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteGvwData block");
+    await context.prisma.gVW.delete({
+      where: { id: args.id },
+    });
+    return "GvwData Deleted Successfully!";
+  },
+  deleteVehicleBodyData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteVehicleBodyData block");
+    await context.prisma.vEHICLE_BODY.delete({
+      where: { id: args.id },
+    });
+    return "VehicleBodyData Deleted Successfully!";
+  },
+  deleteWheelBaseData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteWheelBaseData block");
+    await context.prisma.wHEEL_BASE.delete({
+      where: { id: args.id },
+    });
+    return "WheelBaseData Deleted Successfully!";
+  },
+  deleteNoOfCylinderData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteNoOfCylinderData block");
+    await context.prisma.nO_OF_CYLINDER.delete({
+      where: { id: args.id },
+    });
+    return "NoOfCylinderData Deleted Successfully!";
+  },
+  deleteSleeperCapacityData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteSleeperCapacityData block");
+    await context.prisma.sLEEPER_CAPACITY.delete({
+      where: { id: args.id },
+    });
+    return "SleeperCapacityData Deleted Successfully!";
+  },
+  deleteUpdatedByData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteUpdatedByData block");
+    await context.prisma.uPDATED_BY.delete({
+      where: { id: args.id },
+    });
+    return "UpdatedByData Deleted Successfully!";
+  },
+  deleteReferredByData: async (parent: any, args: any, context: Context) => {
+    console.log("this is deleteReferredByData block");
+    await context.prisma.rEFERRED_BY.delete({
+      where: { id: args.id },
+    });
+    return "ReferredByData Deleted Successfully!";
   },
 
 

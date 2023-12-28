@@ -221,3 +221,51 @@ model DELETED_BLOBS {
   data_owner_id String @db.ObjectId
   value         String @unique
 }
+
+model UNLADEN_WEIGHT {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model GVW {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model VEHICLE_BODY {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model WHEEL_BASE {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model NO_OF_CYLINDER {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model SLEEPER_CAPACITY {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model UPDATED_BY {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
+
+model REFERRED_BY {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  data_owner_id String @db.ObjectId
+  value         String @unique
+}
