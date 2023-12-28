@@ -49,9 +49,11 @@ model user_data {
   RC_No                 String?
   Registered_Date       DateTime?
   Owner                 String?
+  Gender                String?
   Owner_dob             DateTime?
   Ownership_type        String?
   Vehicle_type          String?
+  Vehicle_Kind          String?
   Year_of_manufacuring  DateTime?
   GVW                   String?
   Chasis_No             String?

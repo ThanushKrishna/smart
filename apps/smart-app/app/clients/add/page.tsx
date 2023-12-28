@@ -33,7 +33,7 @@ import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import AddressForm from '@/app/components/AddressForm'
-import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT, GENDER } from '@/json/enums'
+import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT, GENDER, N_Relation, VEHICLE_KIND } from '@/json/enums'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
@@ -143,6 +143,8 @@ const onSubmit = async (formValues: AddClientType) => {
             Owner_dob: (formValues?.Owner_dob ? new Date(formValues?.Owner_dob).getTime() + 60 * 60 *1000 * 5.5 : null),
             Ownership_type: formValues?.Ownership_type || undefined,
             Vehicle_type: formValues?.Vehicle_type || undefined,
+            Gender: formValues?.Gender || undefined,
+            Vehicle_Kind: formValues?.Vehicle_Kind || undefined,
             Year_of_manufacuring:  (formValues?.Year_of_manufacuring ? new Date(formValues?.Year_of_manufacuring).getTime() + 60 * 60 *1000 * 5.5 : null),
             GVW: formValues?.GVW || undefined,
             Chasis_No: formValues?.Chasis_No || undefined,
@@ -341,7 +343,17 @@ const onSubmit = async (formValues: AddClientType) => {
                 />
                 </TextField.Root>
                 {errors.Owner && <p className="error text-red-600">{errors.Owner.message}</p>}
-                </div>                        
+                </div>         
+
+                {!corporate &&  <div>
+                <DropDownControl 
+                    name="Gender"
+                    control={control}
+                    placeholder="Gender:   "                                      
+                    options={GENDER}
+                    isCorporate={(e:Boolean) => { setCorporate(e)} } 
+                />    
+                </div>  }                
                 
                 <div>
                 {!corporate && <>
@@ -382,6 +394,15 @@ const onSubmit = async (formValues: AddClientType) => {
                 </TextField.Root>
                 {errors.RC_No && <p className="error text-red-600">{errors.RC_No.message}</p>}
                 </div>
+                  
+                <div>
+                <DropDownControl 
+                    name="Vehicle_Kind"
+                    control={control}
+                    placeholder="Vehicle Kind:   "                                      
+                    options={VEHICLE_KIND}                    
+                />    
+                </div>    
 
                 <div>
                 <p>Chassis Number: </p>
@@ -783,7 +804,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <DropDownControlWA 
                     name="CC"
                     control={control}            
-                    placeholder="CC:   "           
+                    placeholder="Cubic capacity:   "           
                     options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
                     onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
                 />      
@@ -951,25 +972,13 @@ const onSubmit = async (formValues: AddClientType) => {
                 </div> }
 
                 
-                { !corporate &&  <div>
-                <p>Nominee Relationship: </p>
-                <TextField.Root>
-                <TextField.Input
-                    {...register('Nominee_Relationship', {
-                    maxLength: {
-                        value: 20,
-                        message: 'Nominee Relationship should be at most 20 characters'
-                    },
-                    pattern: {
-                        value: /^[A-Za-z\s]*$/,
-                        message: 'Nominee Relationship should contain only alphabets and spaces'
-                    }
-                    })}
-                    onChange={(e) => e.target.value = e.target.value.toUpperCase()}
-                />            
-                </TextField.Root>
-                {errors.Nominee_Relationship && <p className="error text-red-600">{errors.Nominee_Relationship.message}</p>}
-
+                { !corporate && <div>
+                <DropDownControl 
+                    name="Nominee_Relationship"
+                    control={control}
+                    placeholder="Nominee Relationship:  "                                      
+                    options={N_Relation}                    
+                />                    
                 </div> }
 
                 { !corporate &&  <div>                                

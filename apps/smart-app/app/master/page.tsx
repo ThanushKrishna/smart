@@ -40,22 +40,22 @@ const ContentContainer = styled(Paper)(({ theme }) => ({
 }));
 
 const entities = [
-  { name: 'MAKE', queries: { getAll: GET_MAKE_BY_VALUE, add: ADD_MAKE, update: UPDATE_MAKE, delete: DELETE_MAKEDATA } },
-  { name: 'MODEL', queries: { getAll: GET_MODEL_BY_VALUE, add: ADD_MODEL, update: UPDATE_MODEL, delete: DELETE_MODEL_DATA } },
-  { name: 'VEHICLE_COLOR', queries: { getAll: GET_VEHICLE_COLOR_BY_VALUE, add: ADD_VEHICLE_COLORS, update: UPDATE_VEHICLE_COLOR, delete: DELETE_VEHICLE_COLOR_DATA } },
-  { name: 'VEHICLE_NORMS', queries: { getAll: GET_VEHICLE_NORMS_BY_VALUE, add: ADD_VEHICE_NORMS, update: UPDATE_VEHICLE_NORMS, delete: DELETE_VEHICLE_NORMS_DATA } },
   { name: 'CC', queries: { getAll: GET_CC_BY_VALUE, add: ADD_CC, update: UPDATE_CC, delete: DELETE_CC_DATA } },
-  { name: 'INSURANCE_PROVIDER', queries: { getAll: GET_INSURANCE_PROVIDER_BY_VALUE, add: ADD_INSURANCE_PROVIDER, update: UPDATE_INSURANCE_PROVIDER, delete: DELETE_INSURANCE_PROVIDER_DATA } },
-  { name: 'PERMIT_CATEGORY', queries: { getAll: GET_PERMIT_CATEGORY_BY_VALUE, add: ADD_PERMIT_CATEGORY, update: UPDATE_PERMIT_CATEGORY, delete: DELETE_PERMIT_CATEGORY_DATA } },
-  { name: 'TP_INSURANCE_PROVIDER', queries: { getAll: GET_TP_INSURANCE_PROVIDER_BY_VALUE, add: ADD_TP_INSURANCE_PROVIDER, update: UPDATE_TP_INSURANCE_PROVIDER, delete: DELETE_TP_INSURANCE_PROVIDER_DATA } },
-  { name: 'VEHICLE_CLASS', queries: { getAll: GET_VEHICLE_CLASS_BY_VALUE, add: ADD_VEHICLE_CLASS, update: UPDATE_VEHICLE_CLASS, delete: DELETE_VEHICLE_CLASS_DATA } },
   { name: 'CUSTOMER_TYPE', queries: { getAll: GET_CUSTOMER_TYPE_BY_VALUE, add: ADD_CUSTOMER_TYPE, update: UPDATE_CUSTOMER_TYPE, delete: DELETE_CUSTOMER_TYPE_DATA } },
-  { name: 'VEHICLE_DESCRIPTION', queries: { getAll: GET_VEHICLE_DESCRIPTION_BY_VALUE, add: ADD_VEHICLE_DESCRIPTION, update: UPDATE_VEHICLE_DESCRIPTION, delete: DELETE_VEHICLE_DESCRIPTION_DATA } },
-  { name: 'SEATING_CAPACITY', queries: { getAll: GET_SEATING_CAPACITY_BY_VALUE, add: ADD_SEATING_CAPACITY, update: UPDATE_SEATING_CAPACITY, delete: DELETE_SEATING_CAPACITY_DATA } },
-  { name: 'STANDING_CAPACITY', queries: { getAll: GET_STANDING_CAPACITY_BY_VALUE, add: ADD_STANDING_CAPACITY, update: UPDATE_STANDING_CAPACITY, delete: DELETE_STANDING_CAPACITY_DATA } },
-  { name: 'RTO', queries: { getAll: GET_RTO_BY_VALUE, add: ADD_RTO, update: UPDATE_RTO, delete: DELETE_RTO_DATA } },
   { name: 'HYPOTHECATION_BANK', queries: { getAll: GET_HYPOTHECATION_BANK_BY_VALUE, add: ADD_HYPOTHECATION_BANK, update: UPDATE_HYPOTHECATION_BANK, delete: DELETE_HYPOTHECATION_BANK_DATA } },
   { name: 'HYPOTHECATION_CITY', queries: { getAll: GET_HYPOTHECATION_CITY_BY_VALUE, add: ADD_HYPOTHECATION_CITY, update: UPDATE_HYPOTHECATION_CITY, delete: DELETE_HYPOTHECATION_CITY_DATA } },
+  { name: 'INSURANCE_PROVIDER', queries: { getAll: GET_INSURANCE_PROVIDER_BY_VALUE, add: ADD_INSURANCE_PROVIDER, update: UPDATE_INSURANCE_PROVIDER, delete: DELETE_INSURANCE_PROVIDER_DATA } },
+  { name: 'MAKE', queries: { getAll: GET_MAKE_BY_VALUE, add: ADD_MAKE, update: UPDATE_MAKE, delete: DELETE_MAKEDATA } },
+  { name: 'MODEL', queries: { getAll: GET_MODEL_BY_VALUE, add: ADD_MODEL, update: UPDATE_MODEL, delete: DELETE_MODEL_DATA } },
+  { name: 'PERMIT_CATEGORY', queries: { getAll: GET_PERMIT_CATEGORY_BY_VALUE, add: ADD_PERMIT_CATEGORY, update: UPDATE_PERMIT_CATEGORY, delete: DELETE_PERMIT_CATEGORY_DATA } },
+  { name: 'RTO', queries: { getAll: GET_RTO_BY_VALUE, add: ADD_RTO, update: UPDATE_RTO, delete: DELETE_RTO_DATA } },
+  { name: 'SEATING_CAPACITY', queries: { getAll: GET_SEATING_CAPACITY_BY_VALUE, add: ADD_SEATING_CAPACITY, update: UPDATE_SEATING_CAPACITY, delete: DELETE_SEATING_CAPACITY_DATA } },
+  { name: 'STANDING_CAPACITY', queries: { getAll: GET_STANDING_CAPACITY_BY_VALUE, add: ADD_STANDING_CAPACITY, update: UPDATE_STANDING_CAPACITY, delete: DELETE_STANDING_CAPACITY_DATA}},
+  { name: 'TP_INSURANCE_PROVIDER', queries: { getAll: GET_TP_INSURANCE_PROVIDER_BY_VALUE, add: ADD_TP_INSURANCE_PROVIDER, update: UPDATE_TP_INSURANCE_PROVIDER, delete: DELETE_TP_INSURANCE_PROVIDER_DATA } },
+  { name: 'VEHICLE_COLOR', queries: { getAll: GET_VEHICLE_COLOR_BY_VALUE, add: ADD_VEHICLE_COLORS, update: UPDATE_VEHICLE_COLOR, delete: DELETE_VEHICLE_COLOR_DATA } },  
+  { name: 'VEHICLE_CLASS', queries: { getAll: GET_VEHICLE_CLASS_BY_VALUE, add: ADD_VEHICLE_CLASS, update: UPDATE_VEHICLE_CLASS, delete: DELETE_VEHICLE_CLASS_DATA } },  
+  { name: 'VEHICLE_DESCRIPTION', queries: { getAll: GET_VEHICLE_DESCRIPTION_BY_VALUE, add: ADD_VEHICLE_DESCRIPTION, update: UPDATE_VEHICLE_DESCRIPTION, delete: DELETE_VEHICLE_DESCRIPTION_DATA } },    
+  { name: 'VEHICLE_NORMS', queries: { getAll: GET_VEHICLE_NORMS_BY_VALUE, add: ADD_VEHICE_NORMS, update: UPDATE_VEHICLE_NORMS, delete: DELETE_VEHICLE_NORMS_DATA } },            
 ];
 
 function Master() {
@@ -70,7 +70,7 @@ function Master() {
     <RootContainer>
       <ListContainer>
         <List>
-          {entities.map((entity) => (
+          {entities.sort().map((entity) => (
             <ListItem  key={entity.name} >
               <ListItemButton selected={selectedEntity.name === entity.name} onClick={() => handleEntityClick(entity)}>
               <ListItemText primary={entity.name.replaceAll('_', ' ')} />

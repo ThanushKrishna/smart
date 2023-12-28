@@ -6,3 +6,5 @@ export const FUEL_TYPE =[{ "value": ""}, {"value": "CNG"}, {"value": "DIESEL"} ,
 export const MARITAL_STATUS =[{ "value": ""}, {"value": "SINGLE"}, {"value": "MARRIED"}, {"value": "WIDOWED"}, {"value": "DIVORCED"} ]
 export const INSURANCE_TYPE=[{ "value": ""}, { "value": "COMPREHENSIVE"}, {"value": "THIRD PARTY"}, {"value": "SAOD"} ]  
 export const GENDER = [{ "value": ""}, { "value": "MALE"}, {"value": "FEMALE"}]
+export const VEHICLE_KIND = [{ "value": ""}, { "value": "PRIVATE"}, {"value": "COMMERCIAL"}]
+export const N_Relation = [{ "value": ""}, { "value": "CHILD"}, {"value": "PARENT"}, {"value": "SIBLING"}, {"value": "SPOUSE"}, {"value": "FRIEND"}, {"value": "FAMILY MEMBER"} ]

@@ -192,6 +192,8 @@ export const GET_USER_DATA = gql`
     Vehicle_type
     Year_of_manufacuring
     GVW
+    Vehicle_Kind
+    Gender
     Chasis_No
     Engine_No
     FC_due_Date
@@ -281,6 +283,8 @@ query User_data_byid($vechicleId: String!) {
     Owner_dob
     Ownership_type
     Vehicle_type
+    Vehicle_Kind
+    Gender
     Year_of_manufacuring
     GVW
     Chasis_No

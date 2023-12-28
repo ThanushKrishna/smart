@@ -59,14 +59,14 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddr
         sx={{ gridColumn: '3', ml: 2, width: '100%' }}
         >
           <TextField
-            {...register( addressType + '.state' )}
-            fullWidth
+            {...register( addressType + '.state' )}            
             label="State"
             variant="outlined"
             defaultValue={defaultAddress?.state}   
             error={!!errors?.[addressType]?.state}
             helperText={errors?.[addressType]?.state?.message}
             onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
+            sx={{ width: '100%' }}
           />
         </Grid>
         <Grid 

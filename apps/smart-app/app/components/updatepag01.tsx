@@ -28,10 +28,11 @@ import { DropDownControl }  from '@/app/components/DropDownControl'
 import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { FileUplaod } from '@/app/components/Upload'
-import { FUEL_TYPE, OWNER_TYPE } from '@/json/enums'
+import { FUEL_TYPE, GENDER, OWNER_TYPE, VEHICLE_KIND } from '@/json/enums'
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useRouter } from 'next/navigation';
+
 
 
 interface iupdatevalue {
@@ -97,6 +98,8 @@ const onSubmit = async (formValues: AddClientType) => {
             Registered_Date: new Date(formValues?.Registered_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                      
             Owner: formValues?.Owner || undefined,
 			Son_Wife_Daughter_Of: formValues?.Son_Wife_Daughter_Of || undefined, 
+            Gender: formValues?.Gender || undefined,
+            Vehicle_Kind: formValues?.Vehicle_Kind || undefined,
 			Chasis_No: formValues?.Chasis_No || undefined,
             Engine_No: formValues?.Engine_No || undefined,
 			Make: formValues?.Make || undefined,
@@ -214,6 +217,19 @@ const onSubmit = async (formValues: AddClientType) => {
     {errors.Owner && (
         <p className="error text-red-600">{errors.Owner.message}</p>
     )}
+
+    {! isCorporateUpdate && <> 
+     <div>
+        <DropDownControl 
+            name="Gender"
+            control={control}
+            value={gusrdatabyid.user_data_byid?.Gender}  
+            placeholder="Gender:   "                                      
+            options={GENDER}                    
+        />    
+    </div>        
+    </>}
+   
     {! isCorporateUpdate && <> 
     <p>Son/Wife/Daughter Of: </p>
     <TextField.Root>
@@ -258,7 +274,18 @@ const onSubmit = async (formValues: AddClientType) => {
     {errors.RC_No && (
         <p className="error text-red-600">{errors.RC_No.message}</p>
     )}
-             <p>Chassis Number: </p>
+    
+    <div>
+        <DropDownControl 
+            name="Vehicle_Kind"
+            control={control}
+            value={gusrdatabyid.user_data_byid?.Vehicle_Kind}  
+            placeholder="Vehicle Kind:   "                                      
+            options={VEHICLE_KIND}                    
+        />    
+    </div>        
+    
+    <p>Chassis Number: </p>
     <TextField.Root>
         <TextField.Input
         {...register('Chasis_No', {

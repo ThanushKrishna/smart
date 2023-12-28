@@ -861,6 +861,8 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
             Owner: args.input.Owner,                 
             Owner_dob: args.input.Owner_dob,    
             Ownership_type: args.input.Ownership_type,                  
+            Gender: args.input.Gender,        
+            Vehicle_Kind: args.input.Vehicle_Kind,    
             Vehicle_type: args.input.Vehicle_type,          
             Year_of_manufacuring: args.input.Year_of_manufacuring,  
             GVW: args.input.GVW,                   
@@ -965,6 +967,8 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           Owner: args.input.Owner,                 
           Owner_dob: args.input.Owner_dob,    
           Ownership_type: args.input.Ownership_type, 
+          Gender: args.input.Gender,        
+          Vehicle_Kind: args.input.Vehicle_Kind,  
           Address: {
             street: args.input.Address.street,
             city: args.input.Address.city,
@@ -1049,6 +1053,8 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           data: {      
       Vehicle_Reg_Doc       : args.input.Vehicle_Reg_Doc !== undefined ? args.input.Vehicle_Reg_Doc: null,
       Owner: args.input.Owner!== undefined ? args.input.Owner: null,
+      Gender: args.input.Gender!== undefined ? args.input.Gender: null,
+      Vehicle_Kind: args.input.Vehicle_Kind!== undefined ? args.input.Vehicle_Kind: null,
       Son_Wife_Daughter_Of: args.input.Son_Wife_Daughter_Of !== undefined ? args.input.Son_Wife_Daughter_Of: null,
       RC_No: args.input.RC_No !== undefined ? args.input.RC_No: null,
       Chasis_No: args.input.Chasis_No !== undefined ? args.input.Chasis_No: null,

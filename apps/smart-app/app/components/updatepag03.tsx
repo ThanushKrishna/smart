@@ -21,7 +21,7 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
-import {  MARITAL_STATUS, PROSPECT } from '@/json/enums'
+import {  MARITAL_STATUS, N_Relation, PROSPECT } from '@/json/enums'
 import AddressForm from './AddressForm';
 import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -190,7 +190,7 @@ return (
                 name="CC"
                 control={control}       
                 value={gusrdatabyid.user_data_byid?.CC}     
-                placeholder="CC:   "           
+                placeholder="Cubic capacity:   "           
                 options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
                 onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
             />                       
@@ -350,32 +350,26 @@ return (
               <p className="error text-red-600">{errors.Nominee}</p>
             )}
 
-            <p>Nominee Relationship: </p>
-            <TextField.Root>
-              <TextField.Input
-                {...register('Nominee_Relationship', {
-                  maxLength: {
-                    value: 20,
-                    message: 'Nominee Relationship should be at most 20 characters',
-                  },
-                  pattern: {
-                    value: /^[A-Za-z\s]*$/,
-                    message: 'Nominee Relationship should contain only alphabets and spaces',
-                  },
-                })}
-                defaultValue={gusrdatabyid?.user_data_byid?.Nominee_Relationship}
-                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-              />
-            </TextField.Root>
-            {errors.Nominee_Relationship && typeof errors.Nominee_Relationship === 'object' && 'message' in errors.Nominee_Relationship && (
-            <p className="error text-red-600">{(errors.Nominee_Relationship as FieldError).message}</p>)} 
+              { !isCorporateGlobal && <div>
+                <DropDownControl 
+                    name="Nominee_Relationship"
+                    control={control}
+                    placeholder="Nominee Relationship:  "                                      
+                    value={gusrdatabyid?.user_data_byid?.Nominee_Relationship}  
+                    options={N_Relation}                    
+                />                    
+                </div> }       
+
             <DatePickerComponent 
                 name="Nominee_dob"
                 control={control}
                 placeholder="Nominee DOB: "
                 selectedDate={gusrdatabyid.user_data_byid.Nominee_dob && new Date(gusrdatabyid.user_data_byid?.Nominee_dob)}           
-              />    
+              />  
+                
             </>}
+                    
+
 
            <p>PUC/Emission Number: </p>
             <TextField.Root>

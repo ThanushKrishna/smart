@@ -182,6 +182,8 @@ type user_data {
   Permit_dueDate:        Date
   CAddress:              Address
   Prospect:              String
+  Vehicle_Kind:          String
+  Gender:                String
   createdAt:             Date               
   updatedAt:             Date               
 }
@@ -337,6 +339,8 @@ input createUserDataInput {
   RC_No:                 String
   Registered_Date:       Date
   Owner:                 String
+  Vehicle_Kind:          String
+  Gender:                String
   Owner_dob:             Date
   Ownership_type:        String
   Vehicle_type:          String
@@ -410,6 +414,8 @@ input updateUserDataInput {
   RC_No:                 String
   Registered_Date:       Date
   Owner:                 String
+  Vehicle_Kind:          String
+  Gender:                String
   Owner_dob:             Date
   Ownership_type:        String
   Vehicle_type:          String
@@ -482,6 +488,8 @@ id:                    	String!
 Vehicle_Reg_Doc:   	   	String
 Owner:                 	String
 Ownership_type:         String
+Vehicle_Kind:          String
+Gender:                String
 Son_Wife_Daughter_Of:  	String
 RC_No:                 	String
 Chasis_No:             	String
@@ -568,6 +576,8 @@ type createUserDataOutput {
   Owner:                 String
   Owner_dob:             Date
   Ownership_type:        String
+  Vehicle_Kind:          String
+  Gender:                String
   Vehicle_type:          String
   Year_of_manufacuring:  Date
   GVW:                   String
@@ -640,6 +650,8 @@ type updateUserDataOutput {
   Owner:                 String
   Owner_dob:             Date
   Ownership_type:        String
+  Vehicle_Kind:          String
+  Gender:                String
   Vehicle_type:          String
   Year_of_manufacuring:  Date
   GVW:                   String
