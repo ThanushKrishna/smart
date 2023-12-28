@@ -28,8 +28,9 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, queries }
   const [newValue, setNewValue] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isSearching, setisSearching] = useState<Boolean>(false);
+  const [error, setError] = useState(false);
 
-  const { loading, error, data, refetch } = useQuery(queries.getAll, {
+  const { loading, error:gQueryError, data, refetch } = useQuery(queries.getAll, {
     variables: { input: searchTerm },
   });
 
@@ -90,24 +91,31 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, queries }
   };
 
   const handleAddRecord = async () => {
-    try {
-      await addRecord({
-        variables: { input: { data_owner_id: '6562047e649b76ef6a583b8d', value: newValue } },
-        refetchQueries: [{ query: queries.getAll, variables: { input: searchTerm } }],
-      });
 
-      setNewValue('');
-    } catch (error) {
-      console.error('Error adding record:', error);
+    if (newValue.trim() === '') {
+      setError(true);
+    } else {
+      try {
+        await addRecord({
+          variables: { input: { data_owner_id: '6562047e649b76ef6a583b8d', value: newValue } },
+          refetchQueries: [{ query: queries.getAll, variables: { input: searchTerm } }],
+        });
+  
+        setNewValue('');
+      } catch (error) {
+        console.error('Error adding record:', error);
+      }  
+      setError(false);
     }
-  };
+
+  }
 
   if (loading && !isSearching) {
     return <p>Loading...</p>;
   }
 
-  if (error || updateError || deleteError) {
-    return <p>Error fetching data</p> || <p>{error && error.message}</p> || <p>{updateError && updateError.message}</p> || <p>{deleteError && deleteError.message}</p>;
+  if (gQueryError || updateError || deleteError) {
+    return <p>Error fetching data</p> || <p>{gQueryError && gQueryError.message}</p> || <p>{updateError && updateError.message}</p> || <p>{deleteError && deleteError.message}</p>;
   }
 
   const tableData: Row[] = data ? data[`${entityName}_BY_VALUE`] : [];
@@ -116,7 +124,7 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, queries }
     <>
       <div>
         <TextField
-          label={`Search ${entityName} by Value`}
+          label={`Search ${entityName.replaceAll('_', ' ')} by Value`}
           variant="outlined"
           value={searchTerm}
           onChange={(e) => {
@@ -150,6 +158,8 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, queries }
                   InputProps={{
                     disableUnderline: false,
                   }}
+                  error={error}  // Set error prop based on the error state
+                  helperText={error ? 'Value cannot be empty' : ''} 
                 />
               </TableCell>
               <TableCell>

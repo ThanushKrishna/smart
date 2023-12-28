@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { styled, useTheme } from '@mui/system'; // Use the newer styled from @mui/system
-import {List, ListItem, ListItemText, Paper,} from '@mui/material';
+import {List, ListItem, ListItemButton, ListItemText, Paper,} from '@mui/material';
 import MasterComponent from '@/app/components/MasterComponent';
 import {ADD_MAKE, UPDATE_MAKE, DELETE_MAKEDATA, GET_MAKE_BY_VALUE } from '@/graphql/queries';
 import {ADD_VEHICLE_COLORS,UPDATE_VEHICLE_COLOR,DELETE_VEHICLE_COLOR_DATA,GET_VEHICLE_COLOR_BY_VALUE,} from '@/graphql/queries';
@@ -26,14 +26,17 @@ const RootContainer = styled('div')(({ theme }) => ({
 }));
 
 const ListContainer = styled(Paper)(({ theme }) => ({
-  width: '200px',
+  width: '210px',
   marginRight: theme.spacing(2),
+  backgroundColor: '#f0f0f0', // Change this to the desired background color
+  border: '1px solid #ddd', // Change this to the desired border color
 }));
 
 const ContentContainer = styled(Paper)(({ theme }) => ({
   flex: 1,
   padding: theme.spacing(2),
   border: '1px solid #ccc',
+  backgroundColor: '#f0f0f0', // Change this to the desired background color
 }));
 
 const entities = [
@@ -68,8 +71,10 @@ function Master() {
       <ListContainer>
         <List>
           {entities.map((entity) => (
-            <ListItem button key={entity.name} selected={selectedEntity.name === entity.name} onClick={() => handleEntityClick(entity)}>
-              <ListItemText primary={entity.name} />
+            <ListItem  key={entity.name} >
+              <ListItemButton selected={selectedEntity.name === entity.name} onClick={() => handleEntityClick(entity)}>
+              <ListItemText primary={entity.name.replaceAll('_', ' ')} />
+              </ListItemButton> 
             </ListItem>
           ))}
         </List>
