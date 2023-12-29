@@ -19,14 +19,14 @@ import {
     ADD_UPDATED_BY, ADD_REFERRED_BY
     } from '@/graphql/queries'
 import {     
-    GET_VEHICLE_COLORS, CHECK_VEHICLE_UNIQUE,
-    GET_VEHICLE_NORMS,  GET_HYPOTHECATION_CITY,
-    GET_CC, GET_RTO, GET_HYPOTHECATION_BANK,
-    GET_MAKE, GET_STANDING_CAPACITY,
-    GET_MODEL, GET_VEHICLE_CLASS,
-    GET_INSURANCE_PROVIDER, GET_CUSTOMER_TYPE,
-    GET_PERMIT_CATEGORY, GET_VEHICLE_DESCRIPTION,
-    GET_TP_INSURANCE_PROVIDER, GET_SEATING_CAPACITY, GET_USER_DATA_BYID,
+    GET_VEHICLE_COLOR_BY_VALUE, CHECK_VEHICLE_UNIQUE,
+    GET_VEHICLE_NORMS_BY_VALUE,  GET_HYPOTHECATION_CITY_BY_VALUE,
+    GET_CC_BY_VALUE, GET_RTO_BY_VALUE, GET_HYPOTHECATION_BANK_BY_VALUE,
+    GET_MAKE_BY_VALUE, GET_STANDING_CAPACITY_BY_VALUE,
+    GET_MODEL_BY_VALUE, GET_VEHICLE_CLASS_BY_VALUE,
+    GET_INSURANCE_PROVIDER_BY_VALUE, GET_CUSTOMER_TYPE_BY_VALUE,
+    GET_PERMIT_CATEGORY_BY_VALUE, GET_VEHICLE_DESCRIPTION_BY_VALUE,
+    GET_TP_INSURANCE_PROVIDER_BY_VALUE, GET_SEATING_CAPACITY_BY_VALUE, GET_USER_DATA_BYID,
     GET_UNLADEN_WEIGHT_BY_VALUE, GET_GVW_BY_VALUE, GET_VEHICLE_BODY_BY_VALUE,
     GET_WHEEL_BASE_BY_VALUE, GET_NO_OF_CYLINDER_BY_VALUE, GET_SLEEPER_CAPACITY_BY_VALUE,
     GET_UPDATED_BY_BY_VALUE, GET_REFERRED_BY_BY_VALUE
@@ -63,25 +63,41 @@ const[addStanCap, { data:standcapdata} ] = useMutation(ADD_STANDING_CAPACITY);
 const[addrto, { data:rtodata} ] = useMutation(ADD_RTO);
 const[addHcity, { data:Hcitydata} ] = useMutation(ADD_HYPOTHECATION_CITY);
 const[addHbank, { data:Hbankdata} ] = useMutation(ADD_HYPOTHECATION_BANK);
+const [addUnladenWeight, { data: unladenWeightData }] = useMutation(ADD_UNLADEN_WEIGHT);
+const [addGVW, { data: gvwData }] = useMutation(ADD_GVW);
+const [addVehicleBody, { data: vehicleBodyData }] = useMutation(ADD_VEHICLE_BODY);
+const [addWheelBase, { data: wheelBaseData }] = useMutation(ADD_WHEEL_BASE);
+const [addNoOfCylinder, { data: noOfCylinderData }] = useMutation(ADD_NO_OF_CYLINDER);
+const [addSleeperCapacity, { data: sleeperCapacityData }] = useMutation(ADD_SLEEPER_CAPACITY);
+const [addUpdatedBy, { data: updatedByData }] = useMutation(ADD_UPDATED_BY);
+const [addReferredBy, { data: referredByData }] = useMutation(ADD_REFERRED_BY);
 
-const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLORS, { pollInterval: 1000,}); 
-const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS, { pollInterval: 1000,}); 
-const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
-const { data:gmakedata } = useQuery(GET_MAKE, { pollInterval: 1000,}); 
-const { data:gmodeldata } = useQuery(GET_MODEL, { pollInterval: 1000,}); 
-const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
-const { data:gpermitdata } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
-const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});
-const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 	
-const { data:gVehDesdata } = useQuery(GET_VEHICLE_DESCRIPTION, { pollInterval: 1000,}); 	
-const { data:gSeatCapdata } = useQuery(GET_SEATING_CAPACITY, { pollInterval: 1000,}); 	
-const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY, { pollInterval: 1000,}); 	
-const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,}); 	
-const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
-const { data:gHcitydata } = useQuery(GET_HYPOTHECATION_CITY, { pollInterval: 1000,}); 
-const { data:gHbankdata } = useQuery(GET_HYPOTHECATION_BANK, { pollInterval: 1000,}); 
+const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLOR_BY_VALUE, {variables: { input: "" }, });
+const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS_BY_VALUE, {variables: { input: "" }, });
+const { data:gccdata } = useQuery(GET_CC_BY_VALUE, {variables: { input: "" }, }); 
+const { data:gmakedata } = useQuery(GET_MAKE_BY_VALUE, {variables: { input: "" }, }); 
+const { data:gmodeldata } = useQuery(GET_MODEL_BY_VALUE, {variables: { input: "" }, }); 
+const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER_BY_VALUE, {variables: { input: "" }, }); 
+const { data:gpermitdata } = useQuery(GET_PERMIT_CATEGORY_BY_VALUE, {variables: { input: "" }, }); 
+const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER_BY_VALUE, {variables: { input: "" }, });
+const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE_BY_VALUE, {variables: { input: "" }, }); 	
+const { data:gVehDesdata } = useQuery(GET_VEHICLE_DESCRIPTION_BY_VALUE, {variables: { input: "" }, }); 	
+const { data:gSeatCapdata } = useQuery(GET_SEATING_CAPACITY_BY_VALUE, {variables: { input: "" }, }); 	
+const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY_BY_VALUE, {variables: { input: "" }, }); 	
+const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS_BY_VALUE, {variables: { input: "" }, }); 	
+const { data:grtodata } = useQuery(GET_RTO_BY_VALUE, {variables: { input: "" }, }); 
+const { data:gHcitydata } = useQuery(GET_HYPOTHECATION_CITY_BY_VALUE, {variables: { input: "" }, }); 
+const { data:gHbankdata } = useQuery(GET_HYPOTHECATION_BANK_BY_VALUE, {variables: { input: "" }, }); 
+const { data: gunladenWeightData } = useQuery(GET_UNLADEN_WEIGHT_BY_VALUE, {variables: { input: "" }, });
+const { data: ggvwData } = useQuery(GET_GVW_BY_VALUE, {variables: { input: "" }, });
+const { data: gvehicleBodyData } = useQuery(GET_VEHICLE_BODY_BY_VALUE, {variables: { input: "" }, });
+const { data: gwheelBaseData } = useQuery(GET_WHEEL_BASE_BY_VALUE, {variables: { input: "" }, });
+const { data: gnoOfCylinderData } = useQuery(GET_NO_OF_CYLINDER_BY_VALUE, {variables: { input: "" }, });
+const { data: gsleeperCapacityData } = useQuery(GET_SLEEPER_CAPACITY_BY_VALUE, {variables: { input: "" }, });
+const { data: gupdatedByData } = useQuery(GET_UPDATED_BY_BY_VALUE, {variables: { input: "" }, });
+const { data: greferredByData } = useQuery(GET_REFERRED_BY_BY_VALUE, {variables: { input: "" }, });
 
-const { register, handleSubmit, control, setError, setValue, formState:{errors} } = useForm<AddClientType>({});
+const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});
 
 const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
 const [vehicleno, setVehicleno] = useState<string>("");   
@@ -451,16 +467,21 @@ const onSubmit = async (formValues: AddClientType) => {
                     name="Make"
                     control={control}
                     placeholder="Make:   "           
-                    options={gmakedata && gmakedata.MAKE.map((data:any) => (data.value)) }             
-                    onOptionAdd= {async (e: String) => await (addMake( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}                             
+                    options={gmakedata && gmakedata.MAKE_BY_VALUE.map((data:any) => (data.value)) }             
+                    onOptionAdd={async (e: String) => await (addMake( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_MAKE_BY_VALUE, variables: { input: "" } }],
+                    })) }                             
                 />
-                <DropDownControlWA 
+                <DropDownControlWA
                     name="Model"
                     control={control}
                     placeholder="Model:   "           
-                    options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
-                    onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+                    options={gmodeldata && gmodeldata.MODEL_BY_VALUE.map((data:any) => (data.value)) }
+                    onOptionAdd={async (e: String) => await (addModel( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_MODEL_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />
+
                 <div>
                 <DatePickerComponent 
                     name="Registered_Date"
@@ -484,20 +505,25 @@ const onSubmit = async (formValues: AddClientType) => {
                 }   
                 </div> 
 
-                <DropDownControlWA 
+                <DropDownControlWA
                     name="Vehicle_type"
                     control={control}
                     placeholder="Vehicle Class:   "           
-                    options={gVehclassdata && gVehclassdata.VEHICLE_CLASS.map((data:any) => (data.value)) }  
-                    onOptionAdd= {async (e: String) => await (addVehclass( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                    options={gVehclassdata && gVehclassdata.VEHICLE_CLASS_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => await (addVehclass( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_VEHICLE_CLASS_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />
-                <DropDownControlWA 
+                <DropDownControlWA
                     name="Vehicle_Description"
                     control={control}
                     placeholder="Vehicle Description:   "           
-                    options={gVehDesdata && gVehDesdata.VEHICLE_DESCRIPTION.map((data:any) => (data.value)) }  
-                    onOptionAdd= {async (e: String) => await (addVehDes( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                    options={gVehDesdata && gVehDesdata.VEHICLE_DESCRIPTION_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => await (addVehDes( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_VEHICLE_DESCRIPTION_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />
+
                 <DropDownControl 
                     name="Fuel_type"
                     control={control}        
@@ -508,46 +534,70 @@ const onSubmit = async (formValues: AddClientType) => {
                     name="Vehice_norms"
                     control={control}
                     placeholder="Emission Norms:   "           
-                    options={gnormsdata && gnormsdata.VEHICE_NORMS.map((data:any) => (data.value)) }
-                    onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+                    options={gnormsdata && gnormsdata.VEHICLE_NORMS_BY_VALUE.map((data:any) => (data.value)) }
+                    onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_VEHICLE_NORMS_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />   
                 <DropDownControlWA 
                     name="Vehicle_color"
                     control={control}
                     placeholder="Vehicle Color:   "           
-                    options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
-                    onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                    options={gcolorsdata && gcolorsdata.VEHICLE_COLOR_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } },
+                    refetchQueries: [{ query: GET_VEHICLE_COLOR_BY_VALUE, variables: { input: "" } }],
+                    }) )}            
                 />      
-                <DropDownControlWA 
+                <DropDownControlWA
                     name="Seating_Capacity"
                     control={control}
                     placeholder="Seating Capacity:   "           
-                    options={gSeatCapdata && gSeatCapdata.SEATING_CAPACITY.map((data:any) => (data.value)) }  
-                    onOptionAdd= {async (e: String) => await (addSeatCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
-                />      
-                <DropDownControlWA 
+                    options={gSeatCapdata && gSeatCapdata.SEATING_CAPACITY_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => await (addSeatCap( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_SEATING_CAPACITY_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />
+               <DropDownControlWA
                     name="Standing_Capacity"
                     control={control}
                     placeholder="Standing Capacity:   "           
-                    options={gStanCapdata && gStanCapdata.STANDING_CAPACITY.map((data:any) => (data.value)) }  
-                    onOptionAdd= {async (e: String) => await (addStanCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
-                />      
-               
+                    options={gStanCapdata && gStanCapdata.STANDING_CAPACITY_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => await (addStanCap( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_STANDING_CAPACITY_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />
+
+                <div>
                 <DropDownControlWA 
+                    name="Sleeper_Capacity"
+                    control={control}
+                    placeholder="Sleeper Capacity: "           
+                    options={gsleeperCapacityData && gsleeperCapacityData.SLEEPER_CAPACITY_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => ( await addSleeperCapacity( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_SLEEPER_CAPACITY_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />
+                </div>
+               
+               <DropDownControlWA
                     name="Hypothecation_bank"
                     control={control}            
                     placeholder="Hypothecation Bank:   "           
-                    options={gHbankdata && gHbankdata.HYPOTHECATION_BANK.map((data:any) => (data.value)) }           
-                    onOptionAdd= {async (e: String) => await (addHbank( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-                />  
+                    options={gHbankdata && gHbankdata.HYPOTHECATION_BANK_BY_VALUE.map((data:any) => (data.value)) }           
+                    onOptionAdd={async (e: String) => await (addHbank( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_HYPOTHECATION_BANK_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />
                 
-                <DropDownControlWA 
+                <DropDownControlWA
                     name="Hypothecation_city"
                     control={control}            
                     placeholder="Hypothecation City:   "           
-                    options={gHcitydata && gHcitydata.HYPOTHECATION_CITY.map((data:any) => (data.value)) }           
-                    onOptionAdd= {async (e: String) => await (addHcity( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-                />  
+                    options={gHcitydata && gHcitydata.HYPOTHECATION_CITY_BY_VALUE.map((data:any) => (data.value)) }           
+                    onOptionAdd={async (e: String) => await (addHcity( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_HYPOTHECATION_CITY_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />
                 <DropDownControl 
                     name="Insurance_type"
                     control={control}
@@ -578,12 +628,14 @@ const onSubmit = async (formValues: AddClientType) => {
                 />	   
                 </div> 
 
-                <DropDownControlWA 
+               <DropDownControlWA
                     name="Insurance_provider"
                     control={control}
-                    placeholder=" Own Damage Insurance Provider:   "           
-                    options={giproviderdata && giproviderdata.INSURANCE_PROVIDER.map((data:any) => (data.value)) }
-                    onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
+                    placeholder="Own Damage Insurance Provider:   "           
+                    options={giproviderdata && giproviderdata.INSURANCE_PROVIDER_BY_VALUE.map((data:any) => (data.value)) }
+                    onOptionAdd={async (e: String) => await (addiProvider( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_INSURANCE_PROVIDER_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />
                 <div>
                 <DatePickerComponent 
@@ -634,13 +686,15 @@ const onSubmit = async (formValues: AddClientType) => {
                 
 
                 { !isPolicyChecked && <>   
-                <DropDownControlWA 
-                    name="TP_Insurance_provider"
-                    control={control}
-                    placeholder="Third Party Insurance Provider:   "           
-                    options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER.map((data:any) => (data.value)) }    
-                    onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-                />
+                    <DropDownControlWA
+                        name="TP_Insurance_provider"
+                        control={control}
+                        placeholder="Third Party Insurance Provider:   "           
+                        options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER_BY_VALUE.map((data:any) => (data.value)) }    
+                        onOptionAdd={async (e: String) => await (addTpInsuranceProvider( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                        refetchQueries: [{ query: GET_TP_INSURANCE_PROVIDER_BY_VALUE, variables: { input: "" } }],
+                        }) )}
+                    />
                 </>}
 
                 { !isPolicyChecked && <>   
@@ -664,114 +718,76 @@ const onSubmit = async (formValues: AddClientType) => {
                 </> }      
                 </div>
 
-                <DropDownControlWA 
+                <DropDownControlWA
                     name="RTO"
                     control={control}            
                     placeholder="Registering Authority:   "           
-                    options={grtodata && grtodata.RTO.map((data:any) => (data.value)) }           
-                    onOptionAdd= {async (e: String) => await (addrto( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-                />    
+                    options={grtodata && grtodata.RTO_BY_VALUE.map((data:any) => (data.value)) }           
+                    onOptionAdd={async (e: String) => await (addrto( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_RTO_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />
 
                 <div>
-                <p>Unladen Weight: </p>
-                <TextField.Root>
-                <TextField.Input
-                    {...register('Unladen_Weight', {
-                    maxLength: {
-                        value: 6,
-                        message: 'Unladen Weight should be at most 6 characters'
-                    },
-                    pattern: {
-                        value: /^\d{1,6}$/,
-                        message: 'Unladen Weight should be at most a 6-digit number'
-                    }
-                    })}
-                />            
-                </TextField.Root>
-                {errors.Unladen_Weight && <p className="error text-red-600">{errors.Unladen_Weight.message}</p>}
+                <DropDownControlWA 
+                    name="Unladen_Weight"
+                    control={control}
+                    placeholder="Unladen Weight: "           
+                    options={gunladenWeightData && gunladenWeightData.UNLADEN_WEIGHT_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd= {async (e: String) => ( await addUnladenWeight( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_UNLADEN_WEIGHT_BY_VALUE, variables: { input: "" } }],
+                    }) )}            
+                /> 
                 </div>    
 
                 <div>
-                <p>Laden Weight (GVW): </p>
-                <TextField.Root>
-                <TextField.Input
-                    {...register('GVW', {
-                    pattern: {
-                        value: /^\d{1,6}$/,
-                        message: 'GVW should be at most a 6-digit number'
-                    }
-                    })}
-                />                
-                </TextField.Root>            
-                {errors.GVW && typeof errors.GVW === 'object' && 'message' in errors.GVW && (
-                <p className="error text-red-600">{(errors.GVW as FieldError).message}</p>)}
+                <DropDownControlWA 
+                    name="GVW"
+                    control={control}
+                    placeholder="Laden Weight (GVW): "           
+                    options={ggvwData && ggvwData.GVW_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => ( await addGVW( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_GVW_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />
                 </div>
                 
                 <div>
-                <p>Vehicle Body: </p>
-                <TextField.Root>
-                <TextField.Input
-                    {...register('Vehicle_Body', {
-                    maxLength: {
-                        value: 15,
-                        message: 'Vehicle Body should be at most 15 characters'
-                    },
-                    pattern: {
-                        value: /^[A-Za-z]*$/,
-                        message: 'Vehicle Body should contain only alphabets'
-                    }                
-                    })}
-                    onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+                <DropDownControlWA 
+                    name="Vehicle_Body"
+                    control={control}
+                    placeholder="Vehicle Body: "           
+                    options={gvehicleBodyData && gvehicleBodyData.VEHICLE_BODY_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => ( await addVehicleBody( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_VEHICLE_BODY_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />
-                </TextField.Root>
-                {errors.Vehicle_Body && <p className="error text-red-600">{errors.Vehicle_Body.message}</p>}
                 </div>
 
                 <div>
-                <p>Wheel Base: </p>
-                <TextField.Root>
-                <TextField.Input
-                    {...register('Wheel_Base', {
-                    pattern: {
-                        value: /^\d{1,6}$/,
-                        message: 'Wheel Base should be at most a 6-digit number'
-                    }
-                    })}
+                <DropDownControlWA 
+                    name="Wheel_Base"
+                    control={control}
+                    placeholder="Wheel Base: "           
+                    options={gwheelBaseData && gwheelBaseData.WHEEL_BASE_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => ( await addWheelBase( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_WHEEL_BASE_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />
-                </TextField.Root>
-                {errors.Wheel_Base && <p className="error text-red-600">{errors.Wheel_Base.message}</p>}
                 </div>
 
                 <div>
-                <p>No Of Cylinder: </p>
-                <TextField.Root>
-                <TextField.Input
-                    {...register('No_Of_Cylinder', {
-                    pattern: {
-                        value: /^\d{1,2}$/,
-                        message: 'Number of Cylinders should be at most a 2-digit number'
-                    }
-                    })}
+                <DropDownControlWA 
+                    name="No_Of_Cylinder"
+                    control={control}
+                    placeholder="No Of Cylinder: "           
+                    options={gnoOfCylinderData && gnoOfCylinderData.NO_OF_CYLINDER_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => ( await addNoOfCylinder( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_NO_OF_CYLINDER_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />
-                </TextField.Root>
-                {errors.No_Of_Cylinder && <p className="error text-red-600">{errors.No_Of_Cylinder.message}</p>}
                 </div>
-
-                <div>
-                <p>Sleeper Capacity: </p>
-                <TextField.Root>
-                <TextField.Input
-                    {...register('Sleeper_Capacity', {
-                    pattern: {
-                        value: /^\d{1,2}$/,
-                        message: 'Sleeper Capacity should be at most a 2-digit number'
-                    }
-                    })}
-                />            
-                </TextField.Root>
-                {errors.Sleeper_Capacity && <p className="error text-red-600">{errors.Sleeper_Capacity.message}</p>}
-                </div>
-                
+                               
                 <div>
                 <DatePickerComponent 
                    name="Owner_dob"
@@ -809,8 +825,10 @@ const onSubmit = async (formValues: AddClientType) => {
                     name="CC"
                     control={control}            
                     placeholder="Cubic capacity:   "           
-                    options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
-                    onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+                    options={gccdata && gccdata.CC_BY_VALUE.map((data:any) => (data.value)) }           
+                    onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_CC_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />      
                 <div>                 
                 <p>Permit No: </p>
@@ -828,12 +846,14 @@ const onSubmit = async (formValues: AddClientType) => {
                 {errors.Permit_No && <p className="error text-red-600">{errors.Permit_No.message}</p>}
                 </div>
 
-                <DropDownControlWA 
+                <DropDownControlWA
                     name="Permit_category"
                     control={control}
                     placeholder="Permit Category:   "           
-                    options={gpermitdata && gpermitdata.PERMIT_CATEGORY.map((data:any) => (data.value)) }
-                    onOptionAdd= {async (e: String) => await (addPermitCategory( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+                    options={gpermitdata && gpermitdata.PERMIT_CATEGORY_BY_VALUE.map((data:any) => (data.value)) }
+                    onOptionAdd={async (e: String) => await (addPermitCategory( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_PERMIT_CATEGORY_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />
 
                 <div>
@@ -1054,52 +1074,38 @@ const onSubmit = async (formValues: AddClientType) => {
                 </div>
     
                 <div>
-                <p>Referred by: </p>
-                <TextField.Root>
-                    <TextField.Input
-                    {...register('Referred_by', {
-                        maxLength: {
-                        value: 30,
-                        message: 'Referred by should be at most 30 characters'
-                        },
-                        pattern: {
-                        value: /^[A-Za-z\s]*$/,
-                        message: 'Referred by should contain only alphabets and spaces'
-                        }
-                    })}
-                    onChange={(e) => e.target.value = e.target.value.toUpperCase()}
-                    />
-                </TextField.Root>
-                {errors.Referred_by && <p className="error text-red-600">{errors.Referred_by.message}</p>}
+                <DropDownControlWA 
+                    name="Referred_by"
+                    control={control}
+                    placeholder="Referred By: "           
+                    options={greferredByData && greferredByData.REFERRED_BY_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => ( await addReferredBy( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_REFERRED_BY_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />
                 </div>
 
                 <div>
-                <p>Updated by: </p>
-                <TextField.Root>
-                    <TextField.Input
-                    {...register('updated_by', {
-                        maxLength: {
-                        value: 30,
-                        message: 'Updated by should be at most 30 characters'
-                        },
-                        pattern: {
-                        value: /^[A-Za-z\s]*$/,
-                        message: 'Updated by should contain only alphabets and spaces'
-                        }
-                    })}
-                    onChange={(e) => e.target.value = e.target.value.toUpperCase()}
-                    />
-                </TextField.Root>
-                {errors.updated_by && <p className="error text-red-600">{errors.updated_by.message}</p>}
+                <DropDownControlWA 
+                    name="updated_by"
+                    control={control}
+                    placeholder="Updated By: "           
+                    options={gupdatedByData && gupdatedByData.UPDATED_BY_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => ( await addUpdatedBy( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_UPDATED_BY_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />
                 </div>
 
-                <DropDownControlWA 
+                <DropDownControlWA
                     name="Customer_type"
                     control={control}
                     placeholder="Policy Issued Through:  "           
-                    options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE.map((data:any) => (data.value)) }    
-                    onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}                
-                />                   
+                    options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE_BY_VALUE.map((data:any) => (data.value)) }    
+                    onOptionAdd={async (e: String) => await (addCusType( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_CUSTOMER_TYPE_BY_VALUE, variables: { input: "" } }],
+                    }) )}
+                />        
 
                 <div>     
                 <p className='mt-3'>Comments: </p>
