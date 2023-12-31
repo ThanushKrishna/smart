@@ -66,9 +66,9 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                   if (links.length > 1) {
                     console.log("Deleting Blob:" + links[index]);
                     
-                    // await del(links[index], {
-                    //   token: process.env.BLOB_READ_WRITE_TOKEN
-                    // });               
+                  {/**  await del(links[index], {
+                      token: process.env.BLOB_READ_WRITE_TOKEN
+                    }); */ }                                              
 
                     await addDelBlob({
                       variables: { input: { "data_owner_id": "6562047e649b76ef6a583b8d", "value": links[index] } }
