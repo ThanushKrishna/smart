@@ -114,10 +114,17 @@ const [isAddressChecked, setAddressChecked] = useState(false);
 const [isPolicyChecked, setPolicyChecked] = useState(false);
 const [isLttChecked, setLttChecked] = useState(false);
 const [lttValue, setlttValue] = useState<number | undefined>();
+const [isNDChecked, setNDChecked] = useState(false);
+const [NDValue, setNDValue] = useState<number | undefined>();
 
 const handleLttCheckBox = (event: any) => {
     setLttChecked(event.target.checked);
     setlttValue(new Date('2099-12-31').getTime() + 60 * 60 *1000 * 5.5)
+  };
+
+  const handleNDCheckBox = (event: any) => {
+    setNDChecked(event.target.checked);
+    setNDValue(new Date('2000-01-01').getTime() + 60 * 60 *1000 * 5.5)
   };
 
 const handleAddressCheckBox = (event: any) => {
@@ -194,7 +201,8 @@ const onSubmit = async (formValues: AddClientType) => {
             Nominee: formValues?.Nominee || undefined,
             Nominee_Relationship: formValues?.Nominee_Relationship || undefined,
             Nominee_dob: (formValues?.Nominee_dob ? new Date(formValues?.Nominee_dob).getTime() + 60 * 60 *1000 * 5.5 : null), 
-            Emission_dueDate: (formValues?.Emission_dueDate ? new Date(formValues?.Emission_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
+            //  (formValues?.Emission_dueDate ? new Date(formValues?.Emission_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
+             Emission_dueDate: (isNDChecked ? NDValue : formValues?.Emission_dueDate ? new Date(formValues?.Emission_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
             Fuel_type: formValues?.Fuel_type || undefined,
             Hypothecation_bank: formValues?.Hypothecation_bank || undefined,
             Hypothecation_city: formValues?.Hypothecation_city || undefined,
@@ -255,7 +263,7 @@ const onSubmit = async (formValues: AddClientType) => {
   
     
     return (
-        <div>
+        <div className='font-bold'>
             <form onSubmit={handleSubmit(onSubmit)}>                                
             
             { gusrdatabyid?.user_data_byid === null && firstpage &&
@@ -348,6 +356,15 @@ const onSubmit = async (formValues: AddClientType) => {
                 </div>            		
 
                 <div>
+                <DropDownControl 
+                    name="Vehicle_Kind"
+                    control={control}
+                    placeholder="Vehicle Type:   "                                      
+                    options={VEHICLE_KIND}                    
+                />    
+                </div>    
+
+                <div>
                  <p>Owner Name: </p>            
                 <TextField.Root> 
                 <TextField.Input { ...register('Owner', {                
@@ -415,16 +432,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 </TextField.Root>
                 {errors.RC_No && <p className="error text-red-600">{errors.RC_No.message}</p>}
                 </div>
-                  
-                <div>
-                <DropDownControl 
-                    name="Vehicle_Kind"
-                    control={control}
-                    placeholder="Vehicle Kind:   "                                      
-                    options={VEHICLE_KIND}                    
-                />    
-                </div>    
-
+                                
                 <div>
                 <p>Chassis Number: </p>
                 <TextField.Root>
@@ -496,7 +504,7 @@ const onSubmit = async (formValues: AddClientType) => {
                    control={control}
                    placeholder="Tax Valid UpTo: "    
                 //    setValue={setValue(tax_due_Date, value:any)}
-                   LTT={isLttChecked}                    
+                   disabled={isLttChecked}                    
                 />
                 {<FormControlLabel
                    control={<Checkbox checked={isLttChecked} onChange={handleLttCheckBox} />}
@@ -1034,8 +1042,14 @@ const onSubmit = async (formValues: AddClientType) => {
                 <DatePickerComponent 
                    name="Emission_dueDate"
                    control={control}
-                   placeholder="PUC/Emission UpTo: "                           
+                   placeholder="PUC/Emission UpTo: "  
+                   disabled={isNDChecked}                         
                 />    
+                {<FormControlLabel
+                   control={<Checkbox checked={isNDChecked} onChange={handleNDCheckBox} />}
+                   label="ND"
+                 />
+                }   
                 </div>
 
                 <div>    
@@ -1123,7 +1137,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <DropDownControl 
                     name="Prospect"
                     control={control}   
-                    value="Lead"     
+                    value="LEAD"     
                     placeholder="Prospect:   "           
                     options={PROSPECT}              
                 />                               

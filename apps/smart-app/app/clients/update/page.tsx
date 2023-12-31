@@ -41,7 +41,7 @@ const UpdateClient:React.FC = () => {
           }
 
     return (
-    <div>
+    <div className='font-bold'>
         {!isVehicleNoprovided &&
         <>
         <label> Vehicle Registration Number: </label> 

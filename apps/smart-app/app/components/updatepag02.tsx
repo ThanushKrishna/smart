@@ -37,7 +37,7 @@ const Updatepage02:React.FC<iupdatevalue> = ( { value, ispagesubmitted, back } )
 
     const router = useRouter();
     const [vehicleno, setVehicleno] = useState<String>(value);
-const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
+const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid, refetch } = useQuery(GET_USER_DATA_BYID, {
     variables: { vechicleId: vehicleno },
     }); 
 const [isSubmitted, setisSubmitted] = useState(false);
@@ -97,6 +97,7 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log( result );
         updateclient( { variables: { input: result}})
         .then(()=> {        
+            refetch();
             if(isFinalSubmit){
                 router.push('/clients')
                 return;

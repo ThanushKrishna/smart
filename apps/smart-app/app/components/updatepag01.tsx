@@ -12,7 +12,8 @@ import {
     ADD_MODEL, ADD_SEATING_CAPACITY,
     ADD_VEHICLE_DESCRIPTION,
     ADD_VEHICLE_CLASS,
-    UPDATE_CLIENT_01
+    UPDATE_CLIENT_01,
+    GET_CC_BY_VALUE
     } from '@/graphql/queries'
 import {     
     GET_USER_DATA_BYID, GET_HYPOTHECATION_BANK,
@@ -45,7 +46,7 @@ const Updatepage01:React.FC<iupdatevalue> = ( { value, ispagesubmitted, isCorpor
     
 const router = useRouter();
 const [vehicleno, setVehicleno] = useState<String>(value);
-const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
+const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid, refetch } = useQuery(GET_USER_DATA_BYID, {
     variables: { vechicleId: vehicleno },
     }); 
 const [isSubmitted, setisSubmitted] = useState(false);
@@ -119,8 +120,10 @@ const onSubmit = async (formValues: AddClientType) => {
         }
         
         console.log( result );
-        updateclient( { variables: { input: result}})
+        updateclient( { variables: { input: result},           
+        })
         .then(()=> {        
+            refetch();
             if(isFinalSubmit){
                 router.push('/clients')
                 return;
@@ -196,6 +199,15 @@ const onSubmit = async (formValues: AddClientType) => {
         options={OWNER_TYPE}
         isCorporate={(e:Boolean) => { isCorporateLocal(e); setCorporateUpdate(e)} } 
     />            
+     <div>
+        <DropDownControl 
+            name="Vehicle_Kind"
+            control={control}
+            value={gusrdatabyid.user_data_byid?.Vehicle_Kind}  
+            placeholder="Vehicle Type:   "                                      
+            options={VEHICLE_KIND}                    
+        />    
+    </div>        
 
     <p>Owner Name: </p>
     <TextField.Root>
@@ -274,16 +286,7 @@ const onSubmit = async (formValues: AddClientType) => {
     {errors.RC_No && (
         <p className="error text-red-600">{errors.RC_No.message}</p>
     )}
-    
-    <div>
-        <DropDownControl 
-            name="Vehicle_Kind"
-            control={control}
-            value={gusrdatabyid.user_data_byid?.Vehicle_Kind}  
-            placeholder="Vehicle Kind:   "                                      
-            options={VEHICLE_KIND}                    
-        />    
-    </div>        
+       
     
     <p>Chassis Number: </p>
     <TextField.Root>
@@ -354,7 +357,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 control={control}
                 placeholder="Tax Valid UpTo:  "                           
                 selectedDate={gusrdatabyid.user_data_byid?.tax_due_Date && new Date(gusrdatabyid.user_data_byid?.tax_due_Date)}             
-                LTT={isLttChecked} 
+                disabled={isLttChecked} 
             />            
              {<FormControlLabel
                control={<Checkbox checked={isLttChecked} onChange={handleLttCheckBox} />}

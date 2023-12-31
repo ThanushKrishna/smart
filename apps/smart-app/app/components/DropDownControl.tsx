@@ -58,11 +58,11 @@ export const DropDownControl: React.FC<DropDownControlProps<any>> = ({
                         handleValueChange(e.target.value); // Call the callback function when the value changes                        
                       }}                      
                     >                  
-                     {value && <option> {value} </option> } 
-                     {<option key="dummy" value=""></option>}   
+                     //{value && <option> {value} </option> } 
+                     {(value!=="LEAD") && <option key="dummy" value=""></option>}   
                     console.log(value)
                     {options && options.map((option:any) => (
-                        <option key={option.value} value={option.value}>
+                    <option key={option.value} value={option.value}>
                         {option.value}
                         </option>  
                     ))}     

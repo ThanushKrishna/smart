@@ -46,12 +46,18 @@ const [adharfile, setadharfile] = useState<string | null>(gusrdatabyid.user_data
 const [GstCerfile, setGstCerfile] = useState<string | null>(gusrdatabyid.user_data_byid?.GST_Cer_Doc || '');
 const [isAddressChecked, setAddressChecked] = useState(false);
 const [isBack, setBack] = useState(false);
+const [isNDChecked, setNDChecked] = useState(false);
+const [NDValue, setNDValue] = useState<number | undefined>();
 
 
 const handleAddressCheckBox = (event: any) => {
     setAddressChecked(event.target.checked);        
   };
 
+  const handleNDCheckBox = (event: any) => {
+    setNDChecked(event.target.checked);
+    setNDValue(new Date('2000-01-01').getTime() + 60 * 60 *1000 * 5.5)
+  };
 
 
 const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
@@ -90,8 +96,8 @@ const onSubmit = async (formValues: AddClientType) => {
             Pan_doc: panfile || undefined,
             Nominee: formValues?.Nominee || undefined,
             Nominee_Relationship: formValues?.Nominee_Relationship || undefined,
-            Nominee_dob: new Date(formValues?.Nominee_dob)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            Emission_dueDate: new Date(formValues?.Emission_dueDate)?.getTime() + 60 * 60 *1000 * 5.5|| undefined,
+            Nominee_dob: new Date(formValues?.Nominee_dob)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,          
+            Emission_dueDate: (isNDChecked ? NDValue : formValues?.Emission_dueDate ? new Date(formValues?.Emission_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
             RTO: formValues?.RTO || undefined,
             Referred_by: formValues?.Referred_by || undefined,
             Comments: formValues?.Comments || undefined,
@@ -108,7 +114,7 @@ const onSubmit = async (formValues: AddClientType) => {
         
         console.log( result );
         updateclient( { variables: { input: result}})
-        .then(()=> {        
+        .then(()=> {              
         ispagesubmitted(true);
         router.push('/clients')
         })
@@ -386,12 +392,23 @@ return (
             </TextField.Root>
             {errors.PUCC_Emission_No && typeof errors.PUCC_Emission_No === 'object' && 'message' in errors.PUCC_Emission_No && (
             <p className="error text-red-600">{(errors.PUCC_Emission_No as FieldError).message}</p>)} 
+            
+            <div>
             <DatePickerComponent 
               name="Emission_dueDate"
               control={control}
               placeholder="PUC/Emission UpTo: "
               selectedDate={gusrdatabyid.user_data_byid.Emission_dueDate && new Date(gusrdatabyid.user_data_byid?.Emission_dueDate)}  
+              disabled={isNDChecked}
+
             />    
+             {<FormControlLabel
+                   control={<Checkbox checked={isNDChecked} onChange={handleNDCheckBox} />}
+                   label="ND"
+                 />
+                }   
+
+            </div>
            <p className='mt-3'>GST No: </p>
             <TextField.Root>
               <TextField.Input

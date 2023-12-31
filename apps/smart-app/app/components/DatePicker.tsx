@@ -14,7 +14,7 @@ interface IDatePickerProps {
   control: Control<any>;
   placeholder: string;
   selectedDate?: Date | undefined;
-  LTT?: boolean;
+  disabled?: boolean;
 }
 
 export const DatePickerComponent: React.FC<IDatePickerProps> = ({
@@ -22,7 +22,7 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
   placeholder,
   selectedDate,
 	control,
-  LTT,
+  disabled,
 }) => {  
 
 
@@ -45,7 +45,7 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
                   <DatePicker          
                     sx={{ width: '100%' }}
                     {...field}       
-                    disabled={LTT}                                    
+                    disabled={disabled}                                    
                     format="DD/MM/YYYY"                       
                     // Add other props like 'error' if needed                    
                   />                                       
