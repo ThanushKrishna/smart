@@ -8,7 +8,7 @@ import { useMutation } from '@apollo/client';
 import { 
     UPDATE_CLIENT_03,    
     ADD_CC, 
-    ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE,    
+    ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE, GET_UPDATED_BY_BY_VALUE, ADD_UPDATED_BY, ADD_REFERRED_BY, GET_REFERRED_BY_BY_VALUE,    
     } from '@/graphql/queries'
 import {     
     GET_USER_DATA_BYID,     
@@ -63,7 +63,10 @@ const handleAddressCheckBox = (event: any) => {
 const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
 const { data:gpermitdata, error:gpermiterror } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
 const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 	
-
+const [addUpdatedBy, { data: updatedByData }] = useMutation(ADD_UPDATED_BY);
+const { data: updatedByOptions } = useQuery(GET_UPDATED_BY_BY_VALUE, { variables: { input: "" } });
+const [addReferredBy, { data: referredByData }] = useMutation(ADD_REFERRED_BY);
+const { data: referredByOptions } = useQuery(GET_REFERRED_BY_BY_VALUE, { variables: { input: "" } });
 const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_03);
 const[addcc, { data:ccdata} ] = useMutation(ADD_CC);
 const[addPermitCategory, { data:permitdata} ] = useMutation(ADD_PERMIT_CATEGORY);
@@ -439,47 +442,28 @@ return (
                 label="Communication Address same as RC Address"
             />
             {!isAddressChecked && <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.CAddress} />  }
-
-            <p>Referred by: </p>
-            <TextField.Root>
-              <TextField.Input
-                {...register('Referred_by', {
-                  maxLength: {
-                    value: 30,
-                    message: 'Referred by should be at most 30 characters',
-                  },
-                  pattern: {
-                    value: /^[A-Za-z\s]*$/,
-                    message: 'Referred by should contain only alphabets and spaces',
-                  },
-                })}
-                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-                defaultValue={gusrdatabyid?.user_data_byid?.Referred_by}
-              />
-            </TextField.Root>
-            {errors.Referred_by && (
-              <p className="error text-red-600">{errors.Referred_by.message}</p>
-            )}
-           <p>Updated by: </p>
-            <TextField.Root>
-              <TextField.Input
-                {...register('updated_by', {
-                  maxLength: {
-                    value: 30,
-                    message: 'Updated by should be at most 30 characters',
-                  },
-                  pattern: {
-                    value: /^[A-Za-z\s]*$/,
-                    message: 'Updated by should contain only alphabets and spaces',
-                  },
-                })}
-                onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-                defaultValue={gusrdatabyid?.user_data_byid?.updated_by}
-              />
-            </TextField.Root>
-            {errors.updated_by && (
-              <p className="error text-red-600">{errors.updated_by.message}</p>
-            )}
+            
+           <div>
+           <DropDownControlWA 
+              name="Referred_by"
+              control={control}
+              value={gusrdatabyid.user_data_byid?.Referred_by}
+              placeholder="Referred By: "
+              options={referredByOptions && referredByOptions.REFERRED_BY_BY_VALUE.map((data: any) => data.value) || []}
+              onOptionAdd={async (e: String) => await addReferredBy({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_REFERRED_BY_BY_VALUE, variables: { input: "" } }] })}
+          />
+            </div>
+            
+            <div>
+            <DropDownControlWA 
+              name="updated_by"
+              control={control}
+              value={gusrdatabyid.user_data_byid?.updated_by}
+              placeholder="Updated By: "
+              options={updatedByOptions && updatedByOptions.UPDATED_BY_BY_VALUE.map((data: any) => data.value) || []}
+              onOptionAdd={async (e: String) => await addUpdatedBy({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_UPDATED_BY_BY_VALUE, variables: { input: "" } }] })}
+          />
+          </div>
             <DropDownControlWA 
                 name="Customer_type"
                 control={control}

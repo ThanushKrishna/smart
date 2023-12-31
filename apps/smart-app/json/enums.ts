@@ -1,6 +1,6 @@
 //export const OWNER_TYPE:String[] = ["NA", "PERSONAL", "COMMERCIAL"];
 export const VEHICLE_TYPE=[{ "value": "2-WHEELER"}, {"value": "3-WHEELER"} ]  
-export const PROSPECT=[{ "value": "CLIENT"} ]  
+export const PROSPECT=[{ "value": "LEAD"}, { "value": "CLIENT"} ]  
 export const OWNER_TYPE=[ {"value": "CORPORATE"}, { "value": "INDIVIDUAL"} ]  
 export const FUEL_TYPE =[ {"value": "CNG"}, {"value": "DIESEL"} , {"value": "ELECTRIC"}, {"value": "LPG"}, {"value": "PETROL"}, {"value": "PETROL/CNG "}, {"value": "PETROL/LPG"} ]
 export const MARITAL_STATUS =[ {"value": "SINGLE"}, {"value": "MARRIED"}, {"value": "WIDOWED"}, {"value": "DIVORCED"} ]
