@@ -15,66 +15,47 @@ interface AddressFormProps {
 const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddress, addressType, placehoder }) => {
   return (
     <>
-     <p> {placehoder} </p>
-      <Grid container       
-      sx={{
-        display: 'grid',              
-        gridTemplateColumns: 'repeat(4, 1fr)',
-
-      }}
-      >        
-        <Grid 
-        item xs={12} style={{ height: '70px' }}
-        sx={{ gridColumn: '1' }}
-        >         
+      <p> {placehoder} </p>
+      <Grid container spacing={2}>
+        <Grid item xs={3}>
           <TextField
-            {...register( addressType + '.street' )}
+            {...register(addressType + '.street')}
             fullWidth
-            label="Street"            
+            label="Street"
             variant="outlined"
-            defaultValue={defaultAddress?.street}   
+            defaultValue={defaultAddress?.street}
             error={!!errors?.[addressType]?.street}
             helperText={errors?.[addressType]?.street?.message}
-            style={{ height: '2px' }}
-            onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
+            onChange={(e: any) => (e.target.value = e.target.value.toUpperCase())}
           />
         </Grid>
-        <Grid 
-        item xs={6}
-        sx={{ gridColumn: '2', ml: 2, width: '100%' }}
-        >
+        <Grid item xs={3}>
           <TextField
-            {...register( addressType + '.city' )}
+            {...register(addressType + '.city')}
             fullWidth
             label="City"
             variant="outlined"
-            defaultValue={defaultAddress?.city}   
+            defaultValue={defaultAddress?.city}
             error={!!errors?.[addressType]?.city}
             helperText={errors?.[addressType]?.city?.message}
-            onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
+            onChange={(e: any) => (e.target.value = e.target.value.toUpperCase())}
           />
         </Grid>
-        <Grid 
-        item xs={6}
-        sx={{ gridColumn: '3', ml: 2, width: '100%' }}
-        >
+        <Grid item xs={3}>
           <TextField
-            {...register( addressType + '.state' )}            
+            {...register(addressType + '.state')}
+            fullWidth
             label="State"
             variant="outlined"
-            defaultValue={defaultAddress?.state}   
+            defaultValue={defaultAddress?.state}
             error={!!errors?.[addressType]?.state}
             helperText={errors?.[addressType]?.state?.message}
-            onChange={(e: any) => e.target.value = e.target.value.toUpperCase()}
-            sx={{ width: '100%' }}
+            onChange={(e: any) => (e.target.value = e.target.value.toUpperCase())}
           />
         </Grid>
-        <Grid 
-        item xs={12}
-        sx={{ gridColumn: '4', ml: 2, width: '100%' }}
-        >
+        <Grid item xs={3}>
           <TextField
-            {...register( addressType + '.zip', {
+            {...register(addressType + '.zip', {
               pattern: {
                 value: /^\d{6}$/,
                 message: 'Zip code should be a 6-digit number',
@@ -84,7 +65,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddr
             fullWidth
             label="Pin"
             variant="outlined"
-            defaultValue={defaultAddress?.zip}   
+            defaultValue={defaultAddress?.zip}
             error={!!errors?.[addressType]?.zip}
             helperText={errors?.[addressType]?.zip?.message}
           />

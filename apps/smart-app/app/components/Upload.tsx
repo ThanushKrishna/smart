@@ -2,6 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import { Control, Controller } from 'react-hook-form';
 import { useRef } from 'react';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import FormControl from '@mui/material/FormControl';
 import type { PutBlobResult } from '@vercel/blob';
 import { del } from '@vercel/blob';
 import { useMutation } from '@apollo/client';
@@ -130,32 +133,33 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
         return (  
         <div>
             {placeholder}    
-            <div className='pb-2'>                
+            <div>                
                 <Controller  
                 name={name}  
                 control={control}                
                 render={({ field }) => (
                     <>
                     <div {...field} >
-						<input 
+						            <input 
                         name="file"
                         multiple                 
                         ref={inputFileRef} 
                         type="file"                                            
-                        onChange={() => handleFileChange()} />	                        
-					</div>                    
-                </>
+                        onChange={() => handleFileChange()} 
+                        />	                        
+					          </div>                    
+                    </>
                 )}    
                 />  
             </div>  
             {links.map((item:string, index:number) => ( 
-            <>
+            <div className='flex'>
                 <a href={item} target="_blank" rel="noopener noreferrer">
                 <button type="button" className='mr-4'>Doc{index+1}</button>                                                                
                 </a>                
                 <button type="button" onClick={() => handlefileDelete(index)}>Delete </button>
                 <br></br>
-            </>
+            </div>
             ))}   
         </div>     
       )

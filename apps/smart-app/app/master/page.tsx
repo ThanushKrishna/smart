@@ -48,8 +48,7 @@ const ContentContainer = styled(Paper)(({ theme }) => ({
 }));
 
 const entities = [
-  { name: 'CC', dname: 'Cubic Capacity', queries: { getAll: GET_CC_BY_VALUE, add: ADD_CC, update: UPDATE_CC, delete: DELETE_CC_DATA } },
-  { name: 'CUSTOMER_TYPE', dname: 'Policy Issued Through', queries: { getAll: GET_CUSTOMER_TYPE_BY_VALUE, add: ADD_CUSTOMER_TYPE, update: UPDATE_CUSTOMER_TYPE, delete: DELETE_CUSTOMER_TYPE_DATA } },
+  { name: 'CC', dname: 'Cubic Capacity', queries: { getAll: GET_CC_BY_VALUE, add: ADD_CC, update: UPDATE_CC, delete: DELETE_CC_DATA } },  
   { name: 'GVW', dname: 'Gross Vehicle Weight', queries: { getAll: GET_GVW_BY_VALUE, add: ADD_GVW, update: UPDATE_GVW, delete: DELETE_GVW_DATA } },
   { name: 'HYPOTHECATION_BANK', dname: 'Hypothecation Bank', queries: { getAll: GET_HYPOTHECATION_BANK_BY_VALUE, add: ADD_HYPOTHECATION_BANK, update: UPDATE_HYPOTHECATION_BANK, delete: DELETE_HYPOTHECATION_BANK_DATA } },
   { name: 'HYPOTHECATION_CITY', dname: 'Hypothecation City', queries: { getAll: GET_HYPOTHECATION_CITY_BY_VALUE, add: ADD_HYPOTHECATION_CITY, update: UPDATE_HYPOTHECATION_CITY, delete: DELETE_HYPOTHECATION_CITY_DATA } },
@@ -58,6 +57,7 @@ const entities = [
   { name: 'MODEL', dname: 'Model', queries: { getAll: GET_MODEL_BY_VALUE, add: ADD_MODEL, update: UPDATE_MODEL, delete: DELETE_MODEL_DATA } },
   { name: 'NO_OF_CYLINDER', dname: 'Number of Cylinders', queries: { getAll: GET_NO_OF_CYLINDER_BY_VALUE, add: ADD_NO_OF_CYLINDER, update: UPDATE_NO_OF_CYLINDER, delete: DELETE_NO_OF_CYLINDER_DATA } },
   { name: 'PERMIT_CATEGORY', dname: 'Permit Category', queries: { getAll: GET_PERMIT_CATEGORY_BY_VALUE, add: ADD_PERMIT_CATEGORY, update: UPDATE_PERMIT_CATEGORY, delete: DELETE_PERMIT_CATEGORY_DATA } },
+  { name: 'CUSTOMER_TYPE', dname: 'Policy Issued Through', queries: { getAll: GET_CUSTOMER_TYPE_BY_VALUE, add: ADD_CUSTOMER_TYPE, update: UPDATE_CUSTOMER_TYPE, delete: DELETE_CUSTOMER_TYPE_DATA } },
   { name: 'REFERRED_BY', dname: 'Referred By', queries: { getAll: GET_REFERRED_BY_BY_VALUE, add: ADD_REFERRED_BY, update: UPDATE_REFERRED_BY, delete: DELETE_REFERRED_BY_DATA } },
   { name: 'RTO', dname: 'RTO', queries: { getAll: GET_RTO_BY_VALUE, add: ADD_RTO, update: UPDATE_RTO, delete: DELETE_RTO_DATA } },
   { name: 'SEATING_CAPACITY', dname: 'Seating Capacity', queries: { getAll: GET_SEATING_CAPACITY_BY_VALUE, add: ADD_SEATING_CAPACITY, update: UPDATE_SEATING_CAPACITY, delete: DELETE_SEATING_CAPACITY_DATA } },

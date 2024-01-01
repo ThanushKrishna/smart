@@ -37,7 +37,7 @@ export default function FormDialog( {placeholder, onItemAdd }: iFormDialog ) {
       {/* <Button variant="outlined" onClick={handleClickOpen}>
         Open form dialog
       </Button> */}
-      <button type="button" className='absolute inline-block bottom-0 right-0 text-xs' onClick={handleClickOpen}>AddNew</button> 
+      <button type="button" className='absolute block text-xs' onClick={handleClickOpen}>AddNew</button> 
       <Dialog open={open} onClose={handleCancelClose}>
         <DialogTitle>Add New {placeholder}</DialogTitle>
         <DialogContent>

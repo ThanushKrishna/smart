@@ -42,9 +42,15 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
               defaultValue={parsedDate}                    
               render={({ field }) => (                                                    
                   <DemoContainer components={['DatePicker']}>
-                  <DatePicker          
-                    sx={{ width: '100%', marginTop:0 }}
-                    {...field}       
+                  <DatePicker  
+                  {...field}             
+                    sx={{      
+                      width: '66%',                                                              
+                      borderRadius: '0.2rem',                        
+                      bottom: '0',                                              
+                      paddingTop: '0.1rem',
+                      border: '2px #cbd5e0',
+                    }}                           
                     disabled={disabled}                                    
                     format="DD/MM/YYYY"                       
                     // Add other props like 'error' if needed                    

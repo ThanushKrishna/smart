@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { useForm, Controller, FieldError  } from 'react-hook-form'
-import { TextField, Button, TextArea } from '@radix-ui/themes'
+import { TextField, Button } from '@radix-ui/themes'
 import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
@@ -39,8 +39,10 @@ import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import AddressForm from '@/app/components/AddressForm'
 import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT, GENDER, N_Relation, VEHICLE_KIND } from '@/json/enums'
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import  Checkbox from '@mui/material/Checkbox';
+import { TextField as MyTextField, TextareaAutosize  } from '@mui/material';
+import {FormControlLabel, CircularProgress, Button as MyButton}  from '@mui/material';
+
 
 
 const AddClient:React.FC = () => {
@@ -280,36 +282,37 @@ const onSubmit = async (formValues: AddClientType) => {
             }
 
             <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base'>
-            {!isVehicleNoprovided &&
-            <>
-            <label> Vehicle Registration Number: </label> 
-            <br/>
-             <TextField.Root>
-                <TextField.Input 
-                 {...register('Vehicle_No', {
-                    required: 'Vehicle Registration Number is required',
-                    maxLength: {
-                      value: 10,
-                      message: 'Vehicle Registration Number should be at most 10 characters'
-                    },
-                    pattern: {
-                      value: /^[A-Za-z0-9]*$/,
-                      message: 'Vehicle Registration Number should be alphanumeric'
-                    },
-                  })}                
-                onChange={(e) => setVehicleno((e.target.value = e.target.value.toUpperCase()))}            
-              />
-             </TextField.Root>
-              {errors.Vehicle_No && <p className="error text-red-600">{errors.Vehicle_No.message}</p>}
-              
-            <br></br>
-            <Button         
-             onClick = {() => handleVehicleNoSubmit()}   
-            > 
-             GO {gusrbyidload && <Spinner></Spinner>}            
-            </Button>
-            </>
-            }    
+            {!isVehicleNoprovided && (
+                <>
+                    <label> Vehicle Registration Number: </label>
+                    <br />
+                    <MyTextField
+                    {...register('Vehicle_No', {
+                        required: 'Vehicle Registration Number is required',
+                        maxLength: {
+                        value: 15,
+                        message: 'Vehicle Registration Number should be at most 15 characters',
+                        },
+                        pattern: {
+                        value: /^[A-Za-z0-9]*$/,
+                        message: 'Vehicle Registration Number should be alphanumeric',
+                        },
+                    })}
+                    onChange={(e) => setVehicleno((e.target.value = e.target.value.toUpperCase()))}
+                    />
+                    {errors.Vehicle_No && (
+                    <p style={{ color: '#ff0000' }}>{errors.Vehicle_No.message}</p>
+                    )}
+
+                    <br />
+                    <Button
+                    style={{ marginTop: '4px', width: '8em' }}                    
+                    onClick={() => handleVehicleNoSubmit()}
+                    >
+                    GO {gusrbyidload && <Spinner/>}
+                    </Button>
+                </>
+                )}
     
             {gusrbyiderror && <p>{gusrbyiderror.message}</p> }            
             
@@ -328,17 +331,15 @@ const onSubmit = async (formValues: AddClientType) => {
     
             {gusrdatabyid?.user_data_byid === null && firstpage && 
                 <div>    
-                    <div className='text-slate-500 text-base grid grid-cols-4 gap-4'>
+                    <div className='text-slate-500 text-base grid grid-cols-5 gap-5 ml-10 mr-10'>
                
                 <div>
                 <p>Vehicle Registration Number:</p>
-                <TextField.Root>
-                <TextField.Input
-                {...register('Vehicle_No', )}
+                <MyTextField                    
+                    {...register('Vehicle_No')}
                     defaultValue={vehicleno}
                     disabled={true}
-                />
-             </TextField.Root>              
+                />           
 
                 <FileUplaod 
                     name="Vehicle_Reg_Doc"
@@ -350,9 +351,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 </div>
 
                 <div>
-                 <p>Owner Name: </p>            
-                <TextField.Root> 
-                <TextField.Input { ...register('Owner', {                
+                 <p>Owner Name: </p>                            
+                <MyTextField                 
+                { ...register('Owner', {                
                     maxLength: {
                       value: 30,
                       message: 'Owner Name should be at most 30 characters'
@@ -363,8 +364,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     }
                   })}
                   onChange={(e) => e.target.value = e.target.value.toUpperCase()}
-                />
-                </TextField.Root>
+                />                
                 {errors.Owner && <p className="error text-red-600">{errors.Owner.message}</p>}
                 </div>         
                              
@@ -401,8 +401,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 {!corporate && <>
                 <p>Son/Wife/Daughter Of: </p>            
-                <TextField.Root> 
-                <TextField.Input { ...register('Son_Wife_Daughter_Of', {                
+                
+                <MyTextField { ...register('Son_Wife_Daughter_Of', {                
                     maxLength: {
                       value: 30,
                       message: 'Name should be at most 30 characters'
@@ -414,15 +414,15 @@ const onSubmit = async (formValues: AddClientType) => {
                   })}
                   onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />
-                </TextField.Root>
+                
                 {errors.Son_Wife_Daughter_Of && <p className="error text-red-600">{errors.Son_Wife_Daughter_Of.message}</p>}
                 </> }
                 </div>
                 
                 <div>
                 <p>Owner Serial Number: </p>
-                <TextField.Root>
-                <TextField.Input { ...register('RC_No', {                
+                
+                <MyTextField { ...register('RC_No', {                
                     maxLength: {
                       value: 2,
                       message: 'Owner Serial Number should be at most 2 characters'
@@ -434,14 +434,14 @@ const onSubmit = async (formValues: AddClientType) => {
                   })}
                   onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />
-                </TextField.Root>
+                
                 {errors.RC_No && <p className="error text-red-600">{errors.RC_No.message}</p>}
                 </div>
                                 
                 <div>
                 <p>Chassis Number: </p>
-                <TextField.Root>
-                <TextField.Input  { ...register('Chasis_No', {                
+                
+                <MyTextField  { ...register('Chasis_No', {                
                     maxLength: {
                       value: 25,
                       message: 'Chassis Number should be at most 25 characters'
@@ -453,14 +453,14 @@ const onSubmit = async (formValues: AddClientType) => {
                   })}
                   onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />
-                </TextField.Root>
+                
                 {errors.Chasis_No && <p className="error text-red-600">{errors.Chasis_No.message}</p>}
                 </div>
 
                 <div>
                 <p>Engine Number: </p>
-                <TextField.Root>
-                <TextField.Input  { ...register('Engine_No', {                
+                
+                <MyTextField  { ...register('Engine_No', {                
                     maxLength: {
                       value: 25,
                       message: 'Engine Number should be at most 25 characters'
@@ -472,7 +472,7 @@ const onSubmit = async (formValues: AddClientType) => {
                   })}
                   onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />
-                </TextField.Root>
+                
                 {errors.Engine_No && <p className="error text-red-600">{errors.Engine_No.message}</p>}
                 </div>
 
@@ -620,8 +620,8 @@ const onSubmit = async (formValues: AddClientType) => {
 
                 <div>  
                 <p>OD Policy No: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('Policy_No', {
                     maxLength: {
                         value: 30,
@@ -630,7 +630,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     })}
                     onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />            
-                </TextField.Root>
+                
                 {errors.Policy_No && <p className="error text-red-600">{errors.Policy_No.message}</p>}
                 <FileUplaod 
                     name="OD_Policy_Doc"
@@ -674,8 +674,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 { !isPolicyChecked && <>            
                 <p>TP Policy No: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('TP_Policy_No', {
                     maxLength: {
                         value: 30,
@@ -684,7 +684,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     })}
                     onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />            
-                </TextField.Root>
+                
                 {errors.TP_Policy_No && <p className="error text-red-600">{errors.TP_Policy_No.message}</p>}
     
                 <FileUplaod 
@@ -845,8 +845,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 />      
                 <div>                 
                 <p>Permit No: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('Permit_No', {
                     maxLength: {
                         value: 30,
@@ -855,7 +855,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     })}
                     onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />            
-                </TextField.Root>
+                
                 {errors.Permit_No && <p className="error text-red-600">{errors.Permit_No.message}</p>}
                 </div>
 
@@ -879,8 +879,8 @@ const onSubmit = async (formValues: AddClientType) => {
 
                 <div>
                 <p>1st Mobile No: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('Mobile_No1', {
                     pattern: {
                         value: /^[6-9]\d{9}$/,
@@ -888,15 +888,15 @@ const onSubmit = async (formValues: AddClientType) => {
                     }
                     })}
                 />                                  
-                </TextField.Root>
+                
                 {errors.Mobile_No1 && typeof errors.Mobile_No1 === 'object' && 'message' in errors.Mobile_No1 && (
                 <p className="error text-red-600">{(errors.Mobile_No1 as FieldError).message}</p>)}  
                 </div>
                 
                 <div>
                 <p>2nd Mobile No: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('Mobile_No2', {
                     pattern: {
                         value: /^[6-9]\d{9}$/,
@@ -904,14 +904,14 @@ const onSubmit = async (formValues: AddClientType) => {
                     }
                     })}
                 />                                 
-                </TextField.Root>
+                
                 {errors.Mobile_No2 && typeof errors.Mobile_No2 === 'object' && 'message' in errors.Mobile_No2 && (
                 <p className="error text-red-600">{(errors.Mobile_No2 as FieldError).message}</p>)}   
                 </div>
                 <div>
                 <p>3rd Mobile No: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('Mobile_No3', {
                     pattern: {
                         value: /^[6-9]\d{9}$/,
@@ -919,15 +919,15 @@ const onSubmit = async (formValues: AddClientType) => {
                     }
                     })}
                 />                      
-                </TextField.Root>
+                
                 {errors.Mobile_No3 && typeof errors.Mobile_No3 === 'object' && 'message' in errors.Mobile_No3 && (
                 <p className="error text-red-600">{(errors.Mobile_No3 as FieldError).message}</p>)}  
                 </div>
 
                 <div>
                 <p>Email Id: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('Email_id', {
                     pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -935,15 +935,15 @@ const onSubmit = async (formValues: AddClientType) => {
                     }
                     })}
                 />            
-                </TextField.Root>
+                
                 {errors.Email_id && <p className="error text-red-600">{errors.Email_id.message}</p>}
                 </div>
 
                 <div>
                 {!corporate && <>
                 <p>Aadhar Number: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('Adhar_No', {
                     pattern: {
                         value: /^\d{12}$/,
@@ -951,7 +951,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     }
                     })}
                 />                                 
-                </TextField.Root>                 
+                                
                 {errors.Adhar_No && typeof errors.Adhar_No === 'object' && 'message' in errors.Adhar_No && (
                 <p className="error text-red-600">{(errors.Adhar_No as FieldError).message}</p>)}   
                 <FileUplaod 
@@ -966,8 +966,8 @@ const onSubmit = async (formValues: AddClientType) => {
 
                 <div>
                 <p>PAN Number: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('PanCard_No', {
                     pattern: {
                         value: /^[A-Za-z0-9]{10}$/,
@@ -976,7 +976,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     })}
                     onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />            
-                </TextField.Root>
+                
                 {errors.PanCard_No && <p className="error text-red-600">{errors.PanCard_No.message}</p>}
                 <FileUplaod 
                     name="Pan_doc"
@@ -990,8 +990,8 @@ const onSubmit = async (formValues: AddClientType) => {
                 
                 { !corporate &&  <div>
                 <p>Nominee Name: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('Nominee', {
                     maxLength: {
                         value: 30,
@@ -1004,7 +1004,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     })}
                     onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />            
-                </TextField.Root>
+                
                 {errors.Nominee && <p className="error text-red-600">{errors.Nominee.message}</p>}
                 <FileUplaod 
                     name="Nominee_Doc"
@@ -1035,9 +1035,9 @@ const onSubmit = async (formValues: AddClientType) => {
 
                 <div>
                 <p>PUC/Emission Number: </p>
-                <TextField.Root>
+                
                     
-                <TextField.Input
+                <MyTextField
                     {...register('PUCC_Emission_No', {
                         maxLength: {
                             value: 30,
@@ -1047,7 +1047,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     disabled={isNDChecked}
                     onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />            
-                </TextField.Root>
+                
                 {errors.PUCC_Emission_No && <p className="error text-red-600">{errors.PUCC_Emission_No.message}</p>}
                 {<FormControlLabel
                    control={<Checkbox checked={isNDChecked} onChange={handleNDCheckBox} />}
@@ -1067,8 +1067,8 @@ const onSubmit = async (formValues: AddClientType) => {
 
                 <div>    
                 <p className='mt-3'>GST No: </p>
-                <TextField.Root>
-                <TextField.Input
+                
+                <MyTextField
                     {...register('GST_No', {
                     pattern: {
                         value: /^[A-Za-z0-9]{15}$/,
@@ -1077,7 +1077,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     })}
                     onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />
-                </TextField.Root>
+                
                 {errors.GST_No && <p className="error text-red-600">{errors.GST_No.message}</p>}
                 <FileUplaod 
                     name="GST_Cer_Doc"
@@ -1086,19 +1086,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     value={GstCerfile}
                     placeholder=""                       
                 />    
-                </div>    
-
-                <div className='col-span-4'>
-                <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} />
-                <FormControlLabel
-                    control={<Checkbox checked={isAddressChecked} onChange={handleAddressCheckBox} />}
-                    label="Communication Address same as RC Address"
-                />
-                </div>  
-
-                <div className='col-span-4'>
-                {!isAddressChecked && <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} /> }
-                </div>
+                </div>                    
     
                 <div>
                 <DropDownControlWA 
@@ -1136,7 +1124,8 @@ const onSubmit = async (formValues: AddClientType) => {
 
                 <div>     
                 <p className='mt-3'>Comments: </p>
-                <TextArea
+                <TextareaAutosize
+                aria-label="minimum height" minRows={3}
                 {...register('Comments', {
                     maxLength: {
                     value: 500,
@@ -1163,7 +1152,19 @@ const onSubmit = async (formValues: AddClientType) => {
                     value={photoLinks} 
                     placeholder="Upload Photos:    "                    
                 />	   
-            </div>
+                </div>
+
+                <div className='col-span-5'>
+                <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} />
+                <FormControlLabel
+                    control={<Checkbox checked={isAddressChecked} onChange={handleAddressCheckBox} />}
+                    label="Communication Address same as RC Address"
+                />
+                </div>  
+
+                <div className='col-span-5'>
+                {!isAddressChecked && <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} /> }
+                </div>
 
 
             </div>       

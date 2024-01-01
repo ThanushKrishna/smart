@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Control, Controller } from 'react-hook-form';
+import { Select, MenuItem } from '@mui/material';
 
 interface DropDownControlProps<T> {
     name: string;
@@ -51,22 +52,28 @@ export const DropDownControl: React.FC<DropDownControlProps<any>> = ({
                 control={control}
                 defaultValue= {value || ''}                
                 render={({ field }) => (
-                    <select {...field} 
-                    className='w-full py-1.48 rounded pl-1 bottom-0 h-full text-slate-500 pt-1 border-slate-300 border-2'
+                    <Select {...field}     
+                    style={{      
+                        width: '66%',                                                              
+                        borderRadius: '0.2rem',                        
+                        bottom: '0',                                              
+                        paddingTop: '0.1rem',
+                        border: '2px #cbd5e0',
+                      }}                
                     onChange={(e) => {
                         field.onChange(e);
                         handleValueChange(e.target.value); // Call the callback function when the value changes                        
                       }}                      
                     >                  
-                     {value && <option> {value} </option> } 
-                     {(value!=="LEAD") && <option key="dummy" value=""></option>}   
-                    console.log(value)
+                     {value && <MenuItem> {value} </MenuItem> } 
+                     {(value!=="LEAD") && <MenuItem key="dummy" value=""></MenuItem>}   
+                    {/* console.log(value) */}
                     {options && options.map((option:any) => (
-                    <option key={option.value} value={option.value}>
+                    <MenuItem key={option.value} value={option.value}>
                         {option.value}
-                        </option>  
+                        </MenuItem>  
                     ))}     
-                    </select>                                          
+                    </Select>                                          
                 )}                    
                 />  
             </div>     
