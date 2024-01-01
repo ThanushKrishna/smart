@@ -49,6 +49,7 @@ const [isBack, setBack] = useState(false);
 const [isNDChecked, setNDChecked] = useState(false);
 const [NDValue, setNDValue] = useState<number | undefined>();
 const [photoLinks, setphotoLinks] = useState<string | null>(gusrdatabyid.user_data_byid?.photo_links || '');
+const [NomineeLinks, setNomineeLinks] = useState<string | null>(gusrdatabyid.user_data_byid?.Nominee_Doc || '');
 
 
 const handleAddressCheckBox = (event: any) => {
@@ -114,7 +115,8 @@ const onSubmit = async (formValues: AddClientType) => {
             Permit_dueDate: (formValues?.Permit_dueDate ? new Date(formValues?.Permit_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
             CAddress: (isAddressChecked ? formValues?.Address:formValues?.CAddress || undefined ),
             Prospect: formValues?.Prospect || undefined, 
-            photo_links: photoLinks || undefined,                  
+            photo_links: photoLinks || undefined,   
+            Nominee_Doc: NomineeLinks || undefined,               
         }
         
         console.log( result );
@@ -338,7 +340,7 @@ return (
                 placeholder=""                                      
                 value={panfile}                   
             />
-            { ! isCorporateGlobal && <> 
+            { ! isCorporateGlobal && <div> 
             <p>Nominee Name: </p>
             <TextField.Root>
               <TextField.Input
@@ -359,6 +361,14 @@ return (
             {errors.Nominee && typeof errors.Nominee === 'string' && (
               <p className="error text-red-600">{errors.Nominee}</p>
             )}
+            <FileUplaod 
+                name="Nominee_Doc"
+                control={control}     
+                onSelectFile={(e:string | null) => setNomineeLinks(e)}                      
+                placeholder=""                          
+                value={NomineeLinks}                   
+            />
+            </div>}
 
               { !isCorporateGlobal && <div>
                 <DropDownControl 
@@ -370,6 +380,7 @@ return (
                 />                    
                 </div> }       
 
+              { !isCorporateGlobal && <div>      
             <DatePickerComponent 
                 name="Nominee_dob"
                 control={control}
@@ -377,7 +388,7 @@ return (
                 selectedDate={gusrdatabyid.user_data_byid.Nominee_dob && new Date(gusrdatabyid.user_data_byid?.Nominee_dob)}           
               />  
                 
-            </>}
+            </div>}
                     
 
 

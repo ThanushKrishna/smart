@@ -89,6 +89,7 @@ export interface AddClientType {
     CAddress:              tAddress
     Prospect:              String
     photo_links:           String
+    Nominee_Doc:           String
   }
   
 

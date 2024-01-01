@@ -97,6 +97,7 @@ model user_data {
   Insurance_type        String?
   Mobile_No3            String?
   Nominee_Relationship  String?
+  Nominee_Doc           String?
   Son_Wife_Daughter_Of  String?
   Vehicle_Body          String?
   Wheel_Base            String?

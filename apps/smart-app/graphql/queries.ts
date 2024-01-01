@@ -265,6 +265,7 @@ export const GET_USER_DATA = gql`
     }
     Prospect
     photo_links
+    Nominee_Doc
     createdAt
     updatedAt
     }
@@ -359,6 +360,7 @@ query User_data_byid($vechicleId: String!) {
     }
     Prospect
     photo_links
+    Nominee_Doc
     createdAt
     updatedAt
   }

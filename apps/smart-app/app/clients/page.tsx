@@ -212,6 +212,7 @@ const addressFormatter = (params: any) => {
     { headerName: 'PAN Number', field: 'PanCard_No', colId: 'panCardNumber', autoHeight: true },
     { headerName: 'PAN Number Document', field: 'Pan_doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'panDocument', autoHeight: true },
     { headerName: 'Nominee Name', field: 'Nominee', colId: 'nominee', autoHeight: true },
+    { headerName: 'Nominee Document', field: 'Nominee_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'NomineeDoc', autoHeight: true },
     { headerName: 'Nominee Relationship', field: 'Nominee_Relationship', colId: 'nomineeRelationship', autoHeight: true },
     { headerName: 'Nominee DOB', field: 'Nominee_dob', colId: 'nomineeDOB', valueFormatter: dateFormatter, autoHeight: true  },
     { headerName: 'PUC/Emission Number', field: 'PUCC_Emission_No', colId: 'puccEmissionNumber', autoHeight: true },

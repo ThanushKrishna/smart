@@ -185,6 +185,7 @@ type user_data {
   Vehicle_Kind:          String
   Gender:                String
   photo_links:           String
+  Nominee_Doc:           String
   createdAt:             Date               
   updatedAt:             Date               
 }
@@ -486,6 +487,7 @@ input createUserDataInput {
   photo_links:           String
   CAddress:              CreateAddressInput
   Prospect:              String
+  Nominee_Doc:           String
 }
 
 input updateUserDataInput { 
@@ -562,6 +564,7 @@ input updateUserDataInput {
   CAddress:              CreateAddressInput
   photo_links:           String
   Prospect:              String
+  Nominee_Doc:           String
 }
 
 input updateUserDataInput1 {
@@ -633,7 +636,7 @@ PanCard_No:             String
 Pan_doc:             	String
 Nominee:             	String
 Nominee_Relationship:   String
-Nominee_dob: 			Date
+Nominee_dob: 			      Date
 PUCC_Emission_No:       String
 Emission_dueDate:       Date
 GST_No:               	String
@@ -646,6 +649,7 @@ updated_by:             String
 Customer_type:          String
 Comments:             	String
 photo_links:           String
+Nominee_Doc:           String
 }
 
 
@@ -724,6 +728,7 @@ type createUserDataOutput {
   CAddress:              Address
   Prospect:              String  
   photo_links:           String  
+  Nominee_Doc:           String
 }
 
 type updateUserDataOutput {  
@@ -798,7 +803,7 @@ type updateUserDataOutput {
   Permit_dueDate:        Date
   CAddress:              Address
   Prospect:              String  
-  photo_links:           String         
+  Nominee_Doc:           String           
 }
 
 input TestaddClientinput {

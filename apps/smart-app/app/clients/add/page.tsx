@@ -111,6 +111,7 @@ const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(null);
 const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(null);
 const [GstCerfile, setGstCerfile] = useState<string | null>(null);
 const [photoLinks, setphotoLinks] = useState<string | null>(null);
+const [NomineeLinks, setNomineeLinks] = useState<string | null>(null);
 const [isAddressChecked, setAddressChecked] = useState(false);
 const [isPolicyChecked, setPolicyChecked] = useState(false);
 const [isLttChecked, setLttChecked] = useState(false);
@@ -238,6 +239,7 @@ const onSubmit = async (formValues: AddClientType) => {
             CAddress: (isAddressChecked ? formValues?.Address:formValues?.CAddress || undefined ),
             Prospect: formValues?.Prospect || undefined,
             photo_links: photoLinks || undefined,
+            Nominee_Doc: NomineeLinks || undefined
         }
         console.log( result );        
         console.log( "tax_dueDate: " + formValues.tax_due_Date );
@@ -1004,6 +1006,13 @@ const onSubmit = async (formValues: AddClientType) => {
                 />            
                 </TextField.Root>
                 {errors.Nominee && <p className="error text-red-600">{errors.Nominee.message}</p>}
+                <FileUplaod 
+                    name="Nominee_Doc"
+                    control={control}     
+                    onSelectFile={(e:string | null) => setNomineeLinks(e)}     
+                    value={NomineeLinks} 
+                    placeholder=""                    
+                />	   
                 </div> }
 
                 
@@ -1013,7 +1022,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     control={control}
                     placeholder="Nominee Relationship:  "                                      
                     options={N_Relation}                    
-                />                    
+                />                                    
                 </div> }
 
                 { !corporate &&  <div>                                

@@ -1163,7 +1163,8 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
                         zip: args.input.CAddress.zip
                       },
             Prospect:              args.input.Prospect,
-            photo_links:           args.input.photo_links
+            photo_links:           args.input.photo_links,
+            Nominee_Doc:           args.input.Nominee_Doc
           },       
       })
     }
@@ -1270,7 +1271,8 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
                         zip: args.input.CAddress.zip
                       },
           Prospect:              args.input.Prospect,
-          photo_links:           args.input.photo_links
+          photo_links:           args.input.photo_links,
+          Nominee_Doc:           args.input.Nominee_Doc,
         }, 
       })    
     },
@@ -1380,7 +1382,8 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
                         zip: args.input.CAddress.zip
                       },
             Prospect:              args.input.Prospect,
-            photo_links:           args.input.photo_links
+            photo_links:           args.input.photo_links,
+            Nominee_Doc:           args.input.Nominee_Doc,
           }, 
         })   
       return "Updated !"     
