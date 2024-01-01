@@ -45,7 +45,7 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
                   <DatePicker  
                   {...field}             
                     sx={{      
-                      width: '66%',                                                              
+                      width: '80%',                                                              
                       borderRadius: '0.2rem',                        
                       bottom: '0',                                              
                       paddingTop: '0.1rem',

@@ -40,7 +40,7 @@ import { FileUplaod } from '@/app/components/Upload'
 import AddressForm from '@/app/components/AddressForm'
 import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT, GENDER, N_Relation, VEHICLE_KIND } from '@/json/enums'
 import  Checkbox from '@mui/material/Checkbox';
-import { TextField as MyTextField, TextareaAutosize  } from '@mui/material';
+import { TextField as MyTextField , TextareaAutosize  } from '@mui/material';
 import {FormControlLabel, CircularProgress, Button as MyButton}  from '@mui/material';
 
 
@@ -286,7 +286,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <>
                     <label> Vehicle Registration Number: </label>
                     <br />
-                    <MyTextField
+                    <MyTextField sx={{ width: '80%' }}  
                     {...register('Vehicle_No', {
                         required: 'Vehicle Registration Number is required',
                         maxLength: {
@@ -335,7 +335,8 @@ const onSubmit = async (formValues: AddClientType) => {
                
                 <div>
                 <p>Vehicle Registration Number:</p>
-                <MyTextField                    
+                <MyTextField      
+                    sx={{ width: '80%' }}                
                     {...register('Vehicle_No')}
                     defaultValue={vehicleno}
                     disabled={true}
@@ -352,7 +353,7 @@ const onSubmit = async (formValues: AddClientType) => {
 
                 <div>
                  <p>Owner Name: </p>                            
-                <MyTextField                 
+                <MyTextField sx={{ width: '80%' }}                   
                 { ...register('Owner', {                
                     maxLength: {
                       value: 30,
@@ -402,7 +403,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 {!corporate && <>
                 <p>Son/Wife/Daughter Of: </p>            
                 
-                <MyTextField { ...register('Son_Wife_Daughter_Of', {                
+                <MyTextField sx={{ width: '80%' }}   { ...register('Son_Wife_Daughter_Of', {                
                     maxLength: {
                       value: 30,
                       message: 'Name should be at most 30 characters'
@@ -422,7 +423,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 <p>Owner Serial Number: </p>
                 
-                <MyTextField { ...register('RC_No', {                
+                <MyTextField sx={{ width: '80%' }}   { ...register('RC_No', {                
                     maxLength: {
                       value: 2,
                       message: 'Owner Serial Number should be at most 2 characters'
@@ -441,7 +442,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 <p>Chassis Number: </p>
                 
-                <MyTextField  { ...register('Chasis_No', {                
+                <MyTextField sx={{ width: '80%' }}    { ...register('Chasis_No', {                
                     maxLength: {
                       value: 25,
                       message: 'Chassis Number should be at most 25 characters'
@@ -460,7 +461,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 <p>Engine Number: </p>
                 
-                <MyTextField  { ...register('Engine_No', {                
+                <MyTextField sx={{ width: '80%' }}    { ...register('Engine_No', {                
                     maxLength: {
                       value: 25,
                       message: 'Engine Number should be at most 25 characters'
@@ -621,7 +622,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>  
                 <p>OD Policy No: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('Policy_No', {
                     maxLength: {
                         value: 30,
@@ -675,7 +676,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 { !isPolicyChecked && <>            
                 <p>TP Policy No: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('TP_Policy_No', {
                     maxLength: {
                         value: 30,
@@ -846,7 +847,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>                 
                 <p>Permit No: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('Permit_No', {
                     maxLength: {
                         value: 30,
@@ -880,7 +881,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 <p>1st Mobile No: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('Mobile_No1', {
                     pattern: {
                         value: /^[6-9]\d{9}$/,
@@ -896,7 +897,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 <p>2nd Mobile No: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('Mobile_No2', {
                     pattern: {
                         value: /^[6-9]\d{9}$/,
@@ -911,7 +912,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 <p>3rd Mobile No: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('Mobile_No3', {
                     pattern: {
                         value: /^[6-9]\d{9}$/,
@@ -927,7 +928,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 <p>Email Id: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('Email_id', {
                     pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -943,7 +944,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 {!corporate && <>
                 <p>Aadhar Number: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('Adhar_No', {
                     pattern: {
                         value: /^\d{12}$/,
@@ -967,7 +968,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>
                 <p>PAN Number: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('PanCard_No', {
                     pattern: {
                         value: /^[A-Za-z0-9]{10}$/,
@@ -991,7 +992,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 { !corporate &&  <div>
                 <p>Nominee Name: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('Nominee', {
                     maxLength: {
                         value: 30,
@@ -1037,7 +1038,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <p>PUC/Emission Number: </p>
                 
                     
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('PUCC_Emission_No', {
                         maxLength: {
                             value: 30,
@@ -1068,7 +1069,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>    
                 <p className='mt-3'>GST No: </p>
                 
-                <MyTextField
+                <MyTextField sx={{ width: '80%' }}  
                     {...register('GST_No', {
                     pattern: {
                         value: /^[A-Za-z0-9]{15}$/,
@@ -1125,8 +1126,10 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>     
                 <p className='mt-3'>Comments: </p>
                 <TextareaAutosize
+                style={{ width: '80%' }}  
                 aria-label="minimum height" minRows={3}
-                {...register('Comments', {
+                {...register                    
+                    ('Comments', {
                     maxLength: {
                     value: 500,
                     message: 'Comments should be at most 500 characters'

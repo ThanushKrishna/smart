@@ -47,8 +47,8 @@ export const DropDownControlWA: React.FC<DropDownControlWAProps<any>> = ({
                 defaultValue={value}                
                 render={({ field }) => (                    
                     <Select {...field} 
-                    style={{      
-                        width: '66%',                                                              
+                    style={{          
+                        width: '80%',                                                                                                                                         
                         borderRadius: '0.2rem',                        
                         bottom: '0',                                              
                         paddingTop: '0.1rem',
