@@ -150,8 +150,8 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                 />  
             </div>  
             {links.map((item:string, index:number) => ( 
-            <div className='flex'>
-                <a key={index} href={item} target="_blank" rel="noopener noreferrer">
+            <div key={index} >
+                <a href={item} target="_blank" rel="noopener noreferrer">
                 <button type="button" className='mr-4'>Doc{index+1}</button>                                                                
                 </a>                
                 <button type="button" onClick={() => handlefileDelete(index)}>Delete </button>
