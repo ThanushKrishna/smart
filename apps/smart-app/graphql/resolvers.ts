@@ -1376,14 +1376,14 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
             GST_Cer_Doc           : args.input.GST_Cer_Doc !== undefined ? args.input.GST_Cer_Doc: null,
             Permit_dueDate:        args.input.Permit_dueDate,
             CAddress: {
-                        street: args.input.CAddress.street,
-                        city: args.input.CAddress.city,
-                        state: args.input.CAddress.state,
-                        zip: args.input.CAddress.zip
+              street: args.input.Address.street !== undefined ? args.input.CAddress.street: null,
+              city: args.input.Address.city !== undefined ? args.input.CAddress.city: null,
+              state: args.input.Address.state !== undefined ? args.input.CAddress.state: null,
+              zip: args.input.Address.zip !== undefined ? args.input.CAddress.zip: null,
                       },
-            Prospect:              args.input.Prospect,
-            photo_links:           args.input.photo_links,
-            Nominee_Doc:           args.input.Nominee_Doc,
+            Prospect:              args.input.Prospect !== undefined ? args.input.Prospect: null,
+            photo_links:           args.input.photo_links !== undefined ? args.input.photo_links: null,
+            Nominee_Doc:           args.input.Nominee_Doc !== undefined ? args.input.Nominee_Doc: null,
           }, 
         })   
       return "Updated !"     
