@@ -8,6 +8,7 @@ import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 
 interface MasterComponentProps {
   entityName: string;
+  entityDname: string;
   queries: {
     getAll: any;
     add: any;
@@ -21,7 +22,7 @@ interface Row {
   value: string;
 }
 
-const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, queries }) => {
+const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDname, queries }) => {
   const [editableRows, setEditableRows] = useState<string[]>([]);
   const [editedValues, setEditedValues] = useState<Record<string, string>>({});
   const [deleteItemId, setDeleteItemId] = useState<string | null>(null);
@@ -124,7 +125,7 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, queries }
     <>
       <div>
         <TextField
-          label={`Search ${entityName.replaceAll('_', ' ')} by Value`}
+          label={`Search ${entityDname} by Value`}
           variant="outlined"
           value={searchTerm}
           onChange={(e) => {
