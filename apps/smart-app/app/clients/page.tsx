@@ -225,7 +225,7 @@ const addressFormatter = (params: any) => {
     { headerName: 'Policy Issued Through', field: 'Customer_type', colId: 'customerType', autoHeight: true },  
     { headerName: 'Comments', field: 'Comments', colId: 'comments'},
     { headerName: 'Prospect', field: 'Prospect', colId: 'Prospect'},
-    { headerName: 'Photos', field: 'photo_links', colId: 'Prospect'},
+    { headerName: 'Photos', field: 'photo_links', colId: 'photo_links',  cellRenderer: (params: any) => <FileIconRenderer data={params.value} />},
                        
   ];
   
