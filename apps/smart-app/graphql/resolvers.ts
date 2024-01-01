@@ -1162,7 +1162,8 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
                         state: args.input.CAddress.state,
                         zip: args.input.CAddress.zip
                       },
-            Prospect:              args.input.Prospect  
+            Prospect:              args.input.Prospect,
+            photo_links:           args.input.photo_links
           },       
       })
     }
@@ -1268,7 +1269,8 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
                         state: args.input.CAddress.state,
                         zip: args.input.CAddress.zip
                       },
-          Prospect:              args.input.Prospect  
+          Prospect:              args.input.Prospect,
+          photo_links:           args.input.photo_links
         }, 
       })    
     },
@@ -1377,7 +1379,8 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
                         state: args.input.CAddress.state,
                         zip: args.input.CAddress.zip
                       },
-            Prospect:              args.input.Prospect  
+            Prospect:              args.input.Prospect,
+            photo_links:           args.input.photo_links
           }, 
         })   
       return "Updated !"     

@@ -43,7 +43,7 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
               render={({ field }) => (                                                    
                   <DemoContainer components={['DatePicker']}>
                   <DatePicker          
-                    sx={{ width: '100%' }}
+                    sx={{ width: '100%', marginTop:0 }}
                     {...field}       
                     disabled={disabled}                                    
                     format="DD/MM/YYYY"                       

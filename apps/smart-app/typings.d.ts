@@ -88,6 +88,7 @@ export interface AddClientType {
     Vehicle_Kind:          String
     CAddress:              tAddress
     Prospect:              String
+    photo_links:           String
   }
   
 

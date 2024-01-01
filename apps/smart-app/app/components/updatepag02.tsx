@@ -174,8 +174,7 @@ return (
          </div>    
 
          <div className='w-2/3 mb-5'>
-         <Button 
-         type="button"
+         <Button          
          className='w-full'
          disabled={isBack}
          onClick={() => {back(true); setBack(true)}}
@@ -357,15 +356,14 @@ return (
             />
             </div>  
 
-        <div className='w-2/3 mt-5'>
-         <Button 
-         type="button"
-         className='w-full'
-         disabled={isBack}
-         onClick={() => {back(true); setBack(true)}}
-         >Back {isBack && <Spinner></Spinner>}
-         </Button>  
-         </div>    
+            <div className='w-2/3 mt-5'>
+            <Button          
+            className='w-full'
+            disabled={isBack}
+            onClick={() => {back(true); setBack(true)}}
+            >Back {isBack && <Spinner></Spinner>}
+            </Button>  
+            </div>    
 
             <div className='w-2/3 mt-5'>
             <Button 

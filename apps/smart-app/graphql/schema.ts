@@ -184,6 +184,7 @@ type user_data {
   Prospect:              String
   Vehicle_Kind:          String
   Gender:                String
+  photo_links:           String
   createdAt:             Date               
   updatedAt:             Date               
 }
@@ -482,6 +483,7 @@ input createUserDataInput {
   Seating_Capacity:      String
   Standing_Capacity:     String   
   Permit_dueDate:        Date
+  photo_links:           String
   CAddress:              CreateAddressInput
   Prospect:              String
 }
@@ -558,6 +560,7 @@ input updateUserDataInput {
   Standing_Capacity:     String   
   Permit_dueDate:        Date
   CAddress:              CreateAddressInput
+  photo_links:           String
   Prospect:              String
 }
 
@@ -642,6 +645,7 @@ Referred_by:            String
 updated_by:             String
 Customer_type:          String
 Comments:             	String
+photo_links:           String
 }
 
 
@@ -718,7 +722,8 @@ type createUserDataOutput {
   Standing_Capacity:     String      
   Permit_dueDate:        Date
   CAddress:              Address
-  Prospect:              String    
+  Prospect:              String  
+  photo_links:           String  
 }
 
 type updateUserDataOutput {  
@@ -792,7 +797,8 @@ type updateUserDataOutput {
   Standing_Capacity:     String   
   Permit_dueDate:        Date
   CAddress:              Address
-  Prospect:              String           
+  Prospect:              String  
+  photo_links:           String         
 }
 
 input TestaddClientinput {

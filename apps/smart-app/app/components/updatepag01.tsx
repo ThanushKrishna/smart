@@ -191,24 +191,6 @@ const onSubmit = async (formValues: AddClientType) => {
         placeholder=""
     />
 
-    <DropDownControl 
-        name="Ownership_type"
-        control={control}
-        value={gusrdatabyid.user_data_byid?.Ownership_type}  
-        placeholder="Owner Type:   "                                      
-        options={OWNER_TYPE}
-        isCorporate={(e:Boolean) => { isCorporateLocal(e); setCorporateUpdate(e)} } 
-    />            
-     <div>
-        <DropDownControl 
-            name="Vehicle_Kind"
-            control={control}
-            value={gusrdatabyid.user_data_byid?.Vehicle_Kind}  
-            placeholder="Vehicle Type:   "                                      
-            options={VEHICLE_KIND}                    
-        />    
-    </div>        
-
     <p>Owner Name: </p>
     <TextField.Root>
         <TextField.Input
@@ -229,6 +211,27 @@ const onSubmit = async (formValues: AddClientType) => {
     {errors.Owner && (
         <p className="error text-red-600">{errors.Owner.message}</p>
     )}
+
+
+    <DropDownControl 
+        name="Ownership_type"
+        control={control}
+        value={gusrdatabyid.user_data_byid?.Ownership_type}  
+        placeholder="Owner Type:   "                                      
+        options={OWNER_TYPE}
+        isCorporate={(e:Boolean) => { isCorporateLocal(e); setCorporateUpdate(e)} } 
+    />            
+     <div>
+        <DropDownControl 
+            name="Vehicle_Kind"
+            control={control}
+            value={gusrdatabyid.user_data_byid?.Vehicle_Kind}  
+            placeholder="Vehicle Type:   "                                      
+            options={VEHICLE_KIND}                    
+        />    
+    </div>        
+
+   
 
     {! isCorporateUpdate && <> 
      <div>

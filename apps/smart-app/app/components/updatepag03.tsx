@@ -48,6 +48,7 @@ const [isAddressChecked, setAddressChecked] = useState(false);
 const [isBack, setBack] = useState(false);
 const [isNDChecked, setNDChecked] = useState(false);
 const [NDValue, setNDValue] = useState<number | undefined>();
+const [photoLinks, setphotoLinks] = useState<string | null>(gusrdatabyid.user_data_byid?.photo_links || '');
 
 
 const handleAddressCheckBox = (event: any) => {
@@ -112,7 +113,8 @@ const onSubmit = async (formValues: AddClientType) => {
             GST_Cer_Doc: GstCerfile || undefined,     
             Permit_dueDate: (formValues?.Permit_dueDate ? new Date(formValues?.Permit_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
             CAddress: (isAddressChecked ? formValues?.Address:formValues?.CAddress || undefined ),
-            Prospect: formValues?.Prospect || undefined,                   
+            Prospect: formValues?.Prospect || undefined, 
+            photo_links: photoLinks || undefined,                  
         }
         
         console.log( result );
@@ -154,8 +156,7 @@ return (
           </div>    
           
         <div className='w-2/3 mb-5'>
-         <Button 
-         type="button"
+         <Button          
          className='w-full'
          disabled={isBack}
          onClick={() => {back(true); setBack(true)}}
@@ -389,13 +390,18 @@ return (
                       message: 'Emission number should be at most 30 characters'
                   }                
                   })}   
+                disabled={isNDChecked}
                 defaultValue={gusrdatabyid?.user_data_byid?.PUCC_Emission_No}
                 onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
               />
             </TextField.Root>
             {errors.PUCC_Emission_No && typeof errors.PUCC_Emission_No === 'object' && 'message' in errors.PUCC_Emission_No && (
             <p className="error text-red-600">{(errors.PUCC_Emission_No as FieldError).message}</p>)} 
-            
+             {<FormControlLabel
+                   control={<Checkbox checked={isNDChecked} onChange={handleNDCheckBox} />}
+                   label="ND"
+                 />
+                }   
             <div>
             <DatePickerComponent 
               name="Emission_dueDate"
@@ -403,14 +409,7 @@ return (
               placeholder="PUC/Emission UpTo: "
               selectedDate={gusrdatabyid.user_data_byid.Emission_dueDate && new Date(gusrdatabyid.user_data_byid?.Emission_dueDate)}  
               disabled={isNDChecked}
-
-            />    
-             {<FormControlLabel
-                   control={<Checkbox checked={isNDChecked} onChange={handleNDCheckBox} />}
-                   label="ND"
-                 />
-                }   
-
+            />                
             </div>
            <p className='mt-3'>GST No: </p>
             <TextField.Root>
@@ -453,7 +452,7 @@ return (
               onOptionAdd={async (e: String) => await addReferredBy({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_REFERRED_BY_BY_VALUE, variables: { input: "" } }] })}
           />
             </div>
-            
+
             <div>
             <DropDownControlWA 
               name="updated_by"
@@ -489,11 +488,21 @@ return (
               placeholder="Prospect:   "           
               options={PROSPECT}              
             />
-            </div>    
 
+              <div>
+              <FileUplaod 
+                      name="photo_links"
+                      control={control}     
+                      onSelectFile={(e:string | null) => setphotoLinks(e)}     
+                      value={photoLinks} 
+                      placeholder="Upload Photos:   "                       
+                  />	   
+              </div>
+
+            </div>    
+           
             <div className='w-2/3 mt-5'>
-            <Button 
-            type="button"
+            <Button             
             className='w-full'
             disabled={isBack}
             onClick={() => {back(true); setBack(true)}}

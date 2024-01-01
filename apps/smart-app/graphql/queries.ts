@@ -264,6 +264,7 @@ export const GET_USER_DATA = gql`
       zip
     }
     Prospect
+    photo_links
     createdAt
     updatedAt
     }
@@ -357,6 +358,7 @@ query User_data_byid($vechicleId: String!) {
       zip
     }
     Prospect
+    photo_links
     createdAt
     updatedAt
   }

@@ -22,9 +22,9 @@ import 'ag-grid-community/styles/ag-theme-quartz.css';
 ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 
 const AutomobilePage = () => {
-  const [selectedRow, setSelectedRow] = useState(null);
-  const { loading, error, data, refetch } = useQuery<{ user_data: AddClientType[] }>(GET_USER_DATA)
+  const gridApi = useRef<AgGridReact | null>(null);
   const gridRef = useRef<AgGridReact>(null);
+  const { loading, error, data, refetch } = useQuery<{ user_data: AddClientType[] }>(GET_USER_DATA)
   const containerStyle =  { width: '100%', height: '100%' };
   
  // useEffect to trigger the initial data fetch
@@ -67,6 +67,7 @@ const AutomobilePage = () => {
     };
   }, [gridRef]);
 
+ 
   if (loading) return <p>Loading...</p>;
   console.log(data);
   if (error) return <p>Error: {error.message}</p>;
@@ -152,15 +153,15 @@ const addressFormatter = (params: any) => {
   const columnDefs: ColDef<AddClientType, any>[] = [
     { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber', autoHeight: true },
     { headerName: 'Vehicle Registration Number Document', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'rcDocument', autoHeight: true },
-    { headerName: 'Owner Type', field: 'Ownership_type', colId: 'ownershipType', autoHeight: true },
     { headerName: 'Owner Name', field: 'Owner', colId: 'owner', autoHeight: true },
+    { headerName: 'Owner Type', field: 'Ownership_type', colId: 'ownershipType', autoHeight: true },    
+    { headerName: 'Vehicle Type', field: 'Vehicle_Kind', colId: 'Vehicle_Kind', autoHeight: true },
     { headerName: 'Gender', field: 'Gender', colId: 'gender', autoHeight: true },
-    { headerName: 'Son/Wife/Daughter Of', field: 'Son_Wife_Daughter_Of', colId: 'sonWifeDaughterOf', autoHeight: true },
-    { headerName: 'Owner Serial Number', field: 'RC_No', colId: 'rcNumber', autoHeight: true },
-    { headerName: 'Vehicle Kind', field: 'Vehicle_Kind', colId: 'Vehicle_Kind', autoHeight: true },
+    { headerName: 'Son/Wife/Daughter Of', field: 'Son_Wife_Daughter_Of', colId: 'sonWifeDaughterOf', autoHeaderHeight: true },
+    { headerName: 'Owner Serial Number', field: 'RC_No', colId: 'rcNumber', autoHeight: true },    
     { headerName: 'Chassis Number', field: 'Chasis_No', colId: 'chasisNumber', autoHeight: true },
     { headerName: 'Engine Number', field: 'Engine_No', colId: 'engineNumber', autoHeight: true },
-    { headerName: 'Make', field: 'Make', colId: 'make', autoHeight: true },
+    { headerName: 'Make', field: 'Make', colId: 'make', autoHeaderHeight: true },
     { headerName: 'Model', field: 'Model', colId: 'model', autoHeight: true },    
     { headerName: 'Registered Date', field: 'Registered_Date', colId: 'registeredDate', 
                   valueFormatter: dateFormatter, autoHeight: true,
@@ -224,6 +225,7 @@ const addressFormatter = (params: any) => {
     { headerName: 'Policy Issued Through', field: 'Customer_type', colId: 'customerType', autoHeight: true },  
     { headerName: 'Comments', field: 'Comments', colId: 'comments'},
     { headerName: 'Prospect', field: 'Prospect', colId: 'Prospect'},
+    { headerName: 'Photos', field: 'photo_links', colId: 'Prospect'},
                        
   ];
   
@@ -238,6 +240,7 @@ const addressFormatter = (params: any) => {
     //console.log('column state restored from localStorage');
       }
   };
+
 
 
   const onBtnExport = () => {
@@ -298,7 +301,7 @@ const addressFormatter = (params: any) => {
           style={{ height: '80vh', width: '100%' }}
         >          
           <AgGridReact<AddClientType>
-            ref={gridRef}
+            ref={(grid) => (gridApi.current = grid)}
             rowData={data.user_data}
             columnDefs={columnDefs}
             defaultColDef={defaultColDef}            

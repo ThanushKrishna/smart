@@ -110,6 +110,7 @@ const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(null);
 const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(null);
 const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(null);
 const [GstCerfile, setGstCerfile] = useState<string | null>(null);
+const [photoLinks, setphotoLinks] = useState<string | null>(null);
 const [isAddressChecked, setAddressChecked] = useState(false);
 const [isPolicyChecked, setPolicyChecked] = useState(false);
 const [isLttChecked, setLttChecked] = useState(false);
@@ -236,6 +237,7 @@ const onSubmit = async (formValues: AddClientType) => {
             Permit_dueDate: (formValues?.Permit_dueDate ? new Date(formValues?.Permit_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
             CAddress: (isAddressChecked ? formValues?.Address:formValues?.CAddress || undefined ),
             Prospect: formValues?.Prospect || undefined,
+            photo_links: photoLinks || undefined,
         }
         console.log( result );        
         console.log( "tax_dueDate: " + formValues.tax_due_Date );
@@ -346,6 +348,26 @@ const onSubmit = async (formValues: AddClientType) => {
                 </div>
 
                 <div>
+                 <p>Owner Name: </p>            
+                <TextField.Root> 
+                <TextField.Input { ...register('Owner', {                
+                    maxLength: {
+                      value: 30,
+                      message: 'Owner Name should be at most 30 characters'
+                    },
+                    pattern: {
+                        value: /^[A-Za-z\s]*$/,
+                      message: 'Owner Name  should contain only alphabets and spaces'
+                    }
+                  })}
+                  onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+                />
+                </TextField.Root>
+                {errors.Owner && <p className="error text-red-600">{errors.Owner.message}</p>}
+                </div>         
+                             
+
+                <div>
                 <DropDownControl 
                     name="Ownership_type"
                     control={control}
@@ -364,25 +386,6 @@ const onSubmit = async (formValues: AddClientType) => {
                 />    
                 </div>    
 
-                <div>
-                 <p>Owner Name: </p>            
-                <TextField.Root> 
-                <TextField.Input { ...register('Owner', {                
-                    maxLength: {
-                      value: 30,
-                      message: 'Owner Name should be at most 30 characters'
-                    },
-                    pattern: {
-                        value: /^[A-Za-z\s]*$/,
-                      message: 'Owner Name  should contain only alphabets and spaces'
-                    }
-                  })}
-                  onChange={(e) => e.target.value = e.target.value.toUpperCase()}
-                />
-                </TextField.Root>
-                {errors.Owner && <p className="error text-red-600">{errors.Owner.message}</p>}
-                </div>         
-
                 {!corporate &&  <div>
                 <DropDownControl 
                     name="Gender"
@@ -391,7 +394,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     options={GENDER}
                     isCorporate={(e:Boolean) => { setCorporate(e)} } 
                 />    
-                </div>  }                
+                </div>  }   
                 
                 <div>
                 {!corporate && <>
@@ -1032,10 +1035,16 @@ const onSubmit = async (formValues: AddClientType) => {
                             message: 'Emission number should be at most 30 characters'
                         }                
                         })}   
+                    disabled={isNDChecked}
                     onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />            
                 </TextField.Root>
                 {errors.PUCC_Emission_No && <p className="error text-red-600">{errors.PUCC_Emission_No.message}</p>}
+                {<FormControlLabel
+                   control={<Checkbox checked={isNDChecked} onChange={handleNDCheckBox} />}
+                   label="ND"
+                 />
+                }   
                 </div>    
                 
                 <div>
@@ -1044,12 +1053,7 @@ const onSubmit = async (formValues: AddClientType) => {
                    control={control}
                    placeholder="PUC/Emission UpTo: "  
                    disabled={isNDChecked}                         
-                />    
-                {<FormControlLabel
-                   control={<Checkbox checked={isNDChecked} onChange={handleNDCheckBox} />}
-                   label="ND"
-                 />
-                }   
+                />                   
                 </div>
 
                 <div>    
@@ -1140,9 +1144,21 @@ const onSubmit = async (formValues: AddClientType) => {
                     value="LEAD"     
                     placeholder="Prospect:   "           
                     options={PROSPECT}              
-                />                               
-            </div>       
+                />                       
 
+                 <div>
+                <FileUplaod 
+                    name="photo_links"
+                    control={control}     
+                    onSelectFile={(e:string | null) => setphotoLinks(e)}     
+                    value={photoLinks} 
+                    placeholder="Upload Photos:    "                    
+                />	   
+            </div>
+
+
+            </div>       
+           
             <div
             className='mt-10'
             >
