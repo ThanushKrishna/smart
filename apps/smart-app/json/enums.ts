@@ -7,4 +7,4 @@ export const MARITAL_STATUS =[ {"value": "SINGLE"}, {"value": "MARRIED"}, {"valu
 export const INSURANCE_TYPE=[ { "value": "COMPREHENSIVE"}, {"value": "THIRD PARTY"}, {"value": "SAOD"} ]  
 export const GENDER = [ { "value": "MALE"}, {"value": "FEMALE"}]
 export const VEHICLE_KIND = [{ "value": "PRIVATE"}, {"value": "COMMERCIAL"}]
-export const N_Relation = [ { "value": "CHILD"}, {"value": "PARENT"}, {"value": "SIBLING"}, {"value": "SPOUSE"}, {"value": "FRIEND"}, {"value": "FAMILY MEMBER"} ]
+export const N_Relation = [ { "value": "BROTHER"}, {"value": "DAUGHTER"}, {"value": "FATHER"}, {"value": "HUSBAND"}, {"value": "MOTHER"}, {"value": "OTHERS"}, {"value": "SISTER"}, {"value": "SON"}, {"value": "WIFE"} ]

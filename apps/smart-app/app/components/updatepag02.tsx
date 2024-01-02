@@ -18,9 +18,7 @@ import {
     GET_WHEEL_BASE_BY_VALUE,
     GET_NO_OF_CYLINDER_BY_VALUE,
     ADD_NO_OF_CYLINDER,
-    ADD_GVW,
-    GET_SLEEPER_CAPACITY_BY_VALUE,
-    ADD_SLEEPER_CAPACITY,
+    ADD_GVW,    
     GET_GVW_BY_VALUE
     } from '@/graphql/queries'
     
@@ -74,8 +72,6 @@ const { data: gvwData } = useQuery(GET_GVW_BY_VALUE, {variables: { input: "" }, 
 
 const [addVehicleBody, { data: vehicleBodyData }] = useMutation(ADD_VEHICLE_BODY);
 const { data: vehicleBodyOptions } = useQuery(GET_VEHICLE_BODY_BY_VALUE, { variables: { input: "" } });
-const [addSleeperCapacity, { data: sleeperCapacityData }] = useMutation(ADD_SLEEPER_CAPACITY);
-const { data: sleeperCapacityOptions } = useQuery(GET_SLEEPER_CAPACITY_BY_VALUE, { variables: { input: "" } });
 const [addWheelBase, { data: wheelBaseData }] = useMutation(ADD_WHEEL_BASE);
 const { data: wheelBaseOptions } = useQuery(GET_WHEEL_BASE_BY_VALUE, { variables: { input: "" } });
 const [addNoOfCylinders, { data: noOfCylindersData }] = useMutation(ADD_NO_OF_CYLINDER);
@@ -115,8 +111,7 @@ const onSubmit = async (formValues: AddClientType) => {
 			GVW: formValues?.GVW || undefined,            
 			Vehicle_Body: formValues?.Vehicle_Body || undefined,
 			Wheel_Base: formValues?.Wheel_Base || undefined,
-			No_Of_Cylinder: formValues?.No_Of_Cylinder || undefined,
-			Sleeper_Capacity: formValues?.Sleeper_Capacity || undefined,
+			No_Of_Cylinder: formValues?.No_Of_Cylinder || undefined,			
         }
         
         console.log( result );
@@ -373,17 +368,7 @@ return (
                 onOptionAdd={async (e: String) => await addNoOfCylinders({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_NO_OF_CYLINDER_BY_VALUE, variables: { input: "" } }] })}
             />
             </div>
-            
-            <div>
-            <DropDownControlWA 
-                name="Sleeper_Capacity"
-                control={control}
-                value={gusrdatabyid.user_data_byid?.Sleeper_Capacity}
-                placeholder="Sleeper Capacity: "
-                options={sleeperCapacityOptions && sleeperCapacityOptions.SLEEPER_CAPACITY_BY_VALUE?.map((data: any) => data.value) || []}
-                onOptionAdd={async (e: String) => await addSleeperCapacity({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_SLEEPER_CAPACITY_BY_VALUE, variables: { input: "" } }] })}
-            />
-            </div>
+                    
 
             </div>  
 

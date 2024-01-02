@@ -5,9 +5,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Control, Controller, useForm } from 'react-hook-form';
 import dayjs from 'dayjs';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import { c } from '@vercel/blob/dist/put-96a1f07e';
 
 interface IDatePickerProps {
   name: string;
@@ -34,8 +31,8 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
 
   return (  
     <LocalizationProvider  dateAdapter={AdapterDayjs}  > 
-        {placeholder}    
-        <div>                
+       <p className='mb-0'>{placeholder}</p>
+        <div className='mt-0'>                
             <Controller  
               name={name}  
               control={control}          
@@ -47,9 +44,8 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
                     sx={{      
                       width: '80%',                                                              
                       borderRadius: '0.2rem',                        
-                      bottom: '0',                                              
-                      paddingTop: '0.1rem',
-                      border: '2px #cbd5e0',
+                      bottom: '0', 
+                      top: '0'                                                                                         
                     }}                           
                     disabled={disabled}                                    
                     format="DD/MM/YYYY"                       

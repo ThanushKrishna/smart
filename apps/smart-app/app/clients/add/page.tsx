@@ -39,7 +39,9 @@ import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import AddressForm from '@/app/components/AddressForm'
 import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT, GENDER, N_Relation, VEHICLE_KIND } from '@/json/enums'
-import { Checkbox, FormControlLabel, TextField as MyTextField , TextareaAutosize  } from '@mui/material';
+import { Checkbox, FormControlLabel, TextField as MyTextField   } from '@mui/material';
+import { TextareaAutosize } from '@mui/base/TextareaAutosize';
+
 
 
 
@@ -442,13 +444,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 
                 <MyTextField sx={{ width: '80%' }}    { ...register('Chasis_No', {                
                     maxLength: {
-                      value: 25,
-                      message: 'Chassis Number should be at most 25 characters'
-                    },
-                    pattern: {
-                        value: /^[A-Za-z0-9]{0,25}$/,
-                      message: 'Chassis Number should be  alphanumeric and at most 25 characters'
-                    }
+                      value: 50,
+                      message: 'Chassis Number should be at most 50 characters'
+                    }                 
                   })}
                   onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />
@@ -461,13 +459,9 @@ const onSubmit = async (formValues: AddClientType) => {
                 
                 <MyTextField sx={{ width: '80%' }}    { ...register('Engine_No', {                
                     maxLength: {
-                      value: 25,
-                      message: 'Engine Number should be at most 25 characters'
-                    },
-                    pattern: {
-                        value: /^[A-Za-z0-9]{0,25}$/,
-                      message: 'Engine Number should be  alphanumeric and at most 25 characters'
-                    }
+                      value: 50,
+                      message: 'Engine Number should be at most 50 characters'
+                    }                    
                   })}
                   onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />
@@ -1124,8 +1118,10 @@ const onSubmit = async (formValues: AddClientType) => {
                 <div>     
                 <p className='mt-3'>Comments: </p>
                 <TextareaAutosize
-                style={{ width: '80%' }}  
-                aria-label="minimum height" minRows={3}
+                className="'w-80% text-sm font-sans font-normal leading-5 rounded-lg shadow-md shadow-slate-100 focus:shadow-outline-black border border-solid border-slate-300 hover:border-purple-500 focus:border-grey-800 bg-white text-slate-900 focus-visible:outline-0"
+                aria-label="Demo input"
+                placeholder="Empty"
+                minRows={3}
                 {...register                    
                     ('Comments', {
                     maxLength: {

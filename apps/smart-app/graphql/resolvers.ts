@@ -1304,6 +1304,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       Hypothecation_bank: args.input.Hypothecation_bank !== undefined ? args.input.Hypothecation_bank: null,
       Hypothecation_city: args.input.Hypothecation_city !== undefined ? args.input.Hypothecation_city: null,
       Ownership_type: args.input.Ownership_type !== undefined ? args.input.Ownership_type: null,
+      Sleeper_Capacity      : args.input.Sleeper_Capacity !== undefined ? args.input.Sleeper_Capacity: null,
           }, 
         })  
     return "Updated !"    
@@ -1330,8 +1331,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       GVW: args.input.GVW !== undefined ? args.input.GVW: null,
       Vehicle_Body          : args.input.Vehicle_Body !== undefined ? args.input.Vehicle_Body: null,
       Wheel_Base            : args.input.Wheel_Base !== undefined ? args.input.Wheel_Base: null,
-      No_Of_Cylinder        : args.input.No_Of_Cylinder !== undefined ? args.input.No_Of_Cylinder: null,
-      Sleeper_Capacity      : args.input.Sleeper_Capacity !== undefined ? args.input.Sleeper_Capacity: null,
+      No_Of_Cylinder        : args.input.No_Of_Cylinder !== undefined ? args.input.No_Of_Cylinder: null,      
           }, 
         })  
     return "Updated !"    

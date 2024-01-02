@@ -25,13 +25,14 @@ export const DropDownControlWA: React.FC<DropDownControlWAProps<any>> = ({
 
             
 
-            if(name == "Seating_Capacity" || name == "Standing_Capacity"){
+            if(name == "Seating_Capacity" || name == "Standing_Capacity" || name == "CC" || name == "Sleeper_Capacity" ||
+            name == "Unladen_Weight" || name == "GVW" || name == "Wheel_Base" || name == "No_Of_Cylinder"){
                 // Convert strings to numbers and filter out non-numeric values
                 const numericArray = options?.map(Number).filter(value => !isNaN(value));
 
                 // Sort the numeric array
                 const sortedArray = numericArray?.sort((a, b) => a - b);                
-                options=sortedArray;
+                options=sortedArray?.map(String);
                 // console.log(name + sortedArray);              
             }
 
@@ -56,7 +57,7 @@ export const DropDownControlWA: React.FC<DropDownControlWAProps<any>> = ({
                       }}     
                     >  
                     {value && <MenuItem> {value} </MenuItem> }                                                     
-                    {<MenuItem key="dummy" value=""></MenuItem>}                    
+                    {(value == null || value == undefined) && <MenuItem key="dummy" value=""></MenuItem>}                    
                     {options && options.map((option:any) => (
                         <MenuItem key={option} value={option}>
                         {option}

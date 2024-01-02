@@ -587,6 +587,7 @@ Vehicle_Description:    String
 Fuel_type:             	String
 Vehice_norms:           String
 Vehicle_color:          String
+Sleeper_Capacity:       String
 Seating_Capacity:       String
 Standing_Capacity:      String
 Hypothecation_bank:     String
@@ -612,7 +613,6 @@ GVW:             		String
 Vehicle_Body:           String
 Wheel_Base:             String
 No_Of_Cylinder:         String
-Sleeper_Capacity:       String
 }
 
 
@@ -723,7 +723,7 @@ type createUserDataOutput {
   GST_Cer_Doc:           String  
   Vehicle_Description:   String
   Seating_Capacity:      String
-  Standing_Capacity:     String      
+  Standing_Capacity:     String   
   Permit_dueDate:        Date
   CAddress:              Address
   Prospect:              String  

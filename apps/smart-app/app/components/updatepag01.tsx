@@ -12,7 +12,7 @@ import {
     ADD_MODEL, ADD_SEATING_CAPACITY,
     ADD_VEHICLE_DESCRIPTION,
     ADD_VEHICLE_CLASS,
-    UPDATE_CLIENT_01,
+    UPDATE_CLIENT_01, GET_SLEEPER_CAPACITY_BY_VALUE,
     GET_CC_BY_VALUE
     } from '@/graphql/queries'
 import {     
@@ -21,7 +21,7 @@ import {
     GET_VEHICLE_NORMS,      
     GET_MAKE, GET_STANDING_CAPACITY,
     GET_MODEL, GET_VEHICLE_CLASS,
-    GET_VEHICLE_DESCRIPTION,
+    GET_VEHICLE_DESCRIPTION, ADD_SLEEPER_CAPACITY,
     GET_SEATING_CAPACITY
     } from '@/graphql/queries'
 import { DatePickerComponent } from '@/app/components/DatePicker'
@@ -67,6 +67,7 @@ const[addSeatCap, { data:seatcapdata} ] = useMutation(ADD_SEATING_CAPACITY);
 const[addStanCap, { data:standcapdata} ] = useMutation(ADD_STANDING_CAPACITY);
 const[addHcity, { data:Hcitydata} ] = useMutation(ADD_HYPOTHECATION_CITY);
 const[addHbank, { data:Hbankdata} ] = useMutation(ADD_HYPOTHECATION_BANK);
+const [addSleeperCapacity, { data: sleeperCapacityData }] = useMutation(ADD_SLEEPER_CAPACITY);
 
 const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLORS, { pollInterval: 1000,}); 
 const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS, { pollInterval: 1000,}); 
@@ -78,6 +79,7 @@ const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY, { pollInterval: 10
 const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,}); 	
 const { data:gHcitydata } = useQuery(GET_HYPOTHECATION_CITY, { pollInterval: 1000,}); 
 const { data:gHbankdata } = useQuery(GET_HYPOTHECATION_BANK, { pollInterval: 1000,}); 
+const { data: gsleeperCapacityData } = useQuery(GET_SLEEPER_CAPACITY_BY_VALUE, {variables: { input: "" }, });
 
 const handleLttCheckBox = (event: any) => {
     setLttChecked(event.target.checked);
@@ -114,6 +116,7 @@ const onSubmit = async (formValues: AddClientType) => {
 			Vehicle_color: formValues?.Vehicle_color || undefined,            
 			Seating_Capacity: formValues?.Seating_Capacity || undefined,
             Standing_Capacity: formValues?.Standing_Capacity || undefined,
+            Sleeper_Capacity: formValues?.Sleeper_Capacity || undefined,
 			Hypothecation_bank: formValues?.Hypothecation_bank || undefined,
             Hypothecation_city: formValues?.Hypothecation_city || undefined
         }
@@ -300,13 +303,9 @@ const onSubmit = async (formValues: AddClientType) => {
                         <MyTextField sx={{ width: '80%' }}
                         {...register('Chasis_No', {
                             maxLength: {
-                            value: 25,
-                            message: 'Chassis Number should be at most 25 characters',
-                            },
-                            pattern: {
-                            value: /^[A-Za-z0-9]{0,25}$/,
-                            message: 'Chassis Number should be alphanumeric and at most 25 characters',
-                            },
+                            value: 50,
+                            message: 'Chassis Number should be at most 50 characters',
+                            }
                         })}
                         defaultValue={gusrdatabyid.user_data_byid?.Chasis_No}
                         onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
@@ -323,13 +322,9 @@ const onSubmit = async (formValues: AddClientType) => {
                         <MyTextField sx={{ width: '80%' }}
                         {...register('Engine_No', {
                             maxLength: {
-                            value: 25,
-                            message: 'Engine Number should be at most 25 characters',
-                            },
-                            pattern: {
-                            value: /^[A-Za-z0-9]{0,25}$/,
-                            message: 'Engine Number should be alphanumeric and at most 25 characters',
-                            },
+                            value: 50,
+                            message: 'Engine Number should be at most 50 characters',
+                            }
                         })}
                         defaultValue={gusrdatabyid.user_data_byid?.Engine_No}
                         onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
@@ -460,6 +455,17 @@ const onSubmit = async (formValues: AddClientType) => {
                                 onOptionAdd= {async (e: String) => await (addStanCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
                             /> 
                         </div>
+                       
+                        <div>
+                          <DropDownControlWA 
+                              name="Sleeper_Capacity"
+                              control={control}
+                              value={gusrdatabyid.user_data_byid?.Sleeper_Capacity}
+                              placeholder="Sleeper Capacity: "
+                              options={gsleeperCapacityData && gsleeperCapacityData.SLEEPER_CAPACITY_BY_VALUE?.map((data: any) => data.value) || []}
+                              onOptionAdd={async (e: String) => await addSleeperCapacity({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_SLEEPER_CAPACITY_BY_VALUE, variables: { input: "" } }] })}
+                          />
+                          </div>
 
                         <div>     
                             <DropDownControlWA 
