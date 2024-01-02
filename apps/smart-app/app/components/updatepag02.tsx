@@ -35,8 +35,7 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { FileUplaod } from '@/app/components/Upload'
 import { INSURANCE_TYPE } from '@/json/enums'
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { Checkbox, FormControlLabel, TextField as MyTextField  } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 interface iupdatevalue {
@@ -153,9 +152,9 @@ const onSubmit = async (formValues: AddClientType) => {
 return (
     <>      
      <form  onSubmit={handleSubmit(onSubmit)}>     
-     <div className='flex flex-col items-center justify-center'> 
+     <div> 
  
-         <div className='w-2/3 mb-5'>
+         <div className='mb-5'>
          <Button 
          className='w-full'
          disabled={isSubmitted}
@@ -165,7 +164,7 @@ return (
          </Button>   
          </div>
  
-         <div className='w-2/3 mb-5'>
+         <div className='mb-5'>
          <Button 
          className='w-full'
          disabled={isSubmitted}
@@ -173,7 +172,7 @@ return (
          </Button>  
          </div>    
 
-         <div className='w-2/3 mb-5'>
+         <div className='mb-5'>
          <Button          
          className='w-full'
          disabled={isBack}
@@ -182,21 +181,27 @@ return (
          </Button>  
          </div>    
  
-     <div className='w-2/3 max-w-md pb-2 text-slate-500 text-base' >                        
-     <p>Vehicle Registration Number:</p>
-            <TextField.Root >
-            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
-            </TextField.Root>                                 
+         <div  className='text-slate-500 text-base grid grid-cols-5 gap-5 ml-10 mr-10 font-bold'>                            
+        
+            <div>                     
+            <p>Vehicle Registration Number:</p>           
+            <MyTextField sx={{ width: '80%' }} { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
+            </div>
+
+            <div>                                
              <DropDownControl 
              name="Insurance_type"
              control={control}
              value={gusrdatabyid.user_data_byid?.Insurance_type}  
              placeholder="Insurance Type:   "           
              options={INSURANCE_TYPE}              
-            />      
+            />   
+            </div>
+
+            <div>
             <p>OD Policy No: </p>
-            <TextField.Root>
-                <TextField.Input  
+           
+                <MyTextField sx={{ width: '80%' }}  
                 {...register('Policy_No', {
                     maxLength: {
                     value: 30,
@@ -206,7 +211,7 @@ return (
                 onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 defaultValue={gusrdatabyid.user_data_byid?.Policy_No}
                 />
-            </TextField.Root>
+           
             {errors.Policy_No && <p className="error text-red-600">{errors.Policy_No.message}</p>}
             <FileUplaod 
                 name="OD_Policy_Doc"
@@ -214,7 +219,10 @@ return (
                 onSelectFile={(e:string | null) => setOdPolicydocfile(e)}                 
                 placeholder=""                  
                 value={OdPolicydocfile}                    
-            />	   
+            />	
+            </div>   
+            
+            <div>
             <DropDownControlWA 
                 name="Insurance_provider"
                 control={control}
@@ -223,12 +231,18 @@ return (
                 options={giproviderdata && giproviderdata.INSURANCE_PROVIDER?.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
             />
+            </div>   
+
+            <div>
             <DatePickerComponent 
                 name="Insurance_Start"
                 control={control}
                 placeholder="Own Damage Insurance Starts From:  "                           
                 selectedDate={gusrdatabyid.user_data_byid.Insurance_Start && new Date(gusrdatabyid.user_data_byid?.Insurance_Start)}     
                 />  
+            </div>
+
+            <div>
              <DatePickerComponent 
                 name="Insurance_dueDate"
                 control={control}
@@ -239,11 +253,12 @@ return (
                 control={<Checkbox checked={isPolicyChecked} onChange={handlePolicyCheckBox} />}
                 label="TP Policy No is same as OD Policy No"
             />
+            </div>
 
-             { !isPolicyChecked && <>
+             { !isPolicyChecked && <div>
             <p>TP Policy No: </p>
-            <TextField.Root>
-            <TextField.Input
+           
+            <MyTextField sx={{ width: '80%' }}
                 {...register('TP_Policy_No', {
                 maxLength: {
                     value: 30,
@@ -253,7 +268,7 @@ return (
                 onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 defaultValue={gusrdatabyid.user_data_byid?.TP_Policy_No}
             />
-            </TextField.Root>
+           
             {errors.TP_Policy_No && <p className="error text-red-600">{errors.TP_Policy_No.message}</p>}
             <FileUplaod 
                 name="TP_Policy_Doc"
@@ -261,7 +276,10 @@ return (
                 onSelectFile={(e:string | null) => setTpPolicyDocfile(e)}                 
                 placeholder=""                              
                 value={TpPolicyDocfile}      
-            />	              
+            />	
+            </div>}
+
+            { !isPolicyChecked && <div>
             <DropDownControlWA 
                 name="TP_Insurance_provider"
                 control={control}
@@ -270,19 +288,27 @@ return (
                 options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER?.map((data:any) => (data.value)) }    
                 onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />
+            </div>}
+
+            { !isPolicyChecked && <div>
             <DatePickerComponent 
                 name="TP_Insurance_Start"
                 control={control}
                 placeholder="Thrid Party Insurance Starts From: "                           
                 selectedDate={gusrdatabyid.user_data_byid.TP_Insurance_Start && new Date(gusrdatabyid.user_data_byid?.TP_Insurance_Start)} 
-                />            
+                />   
+            </div> }
+
+            { !isPolicyChecked && <div>         
            <DatePickerComponent 
                 name="TP_dueDate"
                 control={control}
                 placeholder="TP Insurance Valid UpTo:  "                           
                 selectedDate={gusrdatabyid.user_data_byid.TP_dueDate && new Date(gusrdatabyid.user_data_byid?.TP_dueDate)}           
             /> 
-            </>  }
+            </div>  }
+
+            <div>
             <DropDownControlWA 
                 name="RTO"
                 control={control}     
@@ -290,7 +316,9 @@ return (
                 placeholder="Registering Authority:   "           
                 options={grtodata && grtodata.RTO?.map((data:any) => (data.value)) }           
                 onOptionAdd= {async (e: String) => await (addrto( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-            />        
+            />    
+            </div>
+
             <div>
             <DropDownControlWA 
                 name="Unladen_Weight"
@@ -345,7 +373,8 @@ return (
                 onOptionAdd={async (e: String) => await addNoOfCylinders({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_NO_OF_CYLINDER_BY_VALUE, variables: { input: "" } }] })}
             />
             </div>
-
+            
+            <div>
             <DropDownControlWA 
                 name="Sleeper_Capacity"
                 control={control}
@@ -354,9 +383,11 @@ return (
                 options={sleeperCapacityOptions && sleeperCapacityOptions.SLEEPER_CAPACITY_BY_VALUE?.map((data: any) => data.value) || []}
                 onOptionAdd={async (e: String) => await addSleeperCapacity({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_SLEEPER_CAPACITY_BY_VALUE, variables: { input: "" } }] })}
             />
+            </div>
+
             </div>  
 
-            <div className='w-2/3 mt-5'>
+            <div className='mt-5'>
             <Button          
             className='w-full'
             disabled={isBack}
@@ -365,7 +396,7 @@ return (
             </Button>  
             </div>    
 
-            <div className='w-2/3 mt-5'>
+            <div className='mt-5'>
             <Button 
             className='w-full'
             disabled={isSubmitted}
@@ -373,7 +404,7 @@ return (
             </Button>  
             </div>
 
-            <div className='w-2/3 mb-5 mt-5'>
+            <div className='mb-5 mt-5'>
             <Button 
             className='w-full'
             disabled={isSubmitted}

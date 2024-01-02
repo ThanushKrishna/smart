@@ -23,8 +23,7 @@ import { useRouter } from 'next/navigation';
 import { FileUplaod } from '@/app/components/Upload'
 import {  MARITAL_STATUS, N_Relation, PROSPECT } from '@/json/enums'
 import AddressForm from './AddressForm';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { Checkbox, FormControlLabel, TextField as MyTextField, TextareaAutosize  } from '@mui/material';
 
 interface iupdatevalue {
     value: String,
@@ -147,9 +146,9 @@ return (
   <>      
       <form  onSubmit={handleSubmit(onSubmit)}>     
 
-      <div className='flex flex-col items-center justify-center'>           
+      <div>           
 
-          <div className='w-2/3 mb-5'>
+          <div className='mb-5'>
           <Button 
           className='w-full'
           disabled={isSubmitted}
@@ -157,27 +156,32 @@ return (
           </Button>  
           </div>    
           
-        <div className='w-2/3 mb-5'>
-         <Button          
-         className='w-full'
-         disabled={isBack}
-         onClick={() => {back(true); setBack(true)}}
-         >Back {isBack && <Spinner></Spinner>}
-         </Button>  
-         </div>    
+          <div className='mb-5'>
+          <Button          
+          className='w-full'
+          disabled={isBack}
+          onClick={() => {back(true); setBack(true)}}
+          >Back {isBack && <Spinner></Spinner>}
+          </Button>  
+          </div>    
 
-   <div className='w-2/3 max-w-md pb-2 text-slate-500 text-base' >   
-        <p>Vehicle Registration Number:</p>
-            <TextField.Root >
-            <TextField.Input { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
-            </TextField.Root>              
+         <div  className='text-slate-500 text-base grid grid-cols-5 gap-5 ml-10 mr-10 font-bold'>                            
+            
+            <div>                     
+            <p>Vehicle Registration Number:</p>           
+            <MyTextField sx={{ width: '80%' }} { ...register('Vehicle_No')} defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No} disabled={true}/>
+            </div>
+            
+            <div>
             <DatePickerComponent 
               name="Owner_dob"
               control={control}
               placeholder="Owner DOB/Date of Incorporation:   "
               selectedDate={gusrdatabyid.user_data_byid.Owner_dob && new Date(gusrdatabyid.user_data_byid?.Owner_dob)}      
-            />    
-            { ! isCorporateGlobal && <>
+            />   
+            </div>
+
+            { ! isCorporateGlobal && <div>
             <DropDownControl 
                 name="Martial_status"
                 control={control}
@@ -185,19 +189,27 @@ return (
                 placeholder="Marital Status:   "           
                 options={MARITAL_STATUS}              
             />                        
-            </>}                
+            </div> }
+
+            <div>
             <DatePickerComponent 
               name="Year_of_manufacuring"
               control={control}
               placeholder="Manufacturing Date: "
               selectedDate={gusrdatabyid.user_data_byid.Year_of_manufacuring && new Date(gusrdatabyid.user_data_byid?.Year_of_manufacuring)}    
             />           
+            </div>
+
+            <div>
             <DatePickerComponent 
               name="FC_due_Date"
               control={control}
               placeholder="REG/FC UpTo: "
               selectedDate={gusrdatabyid.user_data_byid.FC_due_Date && new Date(gusrdatabyid.user_data_byid?.FC_due_Date)}            
-            />                                                
+            />        
+            </div>
+
+            <div>
             <DropDownControlWA 
                 name="CC"
                 control={control}       
@@ -205,10 +217,12 @@ return (
                 placeholder="Cubic capacity:   "           
                 options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
                 onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-            />                       
-            <p>Permit No: </p>
-            <TextField.Root>
-            <TextField.Input
+            />        
+            </div>                                        
+
+            <div>               
+            <p>Permit No: </p>            
+            <MyTextField sx={{ width: '80%' }}
                 {...register('Permit_No', {
                 maxLength: {
                     value: 30,
@@ -218,10 +232,13 @@ return (
                 defaultValue={gusrdatabyid?.user_data_byid?.Permit_No}
                 onChange={(e) => e.target.value = e.target.value.toUpperCase()}
             />
-            </TextField.Root>
+            
             {errors.Permit_No && (
             <p className="error text-red-600">{errors.Permit_No.message}</p>
             )}
+            </div>                                        
+
+            <div>
             <DropDownControlWA 
                 name="Permit_category"
                 control={control}
@@ -229,17 +246,22 @@ return (
                 placeholder="Permit Category:   "           
                 options={gpermitdata && gpermitdata.PERMIT_CATEGORY.map((data:any) => (data.value)) }
                 onOptionAdd= {async (e: String) => await (addPermitCategory( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-            />
+            />            
             {gpermiterror && <p> {gpermiterror.message} </p>}
+            </div>
+
+            <div>
             <DatePickerComponent 
               name="Permit_dueDate"
               control={control}
               placeholder="Permit Valid Upto:   "    
               selectedDate={gusrdatabyid.user_data_byid.Permit_dueDate && new Date(gusrdatabyid.user_data_byid?.Permit_dueDate)}  	
             />  
-            <p>1st Mobile No: </p>
-            <TextField.Root>
-            <TextField.Input
+            </div>
+
+            <div>
+            <p>1st Mobile No: </p>            
+            <MyTextField sx={{ width: '80%' }}
                 {...register('Mobile_No1', {
                 pattern: {
                     value: /^[6-9]\d{9}$/,
@@ -248,13 +270,15 @@ return (
                 })}
                 defaultValue={gusrdatabyid?.user_data_byid?.Mobile_No1}
             />
-            </TextField.Root>
+            
             {errors.Mobile_No1 && typeof errors.Mobile_No1 === 'object' && 'message' in errors.Mobile_No1 && (
             <p className="error text-red-600">{(errors.Mobile_No1 as FieldError).message}</p>)} 
+            </div>
 
+            <div>
             <p>2nd Mobile No: </p>
-            <TextField.Root>
-            <TextField.Input
+            
+            <MyTextField sx={{ width: '80%' }}
                 {...register('Mobile_No2', {
                 pattern: {
                     value: /^[6-9]\d{9}$/,
@@ -263,13 +287,15 @@ return (
                 })}
                 defaultValue={gusrdatabyid?.user_data_byid?.Mobile_No2}
             />
-            </TextField.Root>
+            
             {errors.Mobile_No2 && typeof errors.Mobile_No2 === 'object' && 'message' in errors.Mobile_No2 && (
             <p className="error text-red-600">{(errors.Mobile_No2 as FieldError).message}</p>)} 
+            </div>
 
+            <div>
             <p>3rd Mobile No: </p>
-            <TextField.Root>
-            <TextField.Input
+            
+            <MyTextField sx={{ width: '80%' }}
                 {...register('Mobile_No3', {
                 pattern: {
                     value: /^[6-9]\d{9}$/,
@@ -278,13 +304,15 @@ return (
                 })}
                 defaultValue={gusrdatabyid?.user_data_byid?.Mobile_No3}
             />
-            </TextField.Root>
+            
             {errors.Mobile_No3 && typeof errors.Mobile_No3 === 'object' && 'message' in errors.Mobile_No3 && (
             <p className="error text-red-600">{(errors.Mobile_No3 as FieldError).message}</p>)} 
+            </div>
 
+            <div>
             <p>Email Id: </p>
-            <TextField.Root>
-            <TextField.Input
+            
+            <MyTextField sx={{ width: '80%' }}
                 {...register('Email_id', {
                 pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -293,12 +321,14 @@ return (
                 })}
                 defaultValue={gusrdatabyid?.user_data_byid?.Email_id}
             />
-            </TextField.Root>
+            
             {errors.Email_id && <p className="error text-red-600">{errors.Email_id.message}</p>}
-            { ! isCorporateGlobal && <> 
+            </div>
+
+            { ! isCorporateGlobal && <div> 
             <p>Aadhar Number: </p>
-            <TextField.Root>
-            <TextField.Input
+            
+            <MyTextField sx={{ width: '80%' }}
                 {...register('Adhar_No', {
                 pattern: {
                     value: /^\d{12}$/,
@@ -307,7 +337,7 @@ return (
                 })}
                 defaultValue={gusrdatabyid?.user_data_byid?.Adhar_No}
             />
-            </TextField.Root>          
+                      
             {errors.Adhar_No && typeof errors.Adhar_No === 'object' && 'message' in errors.Adhar_No && (
             <p className="error text-red-600">{(errors.Adhar_No as FieldError).message}</p>)}      
             <FileUplaod 
@@ -317,10 +347,12 @@ return (
                 placeholder=""                          
                 value={adharfile}                   
             />
-            </>}
+            </div>}
+            
+            <div>
             <p>PAN Number: </p>
-            <TextField.Root>
-            <TextField.Input
+            
+            <MyTextField sx={{ width: '80%' }}
                 {...register('PanCard_No', {
                 pattern: {
                     value: /^[A-Za-z0-9]{10}$/,
@@ -330,9 +362,9 @@ return (
                 defaultValue={gusrdatabyid?.user_data_byid?.PanCard_No}
                 onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
             />
-            </TextField.Root>
+            
             {errors.PanCard_No && typeof errors.PanCard_No === 'object' && 'message' in errors.PanCard_No && (
-            <p className="error text-red-600">{(errors.PanCard_No as FieldError).message}</p>)}      
+            <p className="error text-red-600">{(errors.PanCard_No as FieldError).message}</p>)}                  
             <FileUplaod 
                 name="Pan_doc"
                 control={control}
@@ -340,10 +372,12 @@ return (
                 placeholder=""                                      
                 value={panfile}                   
             />
+            </div>
+
             { ! isCorporateGlobal && <div> 
             <p>Nominee Name: </p>
-            <TextField.Root>
-              <TextField.Input
+            
+              <MyTextField sx={{ width: '80%' }}
                 {...register('Nominee', {
                   maxLength: {
                     value: 30,
@@ -357,10 +391,10 @@ return (
                 defaultValue={gusrdatabyid?.user_data_byid?.Nominee}
                 onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
               />
-            </TextField.Root>
+            
             {errors.Nominee && typeof errors.Nominee === 'string' && (
               <p className="error text-red-600">{errors.Nominee}</p>
-            )}
+            )}            
             <FileUplaod 
                 name="Nominee_Doc"
                 control={control}     
@@ -390,11 +424,9 @@ return (
                 
             </div>}
                     
-
-
-           <p>PUC/Emission Number: </p>
-            <TextField.Root>
-              <TextField.Input
+          <div>
+           <p>PUC/Emission Number: </p>            
+              <MyTextField sx={{ width: '80%' }}
                 {...register('PUCC_Emission_No', {
                   maxLength: {
                       value: 30,
@@ -404,15 +436,15 @@ return (
                 disabled={isNDChecked}
                 defaultValue={gusrdatabyid?.user_data_byid?.PUCC_Emission_No}
                 onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-              />
-            </TextField.Root>
+              />                        
             {errors.PUCC_Emission_No && typeof errors.PUCC_Emission_No === 'object' && 'message' in errors.PUCC_Emission_No && (
             <p className="error text-red-600">{(errors.PUCC_Emission_No as FieldError).message}</p>)} 
-             {<FormControlLabel
+            <FormControlLabel
                    control={<Checkbox checked={isNDChecked} onChange={handleNDCheckBox} />}
                    label="ND"
-                 />
-                }   
+                 />            
+            </div>
+
             <div>
             <DatePickerComponent 
               name="Emission_dueDate"
@@ -422,9 +454,11 @@ return (
               disabled={isNDChecked}
             />                
             </div>
+
+            <div>
            <p className='mt-3'>GST No: </p>
-            <TextField.Root>
-              <TextField.Input
+            
+              <MyTextField sx={{ width: '80%' }}
                 {...register('GST_No', {
                   pattern: {
                     value: /^[A-Za-z0-9]{15}$/,
@@ -434,7 +468,7 @@ return (
                 defaultValue={gusrdatabyid?.user_data_byid?.GST_No}
                 onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
               />
-            </TextField.Root>
+            
             {errors.GST_No && typeof errors.GST_No === 'object' && 'message' in errors.GST_No && (
             <p className="error text-red-600">{(errors.GST_No as FieldError).message}</p>)} 
             <FileUplaod 
@@ -443,15 +477,8 @@ return (
                 onSelectFile={(e:string | null) => setGstCerfile(e)}                
                 placeholder=""                    
                 value={GstCerfile}                   
-            />                                                                                                                                     
-            {/* <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.Address} />
-            <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.CAddress} />  */}
-            <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.Address} />
-            <FormControlLabel
-                control={<Checkbox checked={isAddressChecked} onChange={handleAddressCheckBox} />}
-                label="Communication Address same as RC Address"
-            />
-            {!isAddressChecked && <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.CAddress} />  }
+            />  
+            </div>                                                                                                                                                           
             
            <div>
            <DropDownControlWA 
@@ -474,6 +501,8 @@ return (
               onOptionAdd={async (e: String) => await addUpdatedBy({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_UPDATED_BY_BY_VALUE, variables: { input: "" } }] })}
           />
           </div>
+
+          <div>
             <DropDownControlWA 
                 name="Customer_type"
                 control={control}
@@ -481,9 +510,14 @@ return (
                 placeholder="Policy Issued Through:  "           
                 options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE.map((data:any) => (data.value)) }    
                 onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-            />                        
+            />       
+            </div>
+
+            <div>                 
             <p className="mt-3">Comments: </p>
-            <TextArea
+            <TextareaAutosize
+                style={{ width: '80%' }}  
+                aria-label="minimum height" minRows={3}
               {...register('Comments', {
                 maxLength: { value: 500, message: 'Comments should be at most 500 characters' },
               })}
@@ -492,6 +526,9 @@ return (
             {errors.Comments && (
               <p className="error text-red-600">{errors.Comments.message}</p>
             )}
+            </div>
+
+            <div>
             <DropDownControl 
               name="Prospect"
               control={control}      
@@ -499,6 +536,7 @@ return (
               placeholder="Prospect:   "           
               options={PROSPECT}              
             />
+            </div>
 
               <div>
               <FileUplaod 
@@ -509,10 +547,22 @@ return (
                       placeholder="Upload Photos:   "                       
                   />	   
               </div>
+            
+            <div className='col-span-5'>
+            <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.Address} />
+            <FormControlLabel
+                control={<Checkbox checked={isAddressChecked} onChange={handleAddressCheckBox} />}
+                label="Communication Address same as RC Address"
+            />
+            </div>
+
+            <div className='col-span-5'>
+            {!isAddressChecked && <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.CAddress} />  }
+            </div>
 
             </div>    
            
-            <div className='w-2/3 mt-5'>
+            <div className='mt-5'>
             <Button             
             className='w-full'
             disabled={isBack}
@@ -522,7 +572,7 @@ return (
             </div>    
 
 
-            <div className='w-2/3 mt-5'>
+            <div className='mt-5'>
             <Button 
             className='w-full'
             disabled={isSubmitted}

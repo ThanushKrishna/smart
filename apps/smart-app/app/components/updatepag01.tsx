@@ -30,8 +30,7 @@ import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { FileUplaod } from '@/app/components/Upload'
 import { FUEL_TYPE, GENDER, OWNER_TYPE, VEHICLE_KIND } from '@/json/enums'
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { Checkbox, FormControlLabel, TextField as MyTextField, TextareaAutosize  } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 
@@ -152,315 +151,359 @@ const onSubmit = async (formValues: AddClientType) => {
 
   return (
    <>      
-    <form  onSubmit={handleSubmit(onSubmit)}>     
-    <div className='flex flex-col items-center justify-center'> 
+        <form  onSubmit={handleSubmit(onSubmit)}>     
+            <div>                
+                    <div className='mb-5'>
+                    <Button 
+                    className='w-full'
+                    disabled={isSubmitted}
+                    onClick={() => {setFinalSubmit(true)}}
+                    > 
+                    Save and Submit {isSubmitted && <Spinner></Spinner>}
+                    </Button>   
+                    </div>
 
-        <div className='w-2/3 mb-5'>
-        <Button 
-        className='w-full'
-        disabled={isSubmitted}
-        onClick={() => {setFinalSubmit(true)}}
-        > 
-        Save and Submit {isSubmitted && <Spinner></Spinner>}
-        </Button>   
-        </div>
+                    <div className='mb-5'>
+                    <Button 
+                    className='w-full'
+                    disabled={isSubmitted}
+                    > Save and Next {isSubmitted && <Spinner></Spinner>}
+                    </Button>  
+                    </div>    
 
-        <div className='w-2/3 mb-5'>
-        <Button 
-        className='w-full'
-        disabled={isSubmitted}
-        > Save and Next {isSubmitted && <Spinner></Spinner>}
-        </Button>  
-        </div>    
+                    <div  className='text-slate-500 text-base grid grid-cols-5 gap-5 ml-10 mr-10 font-bold'>                            
+                    <div>
+                    <p>Vehicle Registration Number:</p>
+                    
+                        <MyTextField sx={{ width: '80%' }}
+                        {...register('Vehicle_No', )}
+                        defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No}
+                        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+                        disabled={true}
+                        />
+                        
+                    <FileUplaod
+                        name="Vehicle_Reg_Doc"
+                        control={control}
+                        onSelectFile={(e: string | null) => setVehRegDocfile(e)}
+                        value={VehRegDocfile}
+                        placeholder=""
+                    />
+                    </div>
 
-    <div className='w-2/3 max-w-md pb-2 text-slate-500 text-base' >                            
-    <p>Vehicle Registration Number:</p>
-    <TextField.Root>
-        <TextField.Input
-        {...register('Vehicle_No', )}
-        defaultValue={gusrdatabyid.user_data_byid?.Vehicle_No}
-        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-        disabled={true}
-        />
-    </TextField.Root>    
-    <FileUplaod
-        name="Vehicle_Reg_Doc"
-        control={control}
-        onSelectFile={(e: string | null) => setVehRegDocfile(e)}
-        value={VehRegDocfile}
-        placeholder=""
-    />
+                    <div>
+                    <p>Owner Name: </p>
+                    
+                        <MyTextField sx={{ width: '80%' }}
+                        {...register('Owner', {
+                            maxLength: {
+                            value: 30,
+                            message: 'Owner Name should be at most 30 characters',
+                            },
+                            pattern: {
+                            value: /^[A-Za-z\s]*$/,
+                            message: 'Owner Name  should contain only alphabets and spaces',
+                            },
+                        })}
+                        defaultValue={gusrdatabyid.user_data_byid?.Owner}
+                        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+                        />
+                    
+                    {errors.Owner && (
+                        <p className="error text-red-600">{errors.Owner.message}</p>
+                    )}
+                    </div>
 
-    <p>Owner Name: </p>
-    <TextField.Root>
-        <TextField.Input
-        {...register('Owner', {
-            maxLength: {
-            value: 30,
-            message: 'Owner Name should be at most 30 characters',
-            },
-            pattern: {
-            value: /^[A-Za-z\s]*$/,
-            message: 'Owner Name  should contain only alphabets and spaces',
-            },
-        })}
-        defaultValue={gusrdatabyid.user_data_byid?.Owner}
-        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-        />
-    </TextField.Root>
-    {errors.Owner && (
-        <p className="error text-red-600">{errors.Owner.message}</p>
-    )}
+                    <div>
+                    <DropDownControl 
+                        name="Ownership_type"
+                        control={control}
+                        value={gusrdatabyid.user_data_byid?.Ownership_type}  
+                        placeholder="Owner Type:   "                                      
+                        options={OWNER_TYPE}
+                        isCorporate={(e:Boolean) => { isCorporateLocal(e); setCorporateUpdate(e)} } 
+                    />         
+                    </div>
 
+                    <div>
+                        <DropDownControl 
+                            name="Vehicle_Kind"
+                            control={control}
+                            value={gusrdatabyid.user_data_byid?.Vehicle_Kind}  
+                            placeholder="Vehicle Type:   "                                      
+                            options={VEHICLE_KIND}                    
+                        />    
+                    </div>        
 
-    <DropDownControl 
-        name="Ownership_type"
-        control={control}
-        value={gusrdatabyid.user_data_byid?.Ownership_type}  
-        placeholder="Owner Type:   "                                      
-        options={OWNER_TYPE}
-        isCorporate={(e:Boolean) => { isCorporateLocal(e); setCorporateUpdate(e)} } 
-    />            
-     <div>
-        <DropDownControl 
-            name="Vehicle_Kind"
-            control={control}
-            value={gusrdatabyid.user_data_byid?.Vehicle_Kind}  
-            placeholder="Vehicle Type:   "                                      
-            options={VEHICLE_KIND}                    
-        />    
-    </div>        
+                
 
-   
+                    {! isCorporateUpdate && 
+                    <div>
+                        <DropDownControl 
+                            name="Gender"
+                            control={control}
+                            value={gusrdatabyid.user_data_byid?.Gender}  
+                            placeholder="Gender:   "                                      
+                            options={GENDER}                    
+                        />    
+                    </div> }
+                
+                    {! isCorporateUpdate && <div>
+                    <p>Son/Wife/Daughter Of: </p>
+                    
+                        <MyTextField sx={{ width: '80%' }}
+                        {...register('Son_Wife_Daughter_Of', {
+                            maxLength: {
+                            value: 30,
+                            message: 'Name should be at most 30 characters',
+                            },
+                            pattern: {
+                            value: /^[A-Za-z\s]*$/,
+                            message: 'Name  should contain only alphabets and spaces',
+                            },
+                        })}
+                        defaultValue={gusrdatabyid.user_data_byid?.Son_Wife_Daughter_Of}
+                        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+                        />        
+                    
+                    {errors.Son_Wife_Daughter_Of && (
+                        <p className="error text-red-600"> {errors.Son_Wife_Daughter_Of.message} </p>
+                    )}
+                    </div>}
 
-    {! isCorporateUpdate && <> 
-     <div>
-        <DropDownControl 
-            name="Gender"
-            control={control}
-            value={gusrdatabyid.user_data_byid?.Gender}  
-            placeholder="Gender:   "                                      
-            options={GENDER}                    
-        />    
-    </div>        
-    </>}
-   
-    {! isCorporateUpdate && <> 
-    <p>Son/Wife/Daughter Of: </p>
-    <TextField.Root>
-        <TextField.Input
-        {...register('Son_Wife_Daughter_Of', {
-            maxLength: {
-            value: 30,
-            message: 'Name should be at most 30 characters',
-            },
-            pattern: {
-            value: /^[A-Za-z\s]*$/,
-            message: 'Name  should contain only alphabets and spaces',
-            },
-        })}
-        defaultValue={gusrdatabyid.user_data_byid?.Son_Wife_Daughter_Of}
-        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-        />        
-    </TextField.Root>
-    {errors.Son_Wife_Daughter_Of && (
-        <p className="error text-red-600">
-        {errors.Son_Wife_Daughter_Of.message}
-        </p>
-    )}
-    </>}
-    <p>Owner Serial Number: </p>
-    <TextField.Root>
-        <TextField.Input
-        {...register('RC_No', {
-            maxLength: {
-            value: 2,
-            message: 'Owner Serial Number should be at most 2 characters',
-            },
-            pattern: {
-            value: /^[0-9]{2}$/,
-            message: 'Owner Serial Number should be a two-digit number',
-            },
-        })}
-        defaultValue={gusrdatabyid.user_data_byid?.RC_No}
-        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-        />
-    </TextField.Root>
-    {errors.RC_No && (
-        <p className="error text-red-600">{errors.RC_No.message}</p>
-    )}
-       
-    
-    <p>Chassis Number: </p>
-    <TextField.Root>
-        <TextField.Input
-        {...register('Chasis_No', {
-            maxLength: {
-            value: 25,
-            message: 'Chassis Number should be at most 25 characters',
-            },
-            pattern: {
-            value: /^[A-Za-z0-9]{0,25}$/,
-            message: 'Chassis Number should be alphanumeric and at most 25 characters',
-            },
-        })}
-        defaultValue={gusrdatabyid.user_data_byid?.Chasis_No}
-        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-        />
-    </TextField.Root>
-    {errors.Chasis_No && (
-        <p className="error text-red-600">{errors.Chasis_No.message}</p>
-    )}
+                    <div>
+                    <p>Owner Serial Number: </p>
+                    
+                        <MyTextField sx={{ width: '80%' }}
+                        {...register('RC_No', {
+                            maxLength: {
+                            value: 2,
+                            message: 'Owner Serial Number should be at most 2 characters',
+                            },
+                            pattern: {
+                            value: /^[0-9]{2}$/,
+                            message: 'Owner Serial Number should be a two-digit number',
+                            },
+                        })}
+                        defaultValue={gusrdatabyid.user_data_byid?.RC_No}
+                        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+                        />
+                        
+                        {errors.RC_No && (
+                            <p className="error text-red-600">{errors.RC_No.message}</p>
+                        )}
+                        </div>
+                    
+                        <div>
+                        <p>Chassis Number: </p>
+                        
+                        <MyTextField sx={{ width: '80%' }}
+                        {...register('Chasis_No', {
+                            maxLength: {
+                            value: 25,
+                            message: 'Chassis Number should be at most 25 characters',
+                            },
+                            pattern: {
+                            value: /^[A-Za-z0-9]{0,25}$/,
+                            message: 'Chassis Number should be alphanumeric and at most 25 characters',
+                            },
+                        })}
+                        defaultValue={gusrdatabyid.user_data_byid?.Chasis_No}
+                        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+                        />
+                        
+                        {errors.Chasis_No && (
+                            <p className="error text-red-600">{errors.Chasis_No.message}</p>
+                        )}
+                        </div>
+                        
+                        <div>
+                        <p>Engine Number: </p>
+                        
+                        <MyTextField sx={{ width: '80%' }}
+                        {...register('Engine_No', {
+                            maxLength: {
+                            value: 25,
+                            message: 'Engine Number should be at most 25 characters',
+                            },
+                            pattern: {
+                            value: /^[A-Za-z0-9]{0,25}$/,
+                            message: 'Engine Number should be alphanumeric and at most 25 characters',
+                            },
+                        })}
+                        defaultValue={gusrdatabyid.user_data_byid?.Engine_No}
+                        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+                        />
+                        
+                        {errors.Engine_No && (
+                            <p className="error text-red-600">{errors.Engine_No.message}</p>
+                        )}
+                        </div>
 
-    <p>Engine Number: </p>
-    <TextField.Root>
-        <TextField.Input
-        {...register('Engine_No', {
-            maxLength: {
-            value: 25,
-            message: 'Engine Number should be at most 25 characters',
-            },
-            pattern: {
-            value: /^[A-Za-z0-9]{0,25}$/,
-            message: 'Engine Number should be alphanumeric and at most 25 characters',
-            },
-        })}
-        defaultValue={gusrdatabyid.user_data_byid?.Engine_No}
-        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-        />
-    </TextField.Root>
-    {errors.Engine_No && (
-        <p className="error text-red-600">{errors.Engine_No.message}</p>
-    )}
-            <DropDownControlWA
-                name="Make"
-                control={control}
-                placeholder="Make:   "     
-                value={gusrdatabyid.user_data_byid?.Make}                  
-                options={gmakedata && gmakedata.MAKE.map((data:any) => (data.value)) }             
-                onOptionAdd= {async (e: String) => await (addMake( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
-            />
-            <DropDownControlWA 
-                name="Model"
-                control={control}
-                value={gusrdatabyid.user_data_byid?.Model}
-                placeholder="Model:   "           
-                options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
-                onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-            />
-                       
-            <DatePickerComponent 
-                name="Registered_Date"
-                control={control}
-                placeholder="Registration Date:   "                           
-                selectedDate={gusrdatabyid.user_data_byid?.Registered_Date && new Date(gusrdatabyid.user_data_byid?.Registered_Date)}         
-            />         
-             <DatePickerComponent 
-                name="tax_due_Date"
-                control={control}
-                placeholder="Tax Valid UpTo:  "                           
-                selectedDate={gusrdatabyid.user_data_byid?.tax_due_Date && new Date(gusrdatabyid.user_data_byid?.tax_due_Date)}             
-                disabled={isLttChecked} 
-            />            
-             {<FormControlLabel
-               control={<Checkbox checked={isLttChecked} onChange={handleLttCheckBox} />}
-               label="LTT"
-             />
-            }   
-            <DropDownControlWA 
-                name="Vehicle_type"
-                control={control}
-                value={gusrdatabyid.user_data_byid?.Vehicle_type}                
-                placeholder="Vehicle Class:   "           
-                options={gVehclassdata && gVehclassdata?.VEHICLE_CLASS.map((data:any) => (data.value)) }  
-                onOptionAdd= {async (e: String) => await (addVehclass( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
-            />
-            <DropDownControlWA 
-                name="Vehicle_Description"
-                control={control}
-                value={gusrdatabyid.user_data_byid?.Vehicle_Description}
-                placeholder="Vehicle Description:   "           
-                options={gVehDesdata && gVehDesdata.VEHICLE_DESCRIPTION.map((data:any) => (data.value)) }  
-                onOptionAdd= {async (e: String) => await (addVehDes( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
-            />
-            <DropDownControl 
-                name="Fuel_type"
-                control={control}      
-                value={gusrdatabyid.user_data_byid?.Fuel_type}  
-                placeholder="Fuel Type:   "           
-                options={FUEL_TYPE}              
-            />
-            <DropDownControlWA 
-                name="Vehice_norms"
-                control={control}
-                value={gusrdatabyid.user_data_byid?.Vehice_norms}
-                placeholder="Emission Norms:   "           
-                options={gnormsdata && gnormsdata.VEHICE_NORMS.map((data:any) => (data.value)) }
-                onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-            />   
-            <DropDownControlWA 
-                name="Vehicle_color"
-                control={control}
-                value={gusrdatabyid.user_data_byid?.Vehicle_color}
-                placeholder="Vehicle Color:   "           
-                options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
-                onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
-            />      
-            <DropDownControlWA 
-                name="Seating_Capacity"
-                control={control}
-                value={gusrdatabyid.user_data_byid?.Seating_Capacity}
-                placeholder="Seating Capacity:   "           
-                options={gSeatCapdata && gSeatCapdata.SEATING_CAPACITY.map((data:any) => (data.value)) }  
-                onOptionAdd= {async (e: String) => await (addSeatCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
-            />      
-            <DropDownControlWA 
-                name="Standing_Capacity"
-                control={control}
-                value={gusrdatabyid.user_data_byid?.Standing_Capacity}
-                placeholder="Standing Capacity:   "           
-                options={gStanCapdata && gStanCapdata.STANDING_CAPACITY.map((data:any) => (data.value)) }  
-                onOptionAdd= {async (e: String) => await (addStanCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
-            />      
-            <DropDownControlWA 
-                name="Hypothecation_bank"
-                control={control}            
-                value={gusrdatabyid.user_data_byid?.Hypothecation_bank}
-                placeholder="Hypothecation Bank:   "           
-                options={gHbankdata && gHbankdata.HYPOTHECATION_BANK.map((data:any) => (data.value)) }           
-                onOptionAdd= {async (e: String) => await (addHbank( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-            />  
-            
-            <DropDownControlWA 
-                name="Hypothecation_city"
-                control={control}            
-                value={gusrdatabyid.user_data_byid?.Hypothecation_city}
-                placeholder="Hypothecation City:   "           
-                options={gHcitydata && gHcitydata.HYPOTHECATION_CITY.map((data:any) => (data.value)) }           
-                onOptionAdd= {async (e: String) => await (addHcity( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
-            />  
-        </div>             
+                        <div>
+                            <DropDownControlWA
+                                name="Make"
+                                control={control}
+                                placeholder="Make:   "     
+                                value={gusrdatabyid.user_data_byid?.Make}                  
+                                options={gmakedata && gmakedata.MAKE.map((data:any) => (data.value)) }             
+                                onOptionAdd= {async (e: String) => await (addMake( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
+                            />
+                        </div>
+                        
+                        <div>
+                            <DropDownControlWA 
+                                name="Model"
+                                control={control}
+                                value={gusrdatabyid.user_data_byid?.Model}
+                                placeholder="Model:   "           
+                                options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
+                                onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+                            />
+                        </div>
 
-        <div className='w-2/3 mt-5'>
-        <Button 
-        className='w-full'
-        disabled={isSubmitted}
-        > Save and Next {isSubmitted && <Spinner></Spinner>}
-        </Button>  
-        </div>
+                        <div>            
+                            <DatePickerComponent 
+                                name="Registered_Date"
+                                control={control}
+                                placeholder="Registration Date:   "                           
+                                selectedDate={gusrdatabyid.user_data_byid?.Registered_Date && new Date(gusrdatabyid.user_data_byid?.Registered_Date)}         
+                            />
+                        </div>
 
-        <div className='w-2/3 mb-5 mt-5'>
-        <Button 
-        className='w-full'
-        disabled={isSubmitted}
-        onClick={() => {setFinalSubmit(true)}}
-        > 
-        Save and Submit {isSubmitted && <Spinner></Spinner>}
-        </Button>   
-        </div>
+                        <div>         
+                            <DatePickerComponent 
+                                name="tax_due_Date"
+                                control={control}
+                                placeholder="Tax Valid UpTo:  "                           
+                                selectedDate={gusrdatabyid.user_data_byid?.tax_due_Date && new Date(gusrdatabyid.user_data_byid?.tax_due_Date)}             
+                                disabled={isLttChecked} 
+                            />            
+                            <FormControlLabel
+                            control={<Checkbox checked={isLttChecked} onChange={handleLttCheckBox} />}
+                            label="LTT"
+                            />
+                        </div>   
 
-    </div>
-    </form>    
+                        <div>
+                            <DropDownControlWA 
+                                name="Vehicle_type"
+                                control={control}
+                                value={gusrdatabyid.user_data_byid?.Vehicle_type}                
+                                placeholder="Vehicle Class:   "           
+                                options={gVehclassdata && gVehclassdata?.VEHICLE_CLASS.map((data:any) => (data.value)) }  
+                                onOptionAdd= {async (e: String) => await (addVehclass( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            />
+                        </div>
+                        
+                        <div>
+                            <DropDownControlWA 
+                                name="Vehicle_Description"
+                                control={control}
+                                value={gusrdatabyid.user_data_byid?.Vehicle_Description}
+                                placeholder="Vehicle Description:   "           
+                                options={gVehDesdata && gVehDesdata.VEHICLE_DESCRIPTION.map((data:any) => (data.value)) }  
+                                onOptionAdd= {async (e: String) => await (addVehDes( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            />
+                        </div>
+
+                        <div>
+                            <DropDownControl 
+                                name="Fuel_type"
+                                control={control}      
+                                value={gusrdatabyid.user_data_byid?.Fuel_type}  
+                                placeholder="Fuel Type:   "           
+                                options={FUEL_TYPE}              
+                            />
+                        </div>
+
+                        <div>
+                            <DropDownControlWA 
+                                name="Vehice_norms"
+                                control={control}
+                                value={gusrdatabyid.user_data_byid?.Vehice_norms}
+                                placeholder="Emission Norms:   "           
+                                options={gnormsdata && gnormsdata.VEHICE_NORMS.map((data:any) => (data.value)) }
+                                onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+                            />   
+                        </div>
+
+                        <div>
+                            <DropDownControlWA 
+                                name="Vehicle_color"
+                                control={control}
+                                value={gusrdatabyid.user_data_byid?.Vehicle_color}
+                                placeholder="Vehicle Color:   "           
+                                options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
+                                onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            />      
+                        </div>
+
+                        <div>
+                            <DropDownControlWA 
+                                name="Seating_Capacity"
+                                control={control}
+                                value={gusrdatabyid.user_data_byid?.Seating_Capacity}
+                                placeholder="Seating Capacity:   "           
+                                options={gSeatCapdata && gSeatCapdata.SEATING_CAPACITY.map((data:any) => (data.value)) }  
+                                onOptionAdd= {async (e: String) => await (addSeatCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            />      
+                        </div>
+
+                        <div>        
+                            <DropDownControlWA 
+                                name="Standing_Capacity"
+                                control={control}
+                                value={gusrdatabyid.user_data_byid?.Standing_Capacity}
+                                placeholder="Standing Capacity:   "           
+                                options={gStanCapdata && gStanCapdata.STANDING_CAPACITY.map((data:any) => (data.value)) }  
+                                onOptionAdd= {async (e: String) => await (addStanCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            /> 
+                        </div>
+
+                        <div>     
+                            <DropDownControlWA 
+                                name="Hypothecation_bank"
+                                control={control}            
+                                value={gusrdatabyid.user_data_byid?.Hypothecation_bank}
+                                placeholder="Hypothecation Bank:   "           
+                                options={gHbankdata && gHbankdata.HYPOTHECATION_BANK.map((data:any) => (data.value)) }           
+                                onOptionAdd= {async (e: String) => await (addHbank( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+                            />  
+                        </div>
+                        
+                        <div>
+                            <DropDownControlWA 
+                                name="Hypothecation_city"
+                                control={control}            
+                                value={gusrdatabyid.user_data_byid?.Hypothecation_city}
+                                placeholder="Hypothecation City:   "           
+                                options={gHcitydata && gHcitydata.HYPOTHECATION_CITY.map((data:any) => (data.value)) }           
+                                onOptionAdd= {async (e: String) => await (addHcity( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+                            />  
+                        </div>   
+
+                        </div>                                   
+
+                        <div className='mt-5'>
+                        <Button 
+                        className='w-full'
+                        disabled={isSubmitted}
+                        > Save and Next {isSubmitted && <Spinner></Spinner>}
+                        </Button>  
+                        </div>
+
+                        <div className='mb-5 mt-5'>
+                        <Button 
+                        className='w-full'
+                        disabled={isSubmitted}
+                        onClick={() => {setFinalSubmit(true)}}
+                        > 
+                        Save and Submit {isSubmitted && <Spinner></Spinner>}
+                        </Button>   
+                        </div>
+            </div>
+        </form>    
     </> 
   )
 }

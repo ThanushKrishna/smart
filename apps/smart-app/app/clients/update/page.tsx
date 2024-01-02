@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 import { GET_USER_DATA_BYID } from '@/graphql/queries'
 import { Button } from '@radix-ui/themes'
 import  Spinner from '@/app/components/Spinner'
+import { TextField as MyTextField   } from '@mui/material';
 
 const UpdateClient:React.FC = () => {
    
@@ -40,27 +41,30 @@ const UpdateClient:React.FC = () => {
             window.location.reload();
           }
 
-    return (
-    <div className='font-bold'>
+    return (    
+        <div>
+        
         {!isVehicleNoprovided &&
-        <>
-        <label> Vehicle Registration Number: </label> 
-        <br/>
-        <input 
-        className="p-2 h-8 border border-gray-300 rounded-md text-lg focus:outline-none focus:border-blue-500 mb-2"
-        type="text" 
-        name='Vehicle_No'  
-        onBlur={(e:any) => setVehicleno(e.target.value)}    
-        onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-        /> 
-        <br></br>
-        <Button         
-         onClick = {() => handleVehicleNoSubmit()}   
-        > 
-        Search {gusrbyidload && <Spinner></Spinner>}
+        <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base font-bold'>
+         <label> Vehicle Registration Number: </label>
+         <br />
+         <MyTextField sx={{ width: '80%' }}  
+         type="text" 
+         name='Vehicle_No'  
+         onBlur={(e:any) => setVehicleno(e.target.value)}                     
+         onChange={(e) => setVehicleno((e.target.value = e.target.value.toUpperCase()))}
+        />                           
+       
+        <br />
+        <Button
+        style={{ marginTop: '4px', width: '8em' }}                    
+        onClick={() => handleVehicleNoSubmit()}
+        >
+        GO {gusrbyidload && <Spinner/>}
         </Button>
-        </>
-        }    
+        </div>
+        }  
+          
 
         {gusrbyiderror && <p>{gusrbyiderror.message}</p> }
 
