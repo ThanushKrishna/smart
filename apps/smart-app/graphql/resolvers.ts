@@ -785,6 +785,68 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       }
     },
 
+    user_data_beforeInsuranceDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Insurance_dueDate: args.input
+              ? {
+                  lt: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            Insurance_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    user_data_betweenInsuranceDueDates: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Insurance_dueDate: args.input1 && args.input2
+              ? {
+                  gte: args.input1,
+                  lt: args.input2,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            Insurance_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    user_data_afterInsuranceDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Insurance_dueDate: args.input
+              ? {
+                  gte: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            Insurance_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+
   },
 
 

@@ -404,6 +404,11 @@ type Query {
     SLEEPER_CAPACITY_BY_VALUE(input: String!): [SLEEPER_CAPACITY]
     UPDATED_BY_BY_VALUE(input: String!): [UPDATED_BY]
     REFERRED_BY_BY_VALUE(input: String!): [REFERRED_BY]
+
+    user_data_beforeInsuranceDueDate(input: Date!): [user_data]   
+    user_data_betweenInsuranceDueDates(input1: Date!, input2: Date!): [user_data]   
+    user_data_afterInsuranceDueDate(input: Date!): [user_data]   
+     
   }
 
 
