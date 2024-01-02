@@ -48,18 +48,19 @@ const ContentContainer = styled(Paper)(({ theme }) => ({
 }));
 
 const entities = [
-  { name: 'CC', dname: 'Cubic Capacity', queries: { getAll: GET_CC_BY_VALUE, add: ADD_CC, update: UPDATE_CC, delete: DELETE_CC_DATA } },  
-  { name: 'GVW', dname: 'Gross Vehicle Weight', queries: { getAll: GET_GVW_BY_VALUE, add: ADD_GVW, update: UPDATE_GVW, delete: DELETE_GVW_DATA } },
+  { name: 'CC', dname: 'Cubic Capacity', queries: { getAll: GET_CC_BY_VALUE, add: ADD_CC, update: UPDATE_CC, delete: DELETE_CC_DATA } },    
+  { name: 'VEHICLE_NORMS', dname: 'Emission Norms', queries: { getAll: GET_VEHICLE_NORMS_BY_VALUE, add: ADD_VEHICE_NORMS, update: UPDATE_VEHICLE_NORMS, delete: DELETE_VEHICLE_NORMS_DATA } },
   { name: 'HYPOTHECATION_BANK', dname: 'Hypothecation Bank', queries: { getAll: GET_HYPOTHECATION_BANK_BY_VALUE, add: ADD_HYPOTHECATION_BANK, update: UPDATE_HYPOTHECATION_BANK, delete: DELETE_HYPOTHECATION_BANK_DATA } },
-  { name: 'HYPOTHECATION_CITY', dname: 'Hypothecation City', queries: { getAll: GET_HYPOTHECATION_CITY_BY_VALUE, add: ADD_HYPOTHECATION_CITY, update: UPDATE_HYPOTHECATION_CITY, delete: DELETE_HYPOTHECATION_CITY_DATA } },
-  { name: 'INSURANCE_PROVIDER', dname: 'Insurance Provider', queries: { getAll: GET_INSURANCE_PROVIDER_BY_VALUE, add: ADD_INSURANCE_PROVIDER, update: UPDATE_INSURANCE_PROVIDER, delete: DELETE_INSURANCE_PROVIDER_DATA } },
+  { name: 'HYPOTHECATION_CITY', dname: 'Hypothecation City', queries: { getAll: GET_HYPOTHECATION_CITY_BY_VALUE, add: ADD_HYPOTHECATION_CITY, update: UPDATE_HYPOTHECATION_CITY, delete: DELETE_HYPOTHECATION_CITY_DATA } },  
+  { name: 'GVW', dname: 'Laden Weight (GVW):', queries: { getAll: GET_GVW_BY_VALUE, add: ADD_GVW, update: UPDATE_GVW, delete: DELETE_GVW_DATA } },
   { name: 'MAKE', dname: 'Make', queries: { getAll: GET_MAKE_BY_VALUE, add: ADD_MAKE, update: UPDATE_MAKE, delete: DELETE_MAKEDATA } },
   { name: 'MODEL', dname: 'Model', queries: { getAll: GET_MODEL_BY_VALUE, add: ADD_MODEL, update: UPDATE_MODEL, delete: DELETE_MODEL_DATA } },
-  { name: 'NO_OF_CYLINDER', dname: 'Number of Cylinders', queries: { getAll: GET_NO_OF_CYLINDER_BY_VALUE, add: ADD_NO_OF_CYLINDER, update: UPDATE_NO_OF_CYLINDER, delete: DELETE_NO_OF_CYLINDER_DATA } },
+  { name: 'NO_OF_CYLINDER', dname: 'No of Cylinders', queries: { getAll: GET_NO_OF_CYLINDER_BY_VALUE, add: ADD_NO_OF_CYLINDER, update: UPDATE_NO_OF_CYLINDER, delete: DELETE_NO_OF_CYLINDER_DATA } },
+  { name: 'INSURANCE_PROVIDER', dname: 'Own Damage Insurance Provider', queries: { getAll: GET_INSURANCE_PROVIDER_BY_VALUE, add: ADD_INSURANCE_PROVIDER, update: UPDATE_INSURANCE_PROVIDER, delete: DELETE_INSURANCE_PROVIDER_DATA } },
   { name: 'PERMIT_CATEGORY', dname: 'Permit Category', queries: { getAll: GET_PERMIT_CATEGORY_BY_VALUE, add: ADD_PERMIT_CATEGORY, update: UPDATE_PERMIT_CATEGORY, delete: DELETE_PERMIT_CATEGORY_DATA } },
   { name: 'CUSTOMER_TYPE', dname: 'Policy Issued Through', queries: { getAll: GET_CUSTOMER_TYPE_BY_VALUE, add: ADD_CUSTOMER_TYPE, update: UPDATE_CUSTOMER_TYPE, delete: DELETE_CUSTOMER_TYPE_DATA } },
   { name: 'REFERRED_BY', dname: 'Referred By', queries: { getAll: GET_REFERRED_BY_BY_VALUE, add: ADD_REFERRED_BY, update: UPDATE_REFERRED_BY, delete: DELETE_REFERRED_BY_DATA } },
-  { name: 'RTO', dname: 'RTO', queries: { getAll: GET_RTO_BY_VALUE, add: ADD_RTO, update: UPDATE_RTO, delete: DELETE_RTO_DATA } },
+  { name: 'RTO', dname: 'Registering Authority', queries: { getAll: GET_RTO_BY_VALUE, add: ADD_RTO, update: UPDATE_RTO, delete: DELETE_RTO_DATA } },
   { name: 'SEATING_CAPACITY', dname: 'Seating Capacity', queries: { getAll: GET_SEATING_CAPACITY_BY_VALUE, add: ADD_SEATING_CAPACITY, update: UPDATE_SEATING_CAPACITY, delete: DELETE_SEATING_CAPACITY_DATA } },
   { name: 'SLEEPER_CAPACITY', dname: 'Sleeper Capacity', queries: { getAll: GET_SLEEPER_CAPACITY_BY_VALUE, add: ADD_SLEEPER_CAPACITY, update: UPDATE_SLEEPER_CAPACITY, delete: DELETE_SLEEPER_CAPACITY_DATA } },
   { name: 'STANDING_CAPACITY', dname: 'Standing Capacity', queries: { getAll: GET_STANDING_CAPACITY_BY_VALUE, add: ADD_STANDING_CAPACITY, update: UPDATE_STANDING_CAPACITY, delete: DELETE_STANDING_CAPACITY_DATA } },
@@ -69,8 +70,7 @@ const entities = [
   { name: 'VEHICLE_BODY', dname: 'Vehicle Body', queries: { getAll: GET_VEHICLE_BODY_BY_VALUE, add: ADD_VEHICLE_BODY, update: UPDATE_VEHICLE_BODY, delete: DELETE_VEHICLE_BODY_DATA } },
   { name: 'VEHICLE_CLASS', dname: 'Vehicle Class', queries: { getAll: GET_VEHICLE_CLASS_BY_VALUE, add: ADD_VEHICLE_CLASS, update: UPDATE_VEHICLE_CLASS, delete: DELETE_VEHICLE_CLASS_DATA } },
   { name: 'VEHICLE_COLOR', dname: 'Vehicle Color', queries: { getAll: GET_VEHICLE_COLOR_BY_VALUE, add: ADD_VEHICLE_COLORS, update: UPDATE_VEHICLE_COLOR, delete: DELETE_VEHICLE_COLOR_DATA } },
-  { name: 'VEHICLE_DESCRIPTION', dname: 'Vehicle Description', queries: { getAll: GET_VEHICLE_DESCRIPTION_BY_VALUE, add: ADD_VEHICLE_DESCRIPTION, update: UPDATE_VEHICLE_DESCRIPTION, delete: DELETE_VEHICLE_DESCRIPTION_DATA } },
-  { name: 'VEHICLE_NORMS', dname: 'Vehicle Norms', queries: { getAll: GET_VEHICLE_NORMS_BY_VALUE, add: ADD_VEHICE_NORMS, update: UPDATE_VEHICLE_NORMS, delete: DELETE_VEHICLE_NORMS_DATA } },
+  { name: 'VEHICLE_DESCRIPTION', dname: 'Vehicle Description', queries: { getAll: GET_VEHICLE_DESCRIPTION_BY_VALUE, add: ADD_VEHICLE_DESCRIPTION, update: UPDATE_VEHICLE_DESCRIPTION, delete: DELETE_VEHICLE_DESCRIPTION_DATA } },  
   { name: 'WHEEL_BASE', dname: 'Wheel Base', queries: { getAll: GET_WHEEL_BASE_BY_VALUE, add: ADD_WHEEL_BASE, update: UPDATE_WHEEL_BASE, delete: DELETE_WHEEL_BASE_DATA } }
 ];
 

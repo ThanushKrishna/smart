@@ -147,7 +147,7 @@ const onSubmit = async (formValues: AddClientType) => {
 return (
     <>      
      <form  onSubmit={handleSubmit(onSubmit)}>     
-     <div> 
+     <div className='font-bold'> 
  
          <div className='mb-5'>
          <Button 

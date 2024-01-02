@@ -66,7 +66,7 @@ export const DropDownControl: React.FC<DropDownControlProps<any>> = ({
                       }}                      
                     >                  
                      {value && <MenuItem> {value} </MenuItem> } 
-                     {(value!=="LEAD") && <MenuItem key="dummy" value=""></MenuItem>}   
+                     { <MenuItem key="dummy" value=""></MenuItem>}   
                     {/* console.log(value) */}
                     {options && options.map((option:any) => (
                     <MenuItem key={option.value} value={option.value}>

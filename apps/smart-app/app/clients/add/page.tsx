@@ -239,7 +239,7 @@ const onSubmit = async (formValues: AddClientType) => {
             Standing_Capacity: formValues?.Standing_Capacity || undefined,
             Permit_dueDate: (formValues?.Permit_dueDate ? new Date(formValues?.Permit_dueDate).getTime() + 60 * 60 *1000 * 5.5 : null), 
             CAddress: (isAddressChecked ? formValues?.Address:formValues?.CAddress || undefined ),
-            Prospect: formValues?.Prospect || undefined,
+            Prospect: formValues?.Prospect ? formValues?.Prospect : "LEAD" ,
             photo_links: photoLinks || undefined,
             Nominee_Doc: NomineeLinks || undefined
         }
@@ -1118,8 +1118,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 
                 <DropDownControl 
                     name="Prospect"
-                    control={control}   
-                    value="LEAD"     
+                    control={control}                         
                     placeholder="Prospect:   "           
                     options={PROSPECT}              
                 />                       

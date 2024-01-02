@@ -146,7 +146,7 @@ return (
   <>      
       <form  onSubmit={handleSubmit(onSubmit)}>     
 
-      <div>           
+      <div className='font-bold'>     
 
           <div className='mb-5'>
           <Button 

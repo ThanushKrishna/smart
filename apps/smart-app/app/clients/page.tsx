@@ -23,7 +23,7 @@ ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 
 const AutomobilePage = () => {
   const gridApi = useRef<AgGridReact | null>(null);
-  const gridRef = useRef<AgGridReact| null>(null);
+  const gridRef = useRef<AgGridReact>(null);
   const { loading, error, data, refetch } = useQuery<{ user_data: AddClientType[] }>(GET_USER_DATA)
   const containerStyle =  { width: '100%', height: '100%' };
   
@@ -244,7 +244,7 @@ const addressFormatter = (params: any) => {
 
 
   const onBtnExport = () => {
-    gridRef.current?.api.exportDataAsCsv();
+    gridRef.current!.api.exportDataAsCsv();
   }
 
   const onBtnUpdate = () => {
@@ -301,7 +301,7 @@ const addressFormatter = (params: any) => {
           style={{ height: '80vh', width: '100%' }}
         >          
           <AgGridReact<AddClientType>
-            ref={(grid) => (gridApi.current = grid)}
+            ref={gridRef}
             rowData={data.user_data}
             columnDefs={columnDefs}
             defaultColDef={defaultColDef}            
