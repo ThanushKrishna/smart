@@ -23,7 +23,7 @@ ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 
 const AutomobilePage = () => {
   const gridApi = useRef<AgGridReact | null>(null);
-  const gridRef = useRef<AgGridReact>(null);
+  const gridRef = useRef<AgGridReact| null>(null);
   const { loading, error, data, refetch } = useQuery<{ user_data: AddClientType[] }>(GET_USER_DATA)
   const containerStyle =  { width: '100%', height: '100%' };
   
@@ -218,16 +218,15 @@ const addressFormatter = (params: any) => {
     { headerName: 'PUC/Emission Number', field: 'PUCC_Emission_No', colId: 'puccEmissionNumber', autoHeight: true },
     { headerName: 'PUC/Emission UpTo', field: 'Emission_dueDate', colId: 'emissionDueDate', valueFormatter: dateFormatter, autoHeight: true  },        
     { headerName: 'GST No', field: 'GST_No', colId: 'gstNumber', autoHeight: true },
-    { headerName: 'GST Certificate', field: 'GST_Cer_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'gstCertificateDocument', autoHeight: true },
-    { headerName: 'RC Address', field: 'Address', colId: 'address', valueFormatter: addressFormatter, autoHeight: true  },    
-    { headerName: 'Communication Address', field: 'CAddress', colId: 'caddress', valueFormatter: addressFormatter, autoHeight: true  },    
+    { headerName: 'GST Certificate', field: 'GST_Cer_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'gstCertificateDocument', autoHeight: true },    
     { headerName: 'Referred By', field: 'Referred_by', colId: 'referredBy', autoHeight: true },
     { headerName: 'Updated By', field: 'updated_by', colId: 'updatedBy', autoHeight: true },                               
-    { headerName: 'Policy Issued Through', field: 'Customer_type', colId: 'customerType', autoHeight: true },  
-    { headerName: 'Comments', field: 'Comments', colId: 'comments'},
+    { headerName: 'Policy Issued Through', field: 'Customer_type', colId: 'customerType', autoHeight: true },      
     { headerName: 'Prospect', field: 'Prospect', colId: 'Prospect'},
     { headerName: 'Photos', field: 'photo_links', colId: 'photo_links',  cellRenderer: (params: any) => <FileIconRenderer data={params.value} />},
-                       
+    { headerName: 'Comments', field: 'Comments', colId: 'comments'},
+    { headerName: 'RC Address', field: 'Address', colId: 'address', valueFormatter: addressFormatter, autoHeight: true  },    
+    { headerName: 'Communication Address', field: 'CAddress', colId: 'caddress', valueFormatter: addressFormatter, autoHeight: true  },                           
   ];
   
   const onGridReady = (params: any) => {
@@ -245,7 +244,7 @@ const addressFormatter = (params: any) => {
 
 
   const onBtnExport = () => {
-    gridRef.current!.api.exportDataAsCsv();
+    gridRef.current?.api.exportDataAsCsv();
   }
 
   const onBtnUpdate = () => {

@@ -830,7 +830,7 @@ const onSubmit = async (formValues: AddClientType) => {
                 <DropDownControlWA 
                     name="CC"
                     control={control}            
-                    placeholder="Cubic capacity:   "           
+                    placeholder="Cubic Capacity:   "           
                     options={gccdata && gccdata.CC_BY_VALUE.map((data:any) => (data.value)) }           
                     onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
                     refetchQueries: [{ query: GET_CC_BY_VALUE, variables: { input: "" } }],
@@ -1114,24 +1114,7 @@ const onSubmit = async (formValues: AddClientType) => {
                     refetchQueries: [{ query: GET_CUSTOMER_TYPE_BY_VALUE, variables: { input: "" } }],
                     }) )}
                 />        
-
-                <div>     
-                <p className='mt-3'>Comments: </p>
-                <TextareaAutosize
-                className="'w-80% text-sm font-sans font-normal leading-5 rounded-lg shadow-md shadow-slate-100 focus:shadow-outline-black border border-solid border-slate-300 hover:border-purple-500 focus:border-grey-800 bg-white text-slate-900 focus-visible:outline-0"
-                aria-label="Demo input"
-                placeholder="Empty"
-                minRows={3}
-                {...register                    
-                    ('Comments', {
-                    maxLength: {
-                    value: 500,
-                    message: 'Comments should be at most 500 characters'
-                    }
-                })}
-                />
-                {errors.Comments && <p className="error text-red-600">{errors.Comments.message}</p>}
-                </div>
+               
                 
                 <DropDownControl 
                     name="Prospect"
@@ -1149,6 +1132,23 @@ const onSubmit = async (formValues: AddClientType) => {
                     value={photoLinks} 
                     placeholder="Upload Photos:    "                    
                 />	   
+                </div>
+
+                 <div className='w-80'>     
+                <p>Comments:   </p>
+                <TextareaAutosize
+                className="w-full text-sm font-sans font-normal leading-5 rounded-lg shadow-md shadow-slate-100 focus:shadow-outline-black border border-solid border-slate-400 hover:border-gray-900 focus:border-grey-800 bg-white text-slate-900 focus-visible:outline-0"
+                aria-label="Demo input"                
+                minRows={3}
+                {...register                    
+                    ('Comments', {
+                    maxLength: {
+                    value: 500,
+                    message: 'Comments should be at most 500 characters'
+                    }
+                })}
+                />
+                {errors.Comments && <p className="error text-red-600">{errors.Comments.message}</p>}
                 </div>
 
                 <div className='col-span-5'>

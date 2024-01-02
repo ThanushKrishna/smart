@@ -214,7 +214,7 @@ return (
                 name="CC"
                 control={control}       
                 value={gusrdatabyid.user_data_byid?.CC}     
-                placeholder="Cubic capacity:   "           
+                placeholder="Cubic Capacity:   "           
                 options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
                 onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
             />        
@@ -511,22 +511,7 @@ return (
                 options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE.map((data:any) => (data.value)) }    
                 onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
             />       
-            </div>
-
-            <div>                 
-            <p className="mt-3">Comments: </p>
-            <TextareaAutosize
-                style={{ width: '80%' }}  
-                aria-label="minimum height" minRows={3}
-              {...register('Comments', {
-                maxLength: { value: 500, message: 'Comments should be at most 500 characters' },
-              })}
-              defaultValue={gusrdatabyid?.user_data_byid?.Comments}
-            />
-            {errors.Comments && (
-              <p className="error text-red-600">{errors.Comments.message}</p>
-            )}
-            </div>
+            </div>           
 
             <div>
             <DropDownControl 
@@ -547,6 +532,25 @@ return (
                       placeholder="Upload Photos:   "                       
                   />	   
               </div>
+
+              <div className='w-80'>     
+                <p>Comments:   </p>
+                <TextareaAutosize
+                className="w-full text-sm font-sans font-normal leading-5 rounded-lg shadow-md shadow-slate-100 focus:shadow-outline-black border border-solid border-slate-400 hover:border-gray-900 focus:border-grey-800 bg-white text-slate-900 focus-visible:outline-0"
+                aria-label="Demo input"                
+                minRows={3}
+                {...register                    
+                    ('Comments', {
+                    maxLength: {
+                    value: 500,
+                    message: 'Comments should be at most 500 characters'
+                    }
+                })}
+                defaultValue={gusrdatabyid?.user_data_byid?.Comments}
+                />
+                {errors.Comments && <p className="error text-red-600">{errors.Comments.message}</p>}
+              </div>
+
             
             <div className='col-span-5'>
             <AddressForm addressType="Address" placehoder="RC Address: " register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.Address} />
