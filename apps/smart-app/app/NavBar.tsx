@@ -1,63 +1,86 @@
-"use client"
+'use client'
 import React, { useState } from 'react';
 import { FaBookOpen } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const NavBar = () => {
   const currentPath = usePathname();
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const links = [
     { label: 'Dashboard', href: '/' },
     { label: 'Baseline', href: '/master' },
-    { label: 'Clients', href: '/clients' },    
+    { label: 'Clients', href: '/clients' },
   ];
 
   return (
-    <nav className="flex space-x-6 border-b mb-5 px-5 h-14 items-center">
-      <Link href="/">
-        <FaBookOpen />
-      </Link>
-      <ul className="flex space-x-6">
-        {links.map((link) => (
-          <li
-            key={link.href}
-            onMouseOver={() => setDropdownOpen(true)}
-            onMouseOut={() => setDropdownOpen(false)}
-            className="group relative"
-          >
-            <Link
-              href={link.href}
-              className={`${
-                link.href === currentPath ? 'text-zinc-900' : 'text-zinc-500'
-              } hover:text-zinc-800 transition-colors cursor-pointer`}
+    <AppBar position="static">
+      <Toolbar>
+        <div style={{ display: 'flex' }}>
+          <Link href="/">
+            <IconButton color="inherit" edge="start" aria-label="menu">
+              <FaBookOpen />
+            </IconButton>
+          </Link>
+          <Typography variant="h6">SMART</Typography>
+        </div>
+        <div style={{ display: 'flex', marginLeft: 'auto' }}>
+          {links.map((link) => (
+            <div key={link.href} className="group relative">
+              {link.href === '/clients' ? (
+                <Button
+                  color={link.href === currentPath ? 'primary' : 'inherit'}
+                  onClick={handleMenuOpen}
+                >
+                  {link.label}
+                </Button>
+              ) : (
+                <Link href={link.href} passHref>
+                  <Button
+                    color={link.href === currentPath ? 'primary' : 'inherit'}
+                  >
+                    {link.label}
+                  </Button>
+                </Link>
+              )}
+            </div>
+          ))}
+          {links.some((link) => link.href === '/clients') && (
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
             >
-              {link.label}
-            </Link>
-            {link.href === '/clients' && isDropdownOpen && (
-              <div className="absolute z-10 mt-2 space-y-2 bg-white border rounded-md shadow-lg">
-                <Link href="/clients/add">
-                  <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    Add Client
-                  </span>
-                </Link>
-                <Link href="/clients/update">
-                  <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    Update Client
-                  </span>
-                </Link>
-                <Link href="/clients/delete">
-                  <span className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
-                    Delete Client
-                  </span>
-                </Link>
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
-    </nav>
+              <MenuItem>
+                <Link href="/clients/add">Add Client</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link href="/clients/update">Update Client</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link href="/clients/delete">Delete Client</Link>
+              </MenuItem>
+            </Menu>
+          )}
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
 

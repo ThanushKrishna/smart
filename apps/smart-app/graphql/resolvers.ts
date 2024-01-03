@@ -6,18 +6,18 @@ export const dateScalar = new GraphQLScalarType({
   name: 'Date',
   description: 'Date custom scalar type',
   serialize(value) {
-//    console.log("serialize Block")
+//    //console.log("serialize Block")
     if (value instanceof Date) {      
-      //console.log( value.getTime())
+      ////console.log( value.getTime())
       return value; // Convert outgoing Date to integer for JSON
     }
     throw Error('GraphQL Date Scalar serializer expected a `Date` object');
   },
   parseValue(value) {
-//    console.log("parseValue Block")
-    console.log(value)
+//    //console.log("parseValue Block")
+    //console.log(value)
     if (value instanceof Date) value = new Date(value).getTime();
-    console.log(value)
+    //console.log(value)
       //const changedValue = value.getTime();
     if (typeof value === 'number') {
       return new Date(value); // Convert incoming integer to Date
@@ -25,8 +25,8 @@ export const dateScalar = new GraphQLScalarType({
     throw new Error('GraphQL Date Scalar parser expected a `number`');
   },
   parseLiteral(ast) {
-    // console.log("parseLiteral Block")
-    // console.log(ast)
+    // //console.log("parseLiteral Block")
+    // //console.log(ast)
     if (ast.kind === Kind.INT) {
       // Convert hard-coded AST string to integer and then to Date
       return new Date(parseInt(ast.value, 10));
@@ -49,7 +49,7 @@ export const resolvers = {
         return await context.prisma.app_user.findMany();
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
       
     },   
@@ -62,12 +62,12 @@ export const resolvers = {
           }
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
     user_data_byid: async (parent: any, args: any, context: Context) => {
-      console.log("this is user_data_byid block");  
+      //console.log("this is user_data_byid block");  
       try{
         return await context.prisma.user_data.findUnique({
           where: {
@@ -77,13 +77,13 @@ export const resolvers = {
       }
 
       catch(err){
-        console.log(err);
+        //console.log(err);
       }
     },
 
 
     CheckvehicleNoUniqueness: async (parent: any, args: any, context: Context) => {
-      console.log("this is CheckvehicleNoUniqueness block");  
+      //console.log("this is CheckvehicleNoUniqueness block");  
       try{
         const result = await context.prisma.user_data.findUnique({
           where: {
@@ -95,7 +95,7 @@ export const resolvers = {
       }
 
       catch(err){
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -108,7 +108,7 @@ export const resolvers = {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -122,7 +122,7 @@ export const resolvers = {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -135,7 +135,7 @@ export const resolvers = {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -148,7 +148,7 @@ export const resolvers = {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
    
@@ -162,7 +162,7 @@ export const resolvers = {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -175,7 +175,7 @@ export const resolvers = {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -188,7 +188,7 @@ export const resolvers = {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },	
 
@@ -201,7 +201,7 @@ export const resolvers = {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -214,7 +214,7 @@ export const resolvers = {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -227,7 +227,7 @@ CUSTOMER_TYPE : async (parent: any, args: any, context: Context) => {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -240,7 +240,7 @@ VEHICLE_DESCRIPTION : async (parent: any, args: any, context: Context) => {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -253,7 +253,7 @@ SEATING_CAPACITY : async (parent: any, args: any, context: Context) => {
         })
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -266,7 +266,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -279,7 +279,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -292,7 +292,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -305,7 +305,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
   
@@ -318,7 +318,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         });
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -339,7 +339,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       })
       }
       catch(err){
-          console.log(err);
+          //console.log(err);
       }
     },
 
@@ -359,7 +359,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     VEHICLE_NORMS_BY_VALUE: async (parent: any, args: any, context: Context) => {      
@@ -378,7 +378,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },  
 	
@@ -399,7 +399,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     MODEL_BY_VALUE: async (parent: any, args: any, context: Context) => {      
@@ -418,7 +418,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     INSURANCE_PROVIDER_BY_VALUE: async (parent: any, args: any, context: Context) => {      
@@ -437,7 +437,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     PERMIT_CATEGORY_BY_VALUE: async (parent: any, args: any, context: Context) => {      
@@ -456,7 +456,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     TP_INSURANCE_PROVIDER_BY_VALUE: async (parent: any, args: any, context: Context) => {      
@@ -475,7 +475,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -495,7 +495,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     CUSTOMER_TYPE_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -514,7 +514,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     VEHICLE_DESCRIPTION_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -533,7 +533,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     SEATING_CAPACITY_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -552,7 +552,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     STANDING_CAPACITY_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -571,7 +571,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     RTO_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -590,7 +590,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     HYPOTHECATION_BANK_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -609,7 +609,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     HYPOTHECATION_CITY_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -628,7 +628,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },   
     
@@ -648,7 +648,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     GVW_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -667,7 +667,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     VEHICLE_BODY_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -686,7 +686,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     WHEEL_BASE_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -705,7 +705,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     NO_OF_CYLINDER_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -724,7 +724,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     SLEEPER_CAPACITY_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -743,7 +743,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     UPDATED_BY_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -762,7 +762,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     REFERRED_BY_BY_VALUE: async (parent: any, args: any, context: Context) => {
@@ -781,7 +781,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -801,7 +801,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -822,7 +822,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -842,7 +842,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -853,7 +853,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   Mutation: {
 
     createRTO: async (parent: any, args: any, context: Context) => {
-      console.log("this is createRTO block");            
+      //console.log("this is createRTO block");            
       return await context.prisma.rTO.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -863,7 +863,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
     createVehicleClass: async (parent: any, args: any, context: Context) => {
-        console.log("this is createVehicleClass block");            
+        //console.log("this is createVehicleClass block");            
         return await context.prisma.vEHICLE_CLASS.create({
           data: {
             data_owner_id: args.input.data_owner_id,
@@ -872,7 +872,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         })
       },
     createCustomerType: async (parent: any, args: any, context: Context) => {
-          console.log("this is createCustomerType block");            
+          //console.log("this is createCustomerType block");            
           return await context.prisma.cUSTOMER_TYPE.create({
             data: {
               data_owner_id: args.input.data_owner_id,
@@ -881,7 +881,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           })
         },
     createVehicleDescription: async (parent: any, args: any, context: Context) => {
-          console.log("this is createVehicleDescription block");            
+          //console.log("this is createVehicleDescription block");            
           return await context.prisma.vEHICLE_DESCRIPTION.create({
             data: {
               data_owner_id: args.input.data_owner_id,
@@ -890,7 +890,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           })
         },
     createSeatingCapacity: async (parent: any, args: any, context: Context) => {
-          console.log("this is createSeatingCapacity block");            
+          //console.log("this is createSeatingCapacity block");            
           return await context.prisma.sEATING_CAPACITY.create({
             data: {
               data_owner_id: args.input.data_owner_id,
@@ -899,7 +899,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           })
         },
     createStandingCapacity: async (parent: any, args: any, context: Context) => {
-          console.log("this is createStandingCapacity block");            
+          //console.log("this is createStandingCapacity block");            
           return await context.prisma.sTANDING_CAPACITY.create({
             data: {
               data_owner_id: args.input.data_owner_id,
@@ -910,7 +910,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 
 
     createVehicleColor: async (parent: any, args: any, context: Context) => {
-      console.log("this is CreateVehicleColor block");            
+      //console.log("this is CreateVehicleColor block");            
       return await context.prisma.vEHICLE_COLOR.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -920,7 +920,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 	
 	createVehicleNorms: async (parent: any, args: any, context: Context) => {
-      console.log("this is createVehicleNorms block");            
+      //console.log("this is createVehicleNorms block");            
       return await context.prisma.vEHICE_NORMS.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -930,7 +930,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
     createCC: async (parent: any, args: any, context: Context) => {
-      console.log("this is createCC block");            
+      //console.log("this is createCC block");            
       return await context.prisma.cC.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -940,7 +940,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 	
 	createMake: async (parent: any, args: any, context: Context) => {
-      console.log("this is createMake block");            
+      //console.log("this is createMake block");            
       return await context.prisma.mAKE.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -950,7 +950,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
     createModel: async (parent: any, args: any, context: Context) => {
-      console.log("this is createModel block");            
+      //console.log("this is createModel block");            
       return await context.prisma.mODEL.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -960,7 +960,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 	
 	createInsuranceProvider: async (parent: any, args: any, context: Context) => {
-      console.log("this is createInsuranceProvider block");            
+      //console.log("this is createInsuranceProvider block");            
       return await context.prisma.iNSURANCE_PROVIDER.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -970,7 +970,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
 	createPermitCategory: async (parent: any, args: any, context: Context) => {
-      console.log("this is createPermitCategory block");            
+      //console.log("this is createPermitCategory block");            
       return await context.prisma.pERMIT_CATEGORY.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -980,7 +980,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 	
 	createTpInsuranceProvider: async (parent: any, args: any, context: Context) => {
-      console.log("this is createTpInsuranceProvider block");            
+      //console.log("this is createTpInsuranceProvider block");            
       return await context.prisma.tP_INSURANCE_PROVIDER.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -990,7 +990,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
     createHypothecationCity: async (parent: any, args: any, context: Context) => {
-      console.log("this is createHypothecationCity block");            
+      //console.log("this is createHypothecationCity block");            
       return await context.prisma.hYPOTHECATION_CITY.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1000,7 +1000,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
     createHypothecationBank: async (parent: any, args: any, context: Context) => {
-      console.log("this is createHypothecationBank block");            
+      //console.log("this is createHypothecationBank block");            
       return await context.prisma.hYPOTHECATION_BANK.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1010,7 +1010,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
     createUnladenWeight: async (parent: any, args: any, context: Context) => {
-      console.log("this is createUnladenWeight block");
+      //console.log("this is createUnladenWeight block");
       return await context.prisma.uNLADEN_WEIGHT.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1019,7 +1019,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       });
     },
     createGvw: async (parent: any, args: any, context: Context) => {
-      console.log("this is createGvw block");
+      //console.log("this is createGvw block");
       return await context.prisma.gVW.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1028,7 +1028,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       });
     },
     createVehicleBody: async (parent: any, args: any, context: Context) => {
-      console.log("this is createVehicleBody block");
+      //console.log("this is createVehicleBody block");
       return await context.prisma.vEHICLE_BODY.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1037,7 +1037,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       });
     },
     createWheelBase: async (parent: any, args: any, context: Context) => {
-      console.log("this is createWheelBase block");
+      //console.log("this is createWheelBase block");
       return await context.prisma.wHEEL_BASE.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1046,7 +1046,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       });
     },
     createNoOfCylinder: async (parent: any, args: any, context: Context) => {
-      console.log("this is createNoOfCylinder block");
+      //console.log("this is createNoOfCylinder block");
       return await context.prisma.nO_OF_CYLINDER.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1055,7 +1055,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       });
     },
     createSleeperCapacity: async (parent: any, args: any, context: Context) => {
-      console.log("this is createSleeperCapacity block");
+      //console.log("this is createSleeperCapacity block");
       return await context.prisma.sLEEPER_CAPACITY.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1064,7 +1064,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       });
     },
     createUpdatedBy: async (parent: any, args: any, context: Context) => {
-      console.log("this is createUpdatedBy block");
+      //console.log("this is createUpdatedBy block");
       return await context.prisma.uPDATED_BY.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1073,7 +1073,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       });
     },
     createReferredBy: async (parent: any, args: any, context: Context) => {
-      console.log("this is createReferredBy block");
+      //console.log("this is createReferredBy block");
       return await context.prisma.rEFERRED_BY.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1084,7 +1084,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 
 
     createDeletedBlobs: async (parent: any, args: any, context: Context) => {
-      console.log("this is createDeletedBlobs block");            
+      //console.log("this is createDeletedBlobs block");            
       return await context.prisma.dELETED_BLOBS.create({
         data: {
           data_owner_id: args.input.data_owner_id,
@@ -1095,7 +1095,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     
     
     CreateAppuser: async (parent: any, args: any, context: Context) => {
-      console.log("this is Createuser block");            
+      //console.log("this is Createuser block");            
       return await context.prisma.app_user.create({
         data: {
           emailid: args.input.emailid,
@@ -1118,7 +1118,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 
 
     replaceAppuser:  async (parent: any, args: any, context: Context) => {
-      console.log("this is replaceAppuser block");      
+      //console.log("this is replaceAppuser block");      
       return await context.prisma.app_user.update({
         where: { userid: args.id },
         data: {
@@ -1139,7 +1139,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
     createUserData: async (parent: any, args: any, context: Context) => {
-      console.log("this is CreateUserData block");    
+      //console.log("this is CreateUserData block");    
       try{        
         return await context.prisma.user_data.create({
           data: {
@@ -1231,12 +1231,12 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       })
     }
     catch(err){
-      console.log(err);
+      //console.log(err);
     }
   },
     
     testaddclient: async (parent: any, args: any, context: Context) => {
-      console.log("this is testCreateUserdata block");        
+      //console.log("this is testCreateUserdata block");        
         await context.prisma.user_data.create({
         data: {
           Vehicle_No: args.Vehicle_No,
@@ -1248,7 +1248,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   },
 
     updateUserData: async (parent: any, args: any, context: Context) => {
-      console.log("this is updateUserdata block");        
+      //console.log("this is updateUserdata block");        
       return await context.prisma.user_data.update({
         where: { id: args.input.id },
         data: {
@@ -1340,7 +1340,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
   updateUserData1: async (parent: any, args: any, context: Context) => {
-      console.log("this is updateUserdata1 block");   
+      //console.log("this is updateUserdata1 block");   
       await context.prisma.user_data.update({
           where: { id: args.input.id },
           data: {      
@@ -1373,7 +1373,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   },
     
   updateUserData2: async (parent: any, args: any, context: Context) => {
-    console.log("this is updateUserdata2 block");   		
+    //console.log("this is updateUserdata2 block");   		
     await context.prisma.user_data.update({
           where: { id: args.input.id },
           data: {		          
@@ -1400,7 +1400,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   },		
         
   updateUserData3: async (parent: any, args: any, context: Context) => {
-     console.log("this is updateUserdata3 block");   			
+     //console.log("this is updateUserdata3 block");   			
      await context.prisma.user_data.update({
           where: { id: args.input.id },
           data: {                   	                
@@ -1452,7 +1452,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   },	   
   
   updateMake: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateMake block");    
+    //console.log("this is UpdateMake block");    
     await context.prisma.mAKE.update({
       where: { id: args.input.id },
       data: {
@@ -1463,7 +1463,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   },
 
   updateVehicleColor: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateVehicleColor block");
+    //console.log("this is UpdateVehicleColor block");
     await context.prisma.vEHICLE_COLOR.update({
       where: { id: args.input.id },
       data: {
@@ -1473,7 +1473,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateVehicleNorms: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateVehicleNorms block");
+    //console.log("this is UpdateVehicleNorms block");
     await context.prisma.vEHICE_NORMS.update({
       where: { id: args.input.id },
       data: {
@@ -1483,7 +1483,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateCC: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateCC block");
+    //console.log("this is UpdateCC block");
     await context.prisma.cC.update({
       where: { id: args.input.id },
       data: {
@@ -1493,7 +1493,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateModel: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateModel block");
+    //console.log("this is UpdateModel block");
     await context.prisma.mODEL.update({
       where: { id: args.input.id },
       data: {
@@ -1503,7 +1503,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateInsuranceProvider: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateInsuranceProvider block");
+    //console.log("this is UpdateInsuranceProvider block");
     await context.prisma.iNSURANCE_PROVIDER.update({
       where: { id: args.input.id },
       data: {
@@ -1513,7 +1513,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updatePermitCategory: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdatePermitCategory block");
+    //console.log("this is UpdatePermitCategory block");
     await context.prisma.pERMIT_CATEGORY.update({
       where: { id: args.input.id },
       data: {
@@ -1523,7 +1523,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateTpInsuranceProvider: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateTpInsuranceProvider block");
+    //console.log("this is UpdateTpInsuranceProvider block");
     await context.prisma.tP_INSURANCE_PROVIDER.update({
       where: { id: args.input.id },
       data: {
@@ -1533,7 +1533,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateVehicleClass: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateVehicleClass block");
+    //console.log("this is UpdateVehicleClass block");
     await context.prisma.vEHICLE_CLASS.update({
       where: { id: args.input.id },
       data: {
@@ -1543,7 +1543,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateCustomerType: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateCustomerType block");
+    //console.log("this is UpdateCustomerType block");
     await context.prisma.cUSTOMER_TYPE.update({
       where: { id: args.input.id },
       data: {
@@ -1553,7 +1553,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateVehicleDescription: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateVehicleDescription block");
+    //console.log("this is UpdateVehicleDescription block");
     await context.prisma.vEHICLE_DESCRIPTION.update({
       where: { id: args.input.id },
       data: {
@@ -1563,7 +1563,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateSeatingCapacity: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateSeatingCapacity block");
+    //console.log("this is UpdateSeatingCapacity block");
     await context.prisma.sEATING_CAPACITY.update({
       where: { id: args.input.id },
       data: {
@@ -1573,7 +1573,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateStandingCapacity: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateStandingCapacity block");
+    //console.log("this is UpdateStandingCapacity block");
     await context.prisma.sTANDING_CAPACITY.update({
       where: { id: args.input.id },
       data: {
@@ -1583,7 +1583,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateRTO: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateRTO block");
+    //console.log("this is UpdateRTO block");
     await context.prisma.rTO.update({
       where: { id: args.input.id },
       data: {
@@ -1593,7 +1593,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateHypothecationBank: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateHypothecationBank block");
+    //console.log("this is UpdateHypothecationBank block");
     await context.prisma.hYPOTHECATION_BANK.update({
       where: { id: args.input.id },
       data: {
@@ -1603,7 +1603,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateHypothecationCity: async (parent: any, args: any, context: Context) => {
-    console.log("this is UpdateHypothecationCity block");
+    //console.log("this is UpdateHypothecationCity block");
     await context.prisma.hYPOTHECATION_CITY.update({
       where: { id: args.input.id },
       data: {
@@ -1613,7 +1613,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateUnladenWeight: async (parent: any, args: any, context: Context) => {
-    console.log("this is updateUnladenWeight block");
+    //console.log("this is updateUnladenWeight block");
     await context.prisma.uNLADEN_WEIGHT.update({
       where: { id: args.input.id },
       data: {
@@ -1623,7 +1623,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateGvw: async (parent: any, args: any, context: Context) => {
-    console.log("this is updateGvw block");
+    //console.log("this is updateGvw block");
     await context.prisma.gVW.update({
       where: { id: args.input.id },
       data: {
@@ -1633,7 +1633,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateVehicleBody: async (parent: any, args: any, context: Context) => {
-    console.log("this is updateVehicleBody block");
+    //console.log("this is updateVehicleBody block");
     await context.prisma.vEHICLE_BODY.update({
       where: { id: args.input.id },
       data: {
@@ -1643,7 +1643,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateWheelBase: async (parent: any, args: any, context: Context) => {
-    console.log("this is updateWheelBase block");
+    //console.log("this is updateWheelBase block");
     await context.prisma.wHEEL_BASE.update({
       where: { id: args.input.id },
       data: {
@@ -1653,7 +1653,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateNoOfCylinder: async (parent: any, args: any, context: Context) => {
-    console.log("this is updateNoOfCylinder block");
+    //console.log("this is updateNoOfCylinder block");
     await context.prisma.nO_OF_CYLINDER.update({
       where: { id: args.input.id },
       data: {
@@ -1663,7 +1663,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateSleeperCapacity: async (parent: any, args: any, context: Context) => {
-    console.log("this is updateSleeperCapacity block");
+    //console.log("this is updateSleeperCapacity block");
     await context.prisma.sLEEPER_CAPACITY.update({
       where: { id: args.input.id },
       data: {
@@ -1673,7 +1673,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateUpdatedBy: async (parent: any, args: any, context: Context) => {
-    console.log("this is updateUpdatedBy block");
+    //console.log("this is updateUpdatedBy block");
     await context.prisma.uPDATED_BY.update({
       where: { id: args.input.id },
       data: {
@@ -1683,7 +1683,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Updated !!";
   },
   updateReferredBy: async (parent: any, args: any, context: Context) => {
-    console.log("this is updateReferredBy block");
+    //console.log("this is updateReferredBy block");
     await context.prisma.rEFERRED_BY.update({
       where: { id: args.input.id },
       data: {
@@ -1699,7 +1699,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 
 
   deleteAppuser: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteAppuser block");      
+    //console.log("this is deleteAppuser block");      
     await context.prisma.app_user.delete({
       where: { userid: args.id },        
     })
@@ -1709,7 +1709,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   },
 
   deleteUserData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteAppuser block");    
+    //console.log("this is deleteAppuser block");    
     await context.prisma.user_data.delete({
       where: { Vehicle_No: args.vehicleid },      
     })
@@ -1718,168 +1718,168 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   },
 
   deleteMakeData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteMakeData block");    
+    //console.log("this is deleteMakeData block");    
     await context.prisma.mAKE.delete({
       where: { id: args.id },      
     })
     return "MakeData Deleted Successfully!"    
   },
   deleteVehicleColorData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteVehicleColorData block");
+    //console.log("this is deleteVehicleColorData block");
     await context.prisma.vEHICLE_COLOR.delete({
       where: { id: args.id },
     });
     return "VehicleColorData Deleted Successfully!";
   },
   deleteVehicleNormsData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteVehicleNormsData block");
+    //console.log("this is deleteVehicleNormsData block");
     await context.prisma.vEHICE_NORMS.delete({
       where: { id: args.id },
     });
     return "VehicleNormsData Deleted Successfully!";
   },
   deleteCCData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteCCData block");
+    //console.log("this is deleteCCData block");
     await context.prisma.cC.delete({
       where: { id: args.id },
     });
     return "CCData Deleted Successfully!";
   },
   deleteModelData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteModelData block");
+    //console.log("this is deleteModelData block");
     await context.prisma.mODEL.delete({
       where: { id: args.id },
     });
     return "ModelData Deleted Successfully!";
   },
   deleteInsuranceProviderData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteInsuranceProviderData block");
+    //console.log("this is deleteInsuranceProviderData block");
     await context.prisma.iNSURANCE_PROVIDER.delete({
       where: { id: args.id },
     });
     return "InsuranceProviderData Deleted Successfully!";
   },
   deletePermitCategoryData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deletePermitCategoryData block");
+    //console.log("this is deletePermitCategoryData block");
     await context.prisma.pERMIT_CATEGORY.delete({
       where: { id: args.id },
     });
     return "PermitCategoryData Deleted Successfully!";
   },
   deleteTpInsuranceProviderData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteTpInsuranceProviderData block");
+    //console.log("this is deleteTpInsuranceProviderData block");
     await context.prisma.tP_INSURANCE_PROVIDER.delete({
       where: { id: args.id },
     });
     return "TpInsuranceProviderData Deleted Successfully!";
   },
   deleteVehicleClassData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteVehicleClassData block");
+    //console.log("this is deleteVehicleClassData block");
     await context.prisma.vEHICLE_CLASS.delete({
       where: { id: args.id },
     });
     return "VehicleClassData Deleted Successfully!";
   },
   deleteCustomerTypeData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteCustomerTypeData block");
+    //console.log("this is deleteCustomerTypeData block");
     await context.prisma.cUSTOMER_TYPE.delete({
       where: { id: args.id },
     });
     return "CustomerTypeData Deleted Successfully!";
   },
   deleteVehicleDescriptionData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteVehicleDescriptionData block");
+    //console.log("this is deleteVehicleDescriptionData block");
     await context.prisma.vEHICLE_DESCRIPTION.delete({
       where: { id: args.id },
     });
     return "VehicleDescriptionData Deleted Successfully!";
   },
   deleteSeatingCapacityData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteSeatingCapacityData block");
+    //console.log("this is deleteSeatingCapacityData block");
     await context.prisma.sEATING_CAPACITY.delete({
       where: { id: args.id },
     });
     return "SeatingCapacityData Deleted Successfully!";
   },
   deleteStandingCapacityData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteStandingCapacityData block");
+    //console.log("this is deleteStandingCapacityData block");
     await context.prisma.sTANDING_CAPACITY.delete({
       where: { id: args.id },
     });
     return "StandingCapacityData Deleted Successfully!";
   },
   deleteRTOData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteRTOData block");
+    //console.log("this is deleteRTOData block");
     await context.prisma.rTO.delete({
       where: { id: args.id },
     });
     return "RTOData Deleted Successfully!";
   },
   deleteHypothecationBankData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteHypothecationBankData block");
+    //console.log("this is deleteHypothecationBankData block");
     await context.prisma.hYPOTHECATION_BANK.delete({
       where: { id: args.id },
     });
     return "HypothecationBankData Deleted Successfully!";
   },
   deleteHypothecationCityData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteHypothecationCityData block");
+    //console.log("this is deleteHypothecationCityData block");
     await context.prisma.hYPOTHECATION_CITY.delete({
       where: { id: args.id },
     });
     return "HypothecationCityData Deleted Successfully!";
   },
   deleteUnladenWeightData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteUnladenWeightData block");
+    //console.log("this is deleteUnladenWeightData block");
     await context.prisma.uNLADEN_WEIGHT.delete({
       where: { id: args.id },
     });
     return "UnladenWeightData Deleted Successfully!";
   },
   deleteGvwData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteGvwData block");
+    //console.log("this is deleteGvwData block");
     await context.prisma.gVW.delete({
       where: { id: args.id },
     });
     return "GvwData Deleted Successfully!";
   },
   deleteVehicleBodyData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteVehicleBodyData block");
+    //console.log("this is deleteVehicleBodyData block");
     await context.prisma.vEHICLE_BODY.delete({
       where: { id: args.id },
     });
     return "VehicleBodyData Deleted Successfully!";
   },
   deleteWheelBaseData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteWheelBaseData block");
+    //console.log("this is deleteWheelBaseData block");
     await context.prisma.wHEEL_BASE.delete({
       where: { id: args.id },
     });
     return "WheelBaseData Deleted Successfully!";
   },
   deleteNoOfCylinderData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteNoOfCylinderData block");
+    //console.log("this is deleteNoOfCylinderData block");
     await context.prisma.nO_OF_CYLINDER.delete({
       where: { id: args.id },
     });
     return "NoOfCylinderData Deleted Successfully!";
   },
   deleteSleeperCapacityData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteSleeperCapacityData block");
+    //console.log("this is deleteSleeperCapacityData block");
     await context.prisma.sLEEPER_CAPACITY.delete({
       where: { id: args.id },
     });
     return "SleeperCapacityData Deleted Successfully!";
   },
   deleteUpdatedByData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteUpdatedByData block");
+    //console.log("this is deleteUpdatedByData block");
     await context.prisma.uPDATED_BY.delete({
       where: { id: args.id },
     });
     return "UpdatedByData Deleted Successfully!";
   },
   deleteReferredByData: async (parent: any, args: any, context: Context) => {
-    console.log("this is deleteReferredByData block");
+    //console.log("this is deleteReferredByData block");
     await context.prisma.rEFERRED_BY.delete({
       where: { id: args.id },
     });

@@ -2,7 +2,6 @@
 import React, {
   useRef,
   useEffect,
-  useState,
 } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { ColDef, RowClassParams, createGrid, GridApi, GridOptions, ColGroupDef } from 'ag-grid-community';
@@ -10,8 +9,6 @@ import { ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
 import { Button } from '@radix-ui/themes'
-import Link from 'next/link';
-import { useQuery } from '@apollo/client';
 import  { AddClientType, tAddress }  from '../../typings';
 import 'ag-grid-community/styles/ag-grid.css';
 //import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -24,9 +21,7 @@ interface AgGridProps {
     };  
 
 const AgGrid: React.FC<AgGridProps> = ({ data }) => {
-  const gridApi = useRef<AgGridReact | null>(null);
   const gridRef = useRef<AgGridReact>(null);
-  //const { loading, error, data, refetch } = useQuery<{ user_data: AddClientType[] }>(GET_USER_DATA)
   const containerStyle =  { width: '100%', height: '100%' };
   
  // useEffect to trigger the initial data fetch
@@ -169,7 +164,10 @@ const addressFormatter = (params: any) => {
     { headerName: 'Own Damage Policy Document', field: 'OD_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'ownDamagePolicyDocument', autoHeight: true },
     { headerName: 'Own Damage Insurance Provider', field: 'Insurance_provider', colId: 'insuranceProvider', autoHeight: true },
     { headerName: 'Own Damage Insurance Starts From', field: 'Insurance_Start', colId: 'insuranceStartDate', valueFormatter: dateFormatter, autoHeight: true  },
-    { headerName: 'Own Damage Insurance UpTo', field: 'Insurance_dueDate', colId: 'ownDamageInsuranceDueDate', valueFormatter: dateFormatter, autoHeight: true  },
+    { headerName: 'Own Damage Insurance UpTo', field: 'Insurance_dueDate', colId: 'ownDamageInsuranceDueDate', 
+                    valueFormatter: dateFormatter, autoHeight: true,
+                    filter: 'agDateColumnFilter'                 
+                    },
     { headerName: 'TP Policy No', field: 'TP_Policy_No', colId: 'thirdPartyPolicyNumber', autoHeight: true },    
     { headerName: 'Third-Party Policy Doc', field: 'TP_Policy_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'thirdPartyPolicyDocument', autoHeight: true },
     { headerName: 'Third-Party Insurance Provider', field: 'TP_Insurance_provider', colId: 'thirdPartyInsuranceProvider', autoHeight: true },    
