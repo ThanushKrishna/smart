@@ -707,8 +707,8 @@ query User_data_beforeInsuranceDueDate($input: Date!) {
 
 
 export const GET_USER_DATA_BETWEEN_INSURANCE_DUE_DATES = gql`
-query User_data_betweenInsuranceDueDates($inputDate1: DateTime!, $inputDate2: DateTime!) {
-  user_data_betweenInsuranceDueDates(input: $inputDate1, input2: $inputDate2) {
+query User_data_betweenInsuranceDueDates($input1: Date!, $input2: Date!) {
+  user_data_betweenInsuranceDueDates(input1: $input1, input2: $input2) {
     id
     data_owner_id
     Vehicle_No
@@ -801,10 +801,9 @@ query User_data_betweenInsuranceDueDates($inputDate1: DateTime!, $inputDate2: Da
 `;
 
 
-
 export const GET_USER_DATA_AFTER_INSURANCE_DUE_DATE = gql`
-query User_data_afterInsuranceDueDate($inputDate: DateTime!) {
-  user_data_afterInsuranceDueDate(input: $inputDate)  {
+query User_data_afterInsuranceDueDate($input: Date!) {
+  user_data_afterInsuranceDueDate(input: $input) {
     id
     data_owner_id
     Vehicle_No
