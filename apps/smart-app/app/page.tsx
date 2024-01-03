@@ -17,8 +17,9 @@ const DashboardPage: React.FC = () => {
     setUtcDate(new Date().getTime() + 60 * 60 * 1000 * 5.5);
   }, [activeTab, activeSubTab]); // Add any other dependencies as needed
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {    
     setActiveTab(newValue);
+    setActiveSubTab('0');
   };
 
   const handleSubTabChange = (event: React.SyntheticEvent, newValue: string) => {
@@ -31,10 +32,12 @@ const DashboardPage: React.FC = () => {
   });
 
   const { loading: todayLoading, data: todayData, error: todayDataError } = useQuery(GET_USER_DATA_BETWEEN_INSURANCE_DUE_DATES, {
-      variables: { input1: utcDate, input2: utcDate + (24 * 60 * 60 * 1000) },
+      variables: { input1: (utcDate - 24 * 60 * 60 * 1000), input2: ( utcDate + 24 * 60 * 60 * 1000) },
       skip: !utcDate,
     });
 
+    console.log("Yesterday :" + (utcDate - 24 * 60 * 60 * 1000));
+    console.log("Tomorrow :" + (utcDate + 24 * 60 * 60 * 1000));
 
   // Similar queries for Due in Week and Due in Month can be added
 
@@ -42,7 +45,7 @@ const DashboardPage: React.FC = () => {
     <TabContext value={activeTab}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={activeTab} onChange={handleTabChange} centered>
-          <Tab label="OD Insurance" value="0" />
+          <Tab label="OD Insurance" value="0" />          
           <Tab label="TP Insurance" value="1" />
           <Tab label="PUC/Emission" value="2" />
           <Tab label="Tax" value="3" />
@@ -50,31 +53,40 @@ const DashboardPage: React.FC = () => {
           <Tab label="Permit" value="5" />
         </Tabs>
       </Box>
+     
 
       <TabPanel value="0">
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={activeSubTab} onChange={handleSubTabChange}>
-            <Tab label="OverDue" value="0" />
-            <Tab label="Due Today" value="1" />
-            <Tab label="Due Tomorrow" value="2" />
-            <Tab label="Due Within Week" value="3" />
-            <Tab label="Due in Month" value="4" />
-            {/* Add more subtabs as needed */}
-          </Tabs>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={activeSubTab} onChange={handleSubTabChange}>
+              <Tab label="OverDue" value="0" />
+              <Tab label="Due Today" value="1" />
+              <Tab label="Due Tomorrow" value="2" />
+              <Tab label="Due Within Week" value="3" />
+              <Tab label="Due in Month" value="4" />            
+            </Tabs>
         </Box>
 
-        <TabPanel value="0">        
-        {overdueLoading ? <p>Loading...</p> : <AgGrid data={overdueData?.user_data_beforeInsuranceDueDate}/>}    
+        <TabPanel value="0">
+          {activeSubTab === '0' && (
+            <div>            
+              {overdueLoading ? <p>Loading...</p> : <AgGrid data={overdueData?.user_data_beforeInsuranceDueDate} />}
+            </div>
+          )}
+                    
+          {activeSubTab === '1' && (      
+            <div>            
+              {todayLoading ? <p>Loading...</p> : <AgGrid data={todayData?.user_data_betweenInsuranceDueDates} />}
+            </div>
+          )}        
         </TabPanel>
+      
+      
+      
+      </TabPanel>    
 
-        <TabPanel value="1">      
-        {todayLoading ? <p>Loading...</p> : <AgGrid data={todayData?.user_data_betweenInsuranceDueDates}/>}  
-        </TabPanel>     
+          
 
-      </TabPanel>
-
-
-
+                    
     </TabContext>
   );
 };

@@ -1,4 +1,4 @@
-'use client'
+"use Client"
 import React, {
   useRef,
   useEffect,
