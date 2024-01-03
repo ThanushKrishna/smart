@@ -1,6 +1,6 @@
 import { Context } from '@/pages/api/graphql';
 import { GraphQLScalarType, Kind } from 'graphql';
-
+import { MongoClient, ObjectId } from 'mongodb';
 
 export const dateScalar = new GraphQLScalarType({
   name: 'Date',
@@ -1247,97 +1247,97 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "Test Client created"
   },
 
-    updateUserData: async (parent: any, args: any, context: Context) => {
-      //console.log("this is updateUserdata block");        
-      return await context.prisma.user_data.update({
-        where: { id: args.input.id },
-        data: {
-          Vehicle_No: args.input.Vehicle_No,                         
-          RC_No: args.input.RC_No,
-          Registered_Date: args.input.Registered_Date,          	
-          Owner: args.input.Owner,                 
-          Owner_dob: args.input.Owner_dob,    
-          Ownership_type: args.input.Ownership_type, 
-          Gender: args.input.Gender,        
-          Vehicle_Kind: args.input.Vehicle_Kind,  
-          Address: {
-            street: args.input.Address.street,
-            city: args.input.Address.city,
-            state: args.input.Address.state,
-            zip: args.input.Address.zip
-          },                
-          Vehicle_type: args.input.Vehicle_type,          
-          Year_of_manufacuring: args.input.Year_of_manufacuring,  
-          GVW: args.input.GVW,                   
-          Chasis_No: args.input.Chasis_No,             
-          Engine_No: args.input.Engine_No,  
-          FC_due_Date: args.input.FC_due_Date,
-          tax_due_Date: args.input.tax_due_Date,
-          Vehicle_color: args.input.Vehicle_color,         
-          Vehice_norms: args.input.Vehice_norms,                     
-          CC: args.input.CC,                    
-          Make: args.input.Make,                  
-          Model: args.input.Model,                 
-          Insurance_provider: args.input.Insurance_provider,    
-          Insurance_dueDate: args.input.Insurance_dueDate,  
-          Policy_No: args.input.Policy_No,             
-          Permit_No: args.input.Permit_No,             
-          Permit_category: args.input.Permit_category,       
-          Mobile_No1: args.input.Mobile_No1,            
-          Mobile_No2: args.input.Mobile_No2,            
-          Email_id: args.input.Email_id,              
-          Adhar_No: args.input.Adhar_No,              
-          Adhar_doc: args.input.Adhar_doc,             
-          PanCard_No: args.input.PanCard_No,            
-          Pan_doc: args.input.Pan_doc,               
-          Nominee: args.input.Nominee,               
-          Nominee_dob: args.input.Nominee_dob,  
-          Emission_dueDate: args.input.Emission_dueDate,              
-          Fuel_type: args.input.Fuel_type,             
-          Hypothecation_bank: args.input.Hypothecation_bank,    
-          Hypothecation_city: args.input.Hypothecation_city,    
-          RTO: args.input.RTO,                   
-          Referred_by: args.input.Referred_by,           
-          Comments: args.input.Comments,              
-          Customer_type: args.input.Customer_type,         
-          Martial_status: args.input.Martial_status,        
-          TP_Insurance_provider: args.input.TP_Insurance_provider,  
-          TP_dueDate: args.input.TP_dueDate,          
-          GST_No: args.input.GST_No,                
-          Insurance_type: args.input.Insurance_type,
-          Mobile_No3 : args.input.Mobile_No3,
-          Nominee_Relationship: args.input.Nominee_Relationship,
-          Son_Wife_Daughter_Of: args.input.Son_Wife_Daughter_Of,
-          Vehicle_Body          : args.input.Vehicle_Body,
-          Wheel_Base            : args.input.Wheel_Base,
-          No_Of_Cylinder        : args.input.No_Of_Cylinder,
-          Unladen_Weight        : args.input.Unladen_Weight,
-          Sleeper_Capacity      : args.input.Sleeper_Capacity,
-          PUCC_Emission_No      : args.input.PUCC_Emission_No,
-          updated_by            : args.input.updated_by,
-          TP_Policy_No          : args.input.TP_Policy_No,
-          Insurance_Start       : args.input.Insurance_Start,
-          TP_Insurance_Start    : args.input.TP_Insurance_Start,
-          Vehicle_Reg_Doc       : args.input.Vehicle_Reg_Doc,
-          OD_Policy_Doc         : args.input.OD_Policy_Doc,
-          TP_Policy_Doc         : args.input.TP_Policy_Doc,
-          GST_Cer_Doc           : args.input.GST_Cer_Doc,
-          Vehicle_Description:   args.input.Vehicle_Description,
-          Seating_Capacity:      args.input.Seating_Capacity,
-          Standing_Capacity:     args.input.Standing_Capacity,
-          Permit_dueDate:        args.input.Permit_dueDate,
-          CAddress: {
-                        street: args.input.CAddress.street,
-                        city: args.input.CAddress.city,
-                        state: args.input.CAddress.state,
-                        zip: args.input.CAddress.zip
-                      },
-          Prospect:              args.input.Prospect,
-          photo_links:           args.input.photo_links,
-          Nominee_Doc:           args.input.Nominee_Doc,
-        }, 
-      })    
-    },
+  //   updateUserData: async (parent: any, args: any, context: Context) => {
+  //     //console.log("this is updateUserdata block");   
+  //     await context.prisma.user_data.update({
+  //         where: { id: args.input.id },
+  //         data: {      
+  //     Vehicle_Reg_Doc       : args.input.Vehicle_Reg_Doc !== undefined ? args.input.Vehicle_Reg_Doc: null,
+  //     Owner: args.input.Owner!== undefined ? args.input.Owner: null,
+  //     Gender: args.input.Gender!== undefined ? args.input.Gender: null,
+  //     Vehicle_Kind: args.input.Vehicle_Kind!== undefined ? args.input.Vehicle_Kind: null,
+  //     Son_Wife_Daughter_Of: args.input.Son_Wife_Daughter_Of !== undefined ? args.input.Son_Wife_Daughter_Of: null,
+  //     RC_No: args.input.RC_No !== undefined ? args.input.RC_No: null,
+  //     Chasis_No: args.input.Chasis_No !== undefined ? args.input.Chasis_No: null,
+  //     Engine_No: args.input.Engine_No !== undefined ? args.input.Engine_No: null,
+  //     Make: args.input.Make !== undefined ? args.input.Make: null,
+  //     Model: args.input.Model !== undefined ? args.input.Model: null,
+  //     Registered_Date: args.input.Registered_Date !== undefined ? args.input.Registered_Date: null,
+  //     tax_due_Date: args.input.tax_due_Date !== undefined ? args.input.tax_due_Date: null,
+  //     Vehicle_type: args.input.Vehicle_type !== undefined ? args.input.Vehicle_type: null,
+  //     Vehicle_Description:   args.input.Vehicle_Description !== undefined ? args.input.Vehicle_Description: null,
+  //     Fuel_type: args.input.Fuel_type !== undefined ? args.input.Fuel_type: null,
+  //     Vehice_norms: args.input.Vehice_norms !== undefined ? args.input.Vehice_norms: null,
+  //     Vehicle_color: args.input.Vehicle_color !== undefined ? args.input.Vehicle_color: null,
+  //     Seating_Capacity:      args.input.Seating_Capacity !== undefined ? args.input.Seating_Capacity: null,
+  //     Standing_Capacity:     args.input.Standing_Capacity !== undefined ? args.input.Standing_Capacity: null,
+  //     Hypothecation_bank: args.input.Hypothecation_bank !== undefined ? args.input.Hypothecation_bank: null,
+  //     Hypothecation_city: args.input.Hypothecation_city !== undefined ? args.input.Hypothecation_city: null,
+  //     Ownership_type: args.input.Ownership_type !== undefined ? args.input.Ownership_type: null,
+  //     Sleeper_Capacity      : args.input.Sleeper_Capacity !== undefined ? args.input.Sleeper_Capacity: null,	          
+  //     Insurance_type: args.input.Insurance_type !== undefined ? args.input.Insurance_type: null,
+  //     Policy_No: args.input.Policy_No !== undefined ? args.input.Policy_No: null,
+  //     OD_Policy_Doc         : args.input.OD_Policy_Doc !== undefined ? args.input.OD_Policy_Doc: null,
+  //     Insurance_provider: args.input.Insurance_provider !== undefined ? args.input.Insurance_provider: null,
+  //     Insurance_Start       : args.input.Insurance_Start !== undefined ? args.input.Insurance_Start: null,
+  //     Insurance_dueDate: args.input.Insurance_dueDate !== undefined ? args.input.Insurance_dueDate: null,
+  //     TP_Policy_No          : args.input.TP_Policy_No !== undefined ? args.input.TP_Policy_No: null,
+  //     TP_Policy_Doc         : args.input.TP_Policy_Doc !== undefined ? args.input.TP_Policy_Doc: null,
+  //     TP_Insurance_provider: args.input.TP_Insurance_provider !== undefined ? args.input.TP_Insurance_provider: null,
+  //     TP_Insurance_Start    : args.input.TP_Insurance_Start !== undefined ? args.input.TP_Insurance_Start: null,
+  //     TP_dueDate: args.input.TP_dueDate !== undefined ? args.input.TP_dueDate: null,
+  //     RTO: args.input.RTO !== undefined ? args.input.RTO: null,
+  //     Unladen_Weight        : args.input.Unladen_Weight !== undefined ? args.input.Unladen_Weight: null,
+  //     GVW: args.input.GVW !== undefined ? args.input.GVW: null,
+  //     Vehicle_Body          : args.input.Vehicle_Body !== undefined ? args.input.Vehicle_Body: null,
+  //     Wheel_Base            : args.input.Wheel_Base !== undefined ? args.input.Wheel_Base: null,
+  //     No_Of_Cylinder        : args.input.No_Of_Cylinder !== undefined ? args.input.No_Of_Cylinder: null,                       	                
+  //     Owner_dob: args.input.Owner_dob !== undefined ? args.input.Owner_dob: null,             
+  //     Address: {
+  //       street: args.input.Address.street !== undefined ? args.input.Address.street: null,
+  //       city: args.input.Address.city !== undefined ? args.input.Address.city: null,
+  //       state: args.input.Address.state !== undefined ? args.input.Address.state: null,
+  //       zip: args.input.Address.zip !== undefined ? args.input.Address.zip: null,
+  //     },                          
+  //     Year_of_manufacuring: args.input.Year_of_manufacuring !== undefined ? args.input.Year_of_manufacuring: null,
+  //     FC_due_Date: args.input.FC_due_Date !== undefined ? args.input.FC_due_Date: null,
+  //     Permit_No: args.input.Permit_No !== undefined ? args.input.Permit_No: null,
+  //     Permit_category: args.input.Permit_category !== undefined ? args.input.Permit_category: null,
+  //     Mobile_No1: args.input.Mobile_No1 !== undefined ? args.input.Mobile_No1: null,
+  //     Mobile_No2: args.input.Mobile_No2 !== undefined ? args.input.Mobile_No2: null,
+  //     Email_id: args.input.Email_id !== undefined ? args.input.Email_id: null,
+  //     Adhar_No: args.input.Adhar_No !== undefined ? args.input.Adhar_No: null,
+  //     Adhar_doc: args.input.Adhar_doc !== undefined ? args.input.Adhar_doc: null,
+  //     PanCard_No: args.input.PanCard_No !== undefined ? args.input.PanCard_No: null,
+  //     Pan_doc: args.input.Pan_doc !== undefined ? args.input.Pan_doc: null,
+  //     Nominee: args.input.Nominee !== undefined ? args.input.Nominee: null,
+  //     Nominee_dob: args.input.Nominee_dob !== undefined ? args.input.Nominee_dob: null,
+  //     Emission_dueDate: args.input.Emission_dueDate !== undefined ? args.input.Emission_dueDate: null,                                        
+  //     Referred_by: args.input.Referred_by !== undefined ? args.input.Referred_by: null,
+  //     Comments: args.input.Comments !== undefined ? args.input.Comments: null,
+  //     Customer_type: args.input.Customer_type !== undefined ? args.input.Customer_type: null,
+  //     Martial_status: args.input.Martial_status !== undefined ? args.input.Martial_status: null,
+  //     GST_No: args.input.GST_No !== undefined ? args.input.GST_No: null,                          
+  //     Mobile_No3 : args.input.Mobile_No3 !== undefined ? args.input.Mobile_No3: null,
+  //     Nominee_Relationship: args.input.Nominee_Relationship !== undefined ? args.input.Nominee_Relationship: null,            
+  //     CC : args.input.CC !== undefined ? args.input.CC: null,
+  //     PUCC_Emission_No      : args.input.PUCC_Emission_No !== undefined ? args.input.PUCC_Emission_No: null,
+  //     updated_by            : args.input.updated_by !== undefined ? args.input.updated_by: null,
+  //     GST_Cer_Doc           : args.input.GST_Cer_Doc !== undefined ? args.input.GST_Cer_Doc: null,
+  //     Permit_dueDate:        args.input.Permit_dueDate,
+  //     CAddress: {
+  //       street: args.input.Address.street !== undefined ? args.input.CAddress.street: null,
+  //       city: args.input.Address.city !== undefined ? args.input.CAddress.city: null,
+  //       state: args.input.Address.state !== undefined ? args.input.CAddress.state: null,
+  //       zip: args.input.Address.zip !== undefined ? args.input.CAddress.zip: null,
+  //               },
+  //     Prospect:              args.input.Prospect !== undefined ? args.input.Prospect: null,
+  //     photo_links:           args.input.photo_links !== undefined ? args.input.photo_links: null,
+  //     Nominee_Doc:           args.input.Nominee_Doc !== undefined ? args.input.Nominee_Doc: null,
+  //         }, 
+  //       })   
+  //     return "Updated !"     
+  // },	   
 
   updateUserData1: async (parent: any, args: any, context: Context) => {
       //console.log("this is updateUserdata1 block");   
@@ -1886,6 +1886,137 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     return "ReferredByData Deleted Successfully!";
   },
 
+  updateUserData: async (parent: any, args: any, context: Context) => {
+    const updateData = {
+      Vehicle_Reg_Doc: args.input.Vehicle_Reg_Doc !== undefined ? args.input.Vehicle_Reg_Doc : null,
+      Owner: args.input.Owner !== undefined ? args.input.Owner : null,
+      Gender: args.input.Gender !== undefined ? args.input.Gender : null,
+      Vehicle_Kind: args.input.Vehicle_Kind !== undefined ? args.input.Vehicle_Kind : null,
+      Son_Wife_Daughter_Of: args.input.Son_Wife_Daughter_Of !== undefined ? args.input.Son_Wife_Daughter_Of : null,
+      RC_No: args.input.RC_No !== undefined ? args.input.RC_No : null,
+      Chasis_No: args.input.Chasis_No !== undefined ? args.input.Chasis_No : null,
+      Engine_No: args.input.Engine_No !== undefined ? args.input.Engine_No : null,
+      Make: args.input.Make !== undefined ? args.input.Make : null,
+      Model: args.input.Model !== undefined ? args.input.Model : null,
+      Registered_Date: args.input.Registered_Date !== undefined ? args.input.Registered_Date : null,
+      tax_due_Date: args.input.tax_due_Date !== undefined ? args.input.tax_due_Date : null,
+      Vehicle_type: args.input.Vehicle_type !== undefined ? args.input.Vehicle_type : null,
+      Vehicle_Description: args.input.Vehicle_Description !== undefined ? args.input.Vehicle_Description : null,
+      Fuel_type: args.input.Fuel_type !== undefined ? args.input.Fuel_type : null,
+      Vehice_norms: args.input.Vehice_norms !== undefined ? args.input.Vehice_norms : null,
+      Vehicle_color: args.input.Vehicle_color !== undefined ? args.input.Vehicle_color : null,
+      Seating_Capacity: args.input.Seating_Capacity !== undefined ? args.input.Seating_Capacity : null,
+      Standing_Capacity: args.input.Standing_Capacity !== undefined ? args.input.Standing_Capacity : null,
+      Hypothecation_bank: args.input.Hypothecation_bank !== undefined ? args.input.Hypothecation_bank : null,
+      Hypothecation_city: args.input.Hypothecation_city !== undefined ? args.input.Hypothecation_city : null,
+      Ownership_type: args.input.Ownership_type !== undefined ? args.input.Ownership_type : null,
+      Sleeper_Capacity: args.input.Sleeper_Capacity !== undefined ? args.input.Sleeper_Capacity : null,
+      Insurance_type: args.input.Insurance_type !== undefined ? args.input.Insurance_type : null,
+      Policy_No: args.input.Policy_No !== undefined ? args.input.Policy_No : null,
+      OD_Policy_Doc: args.input.OD_Policy_Doc !== undefined ? args.input.OD_Policy_Doc : null,
+      Insurance_provider: args.input.Insurance_provider !== undefined ? args.input.Insurance_provider : null,
+      Insurance_Start: args.input.Insurance_Start !== undefined ? args.input.Insurance_Start : null,
+      Insurance_dueDate: args.input.Insurance_dueDate !== undefined ? args.input.Insurance_dueDate : null,
+      TP_Policy_No: args.input.TP_Policy_No !== undefined ? args.input.TP_Policy_No : null,
+      TP_Policy_Doc: args.input.TP_Policy_Doc !== undefined ? args.input.TP_Policy_Doc : null,
+      TP_Insurance_provider: args.input.TP_Insurance_provider !== undefined ? args.input.TP_Insurance_provider : null,
+      TP_Insurance_Start: args.input.TP_Insurance_Start !== undefined ? args.input.TP_Insurance_Start : null,
+      TP_dueDate: args.input.TP_dueDate !== undefined ? args.input.TP_dueDate : null,
+      RTO: args.input.RTO !== undefined ? args.input.RTO : null,
+      Unladen_Weight: args.input.Unladen_Weight !== undefined ? args.input.Unladen_Weight : null,
+      GVW: args.input.GVW !== undefined ? args.input.GVW : null,
+      Vehicle_Body: args.input.Vehicle_Body !== undefined ? args.input.Vehicle_Body : null,
+      Wheel_Base: args.input.Wheel_Base !== undefined ? args.input.Wheel_Base : null,
+      No_Of_Cylinder: args.input.No_Of_Cylinder !== undefined ? args.input.No_Of_Cylinder : null,
+      Owner_dob: args.input.Owner_dob !== undefined ? args.input.Owner_dob : null,
+      Year_of_manufacuring: args.input.Year_of_manufacuring !== undefined ? args.input.Year_of_manufacuring: null,
+      FC_due_Date: args.input.FC_due_Date !== undefined ? args.input.FC_due_Date: null,
+      Permit_No: args.input.Permit_No !== undefined ? args.input.Permit_No: null,
+      Permit_category: args.input.Permit_category !== undefined ? args.input.Permit_category: null,
+      Mobile_No1: args.input.Mobile_No1 !== undefined ? args.input.Mobile_No1: null,
+      Mobile_No2: args.input.Mobile_No2 !== undefined ? args.input.Mobile_No2: null,
+      Email_id: args.input.Email_id !== undefined ? args.input.Email_id: null,
+      Adhar_No: args.input.Adhar_No !== undefined ? args.input.Adhar_No: null,
+      Adhar_doc: args.input.Adhar_doc !== undefined ? args.input.Adhar_doc: null,
+      PanCard_No: args.input.PanCard_No !== undefined ? args.input.PanCard_No: null,
+      Pan_doc: args.input.Pan_doc !== undefined ? args.input.Pan_doc: null,
+      Nominee: args.input.Nominee !== undefined ? args.input.Nominee: null,
+      Nominee_dob: args.input.Nominee_dob !== undefined ? args.input.Nominee_dob: null,
+      Emission_dueDate: args.input.Emission_dueDate !== undefined ? args.input.Emission_dueDate: null,                                        
+      Referred_by: args.input.Referred_by !== undefined ? args.input.Referred_by: null,
+      Comments: args.input.Comments !== undefined ? args.input.Comments: null,
+      Customer_type: args.input.Customer_type !== undefined ? args.input.Customer_type: null,
+      Martial_status: args.input.Martial_status !== undefined ? args.input.Martial_status: null,
+      GST_No: args.input.GST_No !== undefined ? args.input.GST_No: null,                          
+      Mobile_No3 : args.input.Mobile_No3 !== undefined ? args.input.Mobile_No3: null,
+      Nominee_Relationship: args.input.Nominee_Relationship !== undefined ? args.input.Nominee_Relationship: null,            
+      CC : args.input.CC !== undefined ? args.input.CC: null,
+      PUCC_Emission_No      : args.input.PUCC_Emission_No !== undefined ? args.input.PUCC_Emission_No: null,
+      updated_by            : args.input.updated_by !== undefined ? args.input.updated_by: null,
+      GST_Cer_Doc           : args.input.GST_Cer_Doc !== undefined ? args.input.GST_Cer_Doc: null,
+      Permit_dueDate:        args.input.Permit_dueDate,
+      Prospect:              args.input.Prospect !== undefined ? args.input.Prospect: null,
+      photo_links:           args.input.photo_links !== undefined ? args.input.photo_links: null,
+      Nominee_Doc:           args.input.Nominee_Doc !== undefined ? args.input.Nominee_Doc: null,
+    };
+  
+    const addressData = {
+      street: args.input.Address.street !== undefined ? args.input.Address.street : null,
+      city: args.input.Address.city !== undefined ? args.input.Address.city : null,
+      state: args.input.Address.state !== undefined ? args.input.Address.state : null,
+      zip: args.input.Address.zip !== undefined ? args.input.Address.zip : null,
+    };
+  
+    const cAddressData = {
+      street: args.input.CAddress.street !== undefined ? args.input.CAddress.street : null,
+      city: args.input.CAddress.city !== undefined ? args.input.CAddress.city : null,
+      state: args.input.CAddress.state !== undefined ? args.input.CAddress.state : null,
+      zip: args.input.CAddress.zip !== undefined ? args.input.CAddress.zip : null,
+    };
+  
+    // MongoDB Connection URI
+    const uri = process.env?.DATABASE_URL;    
+    //console.log("id: " +  args.input.id);
+  
+    const client = new MongoClient(uri!);
+  
+    if (uri) {
+    try {
+      await client.connect();
+  
+      const databaseName = client.db().databaseName;   
+      const collectionName = 'user_data'; // Adjust collection name as needed
+      const collection = client.db(databaseName).collection(collectionName);
+            
+  
+    //console.log("Connected to database: " + JSON.stringify(databaseName, null, 2));              
+    const objectId = new ObjectId(args.input.id);
+    
+    //Test DataFetch from the collection
+    //const result = await collection.findOne({ _id: objectId });
+
+
+      const result = await collection.updateOne(
+        { _id: objectId },
+        {
+          $set: {
+            ...updateData,
+            Address: { ...addressData },
+            CAddress: { ...cAddressData },
+          },
+        }
+      );
+                        
+      console.log("ResultByID:  " + JSON.stringify(result, null, 2))
+  
+      return 'Updated !!!';
+    } catch(e){
+      console.log(e);
+    }finally {
+      await client.close();
+    }
+  }
+  },
 
   }
 };

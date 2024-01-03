@@ -1169,17 +1169,15 @@ export const TEST_ADD_CLIENT = gql`
 
 export const UPDATE_CLIENT = gql` 
     mutation UpdateUserData($input: updateUserDataInput!) {
-      updateUserData(input: $input) {      
-      Vehicle_No
-      }
-    }
+      updateUserData(input: $input)
+  }
 `;
 
-export const UPDATE_CLIENT_01 = gql` 
-    mutation UpdateUserData_01($input: updateUserDataInput1!) {
-      updateUserData1(input: $input)
-    }
-`;
+// export const UPDATE_CLIENT_01 = gql` 
+//     mutation UpdateUserData_01($input: updateUserDataInput1!) {
+//       updateUserData1(input: $input)
+//     }
+// `;
 
 export const UPDATE_CLIENT_02 = gql` 
     mutation UpdateUserData_02($input: updateUserDataInput2!) {

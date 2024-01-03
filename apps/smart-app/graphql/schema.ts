@@ -497,7 +497,7 @@ input createUserDataInput {
 
 input updateUserDataInput { 
   id:                    String!   
-  Vehicle_No:            String!  
+  # Vehicle_No:            String!  
   RC_No:                 String
   Registered_Date:       Date
   Owner:                 String
@@ -861,7 +861,7 @@ input DDUpdateInput {
     CreateAppuser(input: CreateAppuserInput!): CreateAppuserOutput
 
 
-    updateUserData(input: updateUserDataInput!): updateUserDataOutput
+    updateUserData(input: updateUserDataInput!): String
     updateUserData1(input: updateUserDataInput1!): String
     updateUserData2(input: updateUserDataInput2!): String
     updateUserData3(input: updateUserDataInput3!): String
