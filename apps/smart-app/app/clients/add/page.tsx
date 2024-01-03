@@ -247,7 +247,8 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log( "tax_dueDate: " + formValues.tax_due_Date );
         addclient( { variables: { input: result}})
         .then(()=> {        
-        router.push('/clients')
+        router.push('/clients/add')
+        window.location.reload();
         })
         .catch((err) => {
           console.log(JSON.stringify(err, null, 2));        

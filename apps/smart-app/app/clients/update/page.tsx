@@ -14,10 +14,7 @@ const UpdateClient:React.FC = () => {
 
         const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
         const [vehicleno, setVehicleno] = useState<String>("");   
-        const [firstpage, setfirstpage ] = useState<Boolean>(false);
-        const [secndpage, setsecndpage ] = useState<Boolean>(false);
-        const [thirddpage, setthirddpage ] = useState<Boolean>(false);
-        const [isCorporateGlobal, setCorporateGlobal] = useState<Boolean>(false);        
+        const [firstpage, setfirstpage ] = useState<Boolean>(false);  
 
         const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
             variables: { vechicleId: vehicleno },
@@ -26,8 +23,8 @@ const UpdateClient:React.FC = () => {
 
         const handleVehicleNoSubmit = async () => {
             if(vehicleno){
-               console.log("This is handleVehicleNoSubmit");
-               console.log(vehicleno);                                                   
+               //console.log("This is handleVehicleNoSubmit");
+               //console.log(vehicleno);                                                   
                setfirstpage(true);
                setVehicleNoprovided(true);
             }
@@ -83,32 +80,10 @@ const UpdateClient:React.FC = () => {
         }
                
 
-
-
         { gusrdatabyid?.user_data_byid?.Vehicle_No && firstpage && 
         <Updatepage01 
-        value={vehicleno} 
-        ispagesubmitted={(e:Boolean) => {setsecndpage(e); setfirstpage(!e)}}         
-        isCorporateLocal={(e:Boolean) => {setCorporateGlobal(e)}}        
-        />  }
-
-
-        {secndpage && 
-        <Updatepage02 
-        value={vehicleno} 
-        ispagesubmitted={(e:Boolean) => {setthirddpage(e); setsecndpage(!e)}} 
-        isCorporateGlobal={isCorporateGlobal}  
-        back = {(e:Boolean) => {setfirstpage(e); setsecndpage(!e)}}       
-        /> }
-
-
-        {thirddpage && 
-        <Updatepage03 
-        value={vehicleno} 
-        ispagesubmitted={(e:Boolean) => { setthirddpage(!e)} } 
-        isCorporateGlobal={isCorporateGlobal}                
-        back = {(e:Boolean) => {setsecndpage(e); setthirddpage(!e)}} 
-        /> }
+        value={vehicleno}                        
+        />  }       
 
     </div>
   )

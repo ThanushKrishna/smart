@@ -38,7 +38,7 @@ const NavBar = () => {
               <FaBookOpen />
             </IconButton>
           </Link>
-          <Typography variant="h6">SMART</Typography>
+          <Typography variant="h6">Smart Leads</Typography>
         </div>
         <div style={{ display: 'flex', marginLeft: 'auto' }}>
           {links.map((link) => (
@@ -75,6 +75,9 @@ const NavBar = () => {
               </MenuItem>
               <MenuItem>
                 <Link href="/clients/delete">Delete Client</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link href="/clients">Report View</Link>
               </MenuItem>
             </Menu>
           )}

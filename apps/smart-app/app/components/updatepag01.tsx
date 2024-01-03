@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
-import { useForm, Controller, FieldError  } from 'react-hook-form'
-import { TextField, Button, TextArea } from '@radix-ui/themes'
+import { useForm, FieldError  } from 'react-hook-form'
+import { Button } from '@radix-ui/themes'
 import { AddClientType } from '@/typings';
 import { useQuery } from '@apollo/client';
 import { useMutation } from '@apollo/client';
@@ -12,8 +12,8 @@ import {
     ADD_MODEL, ADD_SEATING_CAPACITY,
     ADD_VEHICLE_DESCRIPTION,
     ADD_VEHICLE_CLASS,
-    UPDATE_CLIENT_01, GET_SLEEPER_CAPACITY_BY_VALUE,
-    GET_CC_BY_VALUE, UPDATE_CLIENT
+    GET_SLEEPER_CAPACITY_BY_VALUE,
+    UPDATE_CLIENT
     } from '@/graphql/queries'
 import {     
     GET_USER_DATA_BYID, GET_HYPOTHECATION_BANK,
@@ -24,63 +24,38 @@ import {
     GET_VEHICLE_DESCRIPTION, ADD_SLEEPER_CAPACITY,
     GET_SEATING_CAPACITY
     } from '@/graphql/queries'
-
 import { 
-        UPDATE_CLIENT_02, 
-        ADD_RTO,    
-        ADD_INSURANCE_PROVIDER, 
-        ADD_TP_INSURANCE_PROVIDER,
-        GET_UNLADEN_WEIGHT_BY_VALUE,
-        ADD_UNLADEN_WEIGHT,
-        GET_VEHICLE_BODY_BY_VALUE,
-        ADD_VEHICLE_BODY,
-        ADD_WHEEL_BASE,
-        GET_WHEEL_BASE_BY_VALUE,
-        GET_NO_OF_CYLINDER_BY_VALUE,
-        ADD_NO_OF_CYLINDER,
-        ADD_GVW,    
-        GET_GVW_BY_VALUE
-        } from '@/graphql/queries'
-        
-import {        
+        ADD_CC, GET_CC, GET_CUSTOMER_TYPE, GET_PERMIT_CATEGORY, 
+        ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE, GET_UPDATED_BY_BY_VALUE, 
+        ADD_UPDATED_BY, ADD_REFERRED_BY, GET_REFERRED_BY_BY_VALUE,           
         GET_RTO, GET_INSURANCE_PROVIDER, 
-        GET_TP_INSURANCE_PROVIDER
+        GET_TP_INSURANCE_PROVIDER, ADD_RTO,    
+        ADD_INSURANCE_PROVIDER, ADD_TP_INSURANCE_PROVIDER,
+        GET_UNLADEN_WEIGHT_BY_VALUE, ADD_UNLADEN_WEIGHT,
+        GET_VEHICLE_BODY_BY_VALUE, ADD_VEHICLE_BODY,
+        ADD_WHEEL_BASE, GET_WHEEL_BASE_BY_VALUE,
+        GET_NO_OF_CYLINDER_BY_VALUE, ADD_NO_OF_CYLINDER,
+        ADD_GVW, GET_GVW_BY_VALUE
         } from '@/graphql/queries'
-import { 
-            UPDATE_CLIENT_03,    
-            ADD_CC, 
-            ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE, GET_UPDATED_BY_BY_VALUE, ADD_UPDATED_BY, ADD_REFERRED_BY, GET_REFERRED_BY_BY_VALUE,    
-            } from '@/graphql/queries'
-import {                      
-            GET_CC, GET_CUSTOMER_TYPE,
-            GET_PERMIT_CATEGORY, 
-            } from '@/graphql/queries'        
 
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
 import { DropDownControlWA }  from '@/app/components/DropDownControlWA'
 import  Spinner from '@/app/components/Spinner'
 import { FileUplaod } from '@/app/components/Upload'
-import { FUEL_TYPE, GENDER, OWNER_TYPE, VEHICLE_KIND } from '@/json/enums'
-
-
-
 import { Checkbox, FormControlLabel, TextField as MyTextField, TextareaAutosize  } from '@mui/material';
 import { useRouter } from 'next/navigation';
-
-import { INSURANCE_TYPE } from '@/json/enums'
+import { FUEL_TYPE, GENDER, OWNER_TYPE, VEHICLE_KIND , MARITAL_STATUS, N_Relation, PROSPECT, INSURANCE_TYPE } from '@/json/enums'
 import AddressForm from './AddressForm';
-import {  MARITAL_STATUS, N_Relation, PROSPECT } from '@/json/enums'
+
 
 
 
 interface iupdatevalue {
-    value: String,
-    ispagesubmitted: (res: Boolean) => void,
-    isCorporateLocal: (res: Boolean) => void,
+    value: String,    
 }
 
-const Updatepage01:React.FC<iupdatevalue> = ( { value, ispagesubmitted, isCorporateLocal, } ) => {
+const Updatepage01:React.FC<iupdatevalue> = ( { value } ) => {
     
 const router = useRouter();
 const [vehicleno, setVehicleno] = useState<String>(value);
@@ -92,9 +67,6 @@ const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(gusrdatabyid.u
 const [isLttChecked, setLttChecked] = useState(false);
 const [lttValue, setlttValue] = useState<number | undefined>();
 const [isCorporateUpdate, setCorporateUpdate ] = useState<Boolean>(false);
-const [isFinalSubmit, setFinalSubmit] = useState<Boolean>(false);
-
-
 const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.OD_Policy_Doc || '');
 const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(gusrdatabyid.user_data_byid?.TP_Policy_Doc || '');
 const [isPolicyChecked, setPolicyChecked] = useState(false);
@@ -125,34 +97,16 @@ const handleNDCheckBox = (event: any) => {
 const[addiProvider, { data:iproviderdata} ] = useMutation(ADD_INSURANCE_PROVIDER);
 const[addTpInsuranceProvider, { data:tpproviderdata} ] = useMutation(ADD_TP_INSURANCE_PROVIDER);
 const[addrto, { data:rtodata} ] = useMutation(ADD_RTO);
-const [addUnladenWeight, { data: unladenWeightData }] = useMutation(ADD_UNLADEN_WEIGHT);
-const { data: gunladenWeightData } = useQuery(GET_UNLADEN_WEIGHT_BY_VALUE, {variables: { input: "" }, });
-const [addLadenWeight, { data: ladenWeightData }] = useMutation(ADD_GVW);
-const { data: gvwData } = useQuery(GET_GVW_BY_VALUE, {variables: { input: "" }, });
-const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
-const { data:gpermitdata, error:gpermiterror } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
-const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 	
-const [addUpdatedBy, { data: updatedByData }] = useMutation(ADD_UPDATED_BY);
-const { data: updatedByOptions } = useQuery(GET_UPDATED_BY_BY_VALUE, { variables: { input: "" } });
-const [addReferredBy, { data: referredByData }] = useMutation(ADD_REFERRED_BY);
-const { data: referredByOptions } = useQuery(GET_REFERRED_BY_BY_VALUE, { variables: { input: "" } });
+const[addUnladenWeight, { data: unladenWeightData }] = useMutation(ADD_UNLADEN_WEIGHT);
+const[addLadenWeight, { data: ladenWeightData }] = useMutation(ADD_GVW);	
+const[addUpdatedBy, { data: updatedByData }] = useMutation(ADD_UPDATED_BY);
+const[addReferredBy, { data: referredByData }] = useMutation(ADD_REFERRED_BY);
 const[addcc, { data:ccdata} ] = useMutation(ADD_CC);
 const[addPermitCategory, { data:permitdata} ] = useMutation(ADD_PERMIT_CATEGORY);
 const[addCusType, { data:custtypedata} ] = useMutation(ADD_CUSTOMER_TYPE);
-  
-  const [addVehicleBody, { data: vehicleBodyData }] = useMutation(ADD_VEHICLE_BODY);
-  const { data: vehicleBodyOptions } = useQuery(GET_VEHICLE_BODY_BY_VALUE, { variables: { input: "" } });
-  const [addWheelBase, { data: wheelBaseData }] = useMutation(ADD_WHEEL_BASE);
-  const { data: wheelBaseOptions } = useQuery(GET_WHEEL_BASE_BY_VALUE, { variables: { input: "" } });
-  const [addNoOfCylinders, { data: noOfCylindersData }] = useMutation(ADD_NO_OF_CYLINDER);
-  const { data: noOfCylindersOptions } = useQuery(GET_NO_OF_CYLINDER_BY_VALUE, { variables: { input: "" } });
-  const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
-  const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});	
-  const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
-
-
-const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});    
-//const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT_01);
+const[addVehicleBody, { data: vehicleBodyData }] = useMutation(ADD_VEHICLE_BODY);
+const[addWheelBase, { data: wheelBaseData }] = useMutation(ADD_WHEEL_BASE);
+const[addNoOfCylinders, { data: noOfCylindersData }] = useMutation(ADD_NO_OF_CYLINDER);
 const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT);
 const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
 const[addVehicleNorms, { data:normsdata} ] = useMutation(ADD_VEHICE_NORMS);
@@ -164,8 +118,21 @@ const[addSeatCap, { data:seatcapdata} ] = useMutation(ADD_SEATING_CAPACITY);
 const[addStanCap, { data:standcapdata} ] = useMutation(ADD_STANDING_CAPACITY);
 const[addHcity, { data:Hcitydata} ] = useMutation(ADD_HYPOTHECATION_CITY);
 const[addHbank, { data:Hbankdata} ] = useMutation(ADD_HYPOTHECATION_BANK);
-const [addSleeperCapacity, { data: sleeperCapacityData }] = useMutation(ADD_SLEEPER_CAPACITY);
+const[addSleeperCapacity, { data: sleeperCapacityData }] = useMutation(ADD_SLEEPER_CAPACITY);
 
+const { data: vehicleBodyOptions } = useQuery(GET_VEHICLE_BODY_BY_VALUE, { variables: { input: "" } });
+const { data: wheelBaseOptions } = useQuery(GET_WHEEL_BASE_BY_VALUE, { variables: { input: "" } });
+const { data: noOfCylindersOptions } = useQuery(GET_NO_OF_CYLINDER_BY_VALUE, { variables: { input: "" } });
+const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
+const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});	
+const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
+const { data: updatedByOptions } = useQuery(GET_UPDATED_BY_BY_VALUE, { variables: { input: "" } });
+const { data: gvwData } = useQuery(GET_GVW_BY_VALUE, {variables: { input: "" }, });
+const { data: gunladenWeightData } = useQuery(GET_UNLADEN_WEIGHT_BY_VALUE, {variables: { input: "" }, });
+const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
+const { data:gpermitdata, error:gpermiterror } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
+const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 
+const { data: referredByOptions } = useQuery(GET_REFERRED_BY_BY_VALUE, { variables: { input: "" } });
 const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLORS, { pollInterval: 1000,}); 
 const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS, { pollInterval: 1000,}); 
 const { data:gmakedata } = useQuery(GET_MAKE, { pollInterval: 1000,}); 
@@ -177,6 +144,8 @@ const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,
 const { data:gHcitydata } = useQuery(GET_HYPOTHECATION_CITY, { pollInterval: 1000,}); 
 const { data:gHbankdata } = useQuery(GET_HYPOTHECATION_BANK, { pollInterval: 1000,}); 
 const { data: gsleeperCapacityData } = useQuery(GET_SLEEPER_CAPACITY_BY_VALUE, {variables: { input: "" }, });
+
+const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});    
 
 const handleLttCheckBox = (event: any) => {
     setLttChecked(event.target.checked);
@@ -203,8 +172,7 @@ const onSubmit = async (formValues: AddClientType) => {
             Engine_No: formValues?.Engine_No || undefined,
 			Make: formValues?.Make || undefined,
             Model: formValues?.Model || undefined,
-            Ownership_type: formValues?.Ownership_type || undefined,            
-			// tax_due_Date: new Date(formValues?.tax_due_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
+            Ownership_type: formValues?.Ownership_type || undefined,            			
             tax_due_Date: (isLttChecked ? lttValue : formValues?.tax_due_Date ? new Date(formValues?.tax_due_Date).getTime() + 60 * 60 *1000 * 5.5 : null), 
 			Vehicle_type: formValues?.Vehicle_type || undefined,
 			Vehicle_Description: formValues?.Vehicle_Description || undefined,
@@ -222,12 +190,10 @@ const onSubmit = async (formValues: AddClientType) => {
 			Insurance_provider: formValues?.Insurance_provider || undefined,
             Insurance_dueDate: new Date(formValues?.Insurance_dueDate)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
 			TP_Policy_No: (isPolicyChecked ? (formValues?.Policy_No || undefined) : (formValues?.TP_Policy_No || undefined)),   
-            Insurance_Start: new Date(formValues?.Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,
-            //TP_Insurance_Start: new Date(formValues?.TP_Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,  
+            Insurance_Start: new Date(formValues?.Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,        
             TP_Insurance_Start: new Date(isPolicyChecked ? formValues?.Insurance_Start : formValues?.TP_Insurance_Start)?.getTime() + 60 * 60 *1000 * 5.5  || undefined,
             TP_Policy_Doc: (isPolicyChecked ? (OdPolicydocfile || undefined) : (TpPolicyDocfile || undefined)),   
-			TP_Insurance_provider: (isPolicyChecked ? (formValues?.Insurance_provider || undefined ): (formValues?.TP_Insurance_provider || undefined)),   
-            //TP_dueDate: new Date(formValues?.TP_dueDate)?.getTime() + 60 * 60 *1000 * 5.5|| undefined,                     
+			TP_Insurance_provider: (isPolicyChecked ? (formValues?.Insurance_provider || undefined ): (formValues?.TP_Insurance_provider || undefined)),                                 
             TP_dueDate: new Date(isPolicyChecked ? formValues?.Insurance_dueDate : formValues?.TP_dueDate)?.getTime() + 60 * 60 *1000 * 5.5  || undefined,
 			RTO: formValues?.RTO || undefined,
 			Unladen_Weight: formValues?.Unladen_Weight || undefined, 
@@ -272,17 +238,13 @@ const onSubmit = async (formValues: AddClientType) => {
         console.log( result );
         updateclient( { variables: { input: result},           
         })
-        .then(()=> {        
-            refetch();
-            if(isFinalSubmit){
-                router.push('/clients')
-                return;
-            }
-        ispagesubmitted(true);
-        })
+        .then(()=> {                   
+                router.push('/clients/update') 
+                window.location.reload();               
+            }        
+        )
         .catch((err) => {
-          console.log(JSON.stringify(err, null, 2));        
-          ispagesubmitted(false);          
+          console.log(JSON.stringify(err, null, 2));                        
         })
 
         if(updateclienterror) {            
@@ -293,8 +255,7 @@ const onSubmit = async (formValues: AddClientType) => {
     catch(e: any){        
         console.log("This is try-catch-error block");
         console.log(e?.message);
-        setisSubmitted(false); 
-        ispagesubmitted(false); 
+        setisSubmitted(false);         
     }   
     
 }
@@ -303,24 +264,16 @@ const onSubmit = async (formValues: AddClientType) => {
   return (
    <>      
         <form  onSubmit={handleSubmit(onSubmit)}>     
-            <div className='font-bold'>                
-                    <div className='mb-5'>
-                    <Button 
-                    className='w-full'
-                    disabled={isSubmitted}
-                    onClick={() => {setFinalSubmit(true)}}
-                    > 
-                    Save and Submit {isSubmitted && <Spinner></Spinner>}
-                    </Button>   
-                    </div>
+            <div className='font-bold'>     
 
                     <div className='mb-5'>
                     <Button 
                     className='w-full'
-                    disabled={isSubmitted}
-                    > Save and Next {isSubmitted && <Spinner></Spinner>}
-                    </Button>  
-                    </div>    
+                    disabled={isSubmitted}                    
+                    > 
+                    Submit {isSubmitted && <Spinner></Spinner>}
+                    </Button>   
+                    </div>                   
 
                     <div  className='text-slate-500 text-base grid grid-cols-5 gap-5 ml-10 mr-10 font-bold'>                            
                     <div>
@@ -372,7 +325,7 @@ const onSubmit = async (formValues: AddClientType) => {
                         value={gusrdatabyid.user_data_byid?.Ownership_type}  
                         placeholder="Owner Type:   "                                      
                         options={OWNER_TYPE}
-                        isCorporate={(e:Boolean) => { isCorporateLocal(e); setCorporateUpdate(e)} } 
+                        isCorporate={(e:Boolean) => { setCorporateUpdate(e)} } 
                     />         
                     </div>
 
@@ -1216,23 +1169,15 @@ const onSubmit = async (formValues: AddClientType) => {
                         {!isAddressChecked && <AddressForm addressType="CAddress" placehoder="Communication Address" register={register} errors={errors} defaultAddress={gusrdatabyid?.user_data_byid?.CAddress} />  }
                         </div>
 
-                        </div>                                   
-
-                        <div className='mt-5'>
-                        <Button 
-                        className='w-full'
-                        disabled={isSubmitted}
-                        > Save and Next {isSubmitted && <Spinner></Spinner>}
-                        </Button>  
-                        </div>
+                    </div>                                   
+                       
 
                         <div className='mb-5 mt-5'>
                         <Button 
                         className='w-full'
-                        disabled={isSubmitted}
-                        onClick={() => {setFinalSubmit(true)}}
+                        disabled={isSubmitted}                        
                         > 
-                        Save and Submit {isSubmitted && <Spinner></Spinner>}
+                        Submit {isSubmitted && <Spinner></Spinner>}
                         </Button>   
                         </div>
             </div>
