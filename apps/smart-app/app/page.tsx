@@ -22,7 +22,7 @@ const DashboardPage: React.FC = () => {
     setActiveSubTab('0');
   };
 
-  const handleSubTabChange = (event: React.SyntheticEvent, newValue: string) => {
+  const handleoDInsuranceTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setActiveSubTab(newValue);
   };
 
@@ -36,8 +36,10 @@ const DashboardPage: React.FC = () => {
       skip: !utcDate,
     });
 
-    console.log("Yesterday :" + (utcDate - 24 * 60 * 60 * 1000));
-    console.log("Tomorrow :" + (utcDate + 24 * 60 * 60 * 1000));
+    // console.log("Yesterday :" + (utcDate - 24 * 60 * 60 * 1000));
+    // console.log("Tomorrow :" + (utcDate + 24 * 60 * 60 * 1000));
+    console.log("UTC TimeNow :" + utcDate);
+    console.log("Server Time: " + new Date().getTime());
 
   // Similar queries for Due in Week and Due in Month can be added
 
@@ -57,7 +59,7 @@ const DashboardPage: React.FC = () => {
 
       <TabPanel value="0">
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={activeSubTab} onChange={handleSubTabChange}>
+            <Tabs value={activeSubTab} onChange={handleoDInsuranceTabChange}>
               <Tab label="OverDue" value="0" />
               <Tab label="Due Today" value="1" />
               <Tab label="Due Tomorrow" value="2" />

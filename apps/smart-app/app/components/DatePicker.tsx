@@ -26,7 +26,7 @@ export const DatePickerComponent: React.FC<IDatePickerProps> = ({
   //const lastDate = dayjs('2030-12-31');
   //const lastDate = new Date('2030-12-30');
 
-  const parsedDate = selectedDate !== undefined ? dayjs(selectedDate) : undefined;
+  const parsedDate = selectedDate !== undefined ? dayjs(selectedDate).startOf('day') : undefined;
  
 
   return (  
