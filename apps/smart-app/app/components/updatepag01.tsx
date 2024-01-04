@@ -52,7 +52,7 @@ import AddressForm from './AddressForm';
 
 
 interface iupdatevalue {
-    value: String,    
+    value: String;
 }
 
 const Updatepage01:React.FC<iupdatevalue> = ( { value } ) => {

@@ -13,6 +13,7 @@ export  type tAddress = {
     }
 
 export interface AddClientType {
+    id:                    String
     data_owner_id:         String!
     Vehicle_No:            String!  
     RC_No:                 String
