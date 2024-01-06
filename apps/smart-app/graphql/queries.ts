@@ -896,6 +896,100 @@ query User_data_afterInsuranceDueDate($input: Date!) {
 `;
 
 
+export const GET_USER_DATA_NA_INSURANCE_DUE_DATE = gql`
+query User_data_NaInsuranceDueDate {
+  user_data_NaInsuranceDueDate {
+    id
+    data_owner_id
+    Vehicle_No
+    RC_No
+    Registered_Date
+    Owner
+    Owner_dob
+    Ownership_type
+    Vehicle_type
+    Vehicle_Kind
+    Gender
+    Year_of_manufacuring
+    GVW
+    Chasis_No
+    Engine_No
+    FC_due_Date
+    tax_due_Date
+    Vehicle_color
+    Vehice_norms
+    Address {
+      street
+      city
+      state
+      zip
+    }
+    CC
+    Make
+    Model
+    Insurance_provider
+    Insurance_dueDate
+    Policy_No
+    Permit_No
+    Permit_category
+    Mobile_No1
+    Mobile_No2
+    Email_id
+    Adhar_No
+    Adhar_doc
+    PanCard_No
+    Pan_doc
+    Nominee
+    Nominee_dob
+    Emission_dueDate
+    Fuel_type
+    Hypothecation_bank
+    Hypothecation_city
+    RTO
+    Referred_by
+    Comments
+    Customer_type
+    Martial_status
+    TP_Insurance_provider
+    TP_dueDate
+    GST_No
+    Insurance_type
+    Mobile_No3
+    Nominee_Relationship
+    Son_Wife_Daughter_Of
+    Vehicle_Body
+    Wheel_Base
+    No_Of_Cylinder
+    Unladen_Weight
+    Sleeper_Capacity
+    PUCC_Emission_No
+    updated_by
+    TP_Policy_No
+    Insurance_Start
+    TP_Insurance_Start
+    Vehicle_Reg_Doc
+    OD_Policy_Doc
+    TP_Policy_Doc
+    GST_Cer_Doc
+    Vehicle_Description
+    Seating_Capacity
+    Standing_Capacity
+    Permit_dueDate
+    CAddress {
+      street
+      city
+      state
+      zip
+    }
+    Prospect
+    photo_links
+    Nominee_Doc
+    createdAt
+    updatedAt
+  }
+}
+`;
+
 export const CHECK_VEHICLE_UNIQUE = gql` 
   query checkvehicleNoUniqueness($VechicleId: String!) {
   CheckvehicleNoUniqueness(vechicle_id: $VechicleId)

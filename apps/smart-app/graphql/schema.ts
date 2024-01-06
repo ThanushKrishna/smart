@@ -408,6 +408,7 @@ type Query {
     user_data_beforeInsuranceDueDate(input: Date!): [user_data]   
     user_data_betweenInsuranceDueDates(input1: Date!, input2: Date!): [user_data]   
     user_data_afterInsuranceDueDate(input: Date!): [user_data]   
+    user_data_NaInsuranceDueDate: [user_data]
      
   }
 

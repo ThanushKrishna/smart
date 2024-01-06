@@ -846,6 +846,28 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       }
     },
 
+    user_data_NaInsuranceDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            OR: [
+              {
+                Insurance_dueDate: null,
+              },
+              {
+                Insurance_dueDate: undefined,
+              },
+            ],
+          },
+          orderBy: {
+            Insurance_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        //console.log(err);
+      }
+    },
+
 
   },
 
