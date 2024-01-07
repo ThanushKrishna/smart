@@ -408,7 +408,32 @@ type Query {
     user_data_beforeInsuranceDueDate(input: Date!): [user_data]   
     user_data_betweenInsuranceDueDates(input1: Date!, input2: Date!): [user_data]   
     user_data_afterInsuranceDueDate(input: Date!): [user_data]   
-    user_data_NaInsuranceDueDate: [user_data]
+    user_data_NaInsuranceDueDate(input: String!): [user_data]
+
+    user_data_beforeTPInsuranceDueDate(input: Date!): [user_data]   
+    user_data_betweenTPInsuranceDueDates(input1: Date!, input2: Date!): [user_data]   
+    user_data_afterTPInsuranceDueDate(input: Date!): [user_data]   
+    user_data_NaTPInsuranceDueDate(input: String!): [user_data]
+
+    user_data_beforeEmissionDueDate(input: Date!): [user_data]   
+    user_data_betweenEmissionDueDates(input1: Date!, input2: Date!): [user_data]   
+    user_data_afterEmissionDueDate(input: Date!): [user_data]   
+    user_data_NaEmissionDueDate(input: String!): [user_data]
+
+    user_data_beforeTaxDueDate(input: Date!): [user_data]   
+    user_data_betweenTaxDueDates(input1: Date!, input2: Date!): [user_data]   
+    user_data_afterTaxDueDate(input: Date!): [user_data]   
+    user_data_NaTaxDueDate(input: String!): [user_data]
+
+    user_data_beforeFCDueDate(input: Date!): [user_data]   
+    user_data_betweenFCDueDates(input1: Date!, input2: Date!): [user_data]   
+    user_data_afterFCDueDate(input: Date!): [user_data]   
+    user_data_NaFCDueDate(input: String!): [user_data]
+
+    user_data_beforePermitDueDate(input: Date!): [user_data]   
+    user_data_betweenPermitDueDates(input1: Date!, input2: Date!): [user_data]   
+    user_data_afterPermitDueDate(input: Date!): [user_data]   
+    user_data_NaPermitDueDate(input: String!): [user_data]
      
   }
 

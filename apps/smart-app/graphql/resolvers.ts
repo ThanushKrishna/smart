@@ -850,24 +850,405 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
-            OR: [
-              {
-                Insurance_dueDate: null,
-              },
-              {
-                Insurance_dueDate: undefined,
-              },
-            ],
+            Insurance_dueDate: null,
+            data_owner_id: args.input, // Replace with the actual input variable
           },
           orderBy: {
             Insurance_dueDate: 'asc',
           },
         });
       } catch (err) {
-        //console.log(err);
+        console.log(err);
       }
     },
 
+    
+    user_data_beforeTPInsuranceDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            TP_dueDate: args.input
+              ? {
+                  lt: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            TP_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_betweenTPInsuranceDueDates: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            TP_dueDate: args.input1 && args.input2
+              ? {
+                  gte: args.input1,
+                  lt: args.input2,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            TP_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_afterTPInsuranceDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            TP_dueDate: args.input
+              ? {
+                  gte: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            TP_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_NaTPInsuranceDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            TP_dueDate: null,
+            data_owner_id: args.input,
+          },
+          orderBy: {
+            TP_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    
+
+    user_data_beforeEmissionDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Emission_dueDate: args.input
+              ? {
+                  lt: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            Emission_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_betweenEmissionDueDates: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Emission_dueDate: args.input1 && args.input2
+              ? {
+                  gte: args.input1,
+                  lt: args.input2,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            Emission_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_afterEmissionDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Emission_dueDate: args.input
+              ? {
+                  gte: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            Emission_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_NaEmissionDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Emission_dueDate: null,
+            data_owner_id: args.input.data_owner_id,
+          },
+          orderBy: {
+            Emission_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    user_data_beforeTaxDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            tax_due_Date: args.input
+              ? {
+                  lt: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            tax_due_Date: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_betweenTaxDueDates: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            tax_due_Date: args.input1 && args.input2
+              ? {
+                  gte: args.input1,
+                  lt: args.input2,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            tax_due_Date: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_afterTaxDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            tax_due_Date: args.input
+              ? {
+                  gte: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            tax_due_Date: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_NaTaxDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            tax_due_Date: null,
+            data_owner_id: args.input.data_owner_id,
+          },
+          orderBy: {
+            tax_due_Date: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    user_data_beforeFCDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            FC_due_Date: args.input
+              ? {
+                  lt: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            FC_due_Date: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_betweenFCDueDates: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            FC_due_Date: args.input1 && args.input2
+              ? {
+                  gte: args.input1,
+                  lt: args.input2,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            FC_due_Date: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_afterFCDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            FC_due_Date: args.input
+              ? {
+                  gte: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            FC_due_Date: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_NaFCDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            FC_due_Date: null,
+            data_owner_id: args.input.data_owner_id,
+          },
+          orderBy: {
+            FC_due_Date: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    
+
+    user_data_beforePermitDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Permit_dueDate: args.input
+              ? {
+                  lt: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            Permit_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_betweenPermitDueDates: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Permit_dueDate: args.input1 && args.input2
+              ? {
+                  gte: args.input1,
+                  lt: args.input2,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            Permit_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_afterPermitDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Permit_dueDate: args.input
+              ? {
+                  gte: args.input,
+                  not: null,
+                }
+              : undefined,
+          },
+          orderBy: {
+            Permit_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        // Handle errors
+      }
+    },
+    
+    user_data_NaPermitDueDate: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            Permit_dueDate: null,
+            data_owner_id: args.input.data_owner_id,
+          },
+          orderBy: {
+            Permit_dueDate: 'asc',
+          },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
 
   },
 
