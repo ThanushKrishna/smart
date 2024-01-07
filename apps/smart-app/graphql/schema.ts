@@ -34,6 +34,7 @@ scalar Date
     gender: GENDER
     address: Address
     profile_pic: String
+    notes: String
     mobile: String
     role: ROLE
   }
@@ -352,6 +353,7 @@ type REFERRED_BY {
 type Query {
     user_data: [user_data]    
     app_user: [app_user]
+    getNotesForUser(input: String!) : String
     CheckvehicleNoUniqueness(vechicle_id: String!): Boolean
     user_data_byid(vechicle_id: String!): user_data
     VEHICLE_COLOR: [VEHICLE_COLOR]
@@ -885,6 +887,7 @@ input DDUpdateInput {
     createUserData(input: createUserDataInput!): createUserDataOutput
     testaddclient(data_owner_id: String!, Vehicle_No: String!, RC_No: String ): String
     CreateAppuser(input: CreateAppuserInput!): CreateAppuserOutput
+    addNotesForUser(input1: ID!, input2: String) : String
 
 
     updateUserData(input: updateUserDataInput!): String

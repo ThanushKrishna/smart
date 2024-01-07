@@ -178,6 +178,18 @@ export const GET_APP_USERS = gql`
   }
 `;
 
+export const GET_APP_USERS_NOTES = gql`
+    query Query($input: String!) {
+      getNotesForUser(input: $input)
+}
+`;
+
+export const ADD_APP_USERS_NOTES = gql`
+    mutation AddNotesForUser($input1: ID!, $input2: String) {
+  addNotesForUser(input1: $input1, input2: $input2)
+}
+`;
+
 export const GET_USER_DATA = gql`
   query user_data {
     user_data {

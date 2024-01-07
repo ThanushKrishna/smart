@@ -10,6 +10,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import TiptapEditor from './components/TiptapEditor';
+
 
 const NavBar = () => {
   const currentPath = usePathname();
@@ -81,6 +83,9 @@ const NavBar = () => {
               </MenuItem>
             </Menu>
           )}
+        </div>     
+        <div>
+        <TiptapEditor/>        
         </div>
       </Toolbar>
     </AppBar>

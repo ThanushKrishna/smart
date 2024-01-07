@@ -54,6 +54,25 @@ export const resolvers = {
       
     },   
 
+    getNotesForUser: async (parent: any, args: any, context: Context) => {
+      try {
+        const userWithNotes = await context.prisma.app_user.findUnique({
+          where: { userid: args.input },
+          select: { notes: true },
+        });
+    
+        if (!userWithNotes) {
+          console.error('User not found');
+          return null;
+        }
+    
+        return userWithNotes.notes;
+      } catch (error) {
+        console.error('Error fetching notes for user:', error);
+        throw error;
+      }
+    },
+
     user_data: async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
@@ -1254,6 +1273,23 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 
 
   Mutation: {
+
+    addNotesForUser: async (parent: any, args: any, context: Context) => {
+      try {
+        await context.prisma.app_user.update({
+          where: { userid: args.input1 },
+          data: {            
+            notes: args.input2
+          },          
+        });
+    
+        return 'Notes added successfully'; // Replace with your desired success message
+      } catch (error) {
+        console.error('Error adding notes for user:', error);
+        throw error;
+      }
+    },
+
 
     createRTO: async (parent: any, args: any, context: Context) => {
       //console.log("this is createRTO block");            
