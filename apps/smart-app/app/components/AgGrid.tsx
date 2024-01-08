@@ -2,9 +2,10 @@
 import React, {
   useRef,
   useEffect,
+  useMemo
 } from 'react';
 import { AgGridReact } from 'ag-grid-react';
-import { ColDef, RowClassParams, createGrid, GridApi, GridOptions, ColGroupDef } from 'ag-grid-community';
+import { ColDef } from 'ag-grid-community';
 import { ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
@@ -80,12 +81,10 @@ const AgGrid: React.FC<AgGridProps> = ({ data }) => {
 
 
 const defaultColDef =  {    
-      width: 100,
+      width: 250,
       sortable: true,
       filter: true,
   };
-
-
 
 const saveState = () => {
   if (gridRef.current && gridRef.current.api) {  
@@ -277,7 +276,7 @@ const addressFormatter = (params: any) => {
             pivotPanelShow={'always'}
             pagination={true}
             paginationPageSize={20}                
-            onGridReady={onGridReady}                     
+            onGridReady={onGridReady}                            
           />
         </div>        
       </div>
