@@ -98,7 +98,7 @@ const AutomobilePage = () => {
 
 
 const defaultColDef =  {    
-      width: 100,
+      width: 250,
       sortable: true,
       filter: true,
   };

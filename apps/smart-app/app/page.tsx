@@ -301,6 +301,7 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
 
 
   return (
+    <div>
     <TabContext value={activeTab}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={activeTab} onChange={handleTabChange} centered>
@@ -664,6 +665,7 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
 </TabPanel>
                     
     </TabContext>
+    </div>
   );
 };
 

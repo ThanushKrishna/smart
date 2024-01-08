@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { EditorContent, useEditor, FloatingMenu, BubbleMenu } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_APP_USERS_NOTES, ADD_APP_USERS_NOTES } from '@/graphql/queries' 
 import {Modal, Box } from '@mui/material';
