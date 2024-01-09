@@ -50,7 +50,7 @@ const TiptapEditor: React.FC = () => {
 
   return (
     <>
-   <button onClick={handleOpen}>Notes</button>
+   <button onClick={handleOpen}>NOTES</button>
       <Modal open={open} onClose={handleClose} sx={{ height: 'auto' }}>        
          <Box sx={style}>
          <Textarea

@@ -1,6 +1,10 @@
 import { Context } from '@/pages/api/graphql';
 import { GraphQLScalarType, Kind } from 'graphql';
 import { MongoClient, ObjectId } from 'mongodb';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import { app_user } from '@prisma/client';
+
 
 export const dateScalar = new GraphQLScalarType({
   name: 'Date',
@@ -1273,6 +1277,62 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 
 
   Mutation: {
+
+    signUp: async (parent: any, args: any, context: Context) => {
+      console.log("this is SignUp block");         
+      
+      const secretKey = process.env.SECRET_KEY || 'default_secret_key'; 
+
+      function generateToken(userCreated: app_user) {          
+        const token = jwt.sign(
+          {
+            userid: userCreated.userid,
+            firstname: userCreated.firstname,
+            lastname: userCreated.lastname,
+            emailid: userCreated.emailid,
+          },
+          secretKey, 
+          {
+            expiresIn: '1h', // Token expiration time (adjust as needed)
+          }
+        );
+      
+        return token;
+      }
+      
+      try {
+        const hashedPassword = await bcrypt.hash(args.input.password, 10);
+
+        const userCreated = await context.prisma.app_user.create({
+          data: {
+            emailid: args.input.emailid,
+            firstname: args.input.firstname,
+            lastname: args.input.lastname,
+            password: hashedPassword,  
+            mobile: args.input.mobile,      
+          },
+        })
+
+        const token = generateToken(userCreated);
+
+        const result = {
+                        userid: userCreated.userid,
+                        emailid:userCreated.emailid,
+                        token: token
+                      }
+
+        
+        console.log("Sigup block end");
+        console.log(userCreated);
+        return result;  
+            
+
+      } catch (error) {
+        console.error('Error creating user:', error);
+      }   
+           
+
+    },
 
     addNotesForUser: async (parent: any, args: any, context: Context) => {
       try {

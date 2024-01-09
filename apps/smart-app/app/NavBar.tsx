@@ -16,6 +16,7 @@ import TiptapEditor from './components/TiptapEditor';
 const NavBar = () => {
   const currentPath = usePathname();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isloggedIn, setloggnedin] = useState(false);
 
   const handleMenuOpen = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -26,9 +27,9 @@ const NavBar = () => {
   };
 
   const links = [
-    { label: 'Dashboard', href: '/' },
+    { label: 'Dashboard', href: '/dashboard' },
     { label: 'Baseline', href: '/master' },
-    { label: 'Clients', href: '/clients' },
+    { label: 'Clients', href: '/clients' },    
   ];
 
   return (
@@ -65,20 +66,20 @@ const NavBar = () => {
           ))}
           {links.some((link) => link.href === '/clients') && (
             <Menu
-              anchorEl={anchorEl}
+              anchorEl={anchorEl}              
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
-              <MenuItem>
+              <MenuItem onClick={handleMenuClose}>
                 <Link href="/clients/add">Add Client</Link>
               </MenuItem>
-              <MenuItem>
+              <MenuItem onClick={handleMenuClose}>
                 <Link href="/clients/update">Update Client</Link>
-              </MenuItem>
-              <MenuItem>
+              </MenuItem >
+              <MenuItem onClick={handleMenuClose}>
                 <Link href="/clients/delete">Delete Client</Link>
               </MenuItem>
-              <MenuItem>
+              <MenuItem onClick={handleMenuClose}>
                 <Link href="/clients">Report View</Link>
               </MenuItem>
             </Menu>

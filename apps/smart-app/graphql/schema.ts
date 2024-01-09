@@ -40,6 +40,7 @@ scalar Date
   }
 
 
+
 ############ Start of APP_USER Mutation ############
 ############ Start of APP_USER Mutation ############
 ############ Start of APP_USER Mutation ############
@@ -63,6 +64,14 @@ scalar Date
     role: ROLE
   }
 
+  input signUpInput {
+    firstname: String
+    lastname: String
+    emailid: String!
+    password: String!
+    mobile: String
+  }
+
   type CreateAppuserOutput {
     firstname: String
     lastname: String
@@ -73,6 +82,14 @@ scalar Date
     profile_pic: String
     mobile: String
     role: ROLE
+  }
+
+  type signUpuserOutput {
+    firstname: String
+    lastname: String
+    emailid: String!
+    password: String!
+    mobile: String
   }
 
   type replaceAppuserInput {
@@ -857,8 +874,18 @@ input DDUpdateInput {
 }
 
 
+type AuthPayload {
+  userid: String!
+  emailid: String!  
+  token: String!
+}
+
+
 
   type Mutation{
+
+    signUp(input: signUpInput!): AuthPayload
+
     createVehicleClass(input: DDinput!): VEHICLE_CLASS
     createCustomerType(input: DDinput!): CUSTOMER_TYPE
     createVehicleDescription(input: DDinput!): VEHICLE_DESCRIPTION
