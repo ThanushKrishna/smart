@@ -4,6 +4,7 @@ import { MongoClient, ObjectId } from 'mongodb';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { app_user } from '@prisma/client';
+import { setToken } from '../utils/auth';
 
 
 export const dateScalar = new GraphQLScalarType({
@@ -1309,7 +1310,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
             firstname: args.input.firstname,
             lastname: args.input.lastname,
             password: hashedPassword,  
-            mobile: args.input.mobile,      
+            mobile: args.input.mobile ?  args.input.mobile : undefined,      
           },
         })
 
@@ -1321,8 +1322,9 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
                         token: token
                       }
 
-        
-        console.log("Sigup block end");
+     // Save the authentication token in cookies        
+        setToken(token); 
+                
         console.log(userCreated);
         return result;  
             

@@ -179,8 +179,12 @@ export const GET_APP_USERS = gql`
 `;
 
 export const SIGNUP = gql`
-mutation AddNotesForUser($input1: ID!, $input2: String) {
-  addNotesForUser(input1: $input1, input2: $input2)
+mutation SignUp($input: signUpInput!) {
+  signUp(input: $input) {
+    token
+    userid
+    emailid
+  }
 }
 `;
 

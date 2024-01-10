@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { Button, TextField, Typography, Container } from '@mui/material';
 import { SIGNUP } from '../../graphql/queries'
+import { setToken } from '../../utils/auth';
 
 const SignupPage: React.FC = () => {
   const [createUser] = useMutation(SIGNUP);
@@ -11,6 +12,7 @@ const SignupPage: React.FC = () => {
     email: '',
     password: '',
     confirmPassword: '',
+    mobile: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +22,7 @@ const SignupPage: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const [firstName, lastName] = formData.fullName.split(' ');
+    const [firstname, lastname] = formData.fullName.split(' ');
 
     if (formData.password !== formData.confirmPassword) {
       console.error("Passwords don't match");
@@ -31,22 +33,27 @@ const SignupPage: React.FC = () => {
       const { data } = await createUser({
         variables: {
           input: {
-            firstName,
-            lastName,
-            email: formData.email,
+            firstname,
+            lastname,
+            emailid: formData.email,
             password: formData.password,
+            mobile: formData.mobile,
           },
         },
       });
 
       // Assuming your server returns the user and token upon successful registration
-      const user = data.createUser.user;
-      const token = data.createUser.token;
+      const EmailId = data.signUp.emailid;
+      const UserID = data.signUp.userid;
+      const token = data.signUp.token;
 
-      // Set the authentication token in cookies
-      document.cookie = `authToken=${token}; path=/`;
+//      Set the authentication token in cookies
+//      document.cookie = `authToken=${token}; path=/`;
+        setToken(token); 
 
-      // Redirect to the dashboard page
+        console.log(EmailId, UserID);
+        console.log("NewToken: " + token);
+      
       window.location.href = '/dashboard';
     } catch (error:any) {
       console.error('Error creating user:', error.message!);
@@ -76,6 +83,17 @@ const SignupPage: React.FC = () => {
           required
           onChange={handleChange}
         />
+
+        <TextField
+          name="mobile"
+          label="Mobile Number"
+          fullWidth
+          margin="normal"
+          type="text"
+          required
+          onChange={handleChange}
+        />
+
         <TextField
           name="password"
           label="Password"

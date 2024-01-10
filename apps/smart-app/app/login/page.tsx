@@ -1,8 +1,12 @@
 "use client"
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, TextField, Typography, Container } from '@mui/material';
 
 const LoginPage: React.FC = () => {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle login logic

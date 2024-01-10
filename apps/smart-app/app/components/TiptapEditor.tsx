@@ -33,7 +33,7 @@ const TiptapEditor: React.FC = () => {
     }
   }, [getNotesLoad, getNoteserror, getNotes]);
 
-  console.log(content);
+  //console.log(content);
 
   const onChange = (event:any) => {
     setContent(event.target.value);    
