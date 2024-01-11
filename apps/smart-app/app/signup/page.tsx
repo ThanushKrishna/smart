@@ -125,7 +125,7 @@ const SignupPage: React.FC = () => {
             onChange={handleChange}
             fullWidth
           />
-          {isPasswordMatch && <p>Password doesn't match</p>}
+          {isPasswordMatch && <p>Passwords does not match</p>}
           <Button type="submit" variant="contained" color="primary" fullWidth>
             Submit
           </Button>
