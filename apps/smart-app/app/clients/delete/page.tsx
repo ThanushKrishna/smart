@@ -4,7 +4,7 @@ import { useMutation } from '@apollo/client';
 import { DELETE_CLIENT_BYID } from '@/graphql/queries';
 import { Button } from '@radix-ui/themes';
 import Spinner from '@/app/components/Spinner';
-import { TextField } from '@radix-ui/themes'
+import withAuth from '../../middleware/withAuth';
 
 const DeleteClient: React.FC = () => {
   const [deleteclient, { loading: clientdataload, error: deleteclienterror }] = useMutation(DELETE_CLIENT_BYID);
@@ -109,4 +109,4 @@ const DeleteClient: React.FC = () => {
   );
 };
 
-export default DeleteClient;
+export default withAuth(DeleteClient);

@@ -10,6 +10,7 @@ import { GET_USER_DATA_BEFORE_EMISSION_DUE_DATE, GET_USER_DATA_AFTER_EMISSION_DU
 import { GET_USER_DATA_BEFORE_TAX_DUE_DATE, GET_USER_DATA_AFTER_TAX_DUE_DATE, GET_USER_DATA_BETWEEN_TAX_DUE_DATES, GET_USER_DATA_NA_TAX_DUE_DATE } from '../../graphql/queries';
 import { GET_USER_DATA_BEFORE_FC_DUE_DATE, GET_USER_DATA_AFTER_FC_DUE_DATE, GET_USER_DATA_BETWEEN_FC_DUE_DATES, GET_USER_DATA_NA_FC_DUE_DATE } from '../../graphql/queries';
 import { GET_USER_DATA_BEFORE_PERMIT_DUE_DATE, GET_USER_DATA_AFTER_PERMIT_DUE_DATE, GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES, GET_USER_DATA_NA_PERMIT_DUE_DATE } from '../../graphql/queries';
+import withAuth from '../middleware/withAuth';
 
 const DashboardPage: React.FC = () => {
 
@@ -669,4 +670,4 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
   );
 };
 
-export default DashboardPage;
+export default withAuth(DashboardPage);

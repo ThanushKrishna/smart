@@ -27,6 +27,7 @@ import { ADD_NO_OF_CYLINDER, UPDATE_NO_OF_CYLINDER, DELETE_NO_OF_CYLINDER_DATA, 
 import { ADD_SLEEPER_CAPACITY, UPDATE_SLEEPER_CAPACITY, DELETE_SLEEPER_CAPACITY_DATA, GET_SLEEPER_CAPACITY_BY_VALUE } from '@/graphql/queries';
 import { ADD_UPDATED_BY, UPDATE_UPDATED_BY, DELETE_UPDATED_BY_DATA, GET_UPDATED_BY_BY_VALUE } from '@/graphql/queries';
 import { ADD_REFERRED_BY, UPDATE_REFERRED_BY, DELETE_REFERRED_BY_DATA, GET_REFERRED_BY_BY_VALUE } from '@/graphql/queries';
+import withAuth from '../middleware/withAuth';
 
 const RootContainer = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -102,4 +103,4 @@ function Master() {
   );
 }
 
-export default Master;
+export default withAuth(Master);

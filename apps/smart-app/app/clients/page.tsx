@@ -18,6 +18,7 @@ import  { AddClientType, tAddress }  from '@/typings';
 import 'ag-grid-community/styles/ag-grid.css';
 //import 'ag-grid-community/styles/ag-theme-alpine.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
+import withAuth from '../middleware/withAuth';
 
 ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 
@@ -319,4 +320,4 @@ const addressFormatter = (params: any) => {
 
 }
 
-export default AutomobilePage
+export default withAuth(AutomobilePage);

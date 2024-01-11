@@ -41,6 +41,7 @@ import AddressForm from '@/app/components/AddressForm'
 import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT, GENDER, N_Relation, VEHICLE_KIND } from '@/json/enums'
 import { Checkbox, FormControlLabel, TextField as MyTextField   } from '@mui/material';
 import { TextareaAutosize } from '@mui/base/TextareaAutosize';
+import withAuth from '../../middleware/withAuth';
 
 
 
@@ -1183,4 +1184,4 @@ const onSubmit = async (formValues: AddClientType) => {
     }
     
     
-    export default AddClient;
+    export default withAuth(AddClient);

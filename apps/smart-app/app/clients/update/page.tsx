@@ -46,6 +46,7 @@ import { Checkbox, FormControlLabel, TextField as MyTextField, TextareaAutosize 
 import { useRouter } from 'next/navigation';
 import { FUEL_TYPE, GENDER, OWNER_TYPE, VEHICLE_KIND , MARITAL_STATUS, N_Relation, PROSPECT, INSURANCE_TYPE } from '@/json/enums'
 import AddressForm from '@/app/components/AddressForm';
+import withAuth from '../../middleware/withAuth';
 
 const UpdateClient:React.FC = () => {
    
@@ -1239,4 +1240,4 @@ const UpdateClient:React.FC = () => {
 }
 
 
-export default UpdateClient;
+export default withAuth(UpdateClient);

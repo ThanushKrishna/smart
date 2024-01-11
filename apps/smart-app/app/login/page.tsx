@@ -4,6 +4,7 @@ import { Button, TextField, Typography, Container } from '@mui/material';
 import { useRouter } from 'next/navigation'
 import { LOGIN } from '../../graphql/queries'
 import { useQuery  } from '@apollo/client';
+import { setToken } from '../../utils/auth';
 
 const LoginPage: React.FC = () => {
 
@@ -32,6 +33,7 @@ const LoginPage: React.FC = () => {
     const token = gLoginStatus && gLoginStatus?.login?.token  || null;
     console.log(token);
     if(token) {     
+      setToken(token); 
       router.push('/dashboard');
     }
     else{
