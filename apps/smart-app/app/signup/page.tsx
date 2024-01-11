@@ -4,9 +4,13 @@ import { useMutation } from '@apollo/client';
 import { Button, TextField, Typography, Container } from '@mui/material';
 import { SIGNUP } from '../../graphql/queries'
 import { setToken } from '../../utils/auth';
+import { useRouter } from 'next/navigation'
 
 const SignupPage: React.FC = () => {
+
+  const router = useRouter();
   const [createUser] = useMutation(SIGNUP);
+  const[isPasswordMatch, setPasswordMatch] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -15,7 +19,8 @@ const SignupPage: React.FC = () => {
     mobile: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {   
+    setPasswordMatch(false) ;
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -25,6 +30,7 @@ const SignupPage: React.FC = () => {
     const [firstname, lastname] = formData.fullName.split(' ');
 
     if (formData.password !== formData.confirmPassword) {
+      setPasswordMatch(true)
       console.error("Passwords don't match");
       return;
     }
@@ -46,15 +52,12 @@ const SignupPage: React.FC = () => {
       const EmailId = data.signUp.emailid;
       const UserID = data.signUp.userid;
       const token = data.signUp.token;
-
-//      Set the authentication token in cookies
-//      document.cookie = `authToken=${token}; path=/`;
-        setToken(token); 
+      setToken(token); 
 
         console.log(EmailId, UserID);
         console.log("NewToken: " + token);
       
-      window.location.href = '/dashboard';
+        router.push('/dashboard');
     } catch (error:any) {
       console.error('Error creating user:', error.message!);
     }
@@ -112,6 +115,7 @@ const SignupPage: React.FC = () => {
           required
           onChange={handleChange}
         />
+        {isPasswordMatch && <p>Password doesn't match</p>}
         <Button type="submit" variant="contained" color="primary">
           Submit
         </Button>

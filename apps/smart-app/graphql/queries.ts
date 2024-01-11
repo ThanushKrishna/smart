@@ -188,6 +188,17 @@ mutation SignUp($input: signUpInput!) {
 }
 `;
 
+export const LOGIN = gql`
+query Login($input1: String!, $input2: String!) {
+  login(input1: $input1, input2: $input2) {
+    userid
+    emailid
+    token
+  }
+}
+`;
+
+
 export const GET_APP_USERS_NOTES = gql`
     query Query($input: String!) {
       getNotesForUser(input: $input)

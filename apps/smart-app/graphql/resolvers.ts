@@ -1274,7 +1274,67 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       }
     },
 
+    login:async (parent: any, args: any, context: Context) => {
+      console.log("this is login block");         
+      
+      const secretKey = process.env.SECRET_KEY || 'default_secret_key'; 
+
+      function generateToken(user: app_user) {          
+        const token = jwt.sign(
+          {
+            userid: user.userid,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            emailid: user.emailid,
+          },
+          secretKey,           
+        );
+      
+        return token;
+      }
+      
+      try {        
+
+         const user = await context.prisma.app_user.findUnique({
+          where: {            
+            emailid: args.input1
+          },
+        }) 
+		
+        if (!user) {
+          throw new Error("User not found");
+        }
+
+        console.log(user);
+		
+        const passwordMatch = await bcrypt.compare(args.input2, user.password);
+
+
+        if (!passwordMatch) {
+          throw new Error("Incorrect password");
+        }
+
+        const token = generateToken(user);
+
+        const result = {
+                        userid: user.userid,
+                        emailid:user.emailid,
+                        token: token
+                      }
+
+        setToken(token);                         
+        return result;  
+            
+
+      } catch (error) {
+        console.error('Error Login user:', error);
+      }   
+           
+
+    },      
+
   },
+
 
 
   Mutation: {

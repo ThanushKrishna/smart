@@ -370,6 +370,7 @@ type REFERRED_BY {
 type Query {
     user_data: [user_data]    
     app_user: [app_user]
+    login(input1: String!, input2: String!): AuthPayload
     getNotesForUser(input: String!) : String
     CheckvehicleNoUniqueness(vechicle_id: String!): Boolean
     user_data_byid(vechicle_id: String!): user_data
