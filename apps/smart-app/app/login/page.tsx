@@ -41,19 +41,32 @@ const LoginPage: React.FC = () => {
     }
   };
 
+  const formStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  };
+
+  const fieldStyle: React.CSSProperties = {
+    width: '50%',
+    marginBottom: '1rem',
+  };
+
   return (
     <Container>
       <Typography variant="h3" align="center" gutterBottom>
         Login
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField  name="email" label="Email" fullWidth margin="normal" type="email" required onChange={handleChange}/>
-        <TextField  name="password" label="Password" fullWidth margin="normal" type="password" required onChange={handleChange}/>
+      <div  style={formStyle} >
+      <form onSubmit={handleSubmit} style={fieldStyle}>
+        <TextField  name="email" label="Email" margin="normal" fullWidth type="email" required onChange={handleChange}/>
+        <TextField  name="password" label="Password"  margin="normal" fullWidth type="password" required onChange={handleChange}/>
         {isSubmitted && <p>Credentails are not Valid</p>}
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" variant="contained" fullWidth color="primary">
           Submit
         </Button>
       </form>
+      </div>
     </Container>
   );
 };

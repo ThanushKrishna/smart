@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { Button, TextField, Typography, Container } from '@mui/material';
+import { Button, TextField, Typography, Container, Box } from '@mui/material';
 import { SIGNUP } from '../../graphql/queries'
 import { setToken } from '../../utils/auth';
 import { useRouter } from 'next/navigation'
@@ -63,63 +63,74 @@ const SignupPage: React.FC = () => {
     }
   };
 
+  const formStyle: React.CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  };
+
+  const fieldStyle: React.CSSProperties = {
+    width: '50%',
+    marginBottom: '1rem',
+  };
+
   return (
     <Container>
       <Typography variant="h3" align="center" gutterBottom>
         Sign Up
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          name="fullName"
-          label="Full Name"
-          fullWidth
-          margin="normal"
-          required
-          onChange={handleChange}
-        />
-        <TextField
-          name="email"
-          label="Email"
-          fullWidth
-          margin="normal"
-          type="email"
-          required
-          onChange={handleChange}
-        />
-
-        <TextField
-          name="mobile"
-          label="Mobile Number"
-          fullWidth
-          margin="normal"
-          type="text"
-          required
-          onChange={handleChange}
-        />
-
-        <TextField
-          name="password"
-          label="Password"
-          fullWidth
-          margin="normal"
-          type="password"
-          required
-          onChange={handleChange}
-        />
-        <TextField
-          name="confirmPassword"
-          label="Confirm Password"
-          fullWidth
-          margin="normal"
-          type="password"
-          required
-          onChange={handleChange}
-        />
-        {isPasswordMatch && <p>Password doesn't match</p>}
-        <Button type="submit" variant="contained" color="primary">
-          Submit
-        </Button>
-      </form>
+      <div style={formStyle}>
+        <form onSubmit={handleSubmit} style={fieldStyle}>
+          <TextField
+            name="fullName"
+            label="Full Name"
+            margin="normal"
+            required
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
+            name="email"
+            label="Email"
+            margin="normal"
+            type="email"
+            required
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
+            name="mobile"
+            label="Mobile Number"
+            margin="normal"
+            type="text"
+            required
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
+            name="password"
+            label="Password"
+            margin="normal"
+            type="password"
+            required
+            onChange={handleChange}
+            fullWidth
+          />
+          <TextField
+            name="confirmPassword"
+            label="Confirm Password"
+            margin="normal"
+            type="password"
+            required
+            onChange={handleChange}
+            fullWidth
+          />
+          {isPasswordMatch && <p>Password doesn't match</p>}
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Submit
+          </Button>
+        </form>
+      </div>
     </Container>
   );
 };
