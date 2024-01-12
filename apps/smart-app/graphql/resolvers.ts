@@ -1342,7 +1342,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     signUp: async (parent: any, args: any, context: Context) => {
       console.log("this is SignUp block");         
       
-      const secretKey = process.env.SECRET_KEY || 'default_secret_key'; 
+      const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY || 'default_secret_key'; 
 
       function generateToken(userCreated: app_user) {          
         const token = jwt.sign(

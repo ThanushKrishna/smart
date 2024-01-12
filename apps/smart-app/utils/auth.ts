@@ -10,18 +10,22 @@ export const setToken = (token: string) => {
 export const removeToken = () => Cookies.remove('authToken');
 
 export function getUserFromCookie() {
-  const token = Cookies.get('authToken');
-  const secretKey = process.env.SECRET_KEY || 'default_secret_key'; 
+  
+  const token = getToken();
+  const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY || 'default_secret_key';
+  // console.log("TOKEN: " + token);
+  // console.log("SECRETKEY: " + secretKey);
 
-  if (token) {
+  if (token && secretKey) {
     try {
-      const decodedToken = jwt.verify(token, secretKey);
-      return decodedToken;
-    } catch (error) {
-      // Token verification failed
+      const decoded = jwt.decode(token);
+      //const decoded = jwt.verify(token, secretKey);      
+      return decoded;
+    } catch (error) {      
       return null;
     }
+  } else {
+    console.error('Token or secretKey is missing.');
+    return null;
   }
-
-  return null;
 }

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useForm,  FieldError  } from 'react-hook-form'
 import {  Button } from '@radix-ui/themes'
 import { AddClientType } from '@/typings';
@@ -42,11 +42,22 @@ import { OWNER_TYPE, FUEL_TYPE, MARITAL_STATUS, INSURANCE_TYPE, PROSPECT, GENDER
 import { Checkbox, FormControlLabel, TextField as MyTextField   } from '@mui/material';
 import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import withAuth from '../../middleware/withAuth';
+import { getUserFromCookie } from '../../../utils/auth';
 
 
 
 
 const AddClient:React.FC = () => {
+     
+    let userId="";
+    useEffect(() => {        
+        const decodedToken = getUserFromCookie();        
+        if(decodedToken  && typeof decodedToken === 'object' ){
+            //console.log('userid from token:' +  decodedToken.userid);
+            userId = decodedToken.userid;
+        }
+      }, []);
+
 
 const router = useRouter();
 const[addclient, { data:clientdata, error:addclienterror } ] = useMutation(ADD_CLIENT);
@@ -168,7 +179,7 @@ const onSubmit = async (formValues: AddClientType) => {
         setisSubmitted(true)                     
 
         const result = {
-            data_owner_id: "65420cde2e5ffc26bed53918",
+            data_owner_id: userId,
             Vehicle_No: formValues?.Vehicle_No || undefined,                        
             RC_No: formValues?.RC_No || undefined,
             Registered_Date: (formValues?.Registered_Date ? new Date(formValues?.Registered_Date).getTime() + 60 * 60 *1000 * 5.5 : null),
