@@ -49,12 +49,12 @@ import { getUserFromCookie } from '../../../utils/auth';
 
 const AddClient:React.FC = () => {
      
-    let userId="";
+    const [userId, setUserId] = useState('');
     useEffect(() => {        
         const decodedToken = getUserFromCookie();        
         if(decodedToken  && typeof decodedToken === 'object' ){
             //console.log('userid from token:' +  decodedToken.userid);
-            userId = decodedToken.userid;
+            setUserId(decodedToken.userid);
         }
       }, []);
 
