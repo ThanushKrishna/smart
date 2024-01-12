@@ -62,21 +62,21 @@ const UpdateClient:React.FC = () => {
 
             const router = useRouter();                      
             const [isSubmitted, setisSubmitted] = useState(false);
-            const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.Vehicle_Reg_Doc || '');
-            const [isLttChecked, setLttChecked] = useState(false);
-            const [lttValue, setlttValue] = useState<number | undefined>();
-            const [isCorporateUpdate, setCorporateUpdate ] = useState<Boolean>(false);
-            const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.OD_Policy_Doc || '');
+            const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.Vehicle_Reg_Doc || '');        
             const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.TP_Policy_Doc || '');
-            const [isPolicyChecked, setPolicyChecked] = useState(false);
+            const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.OD_Policy_Doc || '');
             const [panfile, setpanfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.Pan_doc || '');
             const [adharfile, setadharfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.Adhar_doc || '');
             const [GstCerfile, setGstCerfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.GST_Cer_Doc || '');
+            const [photoLinks, setphotoLinks] = useState<string | null>(gusrdatabyid?.user_data_byid?.photo_links || '');
+            const [NomineeLinks, setNomineeLinks] = useState<string | null>(gusrdatabyid?.user_data_byid?.Nominee_Doc || '');            
+            const [isLttChecked, setLttChecked] = useState(false);
+            const [lttValue, setlttValue] = useState<number | undefined>();
+            const [isCorporateUpdate, setCorporateUpdate ] = useState<Boolean>(false);            
+            const [isPolicyChecked, setPolicyChecked] = useState(false);            
             const [isAddressChecked, setAddressChecked] = useState(false);            
             const [isNDChecked, setNDChecked] = useState(false);
-            const [NDValue, setNDValue] = useState<number | undefined>();
-            const [photoLinks, setphotoLinks] = useState<string | null>(gusrdatabyid?.user_data_byid?.photo_links || '');
-            const [NomineeLinks, setNomineeLinks] = useState<string | null>(gusrdatabyid?.user_data_byid?.Nominee_Doc || '');
+            const [NDValue, setNDValue] = useState<number | undefined>();            
             
             const handlePolicyCheckBox = (event: any) => {
                 setPolicyChecked(event.target.checked);
@@ -259,10 +259,18 @@ const UpdateClient:React.FC = () => {
 
         const handleVehicleNoSubmit = async () => {
             if(vehicleno){
-               //console.log("This is handleVehicleNoSubmit");
-               //console.log(vehicleno);                                                   
+               //console.log("This is handleVehicleNoSubmit");                                                                 
                setfirstpage(true);
                setVehicleNoprovided(true);
+               setVehRegDocfile(gusrdatabyid?.user_data_byid?.Vehicle_Reg_Doc || '');
+               setTpPolicyDocfile(gusrdatabyid?.user_data_byid?.TP_Policy_Doc || '')
+               setOdPolicydocfile(gusrdatabyid?.user_data_byid?.OD_Policy_Doc || '')
+               setpanfile(gusrdatabyid?.user_data_byid?.Pan_doc || '')
+               setadharfile(gusrdatabyid?.user_data_byid?.Adhar_doc || '')
+               setGstCerfile(gusrdatabyid?.user_data_byid?.GST_Cer_Doc || '')
+               setphotoLinks(gusrdatabyid?.user_data_byid?.photo_links || '')
+               setNomineeLinks(gusrdatabyid?.user_data_byid?.Nominee_Doc || '')
+//               console.log("VehRegDocfile: " + VehRegDocfile); 
             }
             else {
                 setfirstpage(true);

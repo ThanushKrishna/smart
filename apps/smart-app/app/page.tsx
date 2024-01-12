@@ -7,18 +7,7 @@ const LandingPage: React.FC = () => {
     <Container>
       <Typography variant="h1" align="center" gutterBottom>
         Welcome to Smart Leads
-      </Typography>
-
-      <Link href="/signup" passHref>
-        <Button variant="contained" color="primary" style={{ marginLeft: '10px' }} >
-          Sign Up
-        </Button>
-      </Link>
-      <Link href="/login" passHref>
-        <Button variant="outlined" color="primary" style={{ marginLeft: '10px' }}>
-          Login
-        </Button>
-      </Link>
+      </Typography>    
     </Container>
   );
 };
