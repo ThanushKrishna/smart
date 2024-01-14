@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_APP_USERS_NOTES, ADD_APP_USERS_NOTES } from '@/graphql/queries' 
 import {Modal, Box } from '@mui/material';
 import Textarea from '@mui/joy/Textarea';
+import { getUserFromCookie } from '../../utils/auth';
 
 
 const style = {
@@ -16,11 +17,22 @@ const style = {
   };
 
 const TiptapEditor: React.FC = () => {
+
+  const [userId, setUserId] = useState('');
+  useEffect(() => {        
+      const decodedToken = getUserFromCookie();        
+      if(decodedToken  && typeof decodedToken === 'object' ){
+          //console.log('userid from token:' +  decodedToken.userid);
+          setUserId(decodedToken.userid);
+      }
+    }, []);
+
   
   const[addNotes, { data:notesdata, error:addclienterror } ] = useMutation(ADD_APP_USERS_NOTES);
 
   const { loading: getNotesLoad, error:getNoteserror, data:getNotes } = useQuery(GET_APP_USERS_NOTES, {
-    variables: { input: "6562047e649b76ef6a583b8d" },           
+    variables: { input: userId },    
+    skip: !userId,       
     });
 
   const [content, setContent] = useState<string>();
@@ -28,7 +40,6 @@ const TiptapEditor: React.FC = () => {
   
   useEffect(() => {
     if (!getNotesLoad && !getNoteserror && getNotes) {
-      // Assuming your data structure has a field called "notes"
       setContent(getNotes.getNotesForUser || 'Not Set during Load');
     }
   }, [getNotesLoad, getNoteserror, getNotes]);
@@ -37,7 +48,7 @@ const TiptapEditor: React.FC = () => {
 
   const onChange = (event:any) => {
     setContent(event.target.value);    
-    addNotes( { variables: { input1:"6562047e649b76ef6a583b8d", input2: event.target.value}, })
+    addNotes( { variables: { input1:userId, input2: event.target.value}, })
   }
 
   const handleOpen = () => {

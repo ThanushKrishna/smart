@@ -13,19 +13,36 @@ import { CsvExportModule } from '@ag-grid-community/csv-export';
 import { Button } from '@radix-ui/themes'
 import Link from 'next/link';
 import { useQuery } from '@apollo/client';
-import { GET_USER_DATA } from '@/graphql/queries'
+import { GET_USER_DATA_BYUSERID } from '@/graphql/queries'
 import  { AddClientType, tAddress }  from '@/typings';
 import 'ag-grid-community/styles/ag-grid.css';
 //import 'ag-grid-community/styles/ag-theme-alpine.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import withAuth from '../middleware/withAuth';
+import { getUserFromCookie } from '../../utils/auth';
 
 ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 
 const AutomobilePage = () => {
+
+  const [userId, setUserId] = useState('');
+  useEffect(() => {        
+      const decodedToken = getUserFromCookie();        
+      if(decodedToken  && typeof decodedToken === 'object' ){
+          //console.log('userid from token:' +  decodedToken.userid);
+          setUserId(decodedToken.userid);
+      }
+    }, []);
+
+
+
   const gridApi = useRef<AgGridReact | null>(null);
   const gridRef = useRef<AgGridReact>(null);
-  const { loading, error, data, refetch } = useQuery<{ user_data: AddClientType[] }>(GET_USER_DATA)
+  const { loading, error, data, refetch } = useQuery<{ user_data_byuserid: AddClientType[] }>(GET_USER_DATA_BYUSERID, {        
+    variables: { data_owner_id: userId},
+    skip: !userId, // Skip the query if vehicleno is not provided            
+    });
+
   const containerStyle =  { width: '100%', height: '100%' };
   
  // useEffect to trigger the initial data fetch
@@ -303,7 +320,7 @@ const addressFormatter = (params: any) => {
         >          
           <AgGridReact<AddClientType>
             ref={gridRef}
-            rowData={data.user_data}
+            rowData={data.user_data_byuserid}
             columnDefs={columnDefs}
             defaultColDef={defaultColDef}            
             rowGroupPanelShow={'always'}

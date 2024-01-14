@@ -90,6 +90,23 @@ export const resolvers = {
       }
     },
 
+
+    user_data_byuserid: async (parent: any, args: any, context: Context) => {
+      try {
+        return await context.prisma.user_data.findMany({
+          where: {
+            data_owner_id: args.data_owner_id
+          },          
+          orderBy: {
+            createdAt: 'desc' // 'desc' for descending order (most recent first)
+          }
+        });
+      } catch (err) {
+        //console.log(err);
+      }
+    },
+
+
     user_data_byid: async (parent: any, args: any, context: Context) => {
       //console.log("this is user_data_byid block");  
       try{
