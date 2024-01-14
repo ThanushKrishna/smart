@@ -814,6 +814,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             Insurance_dueDate: args.input
               ? {
                   lt: args.input,
@@ -834,6 +835,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             Insurance_dueDate: args.input1 && args.input2
               ? {
                   gte: args.input1,
@@ -855,6 +857,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             Insurance_dueDate: args.input
               ? {
                   gte: args.input,
@@ -892,6 +895,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             TP_dueDate: args.input
               ? {
                   lt: args.input,
@@ -912,6 +916,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             TP_dueDate: args.input1 && args.input2
               ? {
                   gte: args.input1,
@@ -933,6 +938,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             TP_dueDate: args.input
               ? {
                   gte: args.input,
@@ -970,6 +976,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             Emission_dueDate: args.input
               ? {
                   lt: args.input,
@@ -990,6 +997,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             Emission_dueDate: args.input1 && args.input2
               ? {
                   gte: args.input1,
@@ -1011,6 +1019,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             Emission_dueDate: args.input
               ? {
                   gte: args.input,
@@ -1030,7 +1039,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     user_data_NaEmissionDueDate: async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
-          where: {
+          where: {            
             Emission_dueDate: null,
             data_owner_id: args.input.data_owner_id,
           },
@@ -1047,6 +1056,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             tax_due_Date: args.input
               ? {
                   lt: args.input,
@@ -1067,6 +1077,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             tax_due_Date: args.input1 && args.input2
               ? {
                   gte: args.input1,
@@ -1088,6 +1099,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             tax_due_Date: args.input
               ? {
                   gte: args.input,
@@ -1124,6 +1136,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             FC_due_Date: args.input
               ? {
                   lt: args.input,
@@ -1144,6 +1157,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             FC_due_Date: args.input1 && args.input2
               ? {
                   gte: args.input1,
@@ -1165,6 +1179,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             FC_due_Date: args.input
               ? {
                   gte: args.input,
@@ -1202,6 +1217,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             Permit_dueDate: args.input
               ? {
                   lt: args.input,
@@ -1222,6 +1238,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             Permit_dueDate: args.input1 && args.input2
               ? {
                   gte: args.input1,
@@ -1243,6 +1260,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.user_data.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             Permit_dueDate: args.input
               ? {
                   gte: args.input,
@@ -1251,6 +1269,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
               : undefined,
           },
           orderBy: {
+            data_owner_id: args.data_owner_id,
             Permit_dueDate: 'asc',
           },
         });

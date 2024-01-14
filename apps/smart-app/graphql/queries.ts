@@ -736,10 +736,15 @@ export const GET_REFERRED_BY_BY_VALUE = gql`
 `;
 
 // Dashboard Queries
+// Dashboard Queries
+// Dashboard Queries
+// Dashboard Queries
+// Dashboard Queries
+
 
 export const GET_USER_DATA_BEFORE_INSURANCE_DUE_DATE = gql`
-query User_data_beforeInsuranceDueDate($input: Date!) {
-  user_data_beforeInsuranceDueDate(input: $input) {
+query User_data_beforeInsuranceDueDate($data_owner_id: String!, $input: Date!) {
+  user_data_beforeInsuranceDueDate(data_owner_id: $data_owner_id, input: $input) {
     id
     data_owner_id
     Vehicle_No
@@ -834,8 +839,8 @@ query User_data_beforeInsuranceDueDate($input: Date!) {
 
 
 export const GET_USER_DATA_BETWEEN_INSURANCE_DUE_DATES = gql`
-query User_data_betweenInsuranceDueDates($input1: Date!, $input2: Date!) {
-  user_data_betweenInsuranceDueDates(input1: $input1, input2: $input2) {
+query User_data_betweenInsuranceDueDates($data_owner_id: String!, $input1: Date!, $input2: Date!) {
+  user_data_betweenInsuranceDueDates(data_owner_id: $data_owner_id, input1: $input1, input2: $input2) {
     id
     data_owner_id
     Vehicle_No
@@ -929,8 +934,8 @@ query User_data_betweenInsuranceDueDates($input1: Date!, $input2: Date!) {
 
 
 export const GET_USER_DATA_AFTER_INSURANCE_DUE_DATE = gql`
-query User_data_afterInsuranceDueDate($input: Date!) {
-  user_data_afterInsuranceDueDate(input: $input) {
+query User_data_afterInsuranceDueDate($data_owner_id: String!, $input: Date!) {
+  user_data_afterInsuranceDueDate(data_owner_id: $data_owner_id, input: $input) {
     id
     data_owner_id
     Vehicle_No
@@ -1120,8 +1125,8 @@ query User_data_NaInsuranceDueDate($input: String!) {
 
 // Query for TP Insurance due date before a specific date
 export const GET_USER_DATA_BEFORE_TP_INSURANCE_DUE_DATE = gql`
-  query User_data_beforeTPInsuranceDueDate($input: Date!) {
-  user_data_beforeTPInsuranceDueDate(input: $input) {
+  query User_data_beforeTPInsuranceDueDate($data_owner_id: String!, $input: Date!) {
+  user_data_beforeTPInsuranceDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -1215,8 +1220,8 @@ export const GET_USER_DATA_BEFORE_TP_INSURANCE_DUE_DATE = gql`
 
 // Query for TP Insurance due dates between two specific dates
 export const GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES = gql`
-  query User_data_betweenTPInsuranceDueDates($input1: Date!, $input2: Date!) {
-    user_data_betweenTPInsuranceDueDates(input1: $input1, input2: $input2) {
+  query User_data_betweenTPInsuranceDueDates($data_owner_id: String!, $input1: Date!, $input2: Date!) {
+    user_data_betweenTPInsuranceDueDates(data_owner_id: $data_owner_id, input1: $input1, input2: $input2) {
       id
     data_owner_id
     Vehicle_No
@@ -1310,8 +1315,8 @@ export const GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES = gql`
 
 // Query for TP Insurance due date after a specific date
 export const GET_USER_DATA_AFTER_TP_INSURANCE_DUE_DATE = gql`
-  query User_data_afterTPInsuranceDueDate($input: Date!) {
-    user_data_afterTPInsuranceDueDate(input: $input) {
+  query User_data_afterTPInsuranceDueDate($data_owner_id: String!, $input: Date!) {
+    user_data_afterTPInsuranceDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -1501,8 +1506,8 @@ export const GET_USER_DATA_NA_TP_INSURANCE_DUE_DATE = gql`
 
 // Query for Emission due date before a specific date
 export const GET_USER_DATA_BEFORE_EMISSION_DUE_DATE = gql`
-  query User_data_beforeEmissionDueDate($input: Date!) {
-    user_data_beforeEmissionDueDate(input: $input) {
+  query User_data_beforeEmissionDueDate($data_owner_id: String!, $input: Date!) {
+    user_data_beforeEmissionDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -1596,8 +1601,8 @@ export const GET_USER_DATA_BEFORE_EMISSION_DUE_DATE = gql`
 
 // Query for Emission due dates between two specific dates
 export const GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES = gql`
-  query User_data_betweenEmissionDueDates($input1: Date!, $input2: Date!) {
-    user_data_betweenEmissionDueDates(input1: $input1, input2: $input2) {
+  query User_data_betweenEmissionDueDates($data_owner_id: String!, $input1: Date!, $input2: Date!) {
+    user_data_betweenEmissionDueDates(data_owner_id: $data_owner_id, input1: $input1, input2: $input2) {
       id
     data_owner_id
     Vehicle_No
@@ -1689,10 +1694,14 @@ export const GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES = gql`
   }
 `;
 
+// export const GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES = gql`
+//   query User_data_betweenEmissionDueDates($data_owner_id: String!, $input1: Date!, $input2: Date!) {
+//     user_data_betweenEmissionDueDates(data_owner_id: $data_owner_id, input1: $input1, input2: $input2) {
+
 // Query for Emission due date after a specific date
 export const GET_USER_DATA_AFTER_EMISSION_DUE_DATE = gql`
-  query User_data_afterEmissionDueDate($input: Date!) {
-    user_data_afterEmissionDueDate(input: $input) {
+  query User_data_afterEmissionDueDate($data_owner_id: String!, $input: Date!) {
+    user_data_afterEmissionDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -1881,8 +1890,8 @@ export const GET_USER_DATA_NA_EMISSION_DUE_DATE = gql`
 
 // Query for Tax due date before a specific date
 export const GET_USER_DATA_BEFORE_TAX_DUE_DATE = gql`
-  query User_data_beforeTaxDueDate($input: Date!) {
-    user_data_beforeTaxDueDate(input: $input) {
+  query User_data_beforeTaxDueDate($data_owner_id: String!, $input: Date!) {
+    user_data_beforeTaxDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -1976,8 +1985,8 @@ export const GET_USER_DATA_BEFORE_TAX_DUE_DATE = gql`
 
 // Query for Tax due dates between two specific dates
 export const GET_USER_DATA_BETWEEN_TAX_DUE_DATES = gql`
-  query User_data_betweenTaxDueDates($input1: Date!, $input2: Date!) {
-    user_data_betweenTaxDueDates(input1: $input1, input2: $input2) {
+  query User_data_betweenTaxDueDates($data_owner_id: String!, $input1: Date!, $input2: Date!) {
+    user_data_betweenTaxDueDates(data_owner_id: $data_owner_id, input1: $input1, input2: $input2) {
       id
     data_owner_id
     Vehicle_No
@@ -2071,8 +2080,8 @@ export const GET_USER_DATA_BETWEEN_TAX_DUE_DATES = gql`
 
 // Query for Tax due date after a specific date
 export const GET_USER_DATA_AFTER_TAX_DUE_DATE = gql`
-  query User_data_afterTaxDueDate($input: Date!) {
-    user_data_afterTaxDueDate(input: $input) {
+  query User_data_afterTaxDueDate($data_owner_id: String!, $input: Date!) {
+    user_data_afterTaxDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -2261,8 +2270,8 @@ export const GET_USER_DATA_NA_TAX_DUE_DATE = gql`
 
 // Query for FC due date before a specific date
 export const GET_USER_DATA_BEFORE_FC_DUE_DATE = gql`
-  query User_data_beforeFCDueDate($input: Date!) {
-    user_data_beforeFCDueDate(input: $input) {
+  query User_data_beforeFCDueDate($data_owner_id: String!, $input: Date!) {
+    user_data_beforeFCDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -2356,8 +2365,8 @@ export const GET_USER_DATA_BEFORE_FC_DUE_DATE = gql`
 
 // Query for FC due dates between two specific dates
 export const GET_USER_DATA_BETWEEN_FC_DUE_DATES = gql`
-  query User_data_betweenFCDueDates($input1: Date!, $input2: Date!) {
-    user_data_betweenFCDueDates(input1: $input1, input2: $input2) {
+  query User_data_betweenFCDueDates($data_owner_id: String!, $input1: Date!, $input2: Date!) {
+    user_data_betweenFCDueDates(data_owner_id: $data_owner_id, input1: $input1, input2: $input2) {
       id
     data_owner_id
     Vehicle_No
@@ -2451,8 +2460,8 @@ export const GET_USER_DATA_BETWEEN_FC_DUE_DATES = gql`
 
 // Query for FC due date after a specific date
 export const GET_USER_DATA_AFTER_FC_DUE_DATE = gql`
-  query User_data_afterFCDueDate($input: Date!) {
-    user_data_afterFCDueDate(input: $input) {
+  query User_data_afterFCDueDate($data_owner_id: String!, $input: Date!) {
+    user_data_afterFCDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -2642,8 +2651,8 @@ export const GET_USER_DATA_NA_FC_DUE_DATE = gql`
 
 // Query for Permit due date before a specific date
 export const GET_USER_DATA_BEFORE_PERMIT_DUE_DATE = gql`
-  query User_data_beforePermitDueDate($input: Date!) {
-    user_data_beforePermitDueDate(input: $input) {
+  query User_data_beforePermitDueDate($data_owner_id: String!, $input: Date!) {
+    user_data_beforePermitDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -2737,8 +2746,8 @@ export const GET_USER_DATA_BEFORE_PERMIT_DUE_DATE = gql`
 
 // Query for Permit due dates between two specific dates
 export const GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES = gql`
-  query User_data_betweenPermitDueDates($input1: Date!, $input2: Date!) {
-    user_data_betweenPermitDueDates(input1: $input1, input2: $input2) {
+  query User_data_betweenPermitDueDates($data_owner_id: String!, $input1: Date!, $input2: Date!) {
+    user_data_betweenPermitDueDates(data_owner_id: $data_owner_id, input1: $input1, input2: $input2) {
       id
     data_owner_id
     Vehicle_No
@@ -2832,8 +2841,8 @@ export const GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES = gql`
 
 // Query for Permit due date after a specific date
 export const GET_USER_DATA_AFTER_PERMIT_DUE_DATE = gql`
-  query User_data_afterPermitDueDate($input: Date!) {
-    user_data_afterPermitDueDate(input: $input) {
+  query User_data_afterPermitDueDate($data_owner_id: String!, $input: Date!) {
+    user_data_afterPermitDueDate(data_owner_id: $data_owner_id, input: $input) {
       id
     data_owner_id
     Vehicle_No
@@ -2927,8 +2936,8 @@ export const GET_USER_DATA_AFTER_PERMIT_DUE_DATE = gql`
 
 // Query for Permit due date with null value
 export const GET_USER_DATA_NA_PERMIT_DUE_DATE = gql`
-  query User_data_NaPermitDueDate($input: String!) {
-    user_data_NaPermitDueDate(input: $input) {
+  query User_data_NaPermitDueDate( $input: String!) {
+    user_data_NaPermitDueDate( input: $input) {
       id
     data_owner_id
     Vehicle_No

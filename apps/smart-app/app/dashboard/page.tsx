@@ -11,8 +11,19 @@ import { GET_USER_DATA_BEFORE_TAX_DUE_DATE, GET_USER_DATA_AFTER_TAX_DUE_DATE, GE
 import { GET_USER_DATA_BEFORE_FC_DUE_DATE, GET_USER_DATA_AFTER_FC_DUE_DATE, GET_USER_DATA_BETWEEN_FC_DUE_DATES, GET_USER_DATA_NA_FC_DUE_DATE } from '../../graphql/queries';
 import { GET_USER_DATA_BEFORE_PERMIT_DUE_DATE, GET_USER_DATA_AFTER_PERMIT_DUE_DATE, GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES, GET_USER_DATA_NA_PERMIT_DUE_DATE } from '../../graphql/queries';
 import withAuth from '../middleware/withAuth';
+import { getUserFromCookie } from '../../utils/auth';
+
 
 const DashboardPage: React.FC = () => {
+
+  const [userId, setUserId] = useState('');
+  useEffect(() => {        
+      const decodedToken = getUserFromCookie();        
+      if(decodedToken  && typeof decodedToken === 'object' ){
+          //console.log('userid from token:' +  decodedToken.userid);
+          setUserId(decodedToken.userid);
+      }
+    }, []);
 
   const [activeTab, setActiveTab] = useState<string>('0');
   const [activeOdInssuranceTab, setActiveOdInssurancTab] = useState<string>('0');
@@ -48,33 +59,33 @@ const DashboardPage: React.FC = () => {
   };
 
     const { loading: overdueLoading, data: overdueData, error:overdueDataError } = useQuery(GET_USER_DATA_BEFORE_INSURANCE_DUE_DATE, {
-    variables: { input: utcDate },
+    variables: { data_owner_id: userId, input: utcDate },
     skip: !utcDate,
   });
     const { loading: todayLoading, data: todayData, error: todayDataError } = useQuery(GET_USER_DATA_BETWEEN_INSURANCE_DUE_DATES, {
-      variables: { input1: utcDate, input2: utcDate+1  },
+      variables: { data_owner_id: userId, input1: utcDate, input2: utcDate+1  },
       skip: !utcDate,
     });
     const { loading: tomorrowDueLoading, data: tomorrowDuedata, error: tomorrowDueError } = useQuery(GET_USER_DATA_BETWEEN_INSURANCE_DUE_DATES, {
-      variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate  + (24 * 60 * 60 * 1000) + 1 },
+      variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate  + (24 * 60 * 60 * 1000) + 1 },
       skip: !utcDate,
     });
     const { loading: weekDueLoading, data: weekDuedata, error: weekDueDueError } = useQuery(GET_USER_DATA_BETWEEN_INSURANCE_DUE_DATES, {
-      variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate  + (7 * 24 * 60 * 60 * 1000) + 1 },
+      variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate  + (7 * 24 * 60 * 60 * 1000) + 1 },
       skip: !utcDate,
     });
     const { loading: monthDueLoading, data: monthDuedata, error: monthDueError } = useQuery(GET_USER_DATA_BETWEEN_INSURANCE_DUE_DATES, {
-      variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate  + (30 * 24 * 60 * 60 * 1000) + 1 },
+      variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate  + (30 * 24 * 60 * 60 * 1000) + 1 },
       skip: !utcDate,
     });
 
     const { loading: dueafterMonthLoading, data: dueafterMonthData, error:dueafterMonthError } = useQuery(GET_USER_DATA_AFTER_INSURANCE_DUE_DATE, {
-      variables: { input: utcDate  + (30 * 24 * 60 * 60 * 1000) },
+      variables: { data_owner_id: userId, input: utcDate  + (30 * 24 * 60 * 60 * 1000) },
       skip: !utcDate,
     });
 
     const { loading: dueNALoading, data: dueNAData, error:dueNAError } = useQuery(GET_USER_DATA_NA_INSURANCE_DUE_DATE, {
-      variables: { input: "65420cde2e5ffc26bed53918" },      
+      variables: { input: userId },      
     });
     //{dueNALoading && console.log(dueNAData)}
   
@@ -88,12 +99,12 @@ const handletPInsuranceTabChange = (event: React.SyntheticEvent, newValue: strin
 };
 
 const { loading: tpOverdueLoading, data: tpOverdueData, error: tpOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_TP_INSURANCE_DUE_DATE, {
-  variables: { input: utcDate },
+  variables: { data_owner_id: userId, input: utcDate },
 });
 
 
 const { loading: tpTodayLoading, data: tpTodayData, error: tpTodayDataError } = useQuery(GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES, {
-  variables: { input1: utcDate, input2: utcDate + 1 },
+  variables: { data_owner_id: userId, input1: utcDate, input2: utcDate + 1 },
   skip: !utcDate,
 });
 
@@ -102,27 +113,27 @@ const { loading: tpTodayLoading, data: tpTodayData, error: tpTodayDataError } = 
 
 
 const { loading: tpTomorrowDueLoading, data: tpTomorrowDuedata, error: tpTomorrowDueError } = useQuery(GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: tpWeekDueLoading, data: tpWeekDuedata, error: tpWeekDueDueError } = useQuery(GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: tpMonthDueLoading, data: tpMonthDuedata, error: tpMonthDueError } = useQuery(GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: tpDueafterMonthLoading, data: tpDueafterMonthData, error: tpDueafterMonthError } = useQuery(GET_USER_DATA_AFTER_TP_INSURANCE_DUE_DATE, {
-  variables: { input: utcDate + (30 * 24 * 60 * 60 * 1000) },
+  variables: { data_owner_id: userId, input: utcDate + (30 * 24 * 60 * 60 * 1000) },
   skip: !utcDate,
 });
 
 const { loading: tpDueNALoading, data: tpDueNAData, error: tpDueNAError } = useQuery(GET_USER_DATA_NA_TP_INSURANCE_DUE_DATE, {
-  variables: { input: "65420cde2e5ffc26bed53918" },      
+  variables: { input: userId },      
 });
 
 
@@ -136,37 +147,37 @@ const handleEmissionTabChange = (event: React.SyntheticEvent, newValue: string) 
 };
 
 const { loading: emissionOverdueLoading, data: emissionOverdueData, error: emissionOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_EMISSION_DUE_DATE, {
-  variables: { input: utcDate },
+  variables: {data_owner_id: userId,  input: utcDate },
   skip: !utcDate,
 });
 
 const { loading: emissionTodayLoading, data: emissionTodayData, error: emissionTodayDataError } = useQuery(GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES, {
-  variables: { input1: utcDate, input2: utcDate + 1 },
+  variables: { data_owner_id: userId, input1: utcDate, input2: utcDate + 1 },
   skip: !utcDate,
 });
 
 const { loading: emissionTomorrowDueLoading, data: emissionTomorrowDuedata, error: emissionTomorrowDueError } = useQuery(GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: emissionWeekDueLoading, data: emissionWeekDuedata, error: emissionWeekDueDueError } = useQuery(GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: emissionMonthDueLoading, data: emissionMonthDuedata, error: emissionMonthDueError } = useQuery(GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: emissionDueafterMonthLoading, data: emissionDueafterMonthData, error: emissionDueafterMonthError } = useQuery(GET_USER_DATA_AFTER_EMISSION_DUE_DATE, {
-  variables: { input: utcDate + (30 * 24 * 60 * 60 * 1000) },
+  variables: { data_owner_id: userId, input: utcDate + (30 * 24 * 60 * 60 * 1000) },
   skip: !utcDate,
 });
 
 const { loading: emissionDueNALoading, data: emissionDueNAData, error: emissionDueNAError } = useQuery(GET_USER_DATA_NA_EMISSION_DUE_DATE, {
-  variables: { input: "65420cde2e5ffc26bed53918" },      
+  variables: { input: userId },      
 });
 //{emissionDueNALoading && console.log(emissionDueNAData)}
 
@@ -179,37 +190,37 @@ const handleTaxTabChange = (event: React.SyntheticEvent, newValue: string) => {
 };
 
 const { loading: taxOverdueLoading, data: taxOverdueData, error: taxOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_TAX_DUE_DATE, {
-  variables: { input: utcDate },
+  variables: { data_owner_id: userId, input: utcDate },
   skip: !utcDate,
 });
 
 const { loading: taxTodayLoading, data: taxTodayData, error: taxTodayDataError } = useQuery(GET_USER_DATA_BETWEEN_TAX_DUE_DATES, {
-  variables: { input1: utcDate, input2: utcDate + 1 },
+  variables: { data_owner_id: userId, input1: utcDate, input2: utcDate + 1 },
   skip: !utcDate,
 });
 
 const { loading: taxTomorrowDueLoading, data: taxTomorrowDuedata, error: taxTomorrowDueError } = useQuery(GET_USER_DATA_BETWEEN_TAX_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: taxWeekDueLoading, data: taxWeekDuedata, error: taxWeekDueDueError } = useQuery(GET_USER_DATA_BETWEEN_TAX_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: taxMonthDueLoading, data: taxMonthDuedata, error: taxMonthDueError } = useQuery(GET_USER_DATA_BETWEEN_TAX_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: taxDueafterMonthLoading, data: taxDueafterMonthData, error: taxDueafterMonthError } = useQuery(GET_USER_DATA_AFTER_TAX_DUE_DATE, {
-  variables: { input: utcDate + (30 * 24 * 60 * 60 * 1000) },
+  variables: {data_owner_id: userId,  input: utcDate + (30 * 24 * 60 * 60 * 1000) },
   skip: !utcDate,
 });
 
 const { loading: taxDueNALoading, data: taxDueNAData, error: taxDueNAError } = useQuery(GET_USER_DATA_NA_TAX_DUE_DATE, {
-  variables: { input: "65420cde2e5ffc26bed53918" },      
+  variables: { input: userId },      
 });
 //{taxDueNALoading && console.log(taxDueNAData)}
 
@@ -222,37 +233,37 @@ const handleFCTabChange = (event: React.SyntheticEvent, newValue: string) => {
 };
 
 const { loading: fcOverdueLoading, data: fcOverdueData, error: fcOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_FC_DUE_DATE, {
-  variables: { input: utcDate },
+  variables: { data_owner_id: userId, input: utcDate },
   skip: !utcDate,
 });
 
 const { loading: fcTodayLoading, data: fcTodayData, error: fcTodayDataError } = useQuery(GET_USER_DATA_BETWEEN_FC_DUE_DATES, {
-  variables: { input1: utcDate, input2: utcDate + 1 },
+  variables: { data_owner_id: userId, input1: utcDate, input2: utcDate + 1 },
   skip: !utcDate,
 });
 
 const { loading: fcTomorrowDueLoading, data: fcTomorrowDuedata, error: fcTomorrowDueError } = useQuery(GET_USER_DATA_BETWEEN_FC_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: fcWeekDueLoading, data: fcWeekDuedata, error: fcWeekDueDueError } = useQuery(GET_USER_DATA_BETWEEN_FC_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: fcMonthDueLoading, data: fcMonthDuedata, error: fcMonthDueError } = useQuery(GET_USER_DATA_BETWEEN_FC_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: fcDueafterMonthLoading, data: fcDueafterMonthData, error: fcDueafterMonthError } = useQuery(GET_USER_DATA_AFTER_FC_DUE_DATE, {
-  variables: { input: utcDate + (30 * 24 * 60 * 60 * 1000) },
+  variables: { data_owner_id: userId, input: utcDate + (30 * 24 * 60 * 60 * 1000) },
   skip: !utcDate,
 });
 
 const { loading: fcDueNALoading, data: fcDueNAData, error: fcDueNAError } = useQuery(GET_USER_DATA_NA_FC_DUE_DATE, {
-  variables: { input: "65420cde2e5ffc26bed53918" },      
+  variables: { input: userId },      
 });
 //{fcDueNALoading && console.log(fcDueNAData)}
 
@@ -266,37 +277,37 @@ const handlePermitTabChange = (event: React.SyntheticEvent, newValue: string) =>
 };
 
 const { loading: permitOverdueLoading, data: permitOverdueData, error: permitOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_PERMIT_DUE_DATE, {
-  variables: { input: utcDate },
+  variables: { data_owner_id: userId, input: utcDate },
   skip: !utcDate,
 });
 
 const { loading: permitTodayLoading, data: permitTodayData, error: permitTodayDataError } = useQuery(GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES, {
-  variables: { input1: utcDate, input2: utcDate + 1 },
+  variables: { data_owner_id: userId, input1: utcDate, input2: utcDate + 1 },
   skip: !utcDate,
 });
 
 const { loading: permitTomorrowDueLoading, data: permitTomorrowDuedata, error: permitTomorrowDueError } = useQuery(GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: permitWeekDueLoading, data: permitWeekDuedata, error: permitWeekDueDueError } = useQuery(GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (7 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: permitMonthDueLoading, data: permitMonthDuedata, error: permitMonthDueError } = useQuery(GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES, {
-  variables: { input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
+  variables: { data_owner_id: userId, input1: utcDate + (24 * 60 * 60 * 1000), input2: utcDate + (30 * 24 * 60 * 60 * 1000) + 1 },
   skip: !utcDate,
 });
 
 const { loading: permitDueafterMonthLoading, data: permitDueafterMonthData, error: permitDueafterMonthError } = useQuery(GET_USER_DATA_AFTER_PERMIT_DUE_DATE, {
-  variables: { input: utcDate + (30 * 24 * 60 * 60 * 1000) },
+  variables: {data_owner_id: userId,  input: utcDate + (30 * 24 * 60 * 60 * 1000) },
   skip: !utcDate,
 });
 
 const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAError } = useQuery(GET_USER_DATA_NA_PERMIT_DUE_DATE, {
-  variables: { input: "65420cde2e5ffc26bed53918" },      
+  variables: { input: userId },      
 });
 //{permitDueNALoading && console.log(permitDueNAData)}
 
