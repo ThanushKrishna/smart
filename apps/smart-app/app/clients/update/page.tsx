@@ -71,6 +71,7 @@ const UpdateClient:React.FC = () => {
 
             const router = useRouter();                      
             const [isSubmitted, setisSubmitted] = useState(false);
+            const [dataId, setdataID] = useState();
             const [VehRegDocfile, setVehRegDocfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.Vehicle_Reg_Doc || '');        
             const [TpPolicyDocfile, setTpPolicyDocfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.TP_Policy_Doc || '');
             const [OdPolicydocfile, setOdPolicydocfile] = useState<string | null>(gusrdatabyid?.user_data_byid?.OD_Policy_Doc || '');
@@ -166,7 +167,7 @@ const UpdateClient:React.FC = () => {
                     setisSubmitted(true)                     
             
                     const result = {
-                        id: gusrdatabyid.user_data_byid.id,
+                        id: dataId,
                         Vehicle_Reg_Doc:  VehRegDocfile || undefined,			
                         RC_No: formValues?.RC_No || undefined,
                         Registered_Date: new Date(formValues?.Registered_Date)?.getTime() + 60 * 60 *1000 * 5.5 || undefined,                      
@@ -271,6 +272,7 @@ const UpdateClient:React.FC = () => {
                //console.log("This is handleVehicleNoSubmit");                                                                 
                setfirstpage(true);
                setVehicleNoprovided(true);
+               setdataID(gusrdatabyid?.user_data_byid?.id || '')
                setVehRegDocfile(gusrdatabyid?.user_data_byid?.Vehicle_Reg_Doc || '');
                setTpPolicyDocfile(gusrdatabyid?.user_data_byid?.TP_Policy_Doc || '')
                setOdPolicydocfile(gusrdatabyid?.user_data_byid?.OD_Policy_Doc || '')
