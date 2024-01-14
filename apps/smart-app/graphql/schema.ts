@@ -371,9 +371,8 @@ type Query {
     user_data: [user_data]    
     app_user: [app_user]
     login(input1: String!, input2: String!): AuthPayload
-    getNotesForUser(input: String!) : String
-    CheckvehicleNoUniqueness(vechicle_id: String!): Boolean
-    user_data_byid(vechicle_id: String!): user_data
+    getNotesForUser(input: String!) : String    
+    user_data_byid(data_owner_id: String!, vechicle_id: String!): user_data
     VEHICLE_COLOR: [VEHICLE_COLOR]
     VEHICE_NORMS: [VEHICE_NORMS]
     CC: [CC]
@@ -949,7 +948,7 @@ type AuthPayload {
     updateReferredBy(input: DDUpdateInput!): String
     
     deleteAppuser(id: ID!): String    
-    deleteUserData(vehicleid: String!): String
+    deleteUserData(id:ID!): String
     deleteMakeData(id: ID!): String
     deleteVehicleColorData(id: ID!): String
     deleteVehicleNormsData(id: ID!): String

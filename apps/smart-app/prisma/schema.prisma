@@ -36,7 +36,7 @@ model app_user {
   gender      GENDER?
   address     ADDRESS?
   profile_pic String?
-  mobile      String?  @unique
+  mobile      String?  
   role        ROLE     @default(USER)
   notes       String?
   createdAt   DateTime @default(now())
@@ -46,7 +46,7 @@ model app_user {
 model user_data {
   id                    String    @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id         String    @db.ObjectId
-  Vehicle_No            String    @unique
+  Vehicle_No            String    
   RC_No                 String?
   Registered_Date       DateTime?
   Owner                 String?
@@ -126,149 +126,149 @@ model user_data {
 model VEHICLE_COLOR {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model VEHICE_NORMS {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model CC {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model MAKE {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model MODEL {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model INSURANCE_PROVIDER {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model PERMIT_CATEGORY {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model TP_INSURANCE_PROVIDER {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model VEHICLE_CLASS {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model CUSTOMER_TYPE {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model VEHICLE_DESCRIPTION {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model SEATING_CAPACITY {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model STANDING_CAPACITY {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model RTO {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model HYPOTHECATION_BANK {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model HYPOTHECATION_CITY {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model DELETED_BLOBS {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model UNLADEN_WEIGHT {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model GVW {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model VEHICLE_BODY {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model WHEEL_BASE {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model NO_OF_CYLINDER {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model SLEEPER_CAPACITY {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model UPDATED_BY {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }
 
 model REFERRED_BY {
   id            String @id @default(auto()) @map("_id") @db.ObjectId
   data_owner_id String @db.ObjectId
-  value         String @unique
+  value         String
 }

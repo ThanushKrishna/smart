@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useQuery, useMutation } from '@apollo/client';
 import { Button } from '@radix-ui/themes'
 import  Spinner from '@/app/components/Spinner'
@@ -47,16 +47,25 @@ import { useRouter } from 'next/navigation';
 import { FUEL_TYPE, GENDER, OWNER_TYPE, VEHICLE_KIND , MARITAL_STATUS, N_Relation, PROSPECT, INSURANCE_TYPE } from '@/json/enums'
 import AddressForm from '@/app/components/AddressForm';
 import withAuth from '../../middleware/withAuth';
+import { getUserFromCookie } from '../../../utils/auth';
 
 const UpdateClient:React.FC = () => {
    
+        const [userId, setUserId] = useState('');
+        useEffect(() => {        
+            const decodedToken = getUserFromCookie();        
+            if(decodedToken  && typeof decodedToken === 'object' ){
+                //console.log('userid from token:' +  decodedToken.userid);
+                setUserId(decodedToken.userid);
+            }
+        }, []);
 
         const [isVehicleNoprovided, setVehicleNoprovided] = useState(false);
         const [vehicleno, setVehicleno] = useState<String>("");   
         const [firstpage, setfirstpage ] = useState<Boolean>(false);  
 
         const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
-            variables: { vechicleId: vehicleno },
+            variables: { data_owner_id: userId, vechicle_id: vehicleno, },
             skip: !vehicleno, // Skip the query if vehicleno is not provided            
             });
 

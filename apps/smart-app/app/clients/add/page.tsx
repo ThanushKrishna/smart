@@ -19,7 +19,7 @@ import {
     ADD_UPDATED_BY, ADD_REFERRED_BY
     } from '@/graphql/queries'
 import {     
-    GET_VEHICLE_COLOR_BY_VALUE, CHECK_VEHICLE_UNIQUE,
+    GET_VEHICLE_COLOR_BY_VALUE,
     GET_VEHICLE_NORMS_BY_VALUE,  GET_HYPOTHECATION_CITY_BY_VALUE,
     GET_CC_BY_VALUE, GET_RTO_BY_VALUE, GET_HYPOTHECATION_BANK_BY_VALUE,
     GET_MAKE_BY_VALUE, GET_STANDING_CAPACITY_BY_VALUE,
@@ -152,8 +152,8 @@ const handleAddressCheckBox = (event: any) => {
   };
 
 
-    const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {
-        variables: { vechicleId: vehicleno },
+    const { loading: gusrbyidload, error:gusrbyiderror, data:gusrdatabyid } = useQuery(GET_USER_DATA_BYID, {        
+        variables: { data_owner_id: userId, vechicle_id: vehicleno, },
         skip: !vehicleno, // Skip the query if vehicleno is not provided            
         });
 

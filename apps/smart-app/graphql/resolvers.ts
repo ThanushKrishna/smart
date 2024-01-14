@@ -93,8 +93,9 @@ export const resolvers = {
     user_data_byid: async (parent: any, args: any, context: Context) => {
       //console.log("this is user_data_byid block");  
       try{
-        return await context.prisma.user_data.findUnique({
+        return await context.prisma.user_data.findFirst({
           where: {
+            data_owner_id: args.data_owner_id,
             Vehicle_No: args.vechicle_id,
           },
         })
@@ -105,23 +106,6 @@ export const resolvers = {
       }
     },
 
-
-    CheckvehicleNoUniqueness: async (parent: any, args: any, context: Context) => {
-      //console.log("this is CheckvehicleNoUniqueness block");  
-      try{
-        const result = await context.prisma.user_data.findUnique({
-          where: {
-            Vehicle_No: args.vechicle_id,
-          },
-        })
-
-        return !!result;
-      }
-
-      catch(err){
-        //console.log(err);
-      }
-    },
 
   VEHICLE_COLOR : async (parent: any, args: any, context: Context) => {      
       try{
@@ -2272,7 +2256,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   deleteUserData: async (parent: any, args: any, context: Context) => {
     //console.log("this is deleteAppuser block");    
     await context.prisma.user_data.delete({
-      where: { Vehicle_No: args.vehicleid },      
+      where: { id: args.id },      
     })
     return "UserData Deleted Successfully!"
     

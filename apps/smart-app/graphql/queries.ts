@@ -307,8 +307,8 @@ export const GET_USER_DATA = gql`
 
 
 export const GET_USER_DATA_BYID = gql`
-query User_data_byid($vechicleId: String!) {
-  user_data_byid(vechicle_id: $vechicleId) {
+query User_data_byid($data_owner_id: String!, $vechicle_id: String!) {
+  user_data_byid(data_owner_id:$data_owner_id, vechicle_id: $vechicle_id) {
     id
     data_owner_id
     Vehicle_No
@@ -2926,11 +2926,6 @@ export const GET_USER_DATA_NA_PERMIT_DUE_DATE = gql`
   }
 `;
 
-export const CHECK_VEHICLE_UNIQUE = gql` 
-  query checkvehicleNoUniqueness($VechicleId: String!) {
-  CheckvehicleNoUniqueness(vechicle_id: $VechicleId)
-}
-`;
 
 
 export const ADD_CLIENT = gql` 
@@ -3371,8 +3366,8 @@ export const UPDATE_REFERRED_BY = gql`
 
 
 export const DELETE_CLIENT_BYID = gql` 
-    mutation DeleteUserData($vehicleid: String!) {
-      deleteUserData(vehicleid: $vehicleid)
+    mutation DeleteUserData($id: ID!) {
+      deleteUserData(id: $id)
     }
 `;
 
