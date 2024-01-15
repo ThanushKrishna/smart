@@ -496,8 +496,8 @@ query User_data_byid($data_owner_id: String!, $vechicle_id: String!) {
 
 
 export const GET_MAKE_BY_VALUE = gql`
-    query MAKE_BY_VALUE($input: String!) {
-      MAKE_BY_VALUE(input: $input) {
+    query MAKE_BY_VALUE($data_owner_id: String!, $input: String!) {
+      MAKE_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
         id
         data_owner_id
         value
@@ -506,8 +506,8 @@ export const GET_MAKE_BY_VALUE = gql`
 `;
 
 export const GET_VEHICLE_COLOR_BY_VALUE = gql`
-  query VEHICLE_COLOR_BY_VALUE($input: String!) {
-    VEHICLE_COLOR_BY_VALUE(input: $input) {
+  query VEHICLE_COLOR_BY_VALUE($data_owner_id: String!, $input: String!) {
+    VEHICLE_COLOR_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -516,8 +516,8 @@ export const GET_VEHICLE_COLOR_BY_VALUE = gql`
 `;
 
 export const GET_VEHICLE_NORMS_BY_VALUE = gql`
-  query VEHICLE_NORMS_BY_VALUE($input: String!) {
-    VEHICLE_NORMS_BY_VALUE(input: $input) {
+  query VEHICLE_NORMS_BY_VALUE($data_owner_id: String!, $input: String!) {
+    VEHICLE_NORMS_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -526,8 +526,8 @@ export const GET_VEHICLE_NORMS_BY_VALUE = gql`
 `;
 
 export const GET_CC_BY_VALUE = gql`
-  query CC_BY_VALUE($input: String!) {
-    CC_BY_VALUE(input: $input) {
+  query CC_BY_VALUE($data_owner_id: String!, $input: String!) {
+    CC_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -536,8 +536,8 @@ export const GET_CC_BY_VALUE = gql`
 `;
 
 export const GET_MODEL_BY_VALUE = gql`
-  query MODEL_BY_VALUE($input: String!) {
-    MODEL_BY_VALUE(input: $input) {
+  query MODEL_BY_VALUE($data_owner_id: String!, $input: String!) {
+    MODEL_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -546,8 +546,8 @@ export const GET_MODEL_BY_VALUE = gql`
 `;
 
 export const GET_INSURANCE_PROVIDER_BY_VALUE = gql`
-  query INSURANCE_PROVIDER_BY_VALUE($input: String!) {
-    INSURANCE_PROVIDER_BY_VALUE(input: $input) {
+  query INSURANCE_PROVIDER_BY_VALUE($data_owner_id: String!, $input: String!) {
+    INSURANCE_PROVIDER_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -556,8 +556,8 @@ export const GET_INSURANCE_PROVIDER_BY_VALUE = gql`
 `;
 
 export const GET_PERMIT_CATEGORY_BY_VALUE = gql`
-  query PERMIT_CATEGORY_BY_VALUE($input: String!) {
-    PERMIT_CATEGORY_BY_VALUE(input: $input) {
+  query PERMIT_CATEGORY_BY_VALUE($data_owner_id: String!, $input: String!) {
+    PERMIT_CATEGORY_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -566,8 +566,8 @@ export const GET_PERMIT_CATEGORY_BY_VALUE = gql`
 `;
 
 export const GET_TP_INSURANCE_PROVIDER_BY_VALUE = gql`
-  query TP_INSURANCE_PROVIDER_BY_VALUE($input: String!) {
-    TP_INSURANCE_PROVIDER_BY_VALUE(input: $input) {
+  query TP_INSURANCE_PROVIDER_BY_VALUE($data_owner_id: String!, $input: String!) {
+    TP_INSURANCE_PROVIDER_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -576,8 +576,8 @@ export const GET_TP_INSURANCE_PROVIDER_BY_VALUE = gql`
 `;
 
 export const GET_VEHICLE_CLASS_BY_VALUE = gql`
-  query VEHICLE_CLASS_BY_VALUE($input: String!) {
-    VEHICLE_CLASS_BY_VALUE(input: $input) {
+  query VEHICLE_CLASS_BY_VALUE($data_owner_id: String!, $input: String!) {
+    VEHICLE_CLASS_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -586,8 +586,8 @@ export const GET_VEHICLE_CLASS_BY_VALUE = gql`
 `;
 
 export const GET_CUSTOMER_TYPE_BY_VALUE = gql`
-  query CUSTOMER_TYPE_BY_VALUE($input: String!) {
-    CUSTOMER_TYPE_BY_VALUE(input: $input) {
+  query CUSTOMER_TYPE_BY_VALUE($data_owner_id: String!, $input: String!) {
+    CUSTOMER_TYPE_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -596,8 +596,8 @@ export const GET_CUSTOMER_TYPE_BY_VALUE = gql`
 `;
 
 export const GET_VEHICLE_DESCRIPTION_BY_VALUE = gql`
-  query VEHICLE_DESCRIPTION_BY_VALUE($input: String!) {
-    VEHICLE_DESCRIPTION_BY_VALUE(input: $input) {
+  query VEHICLE_DESCRIPTION_BY_VALUE($data_owner_id: String!, $input: String!) {
+    VEHICLE_DESCRIPTION_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -606,8 +606,8 @@ export const GET_VEHICLE_DESCRIPTION_BY_VALUE = gql`
 `;
 
 export const GET_SEATING_CAPACITY_BY_VALUE = gql`
-  query SEATING_CAPACITY_BY_VALUE($input: String!) {
-    SEATING_CAPACITY_BY_VALUE(input: $input) {
+  query SEATING_CAPACITY_BY_VALUE($data_owner_id: String!, $input: String!) {
+    SEATING_CAPACITY_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -616,8 +616,8 @@ export const GET_SEATING_CAPACITY_BY_VALUE = gql`
 `;
 
 export const GET_STANDING_CAPACITY_BY_VALUE = gql`
-  query STANDING_CAPACITY_BY_VALUE($input: String!) {
-    STANDING_CAPACITY_BY_VALUE(input: $input) {
+  query STANDING_CAPACITY_BY_VALUE($data_owner_id: String!, $input: String!) {
+    STANDING_CAPACITY_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -626,8 +626,8 @@ export const GET_STANDING_CAPACITY_BY_VALUE = gql`
 `;
 
 export const GET_RTO_BY_VALUE = gql`
-  query RTO_BY_VALUE($input: String!) {
-    RTO_BY_VALUE(input: $input) {
+  query RTO_BY_VALUE($data_owner_id: String!, $input: String!) {
+    RTO_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -636,8 +636,8 @@ export const GET_RTO_BY_VALUE = gql`
 `;
 
 export const GET_HYPOTHECATION_BANK_BY_VALUE = gql`
-  query HYPOTHECATION_BANK_BY_VALUE($input: String!) {
-    HYPOTHECATION_BANK_BY_VALUE(input: $input) {
+  query HYPOTHECATION_BANK_BY_VALUE($data_owner_id: String!, $input: String!) {
+    HYPOTHECATION_BANK_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -646,8 +646,8 @@ export const GET_HYPOTHECATION_BANK_BY_VALUE = gql`
 `;
 
 export const GET_HYPOTHECATION_CITY_BY_VALUE = gql`
-  query HYPOTHECATION_CITY_BY_VALUE($input: String!) {
-    HYPOTHECATION_CITY_BY_VALUE(input: $input) {
+  query HYPOTHECATION_CITY_BY_VALUE($data_owner_id: String!, $input: String!) {
+    HYPOTHECATION_CITY_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id      
       data_owner_id
       value
@@ -656,8 +656,8 @@ export const GET_HYPOTHECATION_CITY_BY_VALUE = gql`
 `;
 
 export const GET_UNLADEN_WEIGHT_BY_VALUE = gql`
-  query UNLADEN_WEIGHT_BY_VALUE($input: String!) {
-    UNLADEN_WEIGHT_BY_VALUE(input: $input) {
+  query UNLADEN_WEIGHT_BY_VALUE($data_owner_id: String!, $input: String!) {
+    UNLADEN_WEIGHT_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id
       data_owner_id
       value
@@ -666,8 +666,8 @@ export const GET_UNLADEN_WEIGHT_BY_VALUE = gql`
 `;
 
 export const GET_GVW_BY_VALUE = gql`
-  query GVW_BY_VALUE($input: String!) {
-    GVW_BY_VALUE(input: $input) {
+  query GVW_BY_VALUE($data_owner_id: String!, $input: String!) {
+    GVW_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id
       data_owner_id
       value
@@ -676,8 +676,8 @@ export const GET_GVW_BY_VALUE = gql`
 `;
 
 export const GET_VEHICLE_BODY_BY_VALUE = gql`
-  query VEHICLE_BODY_BY_VALUE($input: String!) {
-    VEHICLE_BODY_BY_VALUE(input: $input) {
+  query VEHICLE_BODY_BY_VALUE($data_owner_id: String!, $input: String!) {
+    VEHICLE_BODY_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id
       data_owner_id
       value
@@ -686,8 +686,8 @@ export const GET_VEHICLE_BODY_BY_VALUE = gql`
 `;
 
 export const GET_WHEEL_BASE_BY_VALUE = gql`
-  query WHEEL_BASE_BY_VALUE($input: String!) {
-    WHEEL_BASE_BY_VALUE(input: $input) {
+  query WHEEL_BASE_BY_VALUE($data_owner_id: String!, $input: String!) {
+    WHEEL_BASE_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id
       data_owner_id
       value
@@ -696,8 +696,8 @@ export const GET_WHEEL_BASE_BY_VALUE = gql`
 `;
 
 export const GET_NO_OF_CYLINDER_BY_VALUE = gql`
-  query NO_OF_CYLINDER_BY_VALUE($input: String!) {
-    NO_OF_CYLINDER_BY_VALUE(input: $input) {
+  query NO_OF_CYLINDER_BY_VALUE($data_owner_id: String!, $input: String!) {
+    NO_OF_CYLINDER_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id
       data_owner_id
       value
@@ -706,8 +706,8 @@ export const GET_NO_OF_CYLINDER_BY_VALUE = gql`
 `;
 
 export const GET_SLEEPER_CAPACITY_BY_VALUE = gql`
-  query SLEEPER_CAPACITY_BY_VALUE($input: String!) {
-    SLEEPER_CAPACITY_BY_VALUE(input: $input) {
+  query SLEEPER_CAPACITY_BY_VALUE($data_owner_id: String!, $input: String!) {
+    SLEEPER_CAPACITY_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id
       data_owner_id
       value
@@ -716,8 +716,8 @@ export const GET_SLEEPER_CAPACITY_BY_VALUE = gql`
 `;
 
 export const GET_UPDATED_BY_BY_VALUE = gql`
-  query UPDATED_BY_BY_VALUE($input: String!) {
-    UPDATED_BY_BY_VALUE(input: $input) {
+  query UPDATED_BY_BY_VALUE($data_owner_id: String!, $input: String!) {
+    UPDATED_BY_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id
       data_owner_id
       value
@@ -726,8 +726,8 @@ export const GET_UPDATED_BY_BY_VALUE = gql`
 `;
 
 export const GET_REFERRED_BY_BY_VALUE = gql`
-  query REFERRED_BY_BY_VALUE($input: String!) {
-    REFERRED_BY_BY_VALUE(input: $input) {
+  query REFERRED_BY_BY_VALUE($data_owner_id: String!, $input: String!) {
+    REFERRED_BY_BY_VALUE(data_owner_id: $data_owner_id, input: $input) {
       id
       data_owner_id
       value

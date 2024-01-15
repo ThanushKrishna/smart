@@ -351,6 +351,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try{
         return await context.prisma.mAKE.findMany({
           where: {          
+            data_owner_id: args.data_owner_id,
             value: args.input
             ? {
               contains: args.input,
@@ -372,6 +373,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.vEHICLE_COLOR.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -391,6 +393,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.vEHICE_NORMS.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -412,6 +415,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.cC.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -431,6 +435,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.mODEL.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -450,6 +455,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.iNSURANCE_PROVIDER.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -469,6 +475,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.pERMIT_CATEGORY.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -488,6 +495,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.tP_INSURANCE_PROVIDER.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -508,6 +516,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.vEHICLE_CLASS.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -527,6 +536,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.cUSTOMER_TYPE.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -546,6 +556,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.vEHICLE_DESCRIPTION.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -565,6 +576,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.sEATING_CAPACITY.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -584,6 +596,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.sTANDING_CAPACITY.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -603,6 +616,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.rTO.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -622,6 +636,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.hYPOTHECATION_BANK.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -641,6 +656,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.hYPOTHECATION_CITY.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -661,6 +677,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.uNLADEN_WEIGHT.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -680,6 +697,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.gVW.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -699,6 +717,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.vEHICLE_BODY.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -718,6 +737,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.wHEEL_BASE.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -737,6 +757,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.nO_OF_CYLINDER.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -756,6 +777,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.sLEEPER_CAPACITY.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -775,6 +797,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.uPDATED_BY.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -794,6 +817,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       try {
         return await context.prisma.rEFERRED_BY.findMany({
           where: {
+            data_owner_id: args.data_owner_id,
             value: args.input
               ? {
                   contains: args.input,
@@ -875,7 +899,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
     user_data_NaInsuranceDueDate: async (parent: any, args: any, context: Context) => {
-      console.log("this user_data_NaInsuranceDueDate Block")
+      //console.log("this user_data_NaInsuranceDueDate Block")
       try {
         return await context.prisma.user_data.findMany({
           where: {

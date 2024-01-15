@@ -1,10 +1,11 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, TextField, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog';
+import { getUserFromCookie } from '../../utils/auth';
 
 interface MasterComponentProps {
   entityName: string;
@@ -23,6 +24,16 @@ interface Row {
 }
 
 const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDname, queries }) => {
+
+  const [userId, setUserId] = useState('');
+  useEffect(() => {        
+      const decodedToken = getUserFromCookie();        
+      if(decodedToken  && typeof decodedToken === 'object' ){
+          //console.log('userid from token:' +  decodedToken.userid);
+          setUserId(decodedToken.userid);
+      }
+    }, []);
+
   const [editableRows, setEditableRows] = useState<string[]>([]);
   const [editedValues, setEditedValues] = useState<Record<string, string>>({});
   const [deleteItemId, setDeleteItemId] = useState<string | null>(null);
@@ -32,7 +43,7 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
   const [error, setError] = useState(false);
 
   const { loading, error:gQueryError, data, refetch } = useQuery(queries.getAll, {
-    variables: { input: searchTerm },
+    variables: { data_owner_id: userId, input: searchTerm },
   });
 
   const [addRecord, { data: addedData }] = useMutation(queries.add);
@@ -53,7 +64,7 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
     try {
       await deleteRecord({
         variables: { id },
-        refetchQueries: [{ query: queries.getAll, variables: { input: searchTerm } }],
+        refetchQueries: [{ query: queries.getAll, variables: { data_owner_id: userId, input: searchTerm } }],
       });
     } catch (error) {
       console.error('Error deleting data:', error);
@@ -82,7 +93,7 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
 
       await updateRecord({
         variables: { input: { id, value: updatedValue } },
-        refetchQueries: [{ query: queries.getAll, variables: { input: searchTerm } }],
+        refetchQueries: [{ query: queries.getAll, variables: { data_owner_id: userId, input: searchTerm } }],
       });
 
       handleEdit(id);
@@ -98,8 +109,8 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
     } else {
       try {
         await addRecord({
-          variables: { input: { data_owner_id: '6562047e649b76ef6a583b8d', value: newValue } },
-          refetchQueries: [{ query: queries.getAll, variables: { input: searchTerm } }],
+          variables: { input: { data_owner_id: userId, value: newValue } },
+          refetchQueries: [{ query: queries.getAll, variables: { data_owner_id: userId, input: searchTerm } }],
         });
   
         setNewValue('');
