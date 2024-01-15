@@ -12,31 +12,30 @@ import {
     ADD_MODEL, ADD_SEATING_CAPACITY,
     ADD_VEHICLE_DESCRIPTION,
     ADD_VEHICLE_CLASS,
-    GET_SLEEPER_CAPACITY_BY_VALUE,
-    UPDATE_CLIENT
-    } from '@/graphql/queries'
-import {     
-    GET_USER_DATA_BYID, GET_HYPOTHECATION_BANK,
-    GET_VEHICLE_COLORS, GET_HYPOTHECATION_CITY,
-    GET_VEHICLE_NORMS,      
-    GET_MAKE, GET_STANDING_CAPACITY,
-    GET_MODEL, GET_VEHICLE_CLASS,
-    GET_VEHICLE_DESCRIPTION, ADD_SLEEPER_CAPACITY,
-    GET_SEATING_CAPACITY
+    UPDATE_CLIENT, GET_USER_DATA_BYID
     } from '@/graphql/queries'
 import { 
-        ADD_CC, GET_CC, GET_CUSTOMER_TYPE, GET_PERMIT_CATEGORY, 
-        ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE, GET_UPDATED_BY_BY_VALUE, 
-        ADD_UPDATED_BY, ADD_REFERRED_BY, GET_REFERRED_BY_BY_VALUE,           
-        GET_RTO, GET_INSURANCE_PROVIDER, 
-        GET_TP_INSURANCE_PROVIDER, ADD_RTO,    
-        ADD_INSURANCE_PROVIDER, ADD_TP_INSURANCE_PROVIDER,
-        GET_UNLADEN_WEIGHT_BY_VALUE, ADD_UNLADEN_WEIGHT,
-        GET_VEHICLE_BODY_BY_VALUE, ADD_VEHICLE_BODY,
-        ADD_WHEEL_BASE, GET_WHEEL_BASE_BY_VALUE,
-        GET_NO_OF_CYLINDER_BY_VALUE, ADD_NO_OF_CYLINDER,
-        ADD_GVW, GET_GVW_BY_VALUE
+        ADD_CC, ADD_SLEEPER_CAPACITY, 
+        ADD_PERMIT_CATEGORY, ADD_CUSTOMER_TYPE, 
+        ADD_UPDATED_BY, ADD_REFERRED_BY,                    
+        ADD_RTO, ADD_GVW, ADD_INSURANCE_PROVIDER, 
+        ADD_TP_INSURANCE_PROVIDER, ADD_UNLADEN_WEIGHT,
+        ADD_VEHICLE_BODY, ADD_WHEEL_BASE, ADD_NO_OF_CYLINDER,
         } from '@/graphql/queries'
+
+import {     
+    GET_VEHICLE_COLOR_BY_VALUE,
+    GET_VEHICLE_NORMS_BY_VALUE,  GET_HYPOTHECATION_CITY_BY_VALUE,
+    GET_CC_BY_VALUE, GET_RTO_BY_VALUE, GET_HYPOTHECATION_BANK_BY_VALUE,
+    GET_MAKE_BY_VALUE, GET_STANDING_CAPACITY_BY_VALUE,
+    GET_MODEL_BY_VALUE, GET_VEHICLE_CLASS_BY_VALUE,
+    GET_INSURANCE_PROVIDER_BY_VALUE, GET_CUSTOMER_TYPE_BY_VALUE,
+    GET_PERMIT_CATEGORY_BY_VALUE, GET_VEHICLE_DESCRIPTION_BY_VALUE,
+    GET_TP_INSURANCE_PROVIDER_BY_VALUE, GET_SEATING_CAPACITY_BY_VALUE,
+    GET_UNLADEN_WEIGHT_BY_VALUE, GET_GVW_BY_VALUE, GET_VEHICLE_BODY_BY_VALUE,
+    GET_WHEEL_BASE_BY_VALUE, GET_NO_OF_CYLINDER_BY_VALUE, GET_SLEEPER_CAPACITY_BY_VALUE,
+    GET_UPDATED_BY_BY_VALUE, GET_REFERRED_BY_BY_VALUE
+    } from '@/graphql/queries'                                
 
 import { DatePickerComponent } from '@/app/components/DatePicker'
 import { DropDownControl }  from '@/app/components/DropDownControl'
@@ -111,16 +110,14 @@ const UpdateClient:React.FC = () => {
             const[addiProvider, { data:iproviderdata} ] = useMutation(ADD_INSURANCE_PROVIDER);
             const[addTpInsuranceProvider, { data:tpproviderdata} ] = useMutation(ADD_TP_INSURANCE_PROVIDER);
             const[addrto, { data:rtodata} ] = useMutation(ADD_RTO);
-            const[addUnladenWeight, { data: unladenWeightData }] = useMutation(ADD_UNLADEN_WEIGHT);
-            const[addLadenWeight, { data: ladenWeightData }] = useMutation(ADD_GVW);	
+            const[addUnladenWeight, { data: unladenWeightData }] = useMutation(ADD_UNLADEN_WEIGHT);            
             const[addUpdatedBy, { data: updatedByData }] = useMutation(ADD_UPDATED_BY);
             const[addReferredBy, { data: referredByData }] = useMutation(ADD_REFERRED_BY);
             const[addcc, { data:ccdata} ] = useMutation(ADD_CC);
             const[addPermitCategory, { data:permitdata} ] = useMutation(ADD_PERMIT_CATEGORY);
             const[addCusType, { data:custtypedata} ] = useMutation(ADD_CUSTOMER_TYPE);
             const[addVehicleBody, { data: vehicleBodyData }] = useMutation(ADD_VEHICLE_BODY);
-            const[addWheelBase, { data: wheelBaseData }] = useMutation(ADD_WHEEL_BASE);
-            const[addNoOfCylinders, { data: noOfCylindersData }] = useMutation(ADD_NO_OF_CYLINDER);
+            const[addWheelBase, { data: wheelBaseData }] = useMutation(ADD_WHEEL_BASE);            
             const[updateclient, { data:updateclientdata, error:updateclienterror } ] = useMutation(UPDATE_CLIENT);
             const[addVehicleColor, { data:colordata} ] = useMutation(ADD_VEHICLE_COLORS);
             const[addVehicleNorms, { data:normsdata} ] = useMutation(ADD_VEHICE_NORMS);
@@ -133,31 +130,35 @@ const UpdateClient:React.FC = () => {
             const[addHcity, { data:Hcitydata} ] = useMutation(ADD_HYPOTHECATION_CITY);
             const[addHbank, { data:Hbankdata} ] = useMutation(ADD_HYPOTHECATION_BANK);
             const[addSleeperCapacity, { data: sleeperCapacityData }] = useMutation(ADD_SLEEPER_CAPACITY);
+            const [addGVW, { data: agvwData }] = useMutation(ADD_GVW);
+            const [addNoOfCylinder, { data: noOfCylinderData }] = useMutation(ADD_NO_OF_CYLINDER);
             
-            const { data: vehicleBodyOptions } = useQuery(GET_VEHICLE_BODY_BY_VALUE, { variables: { input: "" } });
-            const { data: wheelBaseOptions } = useQuery(GET_WHEEL_BASE_BY_VALUE, { variables: { input: "" } });
-            const { data: noOfCylindersOptions } = useQuery(GET_NO_OF_CYLINDER_BY_VALUE, { variables: { input: "" } });
-            const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER, { pollInterval: 1000,}); 
-            const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER, { pollInterval: 1000,});	
-            const { data:grtodata } = useQuery(GET_RTO, { pollInterval: 1000,}); 
-            const { data: updatedByOptions } = useQuery(GET_UPDATED_BY_BY_VALUE, { variables: { input: "" } });
-            const { data: gvwData } = useQuery(GET_GVW_BY_VALUE, {variables: { input: "" }, });
+                    
+            const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLOR_BY_VALUE, {variables: { input: "" }, });
+            const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS_BY_VALUE, {variables: { input: "" }, });
+            const { data:gccdata } = useQuery(GET_CC_BY_VALUE, {variables: { input: "" }, }); 
+            const { data:gmakedata } = useQuery(GET_MAKE_BY_VALUE, {variables: { input: "" }, }); 
+            const { data:gmodeldata } = useQuery(GET_MODEL_BY_VALUE, {variables: { input: "" }, }); 
+            const { data:giproviderdata } = useQuery(GET_INSURANCE_PROVIDER_BY_VALUE, {variables: { input: "" }, }); 
+            const { data:gpermitdata } = useQuery(GET_PERMIT_CATEGORY_BY_VALUE, {variables: { input: "" }, }); 
+            const { data:gtpproviderdata } = useQuery(GET_TP_INSURANCE_PROVIDER_BY_VALUE, {variables: { input: "" }, });
+            const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE_BY_VALUE, {variables: { input: "" }, }); 	
+            const { data:gVehDesdata } = useQuery(GET_VEHICLE_DESCRIPTION_BY_VALUE, {variables: { input: "" }, }); 	
+            const { data:gSeatCapdata } = useQuery(GET_SEATING_CAPACITY_BY_VALUE, {variables: { input: "" }, }); 	
+            const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY_BY_VALUE, {variables: { input: "" }, }); 	
+            const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS_BY_VALUE, {variables: { input: "" }, }); 	
+            const { data:grtodata } = useQuery(GET_RTO_BY_VALUE, {variables: { input: "" }, }); 
+            const { data:gHcitydata } = useQuery(GET_HYPOTHECATION_CITY_BY_VALUE, {variables: { input: "" }, }); 
+            const { data:gHbankdata } = useQuery(GET_HYPOTHECATION_BANK_BY_VALUE, {variables: { input: "" }, }); 
             const { data: gunladenWeightData } = useQuery(GET_UNLADEN_WEIGHT_BY_VALUE, {variables: { input: "" }, });
-            const { data:gccdata } = useQuery(GET_CC, { pollInterval: 1000,}); 
-            const { data:gpermitdata, error:gpermiterror } = useQuery(GET_PERMIT_CATEGORY, { pollInterval: 1000,}); 
-            const { data:gCusTypedata } = useQuery(GET_CUSTOMER_TYPE, { pollInterval: 1000,}); 
-            const { data: referredByOptions } = useQuery(GET_REFERRED_BY_BY_VALUE, { variables: { input: "" } });
-            const { data:gcolorsdata } = useQuery(GET_VEHICLE_COLORS, { pollInterval: 1000,}); 
-            const { data:gnormsdata } = useQuery(GET_VEHICLE_NORMS, { pollInterval: 1000,}); 
-            const { data:gmakedata } = useQuery(GET_MAKE, { pollInterval: 1000,}); 
-            const { data:gmodeldata } = useQuery(GET_MODEL, { pollInterval: 1000,}); 
-            const { data:gVehDesdata } = useQuery(GET_VEHICLE_DESCRIPTION, { pollInterval: 1000,}); 	
-            const { data:gSeatCapdata } = useQuery(GET_SEATING_CAPACITY, { pollInterval: 1000,}); 	
-            const { data:gStanCapdata } = useQuery(GET_STANDING_CAPACITY, { pollInterval: 1000,}); 	
-            const { data:gVehclassdata } = useQuery(GET_VEHICLE_CLASS, { pollInterval: 1000,}); 	
-            const { data:gHcitydata } = useQuery(GET_HYPOTHECATION_CITY, { pollInterval: 1000,}); 
-            const { data:gHbankdata } = useQuery(GET_HYPOTHECATION_BANK, { pollInterval: 1000,}); 
+            const { data: ggvwData } = useQuery(GET_GVW_BY_VALUE, {variables: { input: "" }, });
+            const { data: gvehicleBodyData } = useQuery(GET_VEHICLE_BODY_BY_VALUE, {variables: { input: "" }, });
+            const { data: gwheelBaseData } = useQuery(GET_WHEEL_BASE_BY_VALUE, {variables: { input: "" }, });
+            const { data: gnoOfCylinderData } = useQuery(GET_NO_OF_CYLINDER_BY_VALUE, {variables: { input: "" }, });
             const { data: gsleeperCapacityData } = useQuery(GET_SLEEPER_CAPACITY_BY_VALUE, {variables: { input: "" }, });
+            const { data: gupdatedByData } = useQuery(GET_UPDATED_BY_BY_VALUE, {variables: { input: "" }, });
+            const { data: greferredByData } = useQuery(GET_REFERRED_BY_BY_VALUE, {variables: { input: "" }, });	
+            const { data: updatedByOptions } = useQuery(GET_UPDATED_BY_BY_VALUE, { variables: { input: "" } });
             
             const { register, handleSubmit, control, formState:{errors} } = useForm<AddClientType>({});                        
 
@@ -512,9 +513,12 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             placeholder="Make:   "     
                             value={gusrdatabyid.user_data_byid?.Make}                  
-                            options={gmakedata && gmakedata.MAKE.map((data:any) => (data.value)) }             
-                            onOptionAdd= {async (e: String) => await (addMake( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
+                            options={gmakedata && gmakedata.MAKE_BY_VALUE.map((data:any) => (data.value)) }             
+                            onOptionAdd={async (e: String) => await (addMake( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_MAKE_BY_VALUE, variables: { input: "" } }],
+                            })) }        
                         />
+                        
                     </div>
                     
                     <div>
@@ -523,8 +527,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Model}
                             placeholder="Model:   "           
-                            options={gmodeldata && gmodeldata.MODEL.map((data:any) => (data.value)) }
-                            onOptionAdd= {async (e: String) => await (addModel( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+                            options={gmodeldata && gmodeldata.MODEL_BY_VALUE.map((data:any) => (data.value)) }
+                            onOptionAdd={async (e: String) => await (addModel( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_MODEL_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />
                     </div>
 
@@ -557,8 +563,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Vehicle_type}                
                             placeholder="Vehicle Class:   "           
-                            options={gVehclassdata && gVehclassdata?.VEHICLE_CLASS.map((data:any) => (data.value)) }  
-                            onOptionAdd= {async (e: String) => await (addVehclass( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            options={gVehclassdata && gVehclassdata.VEHICLE_CLASS_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd={async (e: String) => await (addVehclass( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_VEHICLE_CLASS_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />
                     </div>
                     
@@ -568,8 +576,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Vehicle_Description}
                             placeholder="Vehicle Description:   "           
-                            options={gVehDesdata && gVehDesdata.VEHICLE_DESCRIPTION.map((data:any) => (data.value)) }  
-                            onOptionAdd= {async (e: String) => await (addVehDes( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            options={gVehDesdata && gVehDesdata.VEHICLE_DESCRIPTION_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd={async (e: String) => await (addVehDes( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_VEHICLE_DESCRIPTION_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />
                     </div>
 
@@ -589,8 +599,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Vehice_norms}
                             placeholder="Emission Norms:   "           
-                            options={gnormsdata && gnormsdata.VEHICE_NORMS.map((data:any) => (data.value)) }
-                            onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+                            options={gnormsdata && gnormsdata.VEHICLE_NORMS_BY_VALUE.map((data:any) => (data.value)) }
+                            onOptionAdd= {async (e: String) => await (addVehicleNorms( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_VEHICLE_NORMS_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />   
                     </div>
 
@@ -600,8 +612,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Vehicle_color}
                             placeholder="Vehicle Color:   "           
-                            options={gcolorsdata && gcolorsdata.VEHICLE_COLOR.map((data:any) => (data.value)) }  
-                            onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            options={gcolorsdata && gcolorsdata.VEHICLE_COLOR_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd= {async (e: String) => await (addVehicleColor( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } },
+                            refetchQueries: [{ query: GET_VEHICLE_COLOR_BY_VALUE, variables: { input: "" } }],
+                            }) )}            
                         />      
                     </div>
 
@@ -611,8 +625,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Seating_Capacity}
                             placeholder="Seating Capacity:   "           
-                            options={gSeatCapdata && gSeatCapdata.SEATING_CAPACITY.map((data:any) => (data.value)) }  
-                            onOptionAdd= {async (e: String) => await (addSeatCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            options={gSeatCapdata && gSeatCapdata.SEATING_CAPACITY_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd={async (e: String) => await (addSeatCap( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_SEATING_CAPACITY_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />      
                     </div>
 
@@ -622,8 +638,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Standing_Capacity}
                             placeholder="Standing Capacity:   "           
-                            options={gStanCapdata && gStanCapdata.STANDING_CAPACITY.map((data:any) => (data.value)) }  
-                            onOptionAdd= {async (e: String) => await (addStanCap( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}            
+                            options={gStanCapdata && gStanCapdata.STANDING_CAPACITY_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd={async (e: String) => await (addStanCap( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_STANDING_CAPACITY_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         /> 
                     </div>
                    
@@ -633,8 +651,10 @@ const UpdateClient:React.FC = () => {
                           control={control}
                           value={gusrdatabyid.user_data_byid?.Sleeper_Capacity}
                           placeholder="Sleeper Capacity: "
-                          options={gsleeperCapacityData && gsleeperCapacityData.SLEEPER_CAPACITY_BY_VALUE?.map((data: any) => data.value) || []}
-                          onOptionAdd={async (e: String) => await addSleeperCapacity({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_SLEEPER_CAPACITY_BY_VALUE, variables: { input: "" } }] })}
+                          options={gsleeperCapacityData && gsleeperCapacityData.SLEEPER_CAPACITY_BY_VALUE.map((data:any) => (data.value)) }  
+                          onOptionAdd={async (e: String) => ( await addSleeperCapacity( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                          refetchQueries: [{ query: GET_SLEEPER_CAPACITY_BY_VALUE, variables: { input: "" } }],
+                          }) )}
                       />
                       </div>
 
@@ -644,8 +664,10 @@ const UpdateClient:React.FC = () => {
                             control={control}            
                             value={gusrdatabyid.user_data_byid?.Hypothecation_bank}
                             placeholder="Hypothecation Bank:   "           
-                            options={gHbankdata && gHbankdata.HYPOTHECATION_BANK.map((data:any) => (data.value)) }           
-                            onOptionAdd= {async (e: String) => await (addHbank( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+                            options={gHbankdata && gHbankdata.HYPOTHECATION_BANK_BY_VALUE.map((data:any) => (data.value)) }           
+                            onOptionAdd={async (e: String) => await (addHbank( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_HYPOTHECATION_BANK_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />  
                     </div>
                     
@@ -655,8 +677,10 @@ const UpdateClient:React.FC = () => {
                             control={control}            
                             value={gusrdatabyid.user_data_byid?.Hypothecation_city}
                             placeholder="Hypothecation City:   "           
-                            options={gHcitydata && gHcitydata.HYPOTHECATION_CITY.map((data:any) => (data.value)) }           
-                            onOptionAdd= {async (e: String) => await (addHcity( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+                            options={gHcitydata && gHcitydata.HYPOTHECATION_CITY_BY_VALUE.map((data:any) => (data.value)) }           
+                            onOptionAdd={async (e: String) => await (addHcity( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_HYPOTHECATION_CITY_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />  
                     </div>   
 
@@ -700,8 +724,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Insurance_provider}
                             placeholder=" Own Damage Insurance Provider:   "           
-                            options={giproviderdata && giproviderdata.INSURANCE_PROVIDER?.map((data:any) => (data.value)) }
-                            onOptionAdd= {async (e: String) => await (addiProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}         
+                            options={giproviderdata && giproviderdata.INSURANCE_PROVIDER_BY_VALUE.map((data:any) => (data.value)) }
+                            onOptionAdd={async (e: String) => await (addiProvider( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_INSURANCE_PROVIDER_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />
                         </div>   
 
@@ -757,8 +783,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.TP_Insurance_provider}
                             placeholder="Third Party Insurance Provider:   "           
-                            options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER?.map((data:any) => (data.value)) }    
-                            onOptionAdd= {async (e: String) => await (addTpInsuranceProvider( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
+                            options={gtpproviderdata && gtpproviderdata.TP_INSURANCE_PROVIDER_BY_VALUE.map((data:any) => (data.value)) }    
+                            onOptionAdd={async (e: String) => await (addTpInsuranceProvider( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_TP_INSURANCE_PROVIDER_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />
                         </div>}
 
@@ -786,8 +814,10 @@ const UpdateClient:React.FC = () => {
                             control={control}     
                             value={gusrdatabyid.user_data_byid?.RTO}       
                             placeholder="Registering Authority:   "           
-                            options={grtodata && grtodata.RTO?.map((data:any) => (data.value)) }           
-                            onOptionAdd= {async (e: String) => await (addrto( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+                            options={grtodata && grtodata.RTO_BY_VALUE.map((data:any) => (data.value)) }           
+                            onOptionAdd={async (e: String) => await (addrto( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_RTO_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />    
                         </div>
 
@@ -797,8 +827,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Unladen_Weight}
                             placeholder="Unladen Weight: "
-                            options={gunladenWeightData && gunladenWeightData.UNLADEN_WEIGHT_BY_VALUE?.map((data: any) => data.value) || []}
-                            onOptionAdd={async (e: String) => await addUnladenWeight({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_UNLADEN_WEIGHT_BY_VALUE, variables: { input: "" } }] })}
+                            options={gunladenWeightData && gunladenWeightData.UNLADEN_WEIGHT_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd= {async (e: String) => ( await addUnladenWeight( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_UNLADEN_WEIGHT_BY_VALUE, variables: { input: "" } }],
+                            }) )}            
                         />
                         </div>
 
@@ -808,8 +840,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.GVW}
                             placeholder="Laden Weight(GVW): "
-                            options={gvwData && gvwData.GVW_BY_VALUE?.map((data: any) => data.value) || []}
-                            onOptionAdd={async (e: String) => await addLadenWeight({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_GVW_BY_VALUE, variables: { input: "" } }] })}
+                            options={ggvwData && ggvwData.GVW_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd={async (e: String) => ( await addGVW( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_GVW_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />
                     </div>
 
@@ -819,8 +853,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Vehicle_Body}
                             placeholder="Vehicle Body: "
-                            options={vehicleBodyOptions && vehicleBodyOptions.VEHICLE_BODY_BY_VALUE?.map((data: any) => data.value) || []}
-                            onOptionAdd={async (e: String) => await addVehicleBody({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_VEHICLE_BODY_BY_VALUE, variables: { input: "" } }] })}
+                            options={gvehicleBodyData && gvehicleBodyData.VEHICLE_BODY_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd={async (e: String) => ( await addVehicleBody( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_VEHICLE_BODY_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />
                     </div>
 
@@ -830,8 +866,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.Wheel_Base}
                             placeholder="Wheel Base: "
-                            options={wheelBaseOptions && wheelBaseOptions.WHEEL_BASE_BY_VALUE?.map((data: any) => data.value) || []}
-                            onOptionAdd={async (e: String) => await addWheelBase({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_WHEEL_BASE_BY_VALUE, variables: { input: "" } }] })}
+                            options={gwheelBaseData && gwheelBaseData.WHEEL_BASE_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd={async (e: String) => ( await addWheelBase( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_WHEEL_BASE_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />
                         </div>
 
@@ -841,8 +879,10 @@ const UpdateClient:React.FC = () => {
                             control={control}
                             value={gusrdatabyid.user_data_byid?.No_Of_Cylinder}
                             placeholder="No. of Cylinders: "
-                            options={noOfCylindersOptions && noOfCylindersOptions.NO_OF_CYLINDER_BY_VALUE?.map((data: any) => data.value) || []}
-                            onOptionAdd={async (e: String) => await addNoOfCylinders({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_NO_OF_CYLINDER_BY_VALUE, variables: { input: "" } }] })}
+                            options={gnoOfCylinderData && gnoOfCylinderData.NO_OF_CYLINDER_BY_VALUE.map((data:any) => (data.value)) }  
+                            onOptionAdd={async (e: String) => ( await addNoOfCylinder( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                            refetchQueries: [{ query: GET_NO_OF_CYLINDER_BY_VALUE, variables: { input: "" } }],
+                            }) )}
                         />
                         </div>
 
@@ -890,8 +930,10 @@ const UpdateClient:React.FC = () => {
                         control={control}       
                         value={gusrdatabyid.user_data_byid?.CC}     
                         placeholder="Cubic Capacity:   "           
-                        options={gccdata && gccdata.CC.map((data:any) => (data.value)) }           
-                        onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}       
+                        options={gccdata && gccdata.CC_BY_VALUE.map((data:any) => (data.value)) }           
+                        onOptionAdd= {async (e: String) => await (addcc( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                        refetchQueries: [{ query: GET_CC_BY_VALUE, variables: { input: "" } }],
+                        }) )}
                     />        
                     </div>                                        
 
@@ -919,10 +961,11 @@ const UpdateClient:React.FC = () => {
                         control={control}
                         value={gusrdatabyid.user_data_byid?.Permit_category}
                         placeholder="Permit Category:   "           
-                        options={gpermitdata && gpermitdata.PERMIT_CATEGORY.map((data:any) => (data.value)) }
-                        onOptionAdd= {async (e: String) => await (addPermitCategory( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
-                    />            
-                    {gpermiterror && <p> {gpermiterror.message} </p>}
+                        options={gpermitdata && gpermitdata.PERMIT_CATEGORY_BY_VALUE.map((data:any) => (data.value)) }
+                        onOptionAdd={async (e: String) => await (addPermitCategory( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                        refetchQueries: [{ query: GET_PERMIT_CATEGORY_BY_VALUE, variables: { input: "" } }],
+                        }) )}
+                    />                                
                     </div>
 
                     <div>
@@ -1161,8 +1204,10 @@ const UpdateClient:React.FC = () => {
                     control={control}
                     value={gusrdatabyid.user_data_byid?.Referred_by}
                     placeholder="Referred By: "
-                    options={referredByOptions && referredByOptions.REFERRED_BY_BY_VALUE.map((data: any) => data.value) || []}
-                    onOptionAdd={async (e: String) => await addReferredBy({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_REFERRED_BY_BY_VALUE, variables: { input: "" } }] })}
+                    options={greferredByData && greferredByData.REFERRED_BY_BY_VALUE.map((data:any) => (data.value)) }  
+                    onOptionAdd={async (e: String) => ( await addReferredBy( { variables: { input: {data_owner_id: "6562047e649b76ef6a583b8d", value: e } },
+                    refetchQueries: [{ query: GET_REFERRED_BY_BY_VALUE, variables: { input: "" } }],
+                    }) )}
                 />
                     </div>
 
@@ -1173,7 +1218,8 @@ const UpdateClient:React.FC = () => {
                     value={gusrdatabyid.user_data_byid?.updated_by}
                     placeholder="Updated By: "
                     options={updatedByOptions && updatedByOptions.UPDATED_BY_BY_VALUE.map((data: any) => data.value) || []}
-                    onOptionAdd={async (e: String) => await addUpdatedBy({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, refetchQueries: [{ query: GET_UPDATED_BY_BY_VALUE, variables: { input: "" } }] })}
+                    onOptionAdd={async (e: String) => await addUpdatedBy({ variables: { input: { data_owner_id: "6562047e649b76ef6a583b8d", value: e } }, 
+                    refetchQueries: [{ query: GET_UPDATED_BY_BY_VALUE, variables: { input: "" } }] })}
                 />
                 </div>
 
@@ -1183,7 +1229,7 @@ const UpdateClient:React.FC = () => {
                         control={control}
                         value={gusrdatabyid.user_data_byid?.Customer_type}
                         placeholder="Policy Issued Through:  "           
-                        options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE.map((data:any) => (data.value)) }    
+                        options={gCusTypedata && gCusTypedata.CUSTOMER_TYPE_BY_VALUE.map((data:any) => (data.value)) }    
                         onOptionAdd= {async (e: String) => await (addCusType( { variables: { input: {"data_owner_id": "6562047e649b76ef6a583b8d", "value": e } }}) )}
                     />       
                     </div>           
