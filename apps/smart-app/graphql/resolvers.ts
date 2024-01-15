@@ -875,6 +875,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     },
 
     user_data_NaInsuranceDueDate: async (parent: any, args: any, context: Context) => {
+      console.log("this user_data_NaInsuranceDueDate Block")
       try {
         return await context.prisma.user_data.findMany({
           where: {
@@ -1041,7 +1042,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         return await context.prisma.user_data.findMany({
           where: {            
             Emission_dueDate: null,
-            data_owner_id: args.input.data_owner_id,
+            data_owner_id: args.input,
           },
           orderBy: {
             Emission_dueDate: 'asc',
@@ -1121,7 +1122,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         return await context.prisma.user_data.findMany({
           where: {
             tax_due_Date: null,
-            data_owner_id: args.input.data_owner_id,
+            data_owner_id: args.input,
           },
           orderBy: {
             tax_due_Date: 'asc',
@@ -1201,7 +1202,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         return await context.prisma.user_data.findMany({
           where: {
             FC_due_Date: null,
-            data_owner_id: args.input.data_owner_id,
+            data_owner_id: args.input,
           },
           orderBy: {
             FC_due_Date: 'asc',
@@ -1268,8 +1269,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
                 }
               : undefined,
           },
-          orderBy: {
-            data_owner_id: args.data_owner_id,
+          orderBy: {            
             Permit_dueDate: 'asc',
           },
         });
@@ -1278,12 +1278,12 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       }
     },
     
-    user_data_NaPermitDueDate: async (parent: any, args: any, context: Context) => {
+    user_data_NaPermitDueDate: async (parent: any, args: any, context: Context) => {      
       try {
         return await context.prisma.user_data.findMany({
           where: {
             Permit_dueDate: null,
-            data_owner_id: args.input.data_owner_id,
+            data_owner_id: args.input,
           },
           orderBy: {
             Permit_dueDate: 'asc',
@@ -1297,7 +1297,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     login:async (parent: any, args: any, context: Context) => {
       console.log("this is login block");         
       
-      const secretKey = process.env.SECRET_KEY || 'default_secret_key'; 
+      const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY || 'default_secret_key'; 
 
       function generateToken(user: app_user) {          
         const token = jwt.sign(

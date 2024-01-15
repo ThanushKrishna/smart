@@ -85,7 +85,8 @@ const DashboardPage: React.FC = () => {
     });
 
     const { loading: dueNALoading, data: dueNAData, error:dueNAError } = useQuery(GET_USER_DATA_NA_INSURANCE_DUE_DATE, {
-      variables: { input: userId },      
+      variables: { input: userId },   
+      skip: !userId,    
     });
     //{dueNALoading && console.log(dueNAData)}
   
@@ -133,7 +134,8 @@ const { loading: tpDueafterMonthLoading, data: tpDueafterMonthData, error: tpDue
 });
 
 const { loading: tpDueNALoading, data: tpDueNAData, error: tpDueNAError } = useQuery(GET_USER_DATA_NA_TP_INSURANCE_DUE_DATE, {
-  variables: { input: userId },      
+  variables: { input: userId },     
+  skip: !userId,  
 });
 
 
@@ -177,7 +179,8 @@ const { loading: emissionDueafterMonthLoading, data: emissionDueafterMonthData, 
 });
 
 const { loading: emissionDueNALoading, data: emissionDueNAData, error: emissionDueNAError } = useQuery(GET_USER_DATA_NA_EMISSION_DUE_DATE, {
-  variables: { input: userId },      
+  variables: { input: userId },     
+  skip: !userId, 
 });
 //{emissionDueNALoading && console.log(emissionDueNAData)}
 
@@ -220,7 +223,8 @@ const { loading: taxDueafterMonthLoading, data: taxDueafterMonthData, error: tax
 });
 
 const { loading: taxDueNALoading, data: taxDueNAData, error: taxDueNAError } = useQuery(GET_USER_DATA_NA_TAX_DUE_DATE, {
-  variables: { input: userId },      
+  variables: { input: userId },     
+  skip: !userId,  
 });
 //{taxDueNALoading && console.log(taxDueNAData)}
 
@@ -263,7 +267,8 @@ const { loading: fcDueafterMonthLoading, data: fcDueafterMonthData, error: fcDue
 });
 
 const { loading: fcDueNALoading, data: fcDueNAData, error: fcDueNAError } = useQuery(GET_USER_DATA_NA_FC_DUE_DATE, {
-  variables: { input: userId },      
+  variables: { input: userId },   
+  skip: !userId,    
 });
 //{fcDueNALoading && console.log(fcDueNAData)}
 
@@ -308,6 +313,7 @@ const { loading: permitDueafterMonthLoading, data: permitDueafterMonthData, erro
 
 const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAError } = useQuery(GET_USER_DATA_NA_PERMIT_DUE_DATE, {
   variables: { input: userId },      
+  skip: !userId, 
 });
 //{permitDueNALoading && console.log(permitDueNAData)}
 

@@ -428,32 +428,32 @@ type Query {
     user_data_beforeInsuranceDueDate(data_owner_id: String!, input: Date!): [user_data]   
     user_data_betweenInsuranceDueDates(data_owner_id: String!, input1: Date!, input2: Date!): [user_data]   
     user_data_afterInsuranceDueDate(data_owner_id: String!, input: Date!): [user_data]   
-    user_data_NaInsuranceDueDate(data_owner_id: String!, input: String!): [user_data]
+    user_data_NaInsuranceDueDate( input: String!): [user_data]
 
     user_data_beforeTPInsuranceDueDate(data_owner_id: String!, input: Date!): [user_data]   
     user_data_betweenTPInsuranceDueDates(data_owner_id: String!, input1: Date!, input2: Date!): [user_data]   
     user_data_afterTPInsuranceDueDate(data_owner_id: String!, input: Date!): [user_data]   
-    user_data_NaTPInsuranceDueDate(data_owner_id: String!, input: String!): [user_data]
+    user_data_NaTPInsuranceDueDate( input: String!): [user_data]
 
     user_data_beforeEmissionDueDate(data_owner_id: String!, input: Date!): [user_data]   
     user_data_betweenEmissionDueDates(data_owner_id: String!, input1: Date!, input2: Date!): [user_data]   
     user_data_afterEmissionDueDate(data_owner_id: String!, input: Date!): [user_data]   
-    user_data_NaEmissionDueDate(data_owner_id: String!, input: String!): [user_data]
+    user_data_NaEmissionDueDate(input: String!): [user_data]
 
     user_data_beforeTaxDueDate(data_owner_id: String!, input: Date!): [user_data]   
     user_data_betweenTaxDueDates(data_owner_id: String!, input1: Date!, input2: Date!): [user_data]   
     user_data_afterTaxDueDate(data_owner_id: String!, input: Date!): [user_data]   
-    user_data_NaTaxDueDate(data_owner_id: String!, input: String!): [user_data]
+    user_data_NaTaxDueDate( input: String!): [user_data]
 
     user_data_beforeFCDueDate(data_owner_id: String!, input: Date!): [user_data]   
     user_data_betweenFCDueDates(data_owner_id: String!, input1: Date!, input2: Date!): [user_data]   
     user_data_afterFCDueDate(data_owner_id: String!, input: Date!): [user_data]   
-    user_data_NaFCDueDate(data_owner_id: String!, input: String!): [user_data]
+    user_data_NaFCDueDate(input: String!): [user_data]
 
     user_data_beforePermitDueDate(data_owner_id: String!, input: Date!): [user_data]   
     user_data_betweenPermitDueDates(data_owner_id: String!, input1: Date!, input2: Date!): [user_data]   
     user_data_afterPermitDueDate(data_owner_id: String!, input: Date!): [user_data]   
-    user_data_NaPermitDueDate(data_owner_id: String!, input: String!): [user_data]
+    user_data_NaPermitDueDate(input: String!): [user_data]
      
   }
 
