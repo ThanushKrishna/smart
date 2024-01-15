@@ -101,6 +101,7 @@ const handletPInsuranceTabChange = (event: React.SyntheticEvent, newValue: strin
 
 const { loading: tpOverdueLoading, data: tpOverdueData, error: tpOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_TP_INSURANCE_DUE_DATE, {
   variables: { data_owner_id: userId, input: utcDate },
+  skip: !utcDate,
 });
 
 
@@ -108,9 +109,6 @@ const { loading: tpTodayLoading, data: tpTodayData, error: tpTodayDataError } = 
   variables: { data_owner_id: userId, input1: utcDate, input2: utcDate + 1 },
   skip: !utcDate,
 });
-
-//{!tpOverdueLoading && console.log("tpOverdueLoading: " + tpOverdueData);}
-//{!tpTodayLoading && console.log(tpTodayDataError?.message) }
 
 
 const { loading: tpTomorrowDueLoading, data: tpTomorrowDuedata, error: tpTomorrowDueError } = useQuery(GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES, {
@@ -138,7 +136,10 @@ const { loading: tpDueNALoading, data: tpDueNAData, error: tpDueNAError } = useQ
   skip: !userId,  
 });
 
-
+// const { loading: fcDueNALoading, data: fcDueNAData, error: fcDueNAError } = useQuery(GET_USER_DATA_NA_FC_DUE_DATE, {
+//   variables: { input: userId },   
+//   skip: !userId,    
+// });
 
 // Emission Queries
 // Emission Queries
@@ -226,6 +227,7 @@ const { loading: taxDueNALoading, data: taxDueNAData, error: taxDueNAError } = u
   variables: { input: userId },     
   skip: !userId,  
 });
+
 //{taxDueNALoading && console.log(taxDueNAData)}
 
 // FC Queries

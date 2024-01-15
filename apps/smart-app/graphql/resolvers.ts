@@ -961,7 +961,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         return await context.prisma.user_data.findMany({
           where: {
             TP_dueDate: null,
-            data_owner_id: args.input,
+            data_owner_id: args.input
           },
           orderBy: {
             TP_dueDate: 'asc',
@@ -971,6 +971,22 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
         console.log(err);
       }
     },
+
+    // user_data_NaEmissionDueDate: async (parent: any, args: any, context: Context) => {
+    //   try {
+    //     return await context.prisma.user_data.findMany({
+    //       where: {            
+    //         Emission_dueDate: null,
+    //         data_owner_id: args.input,
+    //       },
+    //       orderBy: {
+    //         Emission_dueDate: 'asc',
+    //       },
+    //     });
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // },
     
 
     user_data_beforeEmissionDueDate: async (parent: any, args: any, context: Context) => {

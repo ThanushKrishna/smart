@@ -56,7 +56,7 @@ export const DropDownControlWA: React.FC<DropDownControlWAProps<any>> = ({
                         border: '2px #cbd5e0',
                       }}     
                     >  
-                    {value && <MenuItem> {value} </MenuItem> }                                                     
+                    {value && <MenuItem key={value}> {value} </MenuItem> }                                                     
                     {(value == null || value == undefined) && <MenuItem key="dummy" value=""></MenuItem>}                    
                     {options && options.map((option:any) => (
                         <MenuItem key={option} value={option}>
