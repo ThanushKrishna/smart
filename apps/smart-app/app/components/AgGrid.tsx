@@ -1,4 +1,3 @@
-"use Client"
 import React, {
   useRef,
   useEffect,

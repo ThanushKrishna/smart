@@ -9,6 +9,7 @@ import {
     ADD_DELETED_BLOBS
     } from '@/graphql/queries'
 export const runtime = 'edge';
+import { getUserFromCookie } from '../../utils/auth';
 
 
 interface iFileUplaod<T> {
@@ -28,6 +29,16 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
     onSelectFile,
     value
     }) => {      
+
+
+            const [userId, setUserId] = useState('');
+            useEffect(() => {        
+                const decodedToken = getUserFromCookie();        
+                if(decodedToken  && typeof decodedToken === 'object' ){
+                    //console.log('userid from token:' +  decodedToken.userid);
+                    setUserId(decodedToken.userid);
+                }
+              }, []);
         
         
             const[addDelBlob, { data:clientdata, error:addDelBloberror } ] = useMutation(ADD_DELETED_BLOBS);
@@ -50,7 +61,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
               
                   if (links.length === 1) {
                     await addDelBlob({
-                      variables: { input: { "data_owner_id": "6562047e649b76ef6a583b8d", "value": links[0] } }
+                      variables: { input: { "data_owner_id": userId, "value": links[0] } }
                     })
                       .then(() => {
                         // Handle success if needed
@@ -71,7 +82,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
                     }); */ }                                              
 
                     await addDelBlob({
-                      variables: { input: { "data_owner_id": "6562047e649b76ef6a583b8d", "value": links[index] } }
+                      variables: { input: { "data_owner_id": userId, "value": links[index] } }
                     })
                       .then(() => {
                         // Handle success if needed
