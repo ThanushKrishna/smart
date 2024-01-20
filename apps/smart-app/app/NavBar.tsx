@@ -19,10 +19,7 @@ const NavBar = () => {
   const router = useRouter();
   const token = getToken();
   const currentPath = usePathname();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const [isSignupSuccess, setSignupSuccess] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null); 
 
   const handleMenuOpen = useCallback((event: any) => {
     setAnchorEl(event.currentTarget);
@@ -46,6 +43,11 @@ const NavBar = () => {
         ]
       : [];
   }, [token]);
+
+  if (currentPath === '/') {
+    return null;
+  }
+
 
   return (
     <AppBar position="static">

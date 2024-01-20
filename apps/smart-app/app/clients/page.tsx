@@ -35,12 +35,11 @@ const AutomobilePage = () => {
     }, []);
 
 
-
-  const gridApi = useRef<AgGridReact | null>(null);
+  
   const gridRef = useRef<AgGridReact>(null);
   const { loading, error, data, refetch } = useQuery<{ user_data_byuserid: AddClientType[] }>(GET_USER_DATA_BYUSERID, {        
     variables: { data_owner_id: userId},
-    skip: !userId, // Skip the query if vehicleno is not provided            
+    skip: !userId, // Skip the query if userId is not provided            
     });
 
   const containerStyle =  { width: '100%', height: '100%' };
