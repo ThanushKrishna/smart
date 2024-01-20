@@ -7,6 +7,7 @@ import  Providers  from '../components/Providers'
 import NavBar from './NavBar'
 import { Theme } from '@radix-ui/themes';
 
+
 const inter = Inter({ 
   subsets: ['latin'],
   variable: '--font-inter',
@@ -24,6 +25,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      
+      
+      
       <body className={inter.variable}>
       <Providers>
         <Theme>
