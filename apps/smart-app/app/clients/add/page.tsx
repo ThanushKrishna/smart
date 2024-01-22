@@ -282,7 +282,7 @@ const onSubmit = async (formValues: AddClientType) => {
   
     
     return (
-        <div className='font-bold'>
+        <div className='font-bold p-2'>
             <form onSubmit={handleSubmit(onSubmit)}>                                
             
             { gusrdatabyid?.user_data_byid === null && firstpage &&

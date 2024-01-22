@@ -281,7 +281,7 @@ const addressFormatter = (params: any) => {
   };
 
   return (
-        <div>
+        <div className='p-2'>
           <div className='flex'>
           <div className='mb-5'>
             <Button>

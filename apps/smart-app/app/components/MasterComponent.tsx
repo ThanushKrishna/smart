@@ -235,7 +235,7 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
         open={!!deleteItemId}
         onClose={() => setDeleteItemId(null)}
         onConfirm={() => handleDeleteConfirm(deleteItemId ?? '')}
-        itemName={tableData.find((row) => row.id === deleteItemId)?.value || ''}
+        itemName={tableData && tableData.find((row) => row.id === deleteItemId)?.value || ''}
       />
     </>
   );

@@ -120,7 +120,7 @@ const DeleteClient:React.FC = () => {
         }     
 
     return (    
-        <div>
+        <div className='p-2'>
         
         {!isVehicleNoprovided &&
         <div className='grid-cols-3 max-w-md pb-2 text-slate-500 text-base font-bold'>
