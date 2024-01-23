@@ -185,7 +185,7 @@ const LandingPage: React.FC = () => {
   <div className="flex-1 m-8 bg-white bg-opacity-10 shadow-lg text-white rounded-lg">
     <p className="text-xl font-bold leading-relaxed p-2 pb-5  text-center">Reporting</p>
     <img src="images/star-icon.png" alt="STAR ICON" className="mx-auto my-4" />
-    <p className="text-lg p-2">Generate reports effortlessly and swiftly with SMART LEADS' reporting features. This capability allows you to create and oversee reports covering policy registers, vehicle policy renewals, emissions, tax details, permits, and more. This functionality is instrumental in closely evaluating and analyzing client requirements.</p>
+    <p className="text-lg p-2">Generate reports effortlessly and swiftly with SMART LEADS reporting features. This capability allows you to create and oversee reports covering policy registers, vehicle policy renewals, emissions, tax details, permits, and more. This functionality is instrumental in closely evaluating and analyzing client requirements.</p>
   </div>
 </div>
 
