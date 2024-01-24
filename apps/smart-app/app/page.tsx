@@ -208,7 +208,7 @@ const LandingPage: React.FC = () => {
 
       <details className="mb-10 text-white flex flex-col items-start">
         <summary className="font-bold mb-2">Do we need to install any software to use SMART LEADS?</summary>
-        <p>The beauty of SAAS-based software lies in the fact that there's no need to install any software on your devices. 
+        <p>The beauty of SAAS-based software lies in the fact that there&apos;s no need to install any software on your devices. 
           This system can be accessed from any device—be it a desktop, 
           laptop, or mobile—from any corner of the world, provided you have a reliable internet connection.</p>
       </details>
@@ -217,7 +217,7 @@ const LandingPage: React.FC = () => {
         <summary className="font-bold mb-2">Can I use it on mobile like an APP?</summary>
         <p>Absolutely! You have the flexibility to install it as a Progressive Web Application (PWA) without the need to download 
           it from the Google Play Store. Once installed as a PWA, you can access and use it on your mobile device as if it were a standalone app.
-          However, it's important to note that due to its extensive data management capabilities, 
+          However, it&apos;s important to note that due to its extensive data management capabilities, 
           the optimal viewing experience is achieved on a desktop.</p>
       </details>
 
@@ -225,7 +225,7 @@ const LandingPage: React.FC = () => {
         <summary className="font-bold mb-2">How secure is your data?</summary>
         <p>Your data is securely stored in MongoDB hosted on AWS, and the application itself is hosted on Vercel. 
           Both AWS and Vercel are industry leaders known for their reliability and security measures. 
-          It's worth noting that they adhere to GDPR compliance standards, ensuring that your data is handled in accordance with 
+          It&apos;s worth noting that they adhere to GDPR compliance standards, ensuring that your data is handled in accordance with 
           data protection regulations. This provides an added layer of assurance regarding the privacy and security of the information 
           stored and processed by the application.</p>
       </details>
