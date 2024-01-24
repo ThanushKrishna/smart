@@ -12,33 +12,28 @@ const LandingPage: React.FC = () => {
         <h3  className='text-white  font-bold pl-5'  >SMART LEADS</h3>
         <div className="space-x-4 pr-2">
         <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={() => {router.push('/')}}
+            onClick={() => router.push('/')}
           >
             Home
           </button>
           <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={() => {router.push('/')}}
+            onClick={() => router.push('/product/pricing')}
           >
             Pricing
           </button>
           <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={() => {router.push('/')}}
+            onClick={() => router.push('/product/about-us')}            
           >
             About Us
           </button>
+         
           <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={() => {router.push('/')}}
-          >
-            
-            Contact Us
-          </button>
-          <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={() => {router.push('/login')}}
+            onClick={() => router.push('/login')}
           >
             LogIn
           </button>
           <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-            onClick={() => {router.push('/signup')}}
+            onClick={() => router.push('/signup')}
           >
             Sign Up
           </button>
@@ -72,7 +67,7 @@ const LandingPage: React.FC = () => {
 
             <div className='pl-20'>
             <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-              onClick={() => {router.push('/signup')}}
+              onClick={() => {router.push('/product/consultation')}}
             >
               Book a Consultation
             </button>
@@ -246,17 +241,17 @@ const LandingPage: React.FC = () => {
         <div>
           <p className='pb-3 text-xl font-bold'>Links</p>
           <ul>
-            <li className='pb-1'>About Us</li>
-            <li className='pb-1'>Pricing</li>
-            <li className='pb-1'>Terms and Conditions</li>
-            <li className='pb-1'>Privacy Policy</li>
-            <li className='pb-1'>Disclaimer</li>
-          </ul>
+  <li className='pb-1' onClick={() => router.push('/product/about-us')} style={{cursor: 'pointer'}}>About Us</li>
+  <li className='pb-1' onClick={() => router.push('/product/pricing')} style={{cursor: 'pointer'}}>Pricing</li>
+  <li className='pb-1' onClick={() => router.push('/product/t&c')} style={{cursor: 'pointer'}}>Terms and Conditions</li>
+  <li className='pb-1' onClick={() => router.push('/product/privacy-policy')} style={{cursor: 'pointer'}}>Privacy Policy</li>
+  <li className='pb-1' onClick={() => router.push('/product/disclaimer')} style={{cursor: 'pointer'}}>Disclaimer</li>
+</ul>
         </div>
         <div>
         <p className='pb-3 text-xl font-bold'>Support</p>
         <ul>
-            <li className='pb-1'>Support Form</li>            
+            <li className='pb-1' onClick={() => router.push('/product/support-form')} style={{cursor: 'pointer'}}>Support Form</li>            
           </ul>
         </div>
         <div>
