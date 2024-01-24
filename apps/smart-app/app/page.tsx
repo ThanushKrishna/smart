@@ -9,7 +9,7 @@ const LandingPage: React.FC = () => {
     // <div className="bg-white min-h-screen min-w-full flex flex-col pt-2 px-8 bg-cover bg-center" style={{backgroundImage: "url('images/unsplash-01.jpg')", height: '100vh', width: '100vw'}}>
        <div className="min-h-screen min-w-full flex flex-col pt-2" style={{backgroundColor: '#000033'}}>
        <div className="flex justify-between items-center pb-8">
-        <p  className='text-white  font-bold pl-5'  >SMART LEADS</p>
+        <h3  className='text-white  font-bold pl-5'  >SMART LEADS</h3>
         <div className="space-x-4 pr-2">
         <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
             onClick={() => {router.push('/')}}

@@ -45,18 +45,19 @@ export const DropDownControlWA: React.FC<DropDownControlWAProps<any>> = ({
                 <Controller  
                 name={name}  
                 control={control} 
-                defaultValue={value}                
+                defaultValue={value ? value: undefined }                
                 render={({ field }) => (                    
-                    <Select {...field} 
+                    <Select {...field}                     
                     style={{          
                         width: '80%',                                                                                                                                         
                         borderRadius: '0.2rem',                        
                         bottom: '0',                                              
                         paddingTop: '0.1rem',
                         border: '2px #cbd5e0',
-                      }}     
+                      }}    
+                      displayEmpty 
                     >  
-                    {value && <MenuItem key={value}> {value} </MenuItem> }                                                     
+                    {value && <MenuItem value={value}> {value} </MenuItem> }                                                     
                     {(value == null || value == undefined) && <MenuItem key="dummy" value=""></MenuItem>}                    
                     {options && options.map((option:any) => (
                         <MenuItem key={option} value={option}>

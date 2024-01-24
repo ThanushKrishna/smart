@@ -58,7 +58,7 @@ const NavBar = () => {
               <FaBookOpen />
             </IconButton>
           </Link>
-          <Typography variant="h6">Smart Leads</Typography>
+          <Typography variant="h6">SMART LEADS</Typography>
         </div>
         <div style={{ display: 'flex', marginLeft: 'auto' }}>
           {token &&
