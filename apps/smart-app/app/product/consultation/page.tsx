@@ -59,9 +59,9 @@ const Consultation = () => {
     
       <div className="text-lg text-white leading-relaxed p-20" style={{minHeight: '100vh'}}>
         <h1 className="text-3xl font-bold mb-4">Consultation</h1>
-        <p className="mb-4">SMART LEADS offers free consultation to all users. Users can schedule a consultation session with the company's representatives by filling out a form below.</p>
-        <p className="mb-4"> The company's representatives will contact the user at the earliest to schedule a consultation session. The company's representatives will provide the user with a detailed overview of the Services and the various features available to the user along with  a demonstration of the Services and its features.</p>
-        <p className="mb-4">The representatives will additionally furnish the user with a comprehensive explanation of the service pricing and the array of plans accessible to them. They will also offer a thorough rundown of the diverse payment methods at the user's disposal. </p>        
+        <p className="mb-4">SMART LEADS offers free consultation to all users. Users can schedule a consultation session with the company&apos;s representatives by filling out a form below.</p>
+        <p className="mb-4"> The company&apos;s representatives will contact the user at the earliest to schedule a consultation session. The company&apos;s representatives will provide the user with a detailed overview of the Services and the various features available to the user along with  a demonstration of the Services and its features.</p>
+        <p className="mb-4">The representatives will additionally furnish the user with a comprehensive explanation of the service pricing and the array of plans accessible to them. They will also offer a thorough rundown of the diverse payment methods at the user&apos;s disposal. </p>        
       
       
         {/* <div className="max-w-md mx-auto mt-8 p-4 bg-gray-100 rounded-lg"> */}

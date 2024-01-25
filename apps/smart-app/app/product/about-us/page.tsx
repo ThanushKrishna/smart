@@ -49,7 +49,7 @@ const AboutUs = () => {
         With founders boasting over a decade of experience in both the insurance and IT sectors, they possess deep insights into the 
         challenges and intricacies of the insurance industry, enabling them to engineer a robust application to cater to these demands.</p>
 
-        <p className="mb-4">The company's mission and vision revolve around empowering individuals within insurance agencies, regardless 
+        <p className="mb-4">The company&apos;s mission and vision revolve around empowering individuals within insurance agencies, regardless 
         of their size, with the requisite technological tools to prioritize client engagement and foster business expansion. 
         Moreover, the company is dedicated to understanding and addressing the diverse needs of the modern world across various industries.</p>
           

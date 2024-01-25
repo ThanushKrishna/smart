@@ -46,7 +46,8 @@ const PrivacyPolicy = () => {
         <p>Information Collected for Account Creation</p>
         <br />
         <p>
-          We offer you the ability to browse our Website and access information about the Services without registering or providing personal information. However, to utilize specific features related to the Services, as outlined on the Website, you must create a free account. Additionally, users interested in accessing the Services (as detailed on the website) are required to subscribe to any available plans and create a user account, providing the following personally identifiable information ("User/Personal Information") to access the Services:
+          We offer you the ability to browse our Website and access information about the Services without registering or providing personal information. However, to utilize specific features related to the Services, as outlined on the Website, you must create a free account. Additionally, users interested in accessing the Services (as detailed on the website) are required to subscribe to any available plans and create a user account, 
+          providing the following personally identifiable information (&quot;User/Personal Information&quot;) to access the Services:
         </p>
         <br />
          <ul className="list-disc ml-8 mb-4">
