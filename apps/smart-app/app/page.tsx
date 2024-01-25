@@ -98,7 +98,7 @@ const LandingPage: React.FC = () => {
         
             <p className="text-lg text-white leading-relaxed flex justify-end">You only require a single platform where all your needs are met. 
             With over 50 fields and 8 document upload fields within the application, you have everything necessary to finalize a deal with a client. 
-            There's no need to worry about accessing user data through various channels.
+            There&apos;s no need to worry about accessing user data through various channels.
             </p>
                 
         </div>
