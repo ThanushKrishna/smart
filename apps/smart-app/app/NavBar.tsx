@@ -44,7 +44,7 @@ const NavBar = () => {
       : [];
   }, [token]);
 
-  if ( currentPath === '/' || currentPath && currentPath.startsWith('/product/') || currentPath === '/login' || currentPath === '/signup') {
+  if ( currentPath === '/' || currentPath && currentPath.startsWith('/product/')) {
     return null;
   }
 

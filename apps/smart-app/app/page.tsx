@@ -96,11 +96,9 @@ const LandingPage: React.FC = () => {
         
           <h2 className="text-xl font-bold text-white mb-4 leading-relaxed">All you need is in Single place</h2>
         
-            <p className="text-lg text-white leading-relaxed flex justify-end">Wave goodbye to the outdated approach of handling data 
-            and documents across numerous files and devices. The SMART app empowers you to centralize the management 
-            of thousands of client data and documents using cutting-edge technology, ensuring swift access to your 
-            requirements in mere seconds. By alleviating concerns related to data management and deadlines, you can 
-            channel your focus entirely on closing deals, generating more leads, and enhancing income for your business.
+            <p className="text-lg text-white leading-relaxed flex justify-end">You only require a single platform where all your needs are met. 
+            With over 50 fields and 8 document upload fields within the application, you have everything necessary to finalize a deal with a client. 
+            There's no need to worry about accessing user data through various channels.
             </p>
                 
         </div>
@@ -115,11 +113,9 @@ const LandingPage: React.FC = () => {
         
           <h2 className="text-xl font-bold text-white mb-4 leading-relaxed">Never Miss a Deadline</h2>
         
-            <p className="text-lg text-white leading-relaxed flex justify-start">Wave goodbye to the outdated approach of handling data 
-            and documents across numerous files and devices. The SMART app empowers you to centralize the management 
-            of thousands of client data and documents using cutting-edge technology, ensuring swift access to your 
-            requirements in mere seconds. By alleviating concerns related to data management and deadlines, you can 
-            channel your focus entirely on closing deals, generating more leads, and enhancing income for your business.
+            <p className="text-lg text-white leading-relaxed flex justify-start">With SMART LEADS app consolidating all your data, the dashboard 
+            is structured to display all clients due in six distinct categories, 
+            covering various timeframes such as today, tomorrow, next week, and next month.
             </p>
                 
         </div>
@@ -143,11 +139,9 @@ const LandingPage: React.FC = () => {
         
           <h2 className="text-xl font-bold text-white mb-4 leading-relaxed">Increased Productivity</h2>
         
-            <p className="text-lg text-white leading-relaxed flex justify-end">Wave goodbye to the outdated approach of handling data 
-            and documents across numerous files and devices. The SMART app empowers you to centralize the management 
-            of thousands of client data and documents using cutting-edge technology, ensuring swift access to your 
-            requirements in mere seconds. By alleviating concerns related to data management and deadlines, you can 
-            channel your focus entirely on closing deals, generating more leads, and enhancing income for your business.
+            <p className="text-lg text-white leading-relaxed flex justify-end">With all client data, due dates, relevant documents, and 
+            information consolidated in a single location, your primary concern is closing as many deals as possible each day. 
+            This allows you to unleash your full potential and concentrate on what truly matters for expanding your business.
             </p>
                 
         </div>
@@ -241,12 +235,12 @@ const LandingPage: React.FC = () => {
         <div>
           <p className='pb-3 text-xl font-bold'>Links</p>
           <ul>
-  <li className='pb-1' onClick={() => router.push('/product/about-us')} style={{cursor: 'pointer'}}>About Us</li>
-  <li className='pb-1' onClick={() => router.push('/product/pricing')} style={{cursor: 'pointer'}}>Pricing</li>
-  <li className='pb-1' onClick={() => router.push('/product/t&c')} style={{cursor: 'pointer'}}>Terms and Conditions</li>
-  <li className='pb-1' onClick={() => router.push('/product/privacy-policy')} style={{cursor: 'pointer'}}>Privacy Policy</li>
-  <li className='pb-1' onClick={() => router.push('/product/disclaimer')} style={{cursor: 'pointer'}}>Disclaimer</li>
-</ul>
+          <li className='pb-1' onClick={() => router.push('/product/about-us')} style={{cursor: 'pointer'}}>About Us</li>
+          <li className='pb-1' onClick={() => router.push('/product/pricing')} style={{cursor: 'pointer'}}>Pricing</li>
+          <li className='pb-1' onClick={() => router.push('/product/t&c')} style={{cursor: 'pointer'}}>Terms and Conditions</li>
+          <li className='pb-1' onClick={() => router.push('/product/privacy-policy')} style={{cursor: 'pointer'}}>Privacy Policy</li>
+          <li className='pb-1' onClick={() => router.push('/product/disclaimer')} style={{cursor: 'pointer'}}>Disclaimer</li>
+        </ul>
         </div>
         <div>
         <p className='pb-3 text-xl font-bold'>Support</p>
