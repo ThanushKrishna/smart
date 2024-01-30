@@ -12,7 +12,7 @@ export const removeToken = () => Cookies.remove('authToken');
 export function getUserFromCookie() {
   
   const token = getToken();
-  const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY || 'default_secret_key';
+  const secretKey = process.env.SECRET_KEY || 'default_secret_key';
   // console.log("TOKEN: " + token);
   // console.log("SECRETKEY: " + secretKey);
 

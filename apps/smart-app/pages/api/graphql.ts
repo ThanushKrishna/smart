@@ -12,12 +12,12 @@ export type Context = {
   prisma: PrismaClient;
 }
 
-console.log("process.env.NEXT_PUBLIC_ORIGIN", process.env.NEXT_PUBLIC_ORIGIN);
+console.log("process.env.NEXT_PUBLIC_ORIGIN", process.env.ORIGIN);
 
 const cors = Cors({
   allowMethods: ['POST', 'OPTIONS'],
   allowHeaders: ['Content-Type', 'Authorization'],
-  origin: process.env.NEXT_PUBLIC_ORIGIN, // replace with your origins
+  origin: process.env.ORIGIN, // replace with your origins
 });
 
 
@@ -45,6 +45,13 @@ let handler:any;
 
 export default cors((req, res) => {
   if (serverStarted) {
+    console.log("Origin header:", req.headers.origin);
+    if (req.method === 'OPTIONS') {
+      res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+      res.end();
+      return;
+    }
     return handler(req, res);
   }
   // If the server is not started yet, end the response and return
