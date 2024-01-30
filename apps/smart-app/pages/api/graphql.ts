@@ -45,6 +45,8 @@ let handler:any;
 
 export default cors((req, res) => {
   if (serverStarted) {
+    // Add Access-Control-Allow-Origin header
+    res.setHeader('Access-Control-Allow-Origin', process.env.ORIGIN! );
     console.log("Origin header:", req.headers.origin);
     if (req.method === 'OPTIONS') {
       res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
