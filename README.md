@@ -1,81 +1,43 @@
-# Turborepo starter
+# Project - SMART APP
 
-This is an official starter Turborepo.
+Welcome to Project SMART APP project! This repository contains all the code and resources related to my project.
 
-## Using this example
+## Overview
 
-Run the following command:
+The SMART APP enables users to centralize the management of thousands of client data and documents in one place, it's a NextJs application deployed in Vercel with MongoDB as the database.
+its only desktop compatible as per the client need, Check out this production app <a href=https://www.smartleads.co.in/> SMART-APP </a>
 
-```sh
-npx create-turbo@latest
-```
+## Features
 
-## What's inside?
+- **Feature 1:** Client Data Management.
+- **Feature 2:** Client Master Data Management.
+- **Feature 3:** Reporting via AG Grid.
+- **Feature 4:** Dashboard based on due dates of various fields for various time frames.
 
-This Turborepo includes the following packages/apps:
+## Installation
 
-### Apps and Packages
+1. Clone this repository: `git clone https://github.com/ThanushKrishna/smart.git`
+2. Navigate to the project directory: `cd smart`
+3. Install dependencies: `npm install`
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+## Usage
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+Instructions on how to use your project or any specific commands that users need to run.
 
-### Utilities
+To start the project in development: **npm run dev**
+<br/>
+To start the project in Production: **npm run build**
 
-This Turborepo has some additional tools already setup for you:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## Contributing
 
-### Build
+I welcome contributions from the community! If you'd like to contribute, please follow these steps:
+1. Fork this repository
+2. Create a new branch for your feature: `git checkout -b feature-name`
+3. Make your changes and commit them: `git commit -am 'Add new feature'`
+4. Push to your forked repository: `git push origin feature-name`
+5. Submit a pull request
 
-To build all apps and packages, run the following command:
+## License
 
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+This project is licensed under the [MIT License](LICENSE).
