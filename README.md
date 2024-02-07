@@ -1,6 +1,6 @@
 # Project - SMART APP
 
-Welcome to Project SMART APP project! This repository contains all the code and resources related to my project.
+Welcome to the SMART APP project! This repository contains all the code and resources related to my project.
 
 ## Overview
 
