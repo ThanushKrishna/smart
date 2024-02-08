@@ -31,7 +31,7 @@ Check out the production app at [Smart Leads](https://www.smartleads.co.in) to e
 ## Technology Stack
 
 - **Frontend**: Next.js Framework for server-side rendering and a responsive user interface.
-- **Backend**: Since Next.js is a full-stack application development framework, server-side logic, GraphQL API endpoint and MongoDB Integration for storing and managing issue data is also implemented with Next.js
+- **Backend**: Since Next.js is a full-stack application development framework, server-side logic, GraphQL API endpoint and MongoDB Integration for storing and managing client data is also implemented with Next.js
 - **Deployment**: The application is deployed in Vercel and DB is deployed on the MongoDB Cloud for scalability, reliability, and seamless integration with other GCP services.
 
 ## Next.js Full Stack Framework Features
