@@ -16,7 +16,7 @@ The Smart App is a desktop-compatible web application developed using Next.js, d
 
 - **Search and Filter Functionality**: Efficiently search for specific clients or documents using advanced search and filter options based on various criteria, such as client name, document type, date, etc.
 
-- **Dashboard Feature: Due Date Overview**: The Dashboard Feature in the Smart App provides users with an overview of due dates for 6 distinct fields in 6 different time frames, ensuring efficient task management and prioritization. It categorizes data into fields such as OD DueDate, TP DueDate, Emission DueDate, Tax DueDate, Fitness DueDate, and Permit DueDate, presenting them in time frames ranging from Today to Beyond. Through visual representation and an interactive interface, users can easily prioritize tasks, plan their schedules, and improve productivity.
+- **Dashboard - Due Date Overview**: The Dashboard Feature in the Smart App provides users with an overview of due dates for 6 distinct fields in 6 different time frames, ensuring efficient task management and prioritization. It categorizes data into fields such as OD DueDate, TP DueDate, Emission DueDate, Tax DueDate, Fitness DueDate, and Permit DueDate, presenting them in time frames ranging from Today to Beyond. Through visual representation and an interactive interface, users can easily prioritize tasks, plan their schedules, and improve productivity.
 
 - **Integration with Third-Party Tools**: Seamlessly integrate with third-party tools and services for enhanced functionality, such as email clients, calendar applications, or CRM systems.
 
