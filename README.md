@@ -1,81 +1,83 @@
-# Turborepo starter
+# Smart App
 
-This is an official starter Turborepo.
+## Overview
 
-## Using this example
+The Smart App is a desktop-compatible web application developed using Next.js, deployed on Vercel, with MongoDB as the database. It serves as a centralized platform for managing thousands of client data and documents in one place, providing users with efficient organization and easy access to essential information.
 
-Run the following command:
+## Key Features
 
-```sh
-npx create-turbo@latest
-```
+- **Centralized Data Management**: Consolidate and organize thousands of client data and documents in a single, centralized platform, eliminating the need for multiple disparate systems.
 
-## What's inside?
+- **User Authentication and Authorization**: Secure user authentication and role-based access control (RBAC) ensure that only authorized users can access and manage sensitive client data.
 
-This Turborepo includes the following packages/apps:
+- **Customizable Client Profiles**: Create and customize client profiles with detailed information such as contact details, preferences, interactions, and document attachments.
 
-### Apps and Packages
+- **Document Management**: Upload, store, and manage various types of documents associated with clients, including contracts, agreements, invoices, and more.
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- **Search and Filter Functionality**: Efficiently search for specific clients or documents using advanced search and filter options based on various criteria, such as client name, document type, date, etc.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- **Dashboard - Due Date Overview**: The Dashboard Feature in the Smart App provides users with an overview of due dates for 6 distinct fields in 6 different time frames, ensuring efficient task management and prioritization. It categorizes data into fields such as OD DueDate, TP DueDate, Emission DueDate, Tax DueDate, Fitness DueDate, and Permit DueDate, presenting them in time frames ranging from Today to Beyond. Through visual representation and an interactive interface, users can easily prioritize tasks, plan their schedules, and improve productivity.
 
-### Utilities
+- **Integration with Third-Party Tools**: Seamlessly integrate with third-party tools and services for enhanced functionality, such as email clients, calendar applications, or CRM systems.
 
-This Turborepo has some additional tools already setup for you:
+- **Data Insights and Reporting**: Generate reports and gain valuable insights into client data trends, interactions, and performance metrics to make informed business decisions.
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- **Desktop Compatibility**: Optimized for desktop use, providing a responsive and user-friendly experience across desktop devices.
 
-### Build
+## Production App
 
-To build all apps and packages, run the following command:
+Check out the production app at [Smart Leads](https://www.smartleads.co.in) to experience firsthand how it centralizes the management of client data and documents in one place.
 
-```
-cd my-turborepo
-pnpm build
-```
+## Technology Stack
 
-### Develop
+- **Frontend**: Next.js Framework for server-side rendering and a responsive user interface.
+- **Backend**: Since Next.js is a full-stack application development framework, server-side logic, GraphQL API endpoint and MongoDB Integration for storing and managing client data is also implemented with Next.js
+- **Deployment**: The application is deployed in Vercel and DB is deployed on the MongoDB Cloud for scalability, reliability, and seamless integration with other GCP services.
 
-To develop all apps and packages, run the following command:
+## Next.js Full Stack Framework Features
 
-```
-cd my-turborepo
-pnpm dev
-```
+**Frontend Features:**
 
-### Remote Caching
+- **Server-side Rendering (SSR):** Render React components on the server side for faster page load times and improved SEO.
+- **Static Site Generation (SSG):** Pre-render pages at build time for faster loading and better performance.
+- **Client-side Routing:** Built-in routing system for client-side navigation without page reloads.
+- **Automatic Code Splitting:** Split code into smaller bundles for improved performance.
+- **CSS and Image Support:** Import CSS files and optimize images with built-in support.
+- **API Routes:** Create API endpoints within the application for server-side logic.
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+**Backend Features:**
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+- **API Routes:** Easily create API endpoints in the `pages/api` directory for server-side logic.
+- **Server-side Logic:** Run server-side logic within API routes or during server-side rendering.
+- **Middleware Support:** Add custom logic or modify incoming requests with middleware functions.
+- **Authentication:** Integrate authentication libraries or services for user authentication.
+- **Database Integration:** Interact with databases such as MongoDB, PostgreSQL, or MySQL using libraries like `mongoose`, `pg`, or `mysql`.
 
-```
-cd my-turborepo
-npx turbo login
-```
+  
+## Installation
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+1. Clone this repository: `git clone https://github.com/ThanushKrishna/smart.git`
+2. Navigate to the project directory: `cd smart`
+3. Install dependencies: `npm install`
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+## Usage
 
-```
-npx turbo link
-```
+Instructions on how to use your project or any specific commands that users need to run.
 
-## Useful Links
+To start the project in development: **npm run dev**
+<br/>
+To start the project in Production: **npm run build**
 
-Learn more about the power of Turborepo:
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+## Contributing
+
+I welcome contributions from the community! If you'd like to contribute, please follow these steps:
+1. Fork this repository
+2. Create a new branch for your feature: `git checkout -b feature-name`
+3. Make your changes and commit them: `git commit -am 'Add new feature'`
+4. Push to your forked repository: `git push origin feature-name`
+5. Submit a pull request
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
