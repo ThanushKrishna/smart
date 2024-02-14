@@ -1,25 +1,25 @@
 'use client'
 
+import { GET_USER_DATA_BYUSERID } from '@/graphql/queries';
+import { AddClientType, tAddress } from '@/typings';
+import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
+import { ModuleRegistry } from '@ag-grid-community/core';
+import { CsvExportModule } from '@ag-grid-community/csv-export';
+import { useQuery } from '@apollo/client';
+import { Button } from '@radix-ui/themes';
+import { ColDef } from 'ag-grid-community';
+import 'ag-grid-community/styles/ag-grid.css';
+import { AgGridReact } from 'ag-grid-react';
+import Link from 'next/link';
 import React, {
-  useRef,
   useEffect,
+  useRef,
   useState,
 } from 'react';
-import { AgGridReact } from 'ag-grid-react';
-import { ColDef, RowClassParams, createGrid, GridApi, GridOptions, ColGroupDef } from 'ag-grid-community';
-import { ModuleRegistry } from '@ag-grid-community/core';
-import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
-import { CsvExportModule } from '@ag-grid-community/csv-export';
-import { Button } from '@radix-ui/themes'
-import Link from 'next/link';
-import { useQuery } from '@apollo/client';
-import { GET_USER_DATA_BYUSERID } from '@/graphql/queries'
-import  { AddClientType, tAddress }  from '@/typings';
-import 'ag-grid-community/styles/ag-grid.css';
 //import 'ag-grid-community/styles/ag-theme-alpine.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
-import withAuth from '../middleware/withAuth';
 import { getUserFromCookie } from '../../utils/auth';
+import withAuth from '../middleware/withAuth';
 
 ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 

@@ -9,6 +9,12 @@ export type Context = {
   prisma: PrismaClient;
 }
 
+export const config = {
+  api: {
+    responseLimit: false,
+  },
+}
+
 const apolloServer = new ApolloServer<Context>({ typeDefs, resolvers });
 
 export default startServerAndCreateNextHandler(apolloServer, {
