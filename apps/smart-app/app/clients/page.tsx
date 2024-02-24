@@ -329,7 +329,7 @@ const addressFormatter = (params: any) => {
         <div className='flex justify-end my-4'>
         
         <Pagination 
-        onPageSizeChange = {(e: number) => setpageSize(e)} 
+        onPageSizeChange = {(e: number) => { setpageSize(e); setPageNumber(1) }} 
         itemCount={data?.user_data_byuserid.count} 
         pageSize={pageSize} 
         currentPage={pageNumber} 
