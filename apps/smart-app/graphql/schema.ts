@@ -367,9 +367,15 @@ type REFERRED_BY {
   value:                 String!
 }
 
+
+type UserDataByUserIdResponse {
+  data: [user_data],
+  count: Int
+}
+
 type Query {
     user_data: [user_data]    
-    user_data_byuserid(data_owner_id:String!): [user_data]   
+    user_data_byuserid(data_owner_id:String!, pageSize: Int, pageNumber: Int): UserDataByUserIdResponse   
     app_user: [app_user]
     login(input1: String!, input2: String!): AuthPayload
     getNotesForUser(input: String!) : String    

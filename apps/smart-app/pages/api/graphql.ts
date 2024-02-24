@@ -11,7 +11,7 @@ export type Context = {
 
 export const config = {
   api: {
-    responseLimit: '8mb',
+    responseLimit: '4mb',
   },
 }
 

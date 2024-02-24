@@ -93,14 +93,34 @@ export const resolvers = {
 
     user_data_byuserid: async (parent: any, args: any, context: Context) => {
       try {
-        return await context.prisma.user_data.findMany({
+        const offset = (args.pageNumber - 1) * args.pageSize;
+        console.log("User Data By User ID: " + args.pageSize, args.pageNumber, args.data_owner_id);
+
+         // Count the total number of rows
+        const totalCount = await context.prisma.user_data.count({
           where: {
             data_owner_id: args.data_owner_id
-          },          
+          }
+        });
+
+        const userData = await context.prisma.user_data.findMany({
+          where: {
+            data_owner_id: args.data_owner_id
+          },    
+          take: args.pageSize,
+          skip: offset,      
           orderBy: {
             createdAt: 'desc' // 'desc' for descending order (most recent first)
           }
         });
+
+        const response = {
+          data: userData,
+          count: totalCount
+        };
+    
+        return response;
+
       } catch (err) {
         //console.log(err);
       }

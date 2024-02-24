@@ -20,12 +20,16 @@ import React, {
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 import { getUserFromCookie } from '../../utils/auth';
 import withAuth from '../middleware/withAuth';
+import Pagination  from '../components/pagination';
 
 ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 
 const AutomobilePage = () => {
 
   const [userId, setUserId] = useState('');
+  const [pageSize, setpageSize] = useState(200); // Number of items per page
+  const [pageNumber, setPageNumber] = useState(1); // Initial page number
+
   useEffect(() => {        
       const decodedToken = getUserFromCookie();        
       if(decodedToken  && typeof decodedToken === 'object' ){
@@ -37,30 +41,21 @@ const AutomobilePage = () => {
 
   
   const gridRef = useRef<AgGridReact>(null);
-  const { loading, error, data, refetch } = useQuery<{ user_data_byuserid: AddClientType[] }>(GET_USER_DATA_BYUSERID, {        
-    variables: { data_owner_id: userId},
+  const { loading, error, data, fetchMore  } = useQuery<{ user_data_byuserid: { data: AddClientType[], count: number } }>(GET_USER_DATA_BYUSERID, {        
+    variables: { data_owner_id: userId, pageSize, pageNumber }, 
     skip: !userId, // Skip the query if userId is not provided            
     });
 
+    //console.log('data:' + data);
+
   const containerStyle =  { width: '100%', height: '100%' };
   
- // useEffect to trigger the initial data fetch
- useEffect(() => {
-  const fetchData = async () => {
-    try {
-      await refetch();
-    } catch (error:any) {
-      console.error('Error fetching data:', error.message);
-    }
-  };
 
-  // Fetch data when the component mounts
-    fetchData();    
-  }, [refetch]);
-  
 
   // Save column state to local storage whenever it changes
   useEffect(() => {
+
+    gridRef.current?.api.setRowCount(499);
     const saveColumnState = () => {
       if (gridRef.current && gridRef.current.api) {
         const columnState = gridRef.current.api.getColumnState();
@@ -253,7 +248,7 @@ const addressFormatter = (params: any) => {
         gridRef.current.api.applyColumnState({
           state: JSON.parse(storedColumnState),
           applyOrder: true,
-        });
+        });         
     //console.log('column state restored from localStorage');
       }
   };
@@ -279,6 +274,8 @@ const addressFormatter = (params: any) => {
       }
     }
   };
+
+ 
 
   return (
         <div className='p-2'>
@@ -315,21 +312,32 @@ const addressFormatter = (params: any) => {
 
         <div
           className='ag-theme-quartz'
-          style={{ height: '80vh', width: '100%' }}
+          style={{ height: '78vh', width: '100%'}}
         >          
           <AgGridReact<AddClientType>
             ref={gridRef}
-            rowData={data.user_data_byuserid}
+            rowData={data.user_data_byuserid.data}
             columnDefs={columnDefs}
-            defaultColDef={defaultColDef}            
+            defaultColDef={defaultColDef}                   
             rowGroupPanelShow={'always'}
             pivotPanelShow={'always'}
-            pagination={true}
-            paginationPageSize={20}                
-            onGridReady={onGridReady}                     
-          />
-        </div>        
+            pagination={false}            
+            paginationPageSize={ pageSize }                
+            onGridReady={onGridReady}                                                
+          />          
       </div>
+        <div className='flex justify-end my-4'>
+        
+        <Pagination 
+        onPageSizeChange = {(e: number) => setpageSize(e)} 
+        itemCount={data?.user_data_byuserid.count} 
+        pageSize={pageSize} 
+        currentPage={pageNumber} 
+        onPageChange = {(e: number) => setPageNumber(e)}
+        />
+
+        </div>
+      </div>        
     </div>
         </div>
     )
@@ -337,3 +345,5 @@ const addressFormatter = (params: any) => {
 }
 
 export default withAuth(AutomobilePage);
+
+

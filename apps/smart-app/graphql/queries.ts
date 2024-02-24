@@ -306,9 +306,10 @@ export const GET_USER_DATA = gql`
 `;
 
 export const GET_USER_DATA_BYUSERID = gql`
-  query User_data_byuserid($data_owner_id: String!) {
-    user_data_byuserid(data_owner_id:$data_owner_id) {
-      id
+  query User_data_byuserid($data_owner_id: String!, $pageSize: Int, $pageNumber: Int) {
+    user_data_byuserid(data_owner_id: $data_owner_id, pageSize: $pageSize, pageNumber: $pageNumber) {
+    data {
+    id
     data_owner_id
     Vehicle_No
     Registered_Date
@@ -395,6 +396,8 @@ export const GET_USER_DATA_BYUSERID = gql`
     Nominee_Doc
     createdAt
     updatedAt
+    }
+    count
     }
   }
 `;
