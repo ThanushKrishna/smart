@@ -26,7 +26,7 @@ The Smart App is a desktop-compatible web application developed using Next.js, d
 
 ## Production App
 
-Check out the production app at [Issue-Tracker](https://issue-tracker-eta-six.vercel.app/) to experience firsthand.
+Check out the production app at [Smart Leads](https://www.smartleads.co.in) to experience firsthand how it centralizes the management of client data and documents in one place.
 
 ## Technology Stack
 
