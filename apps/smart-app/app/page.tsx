@@ -52,7 +52,7 @@ const LandingPage: React.FC = () => {
         and documents across numerous files and devices. The SMART app empowers you to centralize the management 
         of thousands of client data and documents using cutting-edge technology, ensuring swift access to your 
         requirements in mere seconds. By alleviating concerns related to data management and deadlines, you can 
-        channel your focus entirely on closing deals, generating more leads, and enhancing income for your business.
+        channel your focus entirely on closing deals, generating more leads, and enhancing income for your businss.
         </p>
       
         <div className='pt-20 flex justify-start'>
