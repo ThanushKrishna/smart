@@ -325,8 +325,8 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
     <TabContext value={activeTab}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={activeTab} onChange={handleTabChange} centered>
-          <Tab label="OD Insurance" value="0" />          
-          <Tab label="TP Insurance" value="1" />
+          <Tab label="TP Insurance" value="0" />
+          <Tab label="OD Insurance" value="1" />
           <Tab label="PUC/Emission" value="2" />
           <Tab label="Tax" value="3" />
           <Tab label="REG/FC" value="4" />
@@ -334,8 +334,66 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
         </Tabs>
       </Box>
      
-
       <TabPanel value="0">
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+      <Tabs value={activeTpInssuranceTab} onChange={handletPInsuranceTabChange}>
+      <Tab label="OverDue" value="0" />
+      <Tab label="Due Today" value="1" />
+      <Tab label="Due Tomorrow" value="2" />
+      <Tab label="Due Within Week" value="3" />
+      <Tab label="Due in Month" value="4" />
+      <Tab label="Due After Month" value="5" />
+      <Tab label="NA" value="6" />
+    </Tabs>
+  </Box>
+
+  <TabPanel value="0">  
+    {activeTpInssuranceTab === '0' && (
+      <div>
+        {tpOverdueLoading ? <p>Loading...</p> : <AgGrid data={tpOverdueData?.user_data_beforeTPInsuranceDueDate} />}        
+      </div>
+    )}
+
+    {activeTpInssuranceTab === '1' && (
+      <div>
+        {tpTodayLoading ? <p>Loading...</p> : <AgGrid data={tpTodayData?.user_data_betweenTPInsuranceDueDates} />}
+      </div>
+    )}
+
+    {activeTpInssuranceTab === '2' && (
+      <div>
+        {tpTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={tpTomorrowDuedata?.user_data_betweenTPInsuranceDueDates} />}
+      </div>
+    )}
+
+    {activeTpInssuranceTab === '3' && (
+      <div>
+        {tpWeekDueLoading ? <p>Loading...</p> : <AgGrid data={tpWeekDuedata?.user_data_betweenTPInsuranceDueDates} />}
+      </div>
+    )}
+
+    {activeTpInssuranceTab === '4' && (
+      <div>
+        {tpMonthDueLoading ? <p>Loading...</p> : <AgGrid data={tpMonthDuedata?.user_data_betweenTPInsuranceDueDates} />}
+      </div>
+    )}
+
+    {activeTpInssuranceTab === '5' && (
+      <div>
+        {tpDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={tpDueafterMonthData?.user_data_afterTPInsuranceDueDate} />}
+      </div>
+    )}
+
+    {activeTpInssuranceTab === '6' && (
+      <div>
+        {tpDueNALoading ? <p>Loading...</p> : <AgGrid data={tpDueNAData?.user_data_NaTPInsuranceDueDate} />}
+      </div>
+    )}
+  </TabPanel>
+  </TabPanel>
+
+
+      <TabPanel value="1">
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <Tabs value={activeOdInssuranceTab} onChange={handleoDInsuranceTabChange}>
               <Tab label="OverDue" value="0" />
@@ -348,7 +406,7 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
             </Tabs>
         </Box>
 
-        <TabPanel value="0">
+        <TabPanel value="1">
           {activeOdInssuranceTab === '0' && (
             <div>            
               {overdueLoading ? <p>Loading...</p> : <AgGrid data={overdueData?.user_data_beforeInsuranceDueDate} />}
@@ -393,63 +451,7 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
         </TabPanel>      
       </TabPanel>    
 
-    <TabPanel value="1">
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs value={activeTpInssuranceTab} onChange={handletPInsuranceTabChange}>
-      <Tab label="OverDue" value="0" />
-      <Tab label="Due Today" value="1" />
-      <Tab label="Due Tomorrow" value="2" />
-      <Tab label="Due Within Week" value="3" />
-      <Tab label="Due in Month" value="4" />
-      <Tab label="Due After Month" value="5" />
-      <Tab label="NA" value="6" />
-    </Tabs>
-  </Box>
-
-  <TabPanel value="1">  
-    {activeTpInssuranceTab === '0' && (
-      <div>
-        {tpOverdueLoading ? <p>Loading...</p> : <AgGrid data={tpOverdueData?.user_data_beforeTPInsuranceDueDate} />}        
-      </div>
-    )}
-
-    {activeTpInssuranceTab === '1' && (
-      <div>
-        {tpTodayLoading ? <p>Loading...</p> : <AgGrid data={tpTodayData?.user_data_betweenTPInsuranceDueDates} />}
-      </div>
-    )}
-
-    {activeTpInssuranceTab === '2' && (
-      <div>
-        {tpTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={tpTomorrowDuedata?.user_data_betweenTPInsuranceDueDates} />}
-      </div>
-    )}
-
-    {activeTpInssuranceTab === '3' && (
-      <div>
-        {tpWeekDueLoading ? <p>Loading...</p> : <AgGrid data={tpWeekDuedata?.user_data_betweenTPInsuranceDueDates} />}
-      </div>
-    )}
-
-    {activeTpInssuranceTab === '4' && (
-      <div>
-        {tpMonthDueLoading ? <p>Loading...</p> : <AgGrid data={tpMonthDuedata?.user_data_betweenTPInsuranceDueDates} />}
-      </div>
-    )}
-
-    {activeTpInssuranceTab === '5' && (
-      <div>
-        {tpDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={tpDueafterMonthData?.user_data_afterTPInsuranceDueDate} />}
-      </div>
-    )}
-
-    {activeTpInssuranceTab === '6' && (
-      <div>
-        {tpDueNALoading ? <p>Loading...</p> : <AgGrid data={tpDueNAData?.user_data_NaTPInsuranceDueDate} />}
-      </div>
-    )}
-  </TabPanel>
-</TabPanel>
+    
 
 <TabPanel value="2">
   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
