@@ -11,7 +11,7 @@ export const dateScalar = new GraphQLScalarType({
   name: 'Date',
   description: 'Date custom scalar type',
   serialize(value) {
-//    //console.log("serialize Block")
+//console.log("serialize Block")
     if (value instanceof Date) {      
       ////console.log( value.getTime())
       return value; // Convert outgoing Date to integer for JSON
@@ -19,7 +19,7 @@ export const dateScalar = new GraphQLScalarType({
     throw Error('GraphQL Date Scalar serializer expected a `Date` object');
   },
   parseValue(value) {
-//    //console.log("parseValue Block")
+//console.log("parseValue Block")
     //console.log(value)
     if (value instanceof Date) value = new Date(value).getTime();
     //console.log(value)
@@ -30,8 +30,8 @@ export const dateScalar = new GraphQLScalarType({
     throw new Error('GraphQL Date Scalar parser expected a `number`');
   },
   parseLiteral(ast) {
-    // //console.log("parseLiteral Block")
-    // //console.log(ast)
+    //console.log("parseLiteral Block")
+    //console.log(ast)
     if (ast.kind === Kind.INT) {
       // Convert hard-coded AST string to integer and then to Date
       return new Date(parseInt(ast.value, 10));
@@ -67,13 +67,13 @@ export const resolvers = {
         });
     
         if (!userWithNotes) {
-          console.error('User not found');
+          //console.error('User not found');
           return null;
         }
     
         return userWithNotes.notes;
       } catch (error) {
-        console.error('Error fetching notes for user:', error);
+        //console.error('Error fetching notes for user:', error);
         throw error;
       }
     },
@@ -94,7 +94,7 @@ export const resolvers = {
     user_data_byuserid: async (parent: any, args: any, context: Context) => {
       try {
         const offset = (args.pageNumber - 1) * args.pageSize;
-        console.log("User Data By User ID: " + args.pageSize, args.pageNumber, args.data_owner_id);
+        //console.log("User Data By User ID: " + args.pageSize, args.pageNumber, args.data_owner_id);
 
          // Count the total number of rows
         const totalCount = await context.prisma.user_data.count({
@@ -931,7 +931,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -1012,7 +1012,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -1028,7 +1028,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     //       },
     //     });
     //   } catch (err) {
-    //     console.log(err);
+    //     //console.log(err);
     //   }
     // },
     
@@ -1109,7 +1109,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -1189,7 +1189,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
@@ -1269,7 +1269,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
     
@@ -1350,15 +1350,15 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           },
         });
       } catch (err) {
-        console.log(err);
+        //console.log(err);
       }
     },
 
     login:async (parent: any, args: any, context: Context) => {
-      console.log("this is login block");         
+      //console.log("this is login block");         
       
       const secretKey = process.env.SECRET_KEY || 'default_secret_key'; 
-      // console.log("SECRETKEY from resolver: " + secretKey);
+      //console.log("SECRETKEY from resolver: " + secretKey);
 
       function generateToken(user: app_user) {          
         const token = jwt.sign(
@@ -1386,7 +1386,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
           throw new Error("User not found");
         }
 
-        console.log(user);
+        //console.log(user);
 		
         const passwordMatch = await bcrypt.compare(args.input2, user.password);
 
@@ -1408,7 +1408,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
             
 
       } catch (error) {
-        console.error('Error Login user:', error);
+        //console.error('Error Login user:', error);
       }   
            
 
@@ -1421,7 +1421,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
   Mutation: {
 
     signUp: async (parent: any, args: any, context: Context) => {
-      console.log("this is SignUp block");         
+      //console.log("this is SignUp block");         
       
       const secretKey = process.env.SECRET_KEY || 'default_secret_key'; 
 
@@ -1466,12 +1466,12 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
      // Save the authentication token in cookies        
         setToken(token); 
                 
-        console.log(userCreated);
+        //console.log(userCreated);
         return result;  
             
 
       } catch (error) {
-        console.error('Error creating user:', error);
+        //console.error('Error creating user:', error);
       }   
            
 
@@ -1488,7 +1488,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     
         return 'Notes added successfully'; // Replace with your desired success message
       } catch (error) {
-        console.error('Error adding notes for user:', error);
+        //console.error('Error adding notes for user:', error);
         throw error;
       }
     },
@@ -2645,15 +2645,16 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
             ...updateData,
             Address: { ...addressData },
             CAddress: { ...cAddressData },
+            updatedAt: new Date()
           },
         }
       );
                         
-      console.log("ResultByID:  " + JSON.stringify(result, null, 2))
+      //console.log("ResultByID:  " + JSON.stringify(result, null, 2))
   
       return 'Updated !!!';
     } catch(e){
-      console.log(e);
+      //console.log(e);
     }finally {
       await client.close();
     }
