@@ -6,6 +6,8 @@ import { getToken } from '../utils/auth';
 
 const graphqlurl = process.env.NEXT_PUBLIC_API_LINK;
 
+//console.log("backend api: " + graphqlurl);
+
 const Providers = ({ children }: { children: React.ReactNode }) => {
   const httpLink = createHttpLink({
     uri: graphqlurl,
@@ -19,6 +21,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         _.req.headers.authorization : // Get the token from server-side request headers
         '');
 
+    //console.log("authToken: " + authToken);      
     return {
       headers: {
         ...headers,
@@ -27,10 +30,14 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
     };
   });
 
+  //console.log("authLink: " + {...authLink}); 
+
   const client = new ApolloClient({
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
+
+  
 
   return (
     <ApolloProvider client={client}>

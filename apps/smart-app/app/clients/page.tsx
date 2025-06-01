@@ -1,7 +1,7 @@
 'use client'
 
 import { GET_USER_DATA_BYUSERID } from '@/graphql/queries';
-import { AddClientType, tAddress } from '@/typings';
+import { clientObjectType, tAddress } from '@/typings';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { ModuleRegistry } from '@ag-grid-community/core';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
@@ -41,7 +41,7 @@ const AutomobilePage = () => {
 
   
   const gridRef = useRef<AgGridReact>(null);
-  const { loading, error, data, fetchMore  } = useQuery<{ user_data_byuserid: { data: AddClientType[], count: number } }>(GET_USER_DATA_BYUSERID, {        
+  const { loading, error, data, fetchMore  } = useQuery<{ user_data_byuserid: { data: clientObjectType[], count: number } }>(GET_USER_DATA_BYUSERID, {        
     variables: { data_owner_id: userId, pageSize, pageNumber }, 
     skip: !userId, // Skip the query if userId is not provided            
     });
@@ -142,6 +142,16 @@ const dateFormatter = (params: any) => {
   return params.value;
 };
 
+const dateTimeFormatter = (params: any) => {
+  if (params.value) {
+    const date = new Date(params.value);
+    const formattedDate = `${padZero(date.getDate())}-${padZero(date.getMonth() + 1)}-${date.getFullYear()}`;
+    const formattedTime = `${padZero(date.getHours())}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
+    return `${formattedDate} ${formattedTime}`;
+  }
+  return params.value;
+};
+
 
 const yearFormatter = (params: any) => {
   if (params.value) {
@@ -162,7 +172,7 @@ const addressFormatter = (params: any) => {
 };
 
   
-  const columnDefs: ColDef<AddClientType, any>[] = [
+  const columnDefs: ColDef<clientObjectType, any>[] = [
     { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber', autoHeight: true },
     { headerName: 'Vehicle Registration Number Document', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'rcDocument', autoHeight: true },
     { headerName: 'Owner Name', field: 'Owner', colId: 'owner', autoHeight: true },
@@ -238,7 +248,8 @@ const addressFormatter = (params: any) => {
     { headerName: 'Photos', field: 'photo_links', colId: 'photo_links',  cellRenderer: (params: any) => <FileIconRenderer data={params.value} />},
     { headerName: 'Comments', field: 'Comments', colId: 'comments'},
     { headerName: 'RC Address', field: 'Address', colId: 'address', valueFormatter: addressFormatter, autoHeight: true  },    
-    { headerName: 'Communication Address', field: 'CAddress', colId: 'caddress', valueFormatter: addressFormatter, autoHeight: true  },                           
+    { headerName: 'Communication Address', field: 'CAddress', colId: 'caddress', valueFormatter: addressFormatter, autoHeight: true  },
+    { headerName: 'Last Updated', field: 'updatedAt', colId: 'updatedAt', valueFormatter: dateTimeFormatter, autoHeight: true  },                    
   ];
   
   const onGridReady = (params: any) => {
@@ -314,7 +325,7 @@ const addressFormatter = (params: any) => {
           className='ag-theme-quartz'
           style={{ height: '78vh', width: '100%'}}
         >          
-          <AgGridReact<AddClientType>
+          <AgGridReact<clientObjectType>
             ref={gridRef}
             rowData={data.user_data_byuserid.data}
             columnDefs={columnDefs}
