@@ -336,51 +336,52 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
      
       <TabPanel value="0">
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs value={activeTpInssuranceTab} onChange={handletPInsuranceTabChange}>
-      <Tab label="OverDue" value="0" />
-      <Tab label="Due Today" value="1" />
-      <Tab label="Due Tomorrow" value="2" />
-      <Tab label="Due Within Week" value="3" />
-      <Tab label="Due in Month" value="4" />
-      <Tab label="Due After Month" value="5" />
+      <Tabs value={activeTpInssuranceTab} onChange={handletPInsuranceTabChange}>      
+      <Tab label="Due Today" value="0" />
+      <Tab label="Due Tomorrow" value="1" />
+      <Tab label="Due Within Week" value="2" />
+      <Tab label="Due in Month" value="3" />
+      <Tab label="Due After Month" value="4" />
+      <Tab label="OverDue" value="5" />
       <Tab label="NA" value="6" />
     </Tabs>
   </Box>
 
-  <TabPanel value="0">  
-    {activeTpInssuranceTab === '0' && (
-      <div>
-        {tpOverdueLoading ? <p>Loading...</p> : <AgGrid data={tpOverdueData?.user_data_beforeTPInsuranceDueDate} />}        
-      </div>
-    )}
+  <TabPanel value="0">      
 
-    {activeTpInssuranceTab === '1' && (
+    {activeTpInssuranceTab === '0' && (
       <div>
         {tpTodayLoading ? <p>Loading...</p> : <AgGrid data={tpTodayData?.user_data_betweenTPInsuranceDueDates} />}
       </div>
     )}
 
-    {activeTpInssuranceTab === '2' && (
+    {activeTpInssuranceTab === '1' && (
       <div>
         {tpTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={tpTomorrowDuedata?.user_data_betweenTPInsuranceDueDates} />}
       </div>
     )}
 
-    {activeTpInssuranceTab === '3' && (
+    {activeTpInssuranceTab === '2' && (
       <div>
         {tpWeekDueLoading ? <p>Loading...</p> : <AgGrid data={tpWeekDuedata?.user_data_betweenTPInsuranceDueDates} />}
       </div>
     )}
 
-    {activeTpInssuranceTab === '4' && (
+    {activeTpInssuranceTab === '3' && (
       <div>
         {tpMonthDueLoading ? <p>Loading...</p> : <AgGrid data={tpMonthDuedata?.user_data_betweenTPInsuranceDueDates} />}
       </div>
     )}
 
-    {activeTpInssuranceTab === '5' && (
+    {activeTpInssuranceTab === '4' && (
       <div>
         {tpDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={tpDueafterMonthData?.user_data_afterTPInsuranceDueDate} />}
+      </div>
+    )}
+
+    {activeTpInssuranceTab === '5' && (
+      <div>
+        {tpOverdueLoading ? <p>Loading...</p> : <AgGrid data={tpOverdueData?.user_data_beforeTPInsuranceDueDate} />}        
       </div>
     )}
 
@@ -395,53 +396,54 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
 
       <TabPanel value="1">
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={activeOdInssuranceTab} onChange={handleoDInsuranceTabChange}>
-              <Tab label="OverDue" value="0" />
-              <Tab label="Due Today" value="1" />
-              <Tab label="Due Tomorrow" value="2" />
-              <Tab label="Due Within Week" value="3" />
-              <Tab label="Due in Month" value="4" />            
-              <Tab label="Due After Month" value="5" />    
+            <Tabs value={activeOdInssuranceTab} onChange={handleoDInsuranceTabChange}>              
+              <Tab label="Due Today" value="0" />
+              <Tab label="Due Tomorrow" value="1" />
+              <Tab label="Due Within Week" value="2" />
+              <Tab label="Due in Month" value="3" />            
+              <Tab label="Due After Month" value="4" />    
+              <Tab label="OverDue" value="5" />
               <Tab label="NA" value="6" />   
             </Tabs>
         </Box>
 
-        <TabPanel value="1">
-          {activeOdInssuranceTab === '0' && (
-            <div>            
-              {overdueLoading ? <p>Loading...</p> : <AgGrid data={overdueData?.user_data_beforeInsuranceDueDate} />}
-            </div>
-          )}
+        <TabPanel value="1">          
                     
-          {activeOdInssuranceTab === '1' && (      
+          {activeOdInssuranceTab === '0' && (      
             <div>            
               {todayLoading ? <p>Loading...</p> : <AgGrid data={todayData?.user_data_betweenInsuranceDueDates} />}
             </div>
           )}      
 
-          {activeOdInssuranceTab === '2' && (      
+          {activeOdInssuranceTab === '1' && (      
             <div>            
               {tomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={tomorrowDuedata?.user_data_betweenInsuranceDueDates} />}
             </div>
           )}   
 
-           {activeOdInssuranceTab === '3' && (      
+           {activeOdInssuranceTab === '2' && (      
             <div>            
               {weekDueLoading ? <p>Loading...</p> : <AgGrid data={weekDuedata?.user_data_betweenInsuranceDueDates} />}
             </div>
           )}  
 
-           {activeOdInssuranceTab === '4' && (      
+           {activeOdInssuranceTab === '3' && (      
             <div>            
               {monthDueLoading ? <p>Loading...</p> : <AgGrid data={monthDuedata?.user_data_betweenInsuranceDueDates} />}
             </div>
           )}    
 
-          {activeOdInssuranceTab === '5' && (      
+          {activeOdInssuranceTab === '4' && (      
             <div>            
               {dueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={dueafterMonthData?.user_data_afterInsuranceDueDate} />}
             </div>
           )}     
+
+          {activeOdInssuranceTab === '5' && (
+            <div>            
+              {overdueLoading ? <p>Loading...</p> : <AgGrid data={overdueData?.user_data_beforeInsuranceDueDate} />}
+            </div>
+          )}
 
           {activeOdInssuranceTab === '6' && (      
             <div>            
@@ -456,50 +458,51 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
 <TabPanel value="2">
   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
     <Tabs value={activeEmissionTab} onChange={handleEmissionTabChange}>
-      <Tab label="OverDue" value="0" />
-      <Tab label="Due Today" value="1" />
-      <Tab label="Due Tomorrow" value="2" />
-      <Tab label="Due Within Week" value="3" />
-      <Tab label="Due in Month" value="4" />
-      <Tab label="Due After Month" value="5" />
+      <Tab label="Due Today" value="0" />
+      <Tab label="Due Tomorrow" value="1" />
+      <Tab label="Due Within Week" value="2" />
+      <Tab label="Due in Month" value="3" />
+      <Tab label="Due After Month" value="4" />
+      <Tab label="OverDue" value="5" />
       <Tab label="NA" value="6" />
     </Tabs>
   </Box>
 
-  <TabPanel value="2">
-    {activeEmissionTab === '0' && (
-      <div>
-        {emissionOverdueLoading ? <p>Loading...</p> : <AgGrid data={emissionOverdueData?.user_data_beforeEmissionDueDate} />}
-      </div>
-    )}
+  <TabPanel value="2"> 
 
-    {activeEmissionTab === '1' && (
+    {activeEmissionTab === '0' && (
       <div>
         {emissionTodayLoading ? <p>Loading...</p> : <AgGrid data={emissionTodayData?.user_data_betweenEmissionDueDates} />}
       </div>
     )}
 
-    {activeEmissionTab === '2' && (
+    {activeEmissionTab === '1' && (
       <div>
         {emissionTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={emissionTomorrowDuedata?.user_data_betweenEmissionDueDates} />}
       </div>
     )}
 
-    {activeEmissionTab === '3' && (
+    {activeEmissionTab === '2' && (
       <div>
         {emissionWeekDueLoading ? <p>Loading...</p> : <AgGrid data={emissionWeekDuedata?.user_data_betweenEmissionDueDates} />}
       </div>
     )}
 
-    {activeEmissionTab === '4' && (
+    {activeEmissionTab === '3' && (
       <div>
         {emissionMonthDueLoading ? <p>Loading...</p> : <AgGrid data={emissionMonthDuedata?.user_data_betweenEmissionDueDates} />}
       </div>
     )}
 
-    {activeEmissionTab === '5' && (
+    {activeEmissionTab === '4' && (
       <div>
         {emissionDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={emissionDueafterMonthData?.user_data_afterEmissionDueDate} />}
+      </div>
+    )}
+
+       {activeEmissionTab === '5' && (
+      <div>
+        {emissionOverdueLoading ? <p>Loading...</p> : <AgGrid data={emissionOverdueData?.user_data_beforeEmissionDueDate} />}
       </div>
     )}
 
@@ -515,50 +518,51 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
          <TabPanel value="3">
   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
     <Tabs value={activeTaxTab} onChange={handleTaxTabChange}>
-      <Tab label="OverDue" value="0" />
-      <Tab label="Due Today" value="1" />
-      <Tab label="Due Tomorrow" value="2" />
-      <Tab label="Due Within Week" value="3" />
-      <Tab label="Due in Month" value="4" />
-      <Tab label="Due After Month" value="5" />
+      <Tab label="Due Today" value="0" />
+      <Tab label="Due Tomorrow" value="1" />
+      <Tab label="Due Within Week" value="2" />
+      <Tab label="Due in Month" value="3" />
+      <Tab label="Due After Month" value="4" />
+            <Tab label="OverDue" value="5" />
       <Tab label="NA" value="6" />
     </Tabs>
   </Box>
 
   <TabPanel value="3">
-    {activeTaxTab === '0' && (
-      <div>
-        {taxOverdueLoading ? <p>Loading...</p> : <AgGrid data={taxOverdueData?.user_data_beforeTaxDueDate} />}
-      </div>
-    )}
 
-    {activeTaxTab === '1' && (
+    {activeTaxTab === '0' && (
       <div>
         {taxTodayLoading ? <p>Loading...</p> : <AgGrid data={taxTodayData?.user_data_betweenTaxDueDates} />}
       </div>
     )}
 
-    {activeTaxTab === '2' && (
+    {activeTaxTab === '1' && (
       <div>
         {taxTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={taxTomorrowDuedata?.user_data_betweenTaxDueDates} />}
       </div>
     )}
 
-    {activeTaxTab === '3' && (
+    {activeTaxTab === '2' && (
       <div>
         {taxWeekDueLoading ? <p>Loading...</p> : <AgGrid data={taxWeekDuedata?.user_data_betweenTaxDueDates} />}
       </div>
     )}
 
-    {activeTaxTab === '4' && (
+    {activeTaxTab === '3' && (
       <div>
         {taxMonthDueLoading ? <p>Loading...</p> : <AgGrid data={taxMonthDuedata?.user_data_betweenTaxDueDates} />}
       </div>
     )}
 
-    {activeTaxTab === '5' && (
+    {activeTaxTab === '4' && (
       <div>
         {taxDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={taxDueafterMonthData?.user_data_afterTaxDueDate} />}
+      </div>
+    )}
+
+        {activeTaxTab === '5' && (
+      <div>
+        {taxOverdueLoading ? <p>Loading...</p> : <AgGrid data={taxOverdueData?.user_data_beforeTaxDueDate} />}
       </div>
     )}
 
@@ -573,50 +577,51 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
 <TabPanel value="4">
   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
     <Tabs value={activeFCTab} onChange={handleFCTabChange}>
-      <Tab label="OverDue" value="0" />
-      <Tab label="Due Today" value="1" />
-      <Tab label="Due Tomorrow" value="2" />
-      <Tab label="Due Within Week" value="3" />
-      <Tab label="Due in Month" value="4" />
-      <Tab label="Due After Month" value="5" />
+      <Tab label="Due Today" value="0" />
+      <Tab label="Due Tomorrow" value="1" />
+      <Tab label="Due Within Week" value="2" />
+      <Tab label="Due in Month" value="3" />
+      <Tab label="Due After Month" value="4" />
+      <Tab label="OverDue" value="5" />
       <Tab label="NA" value="6" />
     </Tabs>
   </Box>
 
   <TabPanel value="4">
-    {activeFCTab === '0' && (
-      <div>
-        {fcOverdueLoading ? <p>Loading...</p> : <AgGrid data={fcOverdueData?.user_data_beforeFCDueDate} />}
-      </div>
-    )}
 
-    {activeFCTab === '1' && (
+    {activeFCTab === '0' && (
       <div>
         {fcTodayLoading ? <p>Loading...</p> : <AgGrid data={fcTodayData?.user_data_betweenFCDueDates} />}
       </div>
     )}
 
-    {activeFCTab === '2' && (
+    {activeFCTab === '1' && (
       <div>
         {fcTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={fcTomorrowDuedata?.user_data_betweenFCDueDates} />}
       </div>
     )}
 
-    {activeFCTab === '3' && (
+    {activeFCTab === '2' && (
       <div>
         {fcWeekDueLoading ? <p>Loading...</p> : <AgGrid data={fcWeekDuedata?.user_data_betweenFCDueDates} />}
       </div>
     )}
 
-    {activeFCTab === '4' && (
+    {activeFCTab === '3' && (
       <div>
         {fcMonthDueLoading ? <p>Loading...</p> : <AgGrid data={fcMonthDuedata?.user_data_betweenFCDueDates} />}
       </div>
     )}
 
-    {activeFCTab === '5' && (
+    {activeFCTab === '4' && (
       <div>
         {fcDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={fcDueafterMonthData?.user_data_afterFCDueDate} />}
+      </div>
+    )}
+
+        {activeFCTab === '5' && (
+      <div>
+        {fcOverdueLoading ? <p>Loading...</p> : <AgGrid data={fcOverdueData?.user_data_beforeFCDueDate} />}
       </div>
     )}
 
@@ -630,51 +635,52 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
       
 <TabPanel value="5">
   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-    <Tabs value={activePermitTab} onChange={handlePermitTabChange}>
-      <Tab label="OverDue" value="0" />
-      <Tab label="Due Today" value="1" />
-      <Tab label="Due Tomorrow" value="2" />
-      <Tab label="Due Within Week" value="3" />
-      <Tab label="Due in Month" value="4" />
-      <Tab label="Due After Month" value="5" />
+    <Tabs value={activePermitTab} onChange={handlePermitTabChange}>      
+      <Tab label="Due Today" value="0" />
+      <Tab label="Due Tomorrow" value="1" />
+      <Tab label="Due Within Week" value="2" />
+      <Tab label="Due in Month" value="3" />
+      <Tab label="Due After Month" value="4" />
+      <Tab label="OverDue" value="5" />
       <Tab label="NA" value="6" />
     </Tabs>
   </Box>
 
   <TabPanel value="5">
-    {activePermitTab === '0' && (
-      <div>
-        {permitOverdueLoading ? <p>Loading...</p> : <AgGrid data={permitOverdueData?.user_data_beforePermitDueDate} />}
-      </div>
-    )}
 
-    {activePermitTab === '1' && (
+    {activePermitTab === '0' && (
       <div>
         {permitTodayLoading ? <p>Loading...</p> : <AgGrid data={permitTodayData?.user_data_betweenPermitDueDates} />}
       </div>
     )}
 
-    {activePermitTab === '2' && (
+    {activePermitTab === '1' && (
       <div>
         {permitTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={permitTomorrowDuedata?.user_data_betweenPermitDueDates} />}
       </div>
     )}
 
-    {activePermitTab === '3' && (
+    {activePermitTab === '2' && (
       <div>
         {permitWeekDueLoading ? <p>Loading...</p> : <AgGrid data={permitWeekDuedata?.user_data_betweenPermitDueDates} />}
       </div>
     )}
 
-    {activePermitTab === '4' && (
+    {activePermitTab === '3' && (
       <div>
         {permitMonthDueLoading ? <p>Loading...</p> : <AgGrid data={permitMonthDuedata?.user_data_betweenPermitDueDates} />}
       </div>
     )}
 
-    {activePermitTab === '5' && (
+    {activePermitTab === '4' && (
       <div>
         {permitDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={permitDueafterMonthData?.user_data_afterPermitDueDate} />}
+      </div>
+    )}
+
+        {activePermitTab === '5' && (
+      <div>
+        {permitOverdueLoading ? <p>Loading...</p> : <AgGrid data={permitOverdueData?.user_data_beforePermitDueDate} />}
       </div>
     )}
 
