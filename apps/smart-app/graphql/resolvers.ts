@@ -1790,6 +1790,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
             RC_No: args.input.RC_No,
             Registered_Date: args.input.Registered_Date,          	
             Owner: args.input.Owner,                 
+            Customer: args.input.Customer, 
             Owner_dob: args.input.Owner_dob,    
             Ownership_type: args.input.Ownership_type,                  
             Gender: args.input.Gender,        
@@ -2532,6 +2533,7 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
     const updateData = {
       Vehicle_Reg_Doc: args.input.Vehicle_Reg_Doc !== undefined ? args.input.Vehicle_Reg_Doc : null,
       Owner: args.input.Owner !== undefined ? args.input.Owner : null,
+      Customer: args.input.Customer !== undefined ? args.input.Customer : null,
       Gender: args.input.Gender !== undefined ? args.input.Gender : null,
       Vehicle_Kind: args.input.Vehicle_Kind !== undefined ? args.input.Vehicle_Kind : null,
       Son_Wife_Daughter_Of: args.input.Son_Wife_Daughter_Of !== undefined ? args.input.Son_Wife_Daughter_Of : null,

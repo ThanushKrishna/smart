@@ -135,6 +135,7 @@ type user_data {
   RC_No:                 String
   Registered_Date:       Date
   Owner:                 String
+  Customer:              String
   Owner_dob:             Date
   Ownership_type:        String
   Vehicle_type:          String
@@ -476,6 +477,7 @@ input createUserDataInput {
   RC_No:                 String
   Registered_Date:       Date
   Owner:                 String
+  Customer:              String
   Vehicle_Kind:          String
   Gender:                String
   Owner_dob:             Date
@@ -553,6 +555,7 @@ input updateUserDataInput {
   RC_No:                 String
   Registered_Date:       Date
   Owner:                 String
+  Customer:              String
   Vehicle_Kind:          String
   Gender:                String
   Owner_dob:             Date
@@ -717,6 +720,7 @@ type createUserDataOutput {
   RC_No:                 String
   Registered_Date:       Date
   Owner:                 String
+  Customer:              String
   Owner_dob:             Date
   Ownership_type:        String
   Vehicle_Kind:          String
@@ -793,6 +797,7 @@ type updateUserDataOutput {
   RC_No:                 String
   Registered_Date:       Date
   Owner:                 String
+  Customer:              String
   Owner_dob:             Date
   Ownership_type:        String
   Vehicle_Kind:          String

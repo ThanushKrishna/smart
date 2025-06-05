@@ -296,17 +296,17 @@ const onSubmit = async (formValues: AddClientType) => {
                     </div>
 
                     <div>
-                    <p>Owner Name: </p>
+                    <p>Owner as per RC: </p>
                     
                         <MyTextField sx={{ width: '80%' }}
                         {...register('Owner', {
                             maxLength: {
                             value: 30,
-                            message: 'Owner Name should be at most 30 characters',
+                            message: 'Owner as per RC should be at most 30 characters',
                             },
                             pattern: {
                             value: /^[A-Za-z\s]*$/,
-                            message: 'Owner Name  should contain only alphabets and spaces',
+                            message: 'Owner as per RC  should contain only alphabets and spaces',
                             },
                         })}
                         defaultValue={gusrdatabyid.user_data_byid?.Owner}

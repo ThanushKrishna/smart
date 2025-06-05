@@ -142,7 +142,8 @@ const addressFormatter = (params: any) => {
   const columnDefs: ColDef<clientObjectType, any>[] = [
     { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber', autoHeight: true },
     { headerName: 'Vehicle Registration Number Document', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'rcDocument', autoHeight: true },
-    { headerName: 'Owner Name', field: 'Owner', colId: 'owner', autoHeight: true },
+    { headerName: 'Owner as per RC', field: 'Owner', colId: 'owner', autoHeight: true },
+    { headerName: 'Customer', field: 'Customer', colId: 'customer', autoHeight: true },
     { headerName: 'Owner Type', field: 'Ownership_type', colId: 'ownershipType', autoHeight: true },    
     { headerName: 'Vehicle Type', field: 'Vehicle_Kind', colId: 'Vehicle_Kind', autoHeight: true },
     { headerName: 'Gender', field: 'Gender', colId: 'gender', autoHeight: true },

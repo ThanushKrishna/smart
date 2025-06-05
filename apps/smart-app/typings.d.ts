@@ -19,6 +19,7 @@ export interface AddClientType {
     RC_No:                 String
     Registered_Date:       Date
     Owner:                 String
+    Customer:              String
     Owner_dob:             Date
     Ownership_type:        String
     Vehicle_type:          String
@@ -100,6 +101,7 @@ export interface AddClientType {
     RC_No:                 String
     Registered_Date:       Date
     Owner:                 String
+    Customer:              String
     Owner_dob:             Date
     Ownership_type:        String
     Vehicle_type:          String

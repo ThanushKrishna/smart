@@ -184,6 +184,7 @@ const onSubmit = async (formValues: AddClientType) => {
             RC_No: formValues?.RC_No || undefined,
             Registered_Date: (formValues?.Registered_Date ? new Date(formValues?.Registered_Date).getTime() + 60 * 60 *1000 * 5.5 : null),
             Owner: formValues?.Owner || undefined,
+            Customer: formValues?.Customer || undefined,
             Owner_dob: (formValues?.Owner_dob ? new Date(formValues?.Owner_dob).getTime() + 60 * 60 *1000 * 5.5 : null),
             Ownership_type: formValues?.Ownership_type || undefined,
             Vehicle_type: formValues?.Vehicle_type || undefined,
@@ -365,21 +366,39 @@ const onSubmit = async (formValues: AddClientType) => {
                 </div>
 
                 <div>
-                 <p>Owner Name: </p>                            
+                 <p>Owner as per RC: </p>                            
                 <MyTextField sx={{ width: '80%' }}                   
                 { ...register('Owner', {                
                     maxLength: {
                       value: 30,
-                      message: 'Owner Name should be at most 30 characters'
+                      message: 'Owner as per RC should be at most 30 characters'
                     },
                     pattern: {
                         value: /^[A-Za-z\s]*$/,
-                      message: 'Owner Name  should contain only alphabets and spaces'
+                      message: 'Owner as per RC  should contain only alphabets and spaces'
                     }
                   })}
                   onChange={(e) => e.target.value = e.target.value.toUpperCase()}
                 />                
                 {errors.Owner && <p className="error text-red-600">{errors.Owner.message}</p>}
+                </div>         
+
+                <div>
+                 <p>Customer: </p>                            
+                <MyTextField sx={{ width: '80%' }}                   
+                { ...register('Customer', {                
+                    maxLength: {
+                      value: 30,
+                      message: 'Customer should be at most 30 characters'
+                    },
+                    pattern: {
+                        value: /^[A-Za-z\s]*$/,
+                      message: 'Customer should contain only alphabets and spaces'
+                    }
+                  })}
+                  onChange={(e) => e.target.value = e.target.value.toUpperCase()}
+                />                
+                {errors.Customer && <p className="error text-red-600">{errors.Customer.message}</p>}
                 </div>         
                              
 
