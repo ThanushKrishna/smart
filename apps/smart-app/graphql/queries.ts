@@ -220,6 +220,7 @@ export const GET_USER_DATA = gql`
     Registered_Date
     RC_No
     Owner
+    Customer  
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -315,6 +316,7 @@ export const GET_USER_DATA_BYUSERID = gql`
     Registered_Date
     RC_No
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -412,6 +414,7 @@ query User_data_byid($data_owner_id: String!, $vechicle_id: String!) {
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -754,6 +757,7 @@ query User_data_beforeInsuranceDueDate($data_owner_id: String!, $input: Date!) {
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -850,6 +854,7 @@ query User_data_betweenInsuranceDueDates($data_owner_id: String!, $input1: Date!
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -945,6 +950,7 @@ query User_data_afterInsuranceDueDate($data_owner_id: String!, $input: Date!) {
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1040,6 +1046,7 @@ query User_data_NaInsuranceDueDate($input: String!) {
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1136,6 +1143,7 @@ export const GET_USER_DATA_BEFORE_TP_INSURANCE_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1231,6 +1239,7 @@ export const GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1326,6 +1335,7 @@ export const GET_USER_DATA_AFTER_TP_INSURANCE_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1421,6 +1431,7 @@ export const GET_USER_DATA_NA_TP_INSURANCE_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1517,6 +1528,7 @@ export const GET_USER_DATA_BEFORE_EMISSION_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1612,6 +1624,7 @@ export const GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1711,6 +1724,7 @@ export const GET_USER_DATA_AFTER_EMISSION_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1806,6 +1820,7 @@ export const GET_USER_DATA_NA_EMISSION_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1901,6 +1916,7 @@ export const GET_USER_DATA_BEFORE_TAX_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -1996,6 +2012,7 @@ export const GET_USER_DATA_BETWEEN_TAX_DUE_DATES = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2091,6 +2108,7 @@ export const GET_USER_DATA_AFTER_TAX_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2186,6 +2204,7 @@ export const GET_USER_DATA_NA_TAX_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2281,6 +2300,7 @@ export const GET_USER_DATA_BEFORE_FC_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2376,6 +2396,7 @@ export const GET_USER_DATA_BETWEEN_FC_DUE_DATES = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2471,6 +2492,7 @@ export const GET_USER_DATA_AFTER_FC_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2566,6 +2588,7 @@ export const GET_USER_DATA_NA_FC_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2662,6 +2685,7 @@ export const GET_USER_DATA_BEFORE_PERMIT_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2757,6 +2781,7 @@ export const GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2852,6 +2877,7 @@ export const GET_USER_DATA_AFTER_PERMIT_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type
@@ -2947,6 +2973,7 @@ export const GET_USER_DATA_NA_PERMIT_DUE_DATE = gql`
     RC_No
     Registered_Date
     Owner
+    Customer
     Owner_dob
     Ownership_type
     Vehicle_type

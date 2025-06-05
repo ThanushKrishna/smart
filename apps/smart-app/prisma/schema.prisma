@@ -50,6 +50,7 @@ model user_data {
   RC_No                 String?
   Registered_Date       DateTime?
   Owner                 String?
+  Customer              String?
   Gender                String?
   Owner_dob             DateTime?
   Ownership_type        String?
