@@ -71,6 +71,12 @@ scalar Date
     password: String!
     mobile: String
   }
+  input updatePasswordInput {    
+    emailid: String!
+    password: String!    
+  }
+
+  
 
   type CreateAppuserOutput {
     firstname: String
@@ -374,11 +380,16 @@ type UserDataByUserIdResponse {
   count: Int
 }
 
+type phoneNumber {
+mobile: String!
+}
+
 type Query {
     user_data: [user_data]    
     user_data_byuserid(data_owner_id:String!, pageSize: Int, pageNumber: Int): UserDataByUserIdResponse   
     app_user: [app_user]
     login(input1: String!, input2: String!): AuthPayload
+    phoneNumberFromEmail(emailid: String!): String
     getNotesForUser(input: String!) : String    
     user_data_byid(data_owner_id: String!, vechicle_id: String!): user_data
     VEHICLE_COLOR: [VEHICLE_COLOR]
@@ -897,7 +908,7 @@ type AuthPayload {
   type Mutation{
 
     signUp(input: signUpInput!): AuthPayload
-
+    updatePasswordByEmail(emailid: String!, password: String!): AuthPayload
     createVehicleClass(input: DDinput!): VEHICLE_CLASS
     createCustomerType(input: DDinput!): CUSTOMER_TYPE
     createVehicleDescription(input: DDinput!): VEHICLE_DESCRIPTION

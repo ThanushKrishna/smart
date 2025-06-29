@@ -188,6 +188,17 @@ mutation SignUp($input: signUpInput!) {
 }
 `;
 
+export const UPDATE_PASSWORD_BY_EMAIL = gql`
+  mutation UpdatePasswordByEmail($emailid: String!, $password: String!) {
+    updatePasswordByEmail(emailid: $emailid, password: $password){
+      userid
+      emailid
+      token
+    }
+  }
+`;
+
+
 export const LOGIN = gql`
 query Login($input1: String!, $input2: String!) {
   login(input1: $input1, input2: $input2) {
@@ -195,6 +206,13 @@ query Login($input1: String!, $input2: String!) {
     emailid
     token
   }
+}
+`;
+
+export const PHONENUMBERFROMEMAIL = gql`
+query PhoneNumberFromEmail($emailid: String!) {
+  phoneNumberFromEmail(emailid: $emailid) 
+  
 }
 `;
 

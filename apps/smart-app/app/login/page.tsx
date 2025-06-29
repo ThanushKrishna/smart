@@ -3,8 +3,11 @@ import React, {useState} from 'react';
 import { Button, TextField, Typography, Container } from '@mui/material';
 import { useRouter } from 'next/navigation'
 import { LOGIN } from '../../graphql/queries'
-import { useQuery  } from '@apollo/client';
+import { useLazyQuery  } from '@apollo/client';
 import { setToken } from '../../utils/auth';
+
+
+
 
 const LoginPage: React.FC = () => {
 
@@ -15,12 +18,8 @@ const LoginPage: React.FC = () => {
       password: '',      
     });
 
-    const { loading: gLoginload, error:gLoginError, data:gLoginStatus } = useQuery(LOGIN, {
-      variables: { input1: formData.email, input2: formData.password },
-      skip: !formData, // Skip the query if vehicleno is not provided            
-      });
+    const [getLoginStatus] = useLazyQuery(LOGIN)
 
-    
   
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => { 
       setSubmitted(false);
@@ -29,17 +28,31 @@ const LoginPage: React.FC = () => {
   
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();       
-    const token = gLoginStatus && gLoginStatus?.login?.token  || null;
-    console.log(token);
-    if(token) {     
-      setToken(token); 
-      router.push('/dashboard');
-    }
-    else{
-      setSubmitted(true)
-    }
+    e.preventDefault();   
+    setSubmitted(false);    
+
+      getLoginStatus({
+      variables: { input1: formData.email, input2: formData.password },
+      onCompleted: (data) => {
+        const token = data?.login?.token || null;
+        if (token) {
+          setToken(token);
+          router.push('/dashboard');
+        } else {
+          setSubmitted(true);
+        }
+      },
+      onError: () => {
+        setSubmitted(true);
+      }
+    });
   };
+
+  
+  const handleForgotPassword = () => {
+      router.push('/forgotPassword');
+  };
+
 
   const formStyle: React.CSSProperties = {
     display: 'flex',
@@ -64,9 +77,18 @@ const LoginPage: React.FC = () => {
         {isSubmitted && <p>Credentails are not Valid</p>}
         <Button type="submit" variant="contained" fullWidth color="primary">
           Submit
-        </Button>
-      </form>
-      </div>
+        </Button>       
+      </form>      
+      <Button
+        type="button"
+        variant="outlined"      
+        color="secondary"
+        onClick={handleForgotPassword}
+        style={{ marginTop: '0.5rem' }}
+      >
+       Forgot Password?
+      </Button>
+      </div> 
     </Container>
   );
 };
