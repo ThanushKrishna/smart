@@ -1354,6 +1354,28 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
       }
     },
 
+     phoneNumberFromEmail: async (parent: any, args: any, context: Context) => {      
+
+      //console.log("this is phoneNumberFromEmail block");
+      try {
+
+         const user = await context.prisma.app_user.findUnique({
+          where: {            
+            emailid: args.emailid
+          },
+        }) 
+
+        //console.log(user!.mobile);
+        if(user)
+          return user!.mobile;
+        else
+          return null;
+
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
     login:async (parent: any, args: any, context: Context) => {
       //console.log("this is login block");         
       
@@ -1419,6 +1441,99 @@ STANDING_CAPACITY : async (parent: any, args: any, context: Context) => {
 
 
   Mutation: {
+
+  // forgotPassword: async (parent: any, args: any, context: Context) => {
+  //   try {
+  //     // Find user by email
+  //     const user = await context.prisma.app_user.findUnique({
+  //       where: { emailid: args.email },
+  //     });
+
+  //     if (!user) {
+  //       throw new Error('User not found');
+  //     }
+
+  //     // Generate a reset token (short-lived)
+  //     const secretKey = process.env.SECRET_KEY || 'default_secret_key';
+  //     const resetToken = jwt.sign(
+  //       { userid: user.userid, emailid: user.emailid },
+  //       secretKey,
+  //       { expiresIn: '15m' }
+  //     );
+
+  //     // Construct reset link (adjust URL as needed)
+  //     const resetLink = `https://your-app-domain.com/reset-password?token=${resetToken}`;
+
+  //     // Send email (replace with your email sending logic)
+  //     await context.sendMail({
+  //       to: user.emailid,
+  //       subject: 'Password Reset Request',
+  //       text: `Click the link to reset your password: ${resetLink}`,
+  //       html: `<p>Click the link to reset your password:</p><a href="${resetLink}">${resetLink}</a>`,
+  //     });
+
+  //     return true;
+  //   } catch (error) {
+  //     //console.error('Error in forgotPassword:', error);
+  //     throw new Error('Failed to send reset email');
+  //   }
+  // },
+
+    updatePasswordByEmail: async (parent: any, args: any, context: Context) => {
+      //console.log("this is SignUp block");         
+      
+      const secretKey = process.env.SECRET_KEY || 'default_secret_key'; 
+
+      function generateToken(user: app_user) {          
+        const token = jwt.sign(
+          {
+            userid: user.userid,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            emailid: user.emailid,
+          },
+          secretKey, 
+          {
+            expiresIn: '1h', // Token expiration time (adjust as needed)
+          }
+        );
+      
+        return token;
+      }
+      
+      try {
+        const hashedPassword = await bcrypt.hash(args.password, 10);
+
+        const updatedUser = await context.prisma.app_user.update({
+          where: { emailid: args.emailid },
+          data: {
+            password: hashedPassword,
+
+          },
+
+        })
+
+        const token = generateToken(updatedUser);
+
+        const result = {
+                        userid: updatedUser.userid,
+                        emailid:updatedUser.emailid,
+                        token: token
+                      }
+
+     // Save the authentication token in cookies        
+        setToken(token); 
+                
+        console.log("password updated");
+        return result;  
+            
+
+      } catch (error) {
+        console.error('Error updating password:', error);
+      }   
+           
+
+    },
 
     signUp: async (parent: any, args: any, context: Context) => {
       //console.log("this is SignUp block");         
