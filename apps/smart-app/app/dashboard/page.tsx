@@ -1,62 +1,59 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
-import { Tabs, Tab, Box } from '@mui/material';
-import { TabPanel, TabContext } from '@mui/lab';
 import AgGrid from '../components/AgGrid';
-import { GET_USER_DATA_BEFORE_INSURANCE_DUE_DATE, GET_USER_DATA_AFTER_INSURANCE_DUE_DATE, GET_USER_DATA_BETWEEN_INSURANCE_DUE_DATES, GET_USER_DATA_NA_INSURANCE_DUE_DATE }  from '../../graphql/queries';
-import { GET_USER_DATA_BEFORE_TP_INSURANCE_DUE_DATE, GET_USER_DATA_AFTER_TP_INSURANCE_DUE_DATE, GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES, GET_USER_DATA_NA_TP_INSURANCE_DUE_DATE } from '../../graphql/queries';
-import { GET_USER_DATA_BEFORE_EMISSION_DUE_DATE, GET_USER_DATA_AFTER_EMISSION_DUE_DATE, GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES, GET_USER_DATA_NA_EMISSION_DUE_DATE } from '../../graphql/queries';
-import { GET_USER_DATA_BEFORE_TAX_DUE_DATE, GET_USER_DATA_AFTER_TAX_DUE_DATE, GET_USER_DATA_BETWEEN_TAX_DUE_DATES, GET_USER_DATA_NA_TAX_DUE_DATE } from '../../graphql/queries';
-import { GET_USER_DATA_BEFORE_FC_DUE_DATE, GET_USER_DATA_AFTER_FC_DUE_DATE, GET_USER_DATA_BETWEEN_FC_DUE_DATES, GET_USER_DATA_NA_FC_DUE_DATE } from '../../graphql/queries';
-import { GET_USER_DATA_BEFORE_PERMIT_DUE_DATE, GET_USER_DATA_AFTER_PERMIT_DUE_DATE, GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES, GET_USER_DATA_NA_PERMIT_DUE_DATE } from '../../graphql/queries';
+import {
+  GET_USER_DATA_BEFORE_INSURANCE_DUE_DATE, GET_USER_DATA_AFTER_INSURANCE_DUE_DATE, GET_USER_DATA_BETWEEN_INSURANCE_DUE_DATES, GET_USER_DATA_NA_INSURANCE_DUE_DATE,
+  GET_USER_DATA_BEFORE_TP_INSURANCE_DUE_DATE, GET_USER_DATA_AFTER_TP_INSURANCE_DUE_DATE, GET_USER_DATA_BETWEEN_TP_INSURANCE_DUE_DATES, GET_USER_DATA_NA_TP_INSURANCE_DUE_DATE,
+  GET_USER_DATA_BEFORE_EMISSION_DUE_DATE, GET_USER_DATA_AFTER_EMISSION_DUE_DATE, GET_USER_DATA_BETWEEN_EMISSION_DUE_DATES, GET_USER_DATA_NA_EMISSION_DUE_DATE,
+  GET_USER_DATA_BEFORE_TAX_DUE_DATE, GET_USER_DATA_AFTER_TAX_DUE_DATE, GET_USER_DATA_BETWEEN_TAX_DUE_DATES, GET_USER_DATA_NA_TAX_DUE_DATE,
+  GET_USER_DATA_BEFORE_FC_DUE_DATE, GET_USER_DATA_AFTER_FC_DUE_DATE, GET_USER_DATA_BETWEEN_FC_DUE_DATES, GET_USER_DATA_NA_FC_DUE_DATE,
+  GET_USER_DATA_BEFORE_PERMIT_DUE_DATE, GET_USER_DATA_AFTER_PERMIT_DUE_DATE, GET_USER_DATA_BETWEEN_PERMIT_DUE_DATES, GET_USER_DATA_NA_PERMIT_DUE_DATE
+} from '../../graphql/queries';
 import withAuth from '../middleware/withAuth';
 import { getUserFromCookie } from '../../utils/auth';
 
+const MAIN_TABS = [
+  { label: "TP Insurance", value: "0" },
+  { label: "OD Insurance", value: "1" },
+  { label: "PUC/Emission", value: "2" },
+  { label: "Tax", value: "3" },
+  { label: "REG/FC", value: "4" },
+  { label: "Permit", value: "5" },
+];
 
+const SUB_TABS = [
+  { label: "Due Today", value: "0" },
+  { label: "Due Tomorrow", value: "1" },
+  { label: "Due Within Week", value: "2" },
+  { label: "Due in Month", value: "3" },
+  { label: "Due After Month", value: "4" },
+  { label: "OverDue", value: "5" },
+  { label: "NA", value: "6" },
+];
 const DashboardPage: React.FC = () => {
 
   const [userId, setUserId] = useState('');
-  useEffect(() => {        
-      const decodedToken = getUserFromCookie();        
-      if(decodedToken  && typeof decodedToken === 'object' ){
-          //console.log('userid from token:' +  decodedToken.userid);
-          setUserId(decodedToken.userid);
-      }
-    }, []);
+  useEffect(() => {
+    const decodedToken = getUserFromCookie();
+    if (decodedToken && typeof decodedToken === 'object') {
+      setUserId(decodedToken.userid);
+    }
+  }, []);
 
   const [activeTab, setActiveTab] = useState<string>('0');
-  const [activeOdInssuranceTab, setActiveOdInssurancTab] = useState<string>('0');
-  const [activeTpInssuranceTab, setActiveTpInsuranceTab] = useState<string>('0');
-  const [activeEmissionTab, setActiveEmissionTab] = useState<string>('0');
-  const [activeFCTab, setActiveFCTab] = useState<string>('0');
-  const [activePermitTab, setActivePermitTab] = useState<string>('0');
-  const [activeTaxTab, setActiveTaxTab] = useState<string>('0');
-  //const [utcDate, setUtcDate] = useState<number>(new Date().getTime() + 60 * 60 * 1000 * 5.5);
+  const [activeSubTab, setActiveSubTab] = useState<string>('0');
 
   // new Date() gets today's Date in Server(IST) Timezone, .setHours(0, 0, 0, 0) provide the milliseconds of 12:00:00 am IST of today.
   // The setHours(0, 0, 0, 0) gives the millisecods in UTC timezone which is 5.5hrs backward. ie is 18:30 hrs UTC of yesterday.
   const [utcDate, setUtcDate] = useState<number>(new  Date().setHours(0, 0, 0, 0)  + 60 * 60 * 1000 * 5.5 );
 
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {    
-    setActiveTab(newValue);
-    setActiveOdInssurancTab('0');
-    setActiveTpInsuranceTab('0');
-    setActiveEmissionTab('0');
-    setActiveFCTab('0');
-    setActiveTaxTab('0');
-    setActivePermitTab('0')
-  };
+  //OD Insurance Queries
+  //OD Insurance Queries
+  //OD Insurance Queries
+  //OD Insurance Queries
 
-
-  //OD Insurance Queries
-  //OD Insurance Queries
-  //OD Insurance Queries
-  //OD Insurance Queries
-  const handleoDInsuranceTabChange = (event: React.SyntheticEvent, newValue: string) => {
-    setActiveOdInssurancTab(newValue);
-  };
 
     const { loading: overdueLoading, data: overdueData, error:overdueDataError } = useQuery(GET_USER_DATA_BEFORE_INSURANCE_DUE_DATE, {
     variables: { data_owner_id: userId, input: utcDate },
@@ -95,9 +92,7 @@ const DashboardPage: React.FC = () => {
 // TP Insurance Queries
 // TP Insurance Queries
 // TP Insurance Queries
-const handletPInsuranceTabChange = (event: React.SyntheticEvent, newValue: string) => {
-  setActiveTpInsuranceTab(newValue);
-};
+
 
 const { loading: tpOverdueLoading, data: tpOverdueData, error: tpOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_TP_INSURANCE_DUE_DATE, {
   variables: { data_owner_id: userId, input: utcDate },
@@ -145,9 +140,7 @@ const { loading: tpDueNALoading, data: tpDueNAData, error: tpDueNAError } = useQ
 // Emission Queries
 // Emission Queries
 // Emission Queries
-const handleEmissionTabChange = (event: React.SyntheticEvent, newValue: string) => {
-  setActiveEmissionTab(newValue);
-};
+
 
 const { loading: emissionOverdueLoading, data: emissionOverdueData, error: emissionOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_EMISSION_DUE_DATE, {
   variables: {data_owner_id: userId,  input: utcDate },
@@ -189,9 +182,6 @@ const { loading: emissionDueNALoading, data: emissionDueNAData, error: emissionD
 // Tax Queries
 // Tax Queries
 // Tax Queries
-const handleTaxTabChange = (event: React.SyntheticEvent, newValue: string) => {
-  setActiveTaxTab(newValue);
-};
 
 const { loading: taxOverdueLoading, data: taxOverdueData, error: taxOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_TAX_DUE_DATE, {
   variables: { data_owner_id: userId, input: utcDate },
@@ -234,9 +224,7 @@ const { loading: taxDueNALoading, data: taxDueNAData, error: taxDueNAError } = u
 // FC Queries
 // FC Queries
 // FC Queries
-const handleFCTabChange = (event: React.SyntheticEvent, newValue: string) => {
-  setActiveFCTab(newValue);
-};
+
 
 const { loading: fcOverdueLoading, data: fcOverdueData, error: fcOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_FC_DUE_DATE, {
   variables: { data_owner_id: userId, input: utcDate },
@@ -279,9 +267,6 @@ const { loading: fcDueNALoading, data: fcDueNAData, error: fcDueNAError } = useQ
 // Permit Queries
 // Permit Queries
 // Permit Queries
-const handlePermitTabChange = (event: React.SyntheticEvent, newValue: string) => {
-  setActivePermitTab(newValue);
-};
 
 const { loading: permitOverdueLoading, data: permitOverdueData, error: permitOverdueDataError } = useQuery(GET_USER_DATA_BEFORE_PERMIT_DUE_DATE, {
   variables: { data_owner_id: userId, input: utcDate },
@@ -320,379 +305,121 @@ const { loading: permitDueNALoading, data: permitDueNAData, error: permitDueNAEr
 //{permitDueNALoading && console.log(permitDueNAData)}
 
 
+   const getTabData = () => {
+    switch (activeTab) {
+      case "0": // TP Insurance
+        return [
+          { loading: tpTodayLoading, data: tpTodayData?.user_data_betweenTPInsuranceDueDates },
+          { loading: tpTomorrowDueLoading, data: tpTomorrowDuedata?.user_data_betweenTPInsuranceDueDates },
+          { loading: tpWeekDueLoading, data: tpWeekDuedata?.user_data_betweenTPInsuranceDueDates },
+          { loading: tpMonthDueLoading, data: tpMonthDuedata?.user_data_betweenTPInsuranceDueDates },
+          { loading: tpDueafterMonthLoading, data: tpDueafterMonthData?.user_data_afterTPInsuranceDueDate },
+          { loading: tpOverdueLoading, data: tpOverdueData?.user_data_beforeTPInsuranceDueDate },
+          { loading: tpDueNALoading, data: tpDueNAData?.user_data_NaTPInsuranceDueDate },
+        ];
+      case "1": // OD Insurance
+        return [
+          { loading: todayLoading, data: todayData?.user_data_betweenInsuranceDueDates },
+          { loading: tomorrowDueLoading, data: tomorrowDuedata?.user_data_betweenInsuranceDueDates },
+          { loading: weekDueLoading, data: weekDuedata?.user_data_betweenInsuranceDueDates },
+          { loading: monthDueLoading, data: monthDuedata?.user_data_betweenInsuranceDueDates },
+          { loading: dueafterMonthLoading, data: dueafterMonthData?.user_data_afterInsuranceDueDate },
+          { loading: overdueLoading, data: overdueData?.user_data_beforeInsuranceDueDate },
+          { loading: dueNALoading, data: dueNAData?.user_data_NaInsuranceDueDate },
+        ];
+      case "2": // Emission
+        return [
+          { loading: emissionTodayLoading, data: emissionTodayData?.user_data_betweenEmissionDueDates },
+          { loading: emissionTomorrowDueLoading, data: emissionTomorrowDuedata?.user_data_betweenEmissionDueDates },
+          { loading: emissionWeekDueLoading, data: emissionWeekDuedata?.user_data_betweenEmissionDueDates },
+          { loading: emissionMonthDueLoading, data: emissionMonthDuedata?.user_data_betweenEmissionDueDates },
+          { loading: emissionDueafterMonthLoading, data: emissionDueafterMonthData?.user_data_afterEmissionDueDate },
+          { loading: emissionOverdueLoading, data: emissionOverdueData?.user_data_beforeEmissionDueDate },
+          { loading: emissionDueNALoading, data: emissionDueNAData?.user_data_NaEmissionDueDate },
+        ];
+      case "3": // Tax
+        return [
+          { loading: taxTodayLoading, data: taxTodayData?.user_data_betweenTaxDueDates },
+          { loading: taxTomorrowDueLoading, data: taxTomorrowDuedata?.user_data_betweenTaxDueDates },
+          { loading: taxWeekDueLoading, data: taxWeekDuedata?.user_data_betweenTaxDueDates },
+          { loading: taxMonthDueLoading, data: taxMonthDuedata?.user_data_betweenTaxDueDates },
+          { loading: taxDueafterMonthLoading, data: taxDueafterMonthData?.user_data_afterTaxDueDate },
+          { loading: taxOverdueLoading, data: taxOverdueData?.user_data_beforeTaxDueDate },
+          { loading: taxDueNALoading, data: taxDueNAData?.user_data_NaTaxDueDate },
+        ];
+      case "4": // FC
+        return [
+          { loading: fcTodayLoading, data: fcTodayData?.user_data_betweenFCDueDates },
+          { loading: fcTomorrowDueLoading, data: fcTomorrowDuedata?.user_data_betweenFCDueDates },
+          { loading: fcWeekDueLoading, data: fcWeekDuedata?.user_data_betweenFCDueDates },
+          { loading: fcMonthDueLoading, data: fcMonthDuedata?.user_data_betweenFCDueDates },
+          { loading: fcDueafterMonthLoading, data: fcDueafterMonthData?.user_data_afterFCDueDate },
+          { loading: fcOverdueLoading, data: fcOverdueData?.user_data_beforeFCDueDate },
+          { loading: fcDueNALoading, data: fcDueNAData?.user_data_NaFCDueDate },
+        ];
+      case "5": // Permit
+        return [
+          { loading: permitTodayLoading, data: permitTodayData?.user_data_betweenPermitDueDates },
+          { loading: permitTomorrowDueLoading, data: permitTomorrowDuedata?.user_data_betweenPermitDueDates },
+          { loading: permitWeekDueLoading, data: permitWeekDuedata?.user_data_betweenPermitDueDates },
+          { loading: permitMonthDueLoading, data: permitMonthDuedata?.user_data_betweenPermitDueDates },
+          { loading: permitDueafterMonthLoading, data: permitDueafterMonthData?.user_data_afterPermitDueDate },
+          { loading: permitOverdueLoading, data: permitOverdueData?.user_data_beforePermitDueDate },
+          { loading: permitDueNALoading, data: permitDueNAData?.user_data_NaPermitDueDate },
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const tabData = getTabData();
+
   return (
-    <div>
-    <TabContext value={activeTab}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={activeTab} onChange={handleTabChange} centered>
-          <Tab label="TP Insurance" value="0" />
-          <Tab label="OD Insurance" value="1" />
-          <Tab label="PUC/Emission" value="2" />
-          <Tab label="Tax" value="3" />
-          <Tab label="REG/FC" value="4" />
-          <Tab label="Permit" value="5" />
-        </Tabs>
-      </Box>
-     
-      <TabPanel value="0">
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-      <Tabs value={activeTpInssuranceTab} onChange={handletPInsuranceTabChange}>      
-      <Tab label="Due Today" value="0" />
-      <Tab label="Due Tomorrow" value="1" />
-      <Tab label="Due Within Week" value="2" />
-      <Tab label="Due in Month" value="3" />
-      <Tab label="Due After Month" value="4" />
-      <Tab label="OverDue" value="5" />
-      <Tab label="NA" value="6" />
-    </Tabs>
-  </Box>
-
-  <TabPanel value="0">      
-
-    {activeTpInssuranceTab === '0' && (
-      <div>
-        {tpTodayLoading ? <p>Loading...</p> : <AgGrid data={tpTodayData?.user_data_betweenTPInsuranceDueDates} />}
+    <div className="min-h-screen bg-gray-100 py-4 px-2 md:px-8">
+      {/* Main Tabs */}
+      <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-6">
+        {MAIN_TABS.map(tab => (
+          <button
+            key={tab.value}
+            className={`px-4 py-2 rounded-3xl font-bold transition text-sm md:text-base
+              ${activeTab === tab.value
+                ? 'bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 text-white shadow'
+                : 'bg-white text-purple-900 border border-purple-300 hover:bg-purple-100'}
+            `}
+            onClick={() => { setActiveTab(tab.value); setActiveSubTab('0'); }}
+            type="button"
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
-    )}
 
-    {activeTpInssuranceTab === '1' && (
-      <div>
-        {tpTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={tpTomorrowDuedata?.user_data_betweenTPInsuranceDueDates} />}
+      {/* Sub Tabs */}
+      <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-4">
+        {SUB_TABS.map(subTab => (
+          <button
+            key={subTab.value}
+            className={`px-3 py-1 rounded-3xl font-semibold transition text-xs md:text-sm
+              ${activeSubTab === subTab.value
+                ? 'bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-white shadow'
+                : 'bg-white text-amber-900 border border-amber-300 hover:bg-amber-100'}
+            `}
+            onClick={() => setActiveSubTab(subTab.value)}
+            type="button"
+          >
+            {subTab.label}
+          </button>
+        ))}
       </div>
-    )}
 
-    {activeTpInssuranceTab === '2' && (
-      <div>
-        {tpWeekDueLoading ? <p>Loading...</p> : <AgGrid data={tpWeekDuedata?.user_data_betweenTPInsuranceDueDates} />}
+      {/* Data Table */}
+      <div className="mt-4">
+        {tabData[parseInt(activeSubTab)]?.loading ? (
+          <div className="text-center text-purple-900 py-10">Loading...</div>
+        ) : (
+          <AgGrid data={tabData[parseInt(activeSubTab)]?.data} />
+        )}
       </div>
-    )}
-
-    {activeTpInssuranceTab === '3' && (
-      <div>
-        {tpMonthDueLoading ? <p>Loading...</p> : <AgGrid data={tpMonthDuedata?.user_data_betweenTPInsuranceDueDates} />}
-      </div>
-    )}
-
-    {activeTpInssuranceTab === '4' && (
-      <div>
-        {tpDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={tpDueafterMonthData?.user_data_afterTPInsuranceDueDate} />}
-      </div>
-    )}
-
-    {activeTpInssuranceTab === '5' && (
-      <div>
-        {tpOverdueLoading ? <p>Loading...</p> : <AgGrid data={tpOverdueData?.user_data_beforeTPInsuranceDueDate} />}        
-      </div>
-    )}
-
-    {activeTpInssuranceTab === '6' && (
-      <div>
-        {tpDueNALoading ? <p>Loading...</p> : <AgGrid data={tpDueNAData?.user_data_NaTPInsuranceDueDate} />}
-      </div>
-    )}
-  </TabPanel>
-  </TabPanel>
-
-
-      <TabPanel value="1">
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={activeOdInssuranceTab} onChange={handleoDInsuranceTabChange}>              
-              <Tab label="Due Today" value="0" />
-              <Tab label="Due Tomorrow" value="1" />
-              <Tab label="Due Within Week" value="2" />
-              <Tab label="Due in Month" value="3" />            
-              <Tab label="Due After Month" value="4" />    
-              <Tab label="OverDue" value="5" />
-              <Tab label="NA" value="6" />   
-            </Tabs>
-        </Box>
-
-        <TabPanel value="1">          
-                    
-          {activeOdInssuranceTab === '0' && (      
-            <div>            
-              {todayLoading ? <p>Loading...</p> : <AgGrid data={todayData?.user_data_betweenInsuranceDueDates} />}
-            </div>
-          )}      
-
-          {activeOdInssuranceTab === '1' && (      
-            <div>            
-              {tomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={tomorrowDuedata?.user_data_betweenInsuranceDueDates} />}
-            </div>
-          )}   
-
-           {activeOdInssuranceTab === '2' && (      
-            <div>            
-              {weekDueLoading ? <p>Loading...</p> : <AgGrid data={weekDuedata?.user_data_betweenInsuranceDueDates} />}
-            </div>
-          )}  
-
-           {activeOdInssuranceTab === '3' && (      
-            <div>            
-              {monthDueLoading ? <p>Loading...</p> : <AgGrid data={monthDuedata?.user_data_betweenInsuranceDueDates} />}
-            </div>
-          )}    
-
-          {activeOdInssuranceTab === '4' && (      
-            <div>            
-              {dueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={dueafterMonthData?.user_data_afterInsuranceDueDate} />}
-            </div>
-          )}     
-
-          {activeOdInssuranceTab === '5' && (
-            <div>            
-              {overdueLoading ? <p>Loading...</p> : <AgGrid data={overdueData?.user_data_beforeInsuranceDueDate} />}
-            </div>
-          )}
-
-          {activeOdInssuranceTab === '6' && (      
-            <div>            
-              {dueNALoading ? <p>Loading...</p> : <AgGrid data={dueNAData?.user_data_NaInsuranceDueDate} />}
-            </div>
-          )}     
-        </TabPanel>      
-      </TabPanel>    
-
-    
-
-<TabPanel value="2">
-  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-    <Tabs value={activeEmissionTab} onChange={handleEmissionTabChange}>
-      <Tab label="Due Today" value="0" />
-      <Tab label="Due Tomorrow" value="1" />
-      <Tab label="Due Within Week" value="2" />
-      <Tab label="Due in Month" value="3" />
-      <Tab label="Due After Month" value="4" />
-      <Tab label="OverDue" value="5" />
-      <Tab label="NA" value="6" />
-    </Tabs>
-  </Box>
-
-  <TabPanel value="2"> 
-
-    {activeEmissionTab === '0' && (
-      <div>
-        {emissionTodayLoading ? <p>Loading...</p> : <AgGrid data={emissionTodayData?.user_data_betweenEmissionDueDates} />}
-      </div>
-    )}
-
-    {activeEmissionTab === '1' && (
-      <div>
-        {emissionTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={emissionTomorrowDuedata?.user_data_betweenEmissionDueDates} />}
-      </div>
-    )}
-
-    {activeEmissionTab === '2' && (
-      <div>
-        {emissionWeekDueLoading ? <p>Loading...</p> : <AgGrid data={emissionWeekDuedata?.user_data_betweenEmissionDueDates} />}
-      </div>
-    )}
-
-    {activeEmissionTab === '3' && (
-      <div>
-        {emissionMonthDueLoading ? <p>Loading...</p> : <AgGrid data={emissionMonthDuedata?.user_data_betweenEmissionDueDates} />}
-      </div>
-    )}
-
-    {activeEmissionTab === '4' && (
-      <div>
-        {emissionDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={emissionDueafterMonthData?.user_data_afterEmissionDueDate} />}
-      </div>
-    )}
-
-       {activeEmissionTab === '5' && (
-      <div>
-        {emissionOverdueLoading ? <p>Loading...</p> : <AgGrid data={emissionOverdueData?.user_data_beforeEmissionDueDate} />}
-      </div>
-    )}
-
-    {activeEmissionTab === '6' && (
-      <div>
-        {emissionDueNALoading ? <p>Loading...</p> : <AgGrid data={emissionDueNAData?.user_data_NaEmissionDueDate} />}
-      </div>
-    )}
-  </TabPanel>
-</TabPanel>
-
-
-         <TabPanel value="3">
-  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-    <Tabs value={activeTaxTab} onChange={handleTaxTabChange}>
-      <Tab label="Due Today" value="0" />
-      <Tab label="Due Tomorrow" value="1" />
-      <Tab label="Due Within Week" value="2" />
-      <Tab label="Due in Month" value="3" />
-      <Tab label="Due After Month" value="4" />
-            <Tab label="OverDue" value="5" />
-      <Tab label="NA" value="6" />
-    </Tabs>
-  </Box>
-
-  <TabPanel value="3">
-
-    {activeTaxTab === '0' && (
-      <div>
-        {taxTodayLoading ? <p>Loading...</p> : <AgGrid data={taxTodayData?.user_data_betweenTaxDueDates} />}
-      </div>
-    )}
-
-    {activeTaxTab === '1' && (
-      <div>
-        {taxTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={taxTomorrowDuedata?.user_data_betweenTaxDueDates} />}
-      </div>
-    )}
-
-    {activeTaxTab === '2' && (
-      <div>
-        {taxWeekDueLoading ? <p>Loading...</p> : <AgGrid data={taxWeekDuedata?.user_data_betweenTaxDueDates} />}
-      </div>
-    )}
-
-    {activeTaxTab === '3' && (
-      <div>
-        {taxMonthDueLoading ? <p>Loading...</p> : <AgGrid data={taxMonthDuedata?.user_data_betweenTaxDueDates} />}
-      </div>
-    )}
-
-    {activeTaxTab === '4' && (
-      <div>
-        {taxDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={taxDueafterMonthData?.user_data_afterTaxDueDate} />}
-      </div>
-    )}
-
-        {activeTaxTab === '5' && (
-      <div>
-        {taxOverdueLoading ? <p>Loading...</p> : <AgGrid data={taxOverdueData?.user_data_beforeTaxDueDate} />}
-      </div>
-    )}
-
-    {activeTaxTab === '6' && (
-      <div>
-        {taxDueNALoading ? <p>Loading...</p> : <AgGrid data={taxDueNAData?.user_data_NaTaxDueDate} />}
-      </div>
-    )}
-  </TabPanel>
-</TabPanel> 
-
-<TabPanel value="4">
-  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-    <Tabs value={activeFCTab} onChange={handleFCTabChange}>
-      <Tab label="Due Today" value="0" />
-      <Tab label="Due Tomorrow" value="1" />
-      <Tab label="Due Within Week" value="2" />
-      <Tab label="Due in Month" value="3" />
-      <Tab label="Due After Month" value="4" />
-      <Tab label="OverDue" value="5" />
-      <Tab label="NA" value="6" />
-    </Tabs>
-  </Box>
-
-  <TabPanel value="4">
-
-    {activeFCTab === '0' && (
-      <div>
-        {fcTodayLoading ? <p>Loading...</p> : <AgGrid data={fcTodayData?.user_data_betweenFCDueDates} />}
-      </div>
-    )}
-
-    {activeFCTab === '1' && (
-      <div>
-        {fcTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={fcTomorrowDuedata?.user_data_betweenFCDueDates} />}
-      </div>
-    )}
-
-    {activeFCTab === '2' && (
-      <div>
-        {fcWeekDueLoading ? <p>Loading...</p> : <AgGrid data={fcWeekDuedata?.user_data_betweenFCDueDates} />}
-      </div>
-    )}
-
-    {activeFCTab === '3' && (
-      <div>
-        {fcMonthDueLoading ? <p>Loading...</p> : <AgGrid data={fcMonthDuedata?.user_data_betweenFCDueDates} />}
-      </div>
-    )}
-
-    {activeFCTab === '4' && (
-      <div>
-        {fcDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={fcDueafterMonthData?.user_data_afterFCDueDate} />}
-      </div>
-    )}
-
-        {activeFCTab === '5' && (
-      <div>
-        {fcOverdueLoading ? <p>Loading...</p> : <AgGrid data={fcOverdueData?.user_data_beforeFCDueDate} />}
-      </div>
-    )}
-
-    {activeFCTab === '6' && (
-      <div>
-        {fcDueNALoading ? <p>Loading...</p> : <AgGrid data={fcDueNAData?.user_data_NaFCDueDate} />}
-      </div>
-    )}
-  </TabPanel>
-</TabPanel>
-      
-<TabPanel value="5">
-  <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-    <Tabs value={activePermitTab} onChange={handlePermitTabChange}>      
-      <Tab label="Due Today" value="0" />
-      <Tab label="Due Tomorrow" value="1" />
-      <Tab label="Due Within Week" value="2" />
-      <Tab label="Due in Month" value="3" />
-      <Tab label="Due After Month" value="4" />
-      <Tab label="OverDue" value="5" />
-      <Tab label="NA" value="6" />
-    </Tabs>
-  </Box>
-
-  <TabPanel value="5">
-
-    {activePermitTab === '0' && (
-      <div>
-        {permitTodayLoading ? <p>Loading...</p> : <AgGrid data={permitTodayData?.user_data_betweenPermitDueDates} />}
-      </div>
-    )}
-
-    {activePermitTab === '1' && (
-      <div>
-        {permitTomorrowDueLoading ? <p>Loading...</p> : <AgGrid data={permitTomorrowDuedata?.user_data_betweenPermitDueDates} />}
-      </div>
-    )}
-
-    {activePermitTab === '2' && (
-      <div>
-        {permitWeekDueLoading ? <p>Loading...</p> : <AgGrid data={permitWeekDuedata?.user_data_betweenPermitDueDates} />}
-      </div>
-    )}
-
-    {activePermitTab === '3' && (
-      <div>
-        {permitMonthDueLoading ? <p>Loading...</p> : <AgGrid data={permitMonthDuedata?.user_data_betweenPermitDueDates} />}
-      </div>
-    )}
-
-    {activePermitTab === '4' && (
-      <div>
-        {permitDueafterMonthLoading ? <p>Loading...</p> : <AgGrid data={permitDueafterMonthData?.user_data_afterPermitDueDate} />}
-      </div>
-    )}
-
-        {activePermitTab === '5' && (
-      <div>
-        {permitOverdueLoading ? <p>Loading...</p> : <AgGrid data={permitOverdueData?.user_data_beforePermitDueDate} />}
-      </div>
-    )}
-
-    {activePermitTab === '6' && (
-      <div>
-        {permitDueNALoading ? <p>Loading...</p> : <AgGrid data={permitDueNAData?.user_data_NaPermitDueDate} />}
-      </div>
-    )}
-  </TabPanel>
-</TabPanel>
-                    
-    </TabContext>
     </div>
   );
 };

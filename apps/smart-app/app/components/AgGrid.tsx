@@ -1,33 +1,22 @@
-import React, {
-  useRef,
-  useEffect,
-  useMemo
-} from 'react';
+import React, { useRef, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import { ColDef } from 'ag-grid-community';
 import { ModuleRegistry } from '@ag-grid-community/core';
 import { ClientSideRowModelModule } from '@ag-grid-community/client-side-row-model';
 import { CsvExportModule } from '@ag-grid-community/csv-export';
-import { Button } from '@radix-ui/themes'
-import  { clientObjectType, tAddress }  from '../../typings';
+import { clientObjectType, tAddress } from '../../typings';
 import 'ag-grid-community/styles/ag-grid.css';
-//import 'ag-grid-community/styles/ag-theme-alpine.css';
 import 'ag-grid-community/styles/ag-theme-quartz.css';
 
 ModuleRegistry.registerModules([ClientSideRowModelModule, CsvExportModule]);
 
 interface AgGridProps {
-    data: clientObjectType[]
-    };  
+  data: clientObjectType[]
+}
 
 const AgGrid: React.FC<AgGridProps> = ({ data }) => {
   const gridRef = useRef<AgGridReact>(null);
-  const containerStyle =  { width: '100%', height: '100%' };
-  
- // useEffect to trigger the initial data fetch
-  
 
-  // Save column state to local storage whenever it changes
   useEffect(() => {
     const saveColumnState = () => {
       if (gridRef.current && gridRef.current.api) {
@@ -43,7 +32,6 @@ const AgGrid: React.FC<AgGridProps> = ({ data }) => {
     }
 
     return () => {
-      // Cleanup event listeners on component unmount
       if (gridRef.current && gridRef.current.api) {
         gridRef.current.api.removeEventListener('columnVisible', saveColumnState);
         gridRef.current.api.removeEventListener('columnResized', saveColumnState);
@@ -52,94 +40,82 @@ const AgGrid: React.FC<AgGridProps> = ({ data }) => {
     };
   }, [gridRef]);
 
- 
-
-
-  // Check if data is undefined before accessing its properties
-  if (!data) return <p>No data available</p>;
+  if (!data) return <p className="text-center text-purple-900">No data available</p>;
 
   const FileIconRenderer: React.FC<{ data: string | null }> = ({ data }) => {
     if (!data) return null;
-      
     const urls = data.split(' ');
-    
     return (
-      <div style={{ display: 'flex' }}>
-        {urls.map((url: string, index:number) => (
-          <div key={index} className="document-link">            
-            <a href={url} target="_blank" rel="noopener noreferrer">
-							<button type="button" className="document-button">
-							<img src="/file-icon.svg" alt={`Doc${index + 1} Icon`} className="file-icon h-6" />
-							</button>
-						</a>
-          </div>
+      <div className="flex flex-wrap gap-2">
+        {urls.map((url: string, index: number) => (
+          <a key={index} href={url} target="_blank" rel="noopener noreferrer" className="inline-block">
+            <button type="button" className="bg-purple-100 hover:bg-purple-200 rounded-full p-1 shadow">
+              <img src="/file-icon.svg" alt={`Doc${index + 1} Icon`} className="h-6" />
+            </button>
+          </a>
         ))}
       </div>
     );
   };
 
-
-const defaultColDef =  {    
-      width: 250,
-      sortable: true,
-      filter: true,
+  const defaultColDef = {
+    width: 250,
+    sortable: true,
+    filter: true,
+    resizable: true,
   };
 
-const saveState = () => {
-  if (gridRef.current && gridRef.current.api) {  
-    const columnState = gridRef.current.api.getColumnState();
-    localStorage.setItem('columnState', JSON.stringify(columnState));
-    //console.log('column state saved to local storage');
-  }
-}
+  const saveState = () => {
+    if (gridRef.current && gridRef.current.api) {
+      const columnState = gridRef.current.api.getColumnState();
+      localStorage.setItem('columnState', JSON.stringify(columnState));
+    }
+  };
 
-const resetState = () => {
-  gridRef.current!.api.resetColumnState();  
-  if (gridRef.current && gridRef.current.api) {      
-    localStorage.removeItem('columnState');    
-  }
-}
+  const resetState = () => {
+    gridRef.current!.api.resetColumnState();
+    if (gridRef.current && gridRef.current.api) {
+      localStorage.removeItem('columnState');
+    }
+  };
 
-const padZero = (value: any) => (value < 10 ? `0${value}` : value);
-const dateFormatter = (params: any) => {
-  if (params.value) {
-    const date = new Date(params.value);
-    const formattedDate = `${padZero(date.getDate())}-${padZero(date.getMonth() + 1)}-${date.getFullYear()}`;
-    return formattedDate;
-  }
-  return params.value;
-};
+  const padZero = (value: any) => (value < 10 ? `0${value}` : value);
+  const dateFormatter = (params: any) => {
+    if (params.value) {
+      const date = new Date(params.value);
+      const formattedDate = `${padZero(date.getDate())}-${padZero(date.getMonth() + 1)}-${date.getFullYear()}`;
+      return formattedDate;
+    }
+    return params.value;
+  };
 
+  const yearFormatter = (params: any) => {
+    if (params.value) {
+      const date = new Date(params.value);
+      const formattedyear = `${date.getFullYear()}`;
+      return formattedyear;
+    }
+    return params.value;
+  };
 
-const yearFormatter = (params: any) => {
-  if (params.value) {
-    const date = new Date(params.value);
-    const formattedyear = `${date.getFullYear()}`;
-    return formattedyear;
-  }
-  return params.value;
-};
+  const dateTimeFormatter = (params: any) => {
+    if (params.value) {
+      const date = new Date(params.value);
+      const formattedDate = `${padZero(date.getDate())}-${padZero(date.getMonth() + 1)}-${date.getFullYear()}`;
+      const formattedTime = `${padZero(date.getHours())}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
+      return `${formattedDate} ${formattedTime}`;
+    }
+    return params.value;
+  };
 
-const dateTimeFormatter = (params: any) => {
-  if (params.value) {
-    const date = new Date(params.value);
-    const formattedDate = `${padZero(date.getDate())}-${padZero(date.getMonth() + 1)}-${date.getFullYear()}`;
-    const formattedTime = `${padZero(date.getHours())}:${padZero(date.getMinutes())}:${padZero(date.getSeconds())}`;
-    return `${formattedDate} ${formattedTime}`;
-  }
-  return params.value;
-};
+  const addressFormatter = (params: any) => {
+    const rawAddress: tAddress = params.value;
+    if (rawAddress == undefined || rawAddress == null) return "";
+    const formattedAddress = `${rawAddress?.street}, ${rawAddress?.city}, ${rawAddress?.state} ${rawAddress?.zip}`;
+    return formattedAddress;
+  };
 
-const addressFormatter = (params: any) => {
-  
-  const rawAddress: tAddress = params.value;  
-  if(rawAddress == undefined || rawAddress == null) return "";
-  const formattedAddress = `${rawAddress?.street}, ${rawAddress?.city}, ${rawAddress?.state} ${rawAddress?.zip}`;
-  return formattedAddress;
-};
-
-  
-  const columnDefs: ColDef<clientObjectType, any>[] = [
+const columnDefs: ColDef<clientObjectType, any>[] = [
     { headerName: 'Vehicle Registration Number', field: 'Vehicle_No', pinned: 'left', colId: 'vehicleRegistrationNumber', autoHeight: true },
     { headerName: 'Vehicle Registration Number Document', field: 'Vehicle_Reg_Doc', cellRenderer: (params: any) => <FileIconRenderer data={params.value} />, colId: 'rcDocument', autoHeight: true },
     { headerName: 'Owner as per RC', field: 'Owner', colId: 'owner', autoHeight: true },
@@ -222,34 +198,25 @@ const addressFormatter = (params: any) => {
     { headerName: 'Communication Address', field: 'CAddress', colId: 'caddress', valueFormatter: addressFormatter, autoHeight: true  },       
     { headerName: 'Last Updated', field: 'updatedAt', colId: 'updatedAt', valueFormatter: dateTimeFormatter, autoHeight: true  },                                 
   ];
-  
+
   const onGridReady = (params: any) => {
-    // Restore column state from local storage
     const storedColumnState = localStorage.getItem('columnState');
     if (storedColumnState && gridRef.current && gridRef.current.api) {
-        gridRef.current.api.applyColumnState({
-          state: JSON.parse(storedColumnState),
-          applyOrder: true,
-        });
-    //console.log('column state restored from localStorage');
-      }
+      gridRef.current.api.applyColumnState({
+        state: JSON.parse(storedColumnState),
+        applyOrder: true,
+      });
+    }
   };
-
-
 
   const onBtnExport = () => {
     gridRef.current!.api.exportDataAsCsv();
-  }
+  };
 
   const onBtnUpdate = () => {
     const csvContent = gridRef.current?.api.getDataAsCsv();
-    // const csvResultElement = document.querySelector('#csvResult');
-  
     if (csvContent) {
-      // Open a new window with specific dimensions
       const newWindow = window.open('', '_blank', 'width=600,height=600');
-  
-      // Set the content of the new window
       if (newWindow) {
         newWindow.document.write(`<textarea style="width:100%; height:100vh">${csvContent}</textarea>`);
         newWindow.document.title = 'CSV Export Content';
@@ -258,42 +225,54 @@ const addressFormatter = (params: any) => {
   };
 
   return (
-        <div>            
-     <div style={containerStyle}>
-      <div className="test-container">
-        <div className="test-header mb-2">
-          <div className="example-section">            
-            <div className='flex'>
-              <div> <Button  color="cyan" variant="soft" onClick={onBtnUpdate}>Show CSV export content text</Button>  </div>
-              <div className='ml-10'> <Button  color="cyan" variant="soft" onClick={onBtnExport}>Download CSV export file</Button>  </div>
-              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={saveState}>Save State</Button>  </div>                    
-              <div className='ml-10'> <Button  color="orange" variant="soft" onClick={resetState}>Reset State</Button>  </div>    
-            </div>          
-          </div>
+  <div className="w-full min-h-[70vh] flex flex-col bg-gray-100 rounded-lg shadow-lg p-2 md:p-6">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+        <div className="flex flex-wrap gap-4">
+          <button
+            className="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-3xl transition"
+            onClick={onBtnUpdate}
+            type="button"
+          >
+            Show CSV export content text
+          </button>
+          <button
+            className="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-3xl transition"
+            onClick={onBtnExport}
+            type="button"
+          >
+            Download CSV export file
+          </button>
+          <button
+            className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded-3xl transition"
+            onClick={saveState}
+            type="button"
+          >
+            Save State
+          </button>
+          <button
+            className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded-3xl transition"
+            onClick={resetState}
+            type="button"
+          >
+            Reset State
+          </button>
         </div>
-      
-
-        <div
-          className='ag-theme-quartz'
-          style={{ height: '60vh', width: '100%' }}
-        >          
-          <AgGridReact<clientObjectType>
-            ref={gridRef}
-            rowData={data}
-            columnDefs={columnDefs}
-            defaultColDef={defaultColDef}            
-            rowGroupPanelShow={'always'}
-            pivotPanelShow={'always'}
-            pagination={true}
-            paginationPageSize={20}                
-            onGridReady={onGridReady}                            
-          />
-        </div>        
+      </div>
+      <div className="ag-theme-quartz w-full" style={{ height: '60vh', minWidth: 0 }}>
+        <AgGridReact<clientObjectType>
+          ref={gridRef}
+          rowData={data}
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          rowGroupPanelShow={'always'}
+          pivotPanelShow={'always'}
+          pagination={true}
+          paginationPageSize={20}
+          onGridReady={onGridReady}
+        />
       </div>
     </div>
-        </div>
-    )
+  );
+};
 
-}
-
-export default AgGrid
+export default AgGrid;

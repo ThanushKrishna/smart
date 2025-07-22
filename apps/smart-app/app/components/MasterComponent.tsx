@@ -1,11 +1,10 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, TextField, Button } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import DeleteConfirmationDialog from './DeleteConfirmationDialog';
 import { getUserFromCookie } from '../../utils/auth';
+import { FaPencilAlt, FaTrash } from "react-icons/fa"; // Add this import
+
 
 interface MasterComponentProps {
   entityName: string;
@@ -24,15 +23,13 @@ interface Row {
 }
 
 const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDname, queries }) => {
-
   const [userId, setUserId] = useState('');
-  useEffect(() => {        
-      const decodedToken = getUserFromCookie();        
-      if(decodedToken  && typeof decodedToken === 'object' ){
-          //console.log('userid from token:' +  decodedToken.userid);
-          setUserId(decodedToken.userid);
-      }
-    }, []);
+  useEffect(() => {
+    const decodedToken = getUserFromCookie();
+    if (decodedToken && typeof decodedToken === 'object') {
+      setUserId(decodedToken.userid);
+    }
+  }, []);
 
   const [editableRows, setEditableRows] = useState<string[]>([]);
   const [editedValues, setEditedValues] = useState<Record<string, string>>({});
@@ -42,13 +39,13 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
   const [isSearching, setisSearching] = useState<Boolean>(false);
   const [error, setError] = useState(false);
 
-  const { loading, error:gQueryError, data, refetch } = useQuery(queries.getAll, {
+  const { loading, error: gQueryError, data, refetch } = useQuery(queries.getAll, {
     variables: { data_owner_id: userId, input: searchTerm },
   });
 
-  const [addRecord, { data: addedData }] = useMutation(queries.add);
-  const [updateRecord, { data: updatedData, error: updateError }] = useMutation(queries.update);
-  const [deleteRecord, { loading: deleteLoading, error: deleteError }] = useMutation(queries.delete);
+  const [addRecord] = useMutation(queries.add);
+  const [updateRecord, { error: updateError }] = useMutation(queries.update);
+  const [deleteRecord, { error: deleteError }] = useMutation(queries.delete);
 
   const handleEdit = (id: string) => {
     setEditableRows((prevEditableRows) =>
@@ -74,13 +71,11 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
   const handleValueChange = (id: string, newValue: string) => {
     setEditedValues((prevEditedValues) => {
       const updatedValues = { ...prevEditedValues };
-
       if (newValue !== editedValues[id]) {
         updatedValues[id] = newValue;
       } else {
         delete updatedValues[id];
       }
-
       return updatedValues;
     });
   };
@@ -88,14 +83,11 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
   const handleSubmit = async (id: string) => {
     try {
       const updatedValue = editedValues[id];
-
       if (updatedValue === undefined) return;
-
       await updateRecord({
         variables: { input: { id, value: updatedValue } },
         refetchQueries: [{ query: queries.getAll, variables: { data_owner_id: userId, input: searchTerm } }],
       });
-
       handleEdit(id);
     } catch (error) {
       console.error('Error updating data:', error);
@@ -103,7 +95,6 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
   };
 
   const handleAddRecord = async () => {
-
     if (newValue.trim() === '') {
       setError(true);
     } else {
@@ -112,124 +103,145 @@ const MasterComponent: React.FC<MasterComponentProps> = ({ entityName, entityDna
           variables: { input: { data_owner_id: userId, value: newValue } },
           refetchQueries: [{ query: queries.getAll, variables: { data_owner_id: userId, input: searchTerm } }],
         });
-  
         setNewValue('');
       } catch (error) {
         console.error('Error adding record:', error);
-      }  
+      }
       setError(false);
     }
-
-  }
+  };
 
   if (loading && !isSearching) {
-    return <p>Loading...</p>;
+    return <p className="text-center text-purple-900 py-8">Loading...</p>;
   }
 
   if (gQueryError || updateError || deleteError) {
-    return <p>Error fetching data</p> || <p>{gQueryError && gQueryError.message}</p> || <p>{updateError && updateError.message}</p> || <p>{deleteError && deleteError.message}</p>;
+    return (
+      <p className="text-center text-red-600 py-8">
+        Error fetching data: {gQueryError?.message || updateError?.message || deleteError?.message}
+      </p>
+    );
   }
 
   const tableData: Row[] = data ? data[`${entityName}_BY_VALUE`] : [];
 
   return (
     <>
-      <div>
-        <TextField
-          label={`Search ${entityDname} by Value`}
-          variant="outlined"
+      {/* Search */}
+      <div className="mb-4 flex flex-col md:flex-row md:items-center gap-2">
+        <input
+          type="text"
+          placeholder={`Search ${entityDname} by Value`}
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
             setisSearching(true);
           }}
           onBlur={() => setisSearching(false)}
-          style={{ marginBottom: '16px', width: '100%', maxWidth: '400px' }}
+          className="w-full md:w-96 px-4 py-2 border border-purple-300 rounded-3xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
         />
       </div>
 
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>SL No</TableCell>
-              <TableCell>Value</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell>
-                <TextField
-                  label="New Value"
-                  variant="standard"
+      {/* Table */}
+      <div className="overflow-x-auto rounded-lg shadow">
+        <table className="min-w-full bg-white text-purple-900">
+          <thead>
+            <tr>
+              <th className="px-4 py-2 border-b font-semibold text-left">SL No</th>
+              <th className="px-4 py-2 border-b font-semibold text-left">Value</th>
+              <th className="px-4 py-2 border-b font-semibold text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {/* Add New Row */}
+            <tr className="bg-purple-50">
+              <td className="px-4 py-2"></td>
+              <td className="px-4 py-2">
+                <input
+                  type="text"
+                  placeholder="New Value"
                   value={newValue}
                   onChange={(e) => setNewValue(e.target.value.toUpperCase())}
-                  style={{ width: '100%' }}
-                  InputProps={{
-                    disableUnderline: false,
-                  }}
-                  error={error}  // Set error prop based on the error state
-                  helperText={error ? 'Value cannot be empty' : ''} 
+                  className={`w-full px-3 py-1 border rounded-3xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition ${error ? 'border-red-500' : 'border-purple-300'}`}
                 />
-              </TableCell>
-              <TableCell>
-                <Button variant="contained" color="primary" onClick={handleAddRecord}>
+                {error && <span className="text-xs text-red-600">Value cannot be empty</span>}
+              </td>
+              <td className="px-4 py-2">
+                <button
+                  className="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 hover:bg-purple-800 text-white font-bold py-1 px-4 rounded-3xl transition"
+                  onClick={handleAddRecord}
+                  type="button"
+                >
                   Add Record
-                </Button>
-              </TableCell>
-            </TableRow>
+                </button>
+              </td>
+            </tr>
+            {/* Data Rows */}
             {tableData &&
               tableData.map((row: Row, index: number) => (
-                <TableRow key={row.id}>
-                  <TableCell>{index + 1}</TableCell>
-                  <TableCell>
+                <tr key={row.id} className={index % 2 === 0 ? "bg-white" : "bg-purple-50"}>
+                  <td className="px-4 py-2">{index + 1}</td>
+                  <td className="px-4 py-2">
                     {editableRows.includes(row.id) ? (
-                      <TextField
+                      <input
+                        type="text"
                         defaultValue={row.value}
-                        variant="standard"
                         onChange={(e) => {
                           const newValue = e.target.value !== null ? e.target.value : row.value;
                           if (newValue !== row.value) {
                             handleValueChange(row.id, newValue);
                           }
                         }}
-                        style={{ width: '100%' }}
-                        InputProps={{
-                          disableUnderline: false,
-                        }}
+                        className="w-full px-3 py-1 border border-purple-300 rounded-3xl focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
                       />
                     ) : (
                       row.value
                     )}
-                  </TableCell>
-                  <TableCell>
+                  </td>
+                   <td className="px-4 py-2">
                     {editableRows.includes(row.id) ? (
-                      <>
-                        <Button variant="contained" color="primary" onClick={() => handleSubmit(row.id)}>
+                      <div className="flex gap-2">
+                        <button
+                          className="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 hover:bg-purple-800 text-white font-bold py-1 px-4 rounded-3xl transition"
+                          onClick={() => handleSubmit(row.id)}
+                          type="button"
+                        >
                           Save
-                        </Button>
-                        <Button variant="contained" color="primary" onClick={() => handleEdit(row.id)} style={{ marginLeft: 2 }}>
+                        </button>
+                        <button
+                          className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:bg-amber-800 text-white font-bold py-1 px-4 rounded-3xl transition"
+                          onClick={() => handleEdit(row.id)}
+                          type="button"
+                        >
                           Cancel
-                        </Button>
-                      </>
+                        </button>
+                      </div>
                     ) : (
-                      <>
-                        <IconButton onClick={() => handleEdit(row.id)} aria-label="Edit">
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton onClick={() => handleDelete(row.id)} aria-label="Delete">
-                          <DeleteIcon />
-                        </IconButton>
-                      </>
+                      <div className="flex gap-2">
+                        <button
+                          className="p-2 rounded-full hover:bg-purple-100 transition"
+                          onClick={() => handleEdit(row.id)}
+                          type="button"
+                          title="Edit"
+                        >
+                          <FaPencilAlt className="text-purple-700" />
+                        </button>
+                        <button
+                          className="p-2 rounded-full hover:bg-amber-100 transition"
+                          onClick={() => handleDelete(row.id)}
+                          type="button"
+                          title="Delete"
+                        >
+                          <FaTrash className="text-amber-700" />
+                        </button>
+                      </div>
                     )}
-                  </TableCell>
-                </TableRow>
+                  </td>
+                </tr>
               ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          </tbody>
+        </table>
+      </div>
 
       <DeleteConfirmationDialog
         open={!!deleteItemId}

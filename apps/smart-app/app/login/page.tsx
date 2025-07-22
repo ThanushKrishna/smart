@@ -65,32 +65,51 @@ const LoginPage: React.FC = () => {
     marginBottom: '1rem',
   };
 
-  return (
-    <Container>
-      <Typography variant="h3" align="center" gutterBottom>
-        Login
-      </Typography>
-      <div  style={formStyle} >
-      <form onSubmit={handleSubmit} style={fieldStyle}>
-        <TextField  name="email" label="Email" margin="normal" fullWidth type="email" required onChange={handleChange}/>
-        <TextField  name="password" label="Password"  margin="normal" fullWidth type="password" required onChange={handleChange}/>
-        {isSubmitted && <p>Credentails are not Valid</p>}
-        <Button type="submit" variant="contained" fullWidth color="primary">
-          Submit
-        </Button>       
-      </form>      
-      <Button
+ return (
+  <div className="flex flex-col justify-center items-center min-h-[93.2vh] bg-gray-100 relative overflow-hidden">
+    {/* Logo background */}
+    <img
+      src="/images/SmartLeads01-Logo.png"
+      alt="SMART LEADS Logo"
+      className="absolute inset-0 m-auto opacity-20 w-4/5 rounded-full max-w-lg pointer-events-none select-none"
+      style={{ zIndex: 0 }}
+    />
+    <div className="relative z-10 w-full flex flex-col items-center">      
+      <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-sm gap-4">
+        <input
+          name="email"
+          type="email"
+          placeholder="EmailID"
+          required
+          className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4 text-purple-950 font-bold"
+          onChange={handleChange}
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="password"
+          required
+          className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4 text-purple-950 font-bold"
+          onChange={handleChange}
+        />
+        {isSubmitted && <p className="text-red-600">Credentials are not valid</p>}
+        <button type="submit" 
+          className="w-full rounded-3xl text-white h-11
+          bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600  hover:bg-purple-800 font-bold"
+        >
+          LogIn
+        </button>
+      </form>
+      <button
         type="button"
-        variant="outlined"      
-        color="secondary"
         onClick={handleForgotPassword}
-        style={{ marginTop: '0.5rem' }}
+        className="w-full max-w-sm rounded-3xl text-cyan-900 h-11 mt-4 hover:bg-gray-200 font-bold"
       >
-       Forgot Password?
-      </Button>
-      </div> 
-    </Container>
-  );
+        Forgot Password?
+      </button>
+    </div>
+  </div>
+);
 };
 
 export default LoginPage;

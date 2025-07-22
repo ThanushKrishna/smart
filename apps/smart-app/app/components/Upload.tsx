@@ -140,7 +140,7 @@ export const FileUplaod: React.FC<iFileUplaod<any>> = ({
 
         return (  
         <div>
-            {placeholder}    
+            {/* {placeholder}     */}
             <div>                
                 <Controller  
                 name={name}  
