@@ -1,7 +1,6 @@
 "use client"
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { Button, TextField, Typography, Container, Box } from '@mui/material';
 import { SIGNUP } from '../../graphql/queries'
 import { setToken } from '../../utils/auth';
 import { useRouter } from 'next/navigation'
@@ -63,75 +62,65 @@ const SignupPage: React.FC = () => {
     }
   };
 
-  const formStyle: React.CSSProperties = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  };
 
-  const fieldStyle: React.CSSProperties = {
-    width: '50%',
-    marginBottom: '1rem',
-  };
 
   return (
-    <Container>
-      <Typography variant="h3" align="center" gutterBottom>
-        Sign Up
-      </Typography>
-      <div style={formStyle}>
-        <form onSubmit={handleSubmit} style={fieldStyle}>
-          <TextField
-            name="fullName"
-            label="Full Name"
-            margin="normal"
-            required
-            onChange={handleChange}
-            fullWidth
-          />
-          <TextField
-            name="email"
-            label="Email"
-            margin="normal"
-            type="email"
-            required
-            onChange={handleChange}
-            fullWidth
-          />
-          <TextField
-            name="mobile"
-            label="Mobile Number"
-            margin="normal"
-            type="text"
-            required
-            onChange={handleChange}
-            fullWidth
-          />
-          <TextField
-            name="password"
-            label="Password"
-            margin="normal"
-            type="password"
-            required
-            onChange={handleChange}
-            fullWidth
-          />
-          <TextField
-            name="confirmPassword"
-            label="Confirm Password"
-            margin="normal"
-            type="password"
-            required
-            onChange={handleChange}
-            fullWidth
-          />
-          {isPasswordMatch && <p>Passwords does not match</p>}
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Submit
-          </Button>
-        </form>
-      </div>
-    </Container>
+    <div className="flex flex-col justify-center items-center min-h-[90vh] bg-gray-100">
+      <img
+      src="/images/SmartLeads01-Logo.png"
+      alt="SMART LEADS Logo"
+      className="absolute inset-0 m-auto opacity-20 w-4/5 rounded-full max-w-lg pointer-events-none select-none"
+      style={{ zIndex: 0 }}
+    />      
+      <form onSubmit={handleSubmit} className="flex flex-col items-center w-full max-w-sm gap-4">
+        <input
+          name="fullName"
+          placeholder="Full Name"
+          required
+          className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4 text-purple-950 font-bold"
+          onChange={handleChange}
+        />
+        <input
+          name="email"
+          placeholder="Email"
+          type="email"
+          required
+          className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4 text-purple-950 font-bold"
+          onChange={handleChange}
+        />
+        <input
+          name="mobile"
+          placeholder="Mobile"
+          type="text"
+          required
+          className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4 text-purple-950 font-bold"
+          onChange={handleChange}
+        />
+        <input
+          name="password"
+          placeholder="Password"
+          type="password"
+          required
+          className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4 text-purple-950 font-bold"
+          onChange={handleChange}
+        />
+        <input
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          type="password"
+          required
+          className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4 text-purple-950 font-bold"
+          onChange={handleChange}
+        />
+        {isPasswordMatch && <p className="text-red-600">Passwords do not match</p>}
+        <button type="submit" 
+        className="w-full rounded-3xl text-white h-11  bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600  
+        hover:bg-purple-800 transition-colors font-bold"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
   );
 };
 

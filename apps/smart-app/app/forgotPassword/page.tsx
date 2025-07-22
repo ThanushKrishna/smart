@@ -1,14 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Container, TextField, Button, Typography } from "@mui/material";
 import { initializeApp } from "firebase/app";
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
-import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { UPDATE_PASSWORD_BY_EMAIL, PHONENUMBERFROMEMAIL } from "../../graphql/queries";
 import { useRouter } from 'next/navigation'
 import { setToken } from "../../utils/auth";
-
-
 
 declare global {
   interface Window {
@@ -31,7 +28,6 @@ const firebassapp = initializeApp(firebaseConfig);
 const auth = getAuth(firebassapp);
 
 const ForgotPasswordPage: React.FC = () => {
-
   const router = useRouter();   
   const [step, setStep] = useState(1);
   const [emailid, setEmailid] = useState("");
@@ -43,18 +39,15 @@ const ForgotPasswordPage: React.FC = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+
   const { data: gphoneNum, loading: phoneLoading, error: phoneError, refetch } = useQuery(PHONENUMBERFROMEMAIL, {
-       variables: { emailid: emailid },
-       skip: !emailid || step !== 1,
-       fetchPolicy: "network-only"
-    });
+    variables: { emailid: emailid },
+    skip: !emailid || step !== 1,
+    fetchPolicy: "network-only"
+  });
 
-  //const [gphoneNum] = useLazyQuery(PHONENUMBERFROMEMAIL)
-
-  // 1. Mutation to update password in backend
   const [updatePassword] = useMutation(UPDATE_PASSWORD_BY_EMAIL);
 
-// 2. Fetch phone number for email from backend
   // Handler for "Next" button
   const handleNext = () => {
     setError("");
@@ -76,8 +69,7 @@ const ForgotPasswordPage: React.FC = () => {
       });
   };
 
-
-  // 3. Send OTP using Firebase
+  // Send OTP using Firebase
   const sendOtp = async () => {
     setError("");
     setLoading(true);
@@ -98,7 +90,7 @@ const ForgotPasswordPage: React.FC = () => {
     setLoading(false);
   };
 
-  // 4. Verify OTP
+  // Verify OTP
   const verifyOtp = async () => {
     setError("");
     setLoading(true);
@@ -111,7 +103,7 @@ const ForgotPasswordPage: React.FC = () => {
     setLoading(false);
   };
 
-  // 5. Update password in backend
+  // Update password in backend
   const handlePasswordUpdate = async () => {
     setError("");
     setSuccess("");
@@ -122,126 +114,117 @@ const ForgotPasswordPage: React.FC = () => {
     setLoading(true);
     try {
       const updatedResult = await updatePassword({ variables: { emailid, password } });
-    
-      console.log("updatedResult: ", updatedResult);
-
       if(updatedResult){
         setSuccess("Password updated successfully!");        
         const token = updatedResult?.data?.updatePasswordByEmail?.token || null;
         setToken(token);
         router.push('/dashboard');
-      
       }
-      
     } catch {
       setError("Failed to update password.");
     }
     setLoading(false);
   };
 
-
   return (
-     <Container maxWidth="sm" sx={{ mt: 6 }}>
-      <Typography variant="h4" align="center" gutterBottom>
-        Forgot Password
-      </Typography>
-      {step === 1 && (
-       <>
-    <TextField
-            label="Email"
-            fullWidth
-            margin="normal"
-            value={emailid}
-            onChange={e => setEmailid(e.target.value)}
-            required
-          />
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={handleNext}
-            disabled={loading || !emailid}
-          >
-            {loading ? "Checking..." : "Next"}
-          </Button>
-  </>
-      )}
-      <div id="recaptcha-container" />
-      {step === 2 && (
-        <>
-          <Typography align="center" gutterBottom>
-            OTP will be sent to: <b>{phone}</b>
-          </Typography>          
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={sendOtp}
-            disabled={loading}
-          >
-            {loading ? "Sending OTP..." : "Send OTP"}
-          </Button>
-        </>
-      )}
-      {step === 3 && (
-        <>
-          <TextField
-            label="Enter OTP"
-            fullWidth
-            margin="normal"
-            value={otp}
-            onChange={e => setOtp(e.target.value)}
-            required
-          />
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={verifyOtp}
-            disabled={loading}
-          >
-            {loading ? "Verifying..." : "Verify OTP"}
-          </Button>
-        </>
-      )}
-      {step === 4 && (
-        <>
-          <TextField
-            label="New Password"
-            type="password"
-            fullWidth
-            margin="normal"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
-          <TextField
-            label="Confirm Password"
-            type="password"
-            fullWidth
-            margin="normal"
-            value={confirmPassword}
-            onChange={e => setConfirmPassword(e.target.value)}
-            required
-          />
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={handlePasswordUpdate}
-            disabled={loading}
-          >
-            {loading ? "Updating..." : "Update Password"}
-          </Button>
-        </>
-      )}
-      {error && (
-        <Typography color="error" align="center" sx={{ mt: 2 }}>
-          {error}
-        </Typography>
-      )}
-      {success && (
-        <Typography color="primary" align="center" sx={{ mt: 2 }}>
-          {success}
-        </Typography>
-      )}
-    </Container>
+    <div className="flex flex-col justify-center items-center min-h-[90vh] bg-gray-100">
+      <p className="text-3xl mb-8">Forgot Password</p>
+      <form
+        className="flex flex-col items-center w-full max-w-sm gap-4"
+        onSubmit={e => e.preventDefault()}
+      >
+        {step === 1 && (
+          <>
+            <input
+              type="email"
+              placeholder="Email"
+              value={emailid}
+              onChange={e => setEmailid(e.target.value)}
+              required
+              className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4"
+            />
+            <button
+              type="button"
+              className="w-full bg-purple-900 rounded-3xl text-white h-11"
+              onClick={handleNext}
+              disabled={loading || !emailid}
+            >
+              {loading ? "Checking..." : "Next"}
+            </button>
+          </>
+        )}
+        <div id="recaptcha-container" />
+        {step === 2 && (
+          <>
+            <p className="text-center">
+              OTP will be sent to: <b>{phone}</b>
+            </p>
+            <button
+              type="button"
+              className="w-full bg-purple-900 rounded-3xl text-white h-11"
+              onClick={sendOtp}
+              disabled={loading}
+            >
+              {loading ? "Sending OTP..." : "Send OTP"}
+            </button>
+          </>
+        )}
+        {step === 3 && (
+          <>
+            <input
+              type="text"
+              placeholder="Enter OTP"
+              value={otp}
+              onChange={e => setOtp(e.target.value)}
+              required
+              className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4"
+            />
+            <button
+              type="button"
+              className="w-full bg-purple-900 rounded-3xl text-white h-11"
+              onClick={verifyOtp}
+              disabled={loading}
+            >
+              {loading ? "Verifying..." : "Verify OTP"}
+            </button>
+          </>
+        )}
+        {step === 4 && (
+          <>
+            <input
+              type="password"
+              placeholder="New Password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              required
+              className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4"
+            />
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
+              required
+              className="border-2 border-purple-950 rounded-3xl h-11 w-full px-4"
+            />
+            <button
+              type="button"
+              className="w-full bg-purple-900 rounded-3xl text-white h-11"
+              onClick={handlePasswordUpdate}
+              disabled={loading}
+            >
+              {loading ? "Updating..." : "Update Password"}
+            </button>
+          </>
+        )}
+        {error && (
+          <p className="text-red-600 text-center">{error}</p>
+        )}
+        {success && (
+          <p className="text-green-600 text-center">{success}</p>
+        )}
+      </form>
+    </div>
   );
 };
 

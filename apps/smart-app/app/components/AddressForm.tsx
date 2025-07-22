@@ -1,12 +1,10 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
 import { UseFormRegister } from 'react-hook-form';
 import { tAddress } from '@/typings';
 
 interface AddressFormProps {
-  register: UseFormRegister<any>, // Adjust the type accordingly
-  errors: any, // Adjust the type accordingly
+  register: UseFormRegister<any>,
+  errors: any,
   addressType: string,
   placehoder: string
   defaultAddress?: tAddress
@@ -15,62 +13,70 @@ interface AddressFormProps {
 const AddressForm: React.FC<AddressFormProps> = ({ register, errors, defaultAddress, addressType, placehoder }) => {
   return (
     <>
-      <p> {placehoder} </p>
-      <Grid container spacing={2}>
-        <Grid item xs={3}>
-          <TextField
+      <p className="font-semibold mb-2">{placehoder}</p>
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+          <label className="block font-medium mb-1">Street</label>
+          <input
+            type="text"
             {...register(addressType + '.street')}
-            fullWidth
-            label="Street"
-            variant="outlined"
-            defaultValue={defaultAddress?.street}
-            error={!!errors?.[addressType]?.street}
-            helperText={errors?.[addressType]?.street?.message}
-            onChange={(e: any) => (e.target.value = e.target.value.toUpperCase())}
+            // defaultValue={defaultAddress?.street}
+            onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-base text-slate-900 shadow-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
+
           />
-        </Grid>
-        <Grid item xs={3}>
-          <TextField
+          {errors?.[addressType]?.street && (
+            <p className="text-xs text-red-600 mt-1">{errors?.[addressType]?.street?.message}</p>
+          )}
+        </div>
+        <div>
+          <label className="block font-medium mb-1">City</label>
+          <input
+            type="text"
             {...register(addressType + '.city')}
-            fullWidth
-            label="City"
-            variant="outlined"
-            defaultValue={defaultAddress?.city}
-            error={!!errors?.[addressType]?.city}
-            helperText={errors?.[addressType]?.city?.message}
-            onChange={(e: any) => (e.target.value = e.target.value.toUpperCase())}
+            // defaultValue={defaultAddress?.city}
+            onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-base text-slate-900 shadow-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
+
           />
-        </Grid>
-        <Grid item xs={3}>
-          <TextField
+          {errors?.[addressType]?.city && (
+            <p className="text-xs text-red-600 mt-1">{errors?.[addressType]?.city?.message}</p>
+          )}
+        </div>
+        <div>
+          <label className="block font-medium mb-1">State</label>
+          <input
+            type="text"
             {...register(addressType + '.state')}
-            fullWidth
-            label="State"
-            variant="outlined"
-            defaultValue={defaultAddress?.state}
-            error={!!errors?.[addressType]?.state}
-            helperText={errors?.[addressType]?.state?.message}
-            onChange={(e: any) => (e.target.value = e.target.value.toUpperCase())}
+            // defaultValue={defaultAddress?.state}
+            onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-base text-slate-900 shadow-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
+
           />
-        </Grid>
-        <Grid item xs={3}>
-          <TextField
+          {errors?.[addressType]?.state && (
+            <p className="text-xs text-red-600 mt-1">{errors?.[addressType]?.state?.message}</p>
+          )}
+        </div>
+        <div>
+          <label className="block font-medium mb-1">Pin</label>
+          <input
+            type="text"
             {...register(addressType + '.zip', {
               pattern: {
                 value: /^\d{6}$/,
                 message: 'Zip code should be a 6-digit number',
               },
             })}
+            // defaultValue={defaultAddress?.zip}
             onChange={(e) => (e.target.value = e.target.value.toUpperCase())}
-            fullWidth
-            label="Pin"
-            variant="outlined"
-            defaultValue={defaultAddress?.zip}
-            error={!!errors?.[addressType]?.zip}
-            helperText={errors?.[addressType]?.zip?.message}
+            className="w-full rounded-lg border border-slate-300 px-3 py-2 text-base text-slate-900 shadow-sm focus:border-purple-500 focus:ring-2 focus:ring-purple-200 transition"
+
           />
-        </Grid>
-      </Grid>
+          {errors?.[addressType]?.zip && (
+            <p className="text-xs text-red-600 mt-1">{errors?.[addressType]?.zip?.message}</p>
+          )}
+        </div>
+      </div>
     </>
   );
 };

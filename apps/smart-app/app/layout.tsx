@@ -1,17 +1,9 @@
-import '@radix-ui/themes/styles.css';
-import './theme-config.css';
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import  Providers  from '../components/Providers'
 import NavBar from './NavBar'
-import { Theme } from '@radix-ui/themes';
 
 
-const inter = Inter({ 
-  subsets: ['latin'],
-  variable: '--font-inter',
-})
 
 export const metadata: Metadata = {
   title: 'Smart Leads',
@@ -28,12 +20,10 @@ export default function RootLayout({
       
       
       
-      <body className={inter.variable}>
-      <Providers>
-        <Theme>
+      <body>
+      <Providers>        
           <NavBar/>         
-          <main> {children} </main>
-         </Theme>
+          <main> {children} </main>        
       </Providers>
          
         </body>

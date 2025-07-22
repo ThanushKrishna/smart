@@ -1,48 +1,23 @@
 "use client"
 import React from 'react'
 import { useRouter } from 'next/navigation';
-
+import Footer from '@/app/components/footer';
 
 const SupportForm = () => {
   const router = useRouter();
   return (
-
-    <div className="min-h-screen min-w-full flex flex-col pt-2" style={{backgroundColor: '#000033'}}>
-    <div className="flex justify-between items-center pb-8">
-     <h3  className='text-white  font-bold pl-5'  >SMART LEADS</h3>
-     <div className="space-x-4 pr-2">
-     <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-         onClick={() => router.push('/')}
-       >
-         Home
-       </button>
-       <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-         onClick={() => router.push('/product/pricing')}
-       >
-         Pricing
-       </button>
-       <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-         onClick={() => router.push('/product/about-us')}            
-       >
-         About Us
-       </button>
-      
-       <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-         onClick={() => router.push('/login')}
-       >
-         LogIn
-       </button>
-       <button className="bg-glossy-violet-blue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
-         onClick={() => router.push('/signup')}
-       >
-         Sign Up
-       </button>
-     </div>
-   </div>
-
-
-    <div>SupportForm</div>
+    <>
+    <div className="min-h-screen min-w-full flex flex-col pt-2 bg-gray-100">
+      <div className="flex-1 text-lg text-purple-900 leading-relaxed px-4 py-10 md:px-20 md:py-20 flex flex-col">
+        <h1 className="text-3xl md:text-4xl font-bold mb-4">Support Form</h1>
+        <p className="mb-4">
+          If you need assistance or have any questions regarding SMART LEADS, please fill out the form below and our support team will get back to you as soon as possible.
+        </p>
+        {/* You can add your actual support form here */}
+      </div>      
     </div>
+    <Footer />
+    </>
   )
 }
 
