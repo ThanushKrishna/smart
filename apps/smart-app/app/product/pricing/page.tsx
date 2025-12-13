@@ -16,10 +16,8 @@ const Pricing = () => {
         </ul>
         <p className="mb-4">The pricing of the paid plans is as follows:</p>
         <ul className="list-disc ml-8 mb-4">
-          <li>Monthly Plan: INR 999</li>
-          <li>Quarterly Plan: INR 2999</li>
-          <li>Half-yearly Plan: INR 4999</li>
-          <li>Yearly Plan: INR 9999</li>
+          <li>Monthly Plan: INR 299</li>          
+          <li>Yearly Plan: INR 2999</li>
         </ul>
         <p className="mb-4">The above-mentioned prices are inclusive of all taxes.</p>
         <p className="mb-4">The paid plans can be subscribed to by making an online payment through the Website. The payment can be made through any of the following methods:</p>
