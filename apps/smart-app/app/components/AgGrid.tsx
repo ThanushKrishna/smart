@@ -227,35 +227,45 @@ const columnDefs: ColDef<clientObjectType, any>[] = [
   return (
   <div className="w-full min-h-[70vh] flex flex-col bg-gray-100 rounded-lg shadow-lg p-2 md:p-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-        <div className="flex flex-wrap gap-4">
-          <button
-            className="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-3xl transition"
-            onClick={onBtnUpdate}
-            type="button"
-          >
-            Show CSV export content text
-          </button>
-          <button
-            className="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-3xl transition"
-            onClick={onBtnExport}
-            type="button"
-          >
-            Download CSV export file
-          </button>
-          <button
-            className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded-3xl transition"
-            onClick={saveState}
-            type="button"
-          >
-            Save State
-          </button>
-          <button
-            className="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 hover:bg-amber-800 text-white font-bold py-2 px-4 rounded-3xl transition"
-            onClick={resetState}
-            type="button"
-          >
-            Reset State
-          </button>
+        <div className="flex flex-wrap gap-4 items-center w-full justify-between">
+          <div className="flex gap-4">
+            <button
+              className="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-3xl transition"
+              onClick={onBtnUpdate}
+              type="button"
+            >
+              CSV text
+            </button>
+            <button
+              className="bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 hover:bg-purple-800 text-white font-bold py-2 px-4 rounded-3xl transition"
+              onClick={onBtnExport}
+              type="button"
+            >
+              Download CSV
+            </button>
+          </div>
+          <div className="flex gap-2">
+            <button
+              className="p-2 rounded-full bg-amber-500 hover:bg-amber-600 transition flex items-center justify-center"
+              onClick={saveState}
+              type="button"
+              title="Save State"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" />
+              </svg>
+            </button>
+            <button
+              className="p-2 rounded-full bg-amber-500 hover:bg-amber-600 transition flex items-center justify-center"
+              onClick={resetState}
+              type="button"
+              title="Reset State"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582M20 20v-5h-.581M5 19A9 9 0 1119 5" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
       <div className="ag-theme-quartz w-full" style={{ height: '60vh', minWidth: 0 }}>
@@ -266,8 +276,7 @@ const columnDefs: ColDef<clientObjectType, any>[] = [
           defaultColDef={defaultColDef}
           rowGroupPanelShow={'always'}
           pivotPanelShow={'always'}
-          pagination={true}
-          paginationPageSize={20}
+          pagination={false}          
           onGridReady={onGridReady}
         />
       </div>

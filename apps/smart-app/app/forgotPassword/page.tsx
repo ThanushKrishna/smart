@@ -127,7 +127,7 @@ const ForgotPasswordPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center min-h-[90vh] bg-gray-100">
+    <div className="flex flex-col justify-center items-center min-h-[90vh] bg-gray-100 pt-20 ">
       <p className="text-3xl mb-8">Forgot Password</p>
       <form
         className="flex flex-col items-center w-full max-w-sm gap-4"

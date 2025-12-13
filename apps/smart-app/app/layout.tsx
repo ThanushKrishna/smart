@@ -22,7 +22,8 @@ export default function RootLayout({
       
       <body>
       <Providers>        
-          <NavBar/>         
+          <NavBar/>        
+          {/* <div className="w-full pt-20 " />  */}
           <main> {children} </main>        
       </Providers>
          

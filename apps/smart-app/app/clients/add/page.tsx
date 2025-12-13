@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useForm, FieldError } from "react-hook-form";
-import { Button } from "@radix-ui/themes";
 import { AddClientType } from "@/typings";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
@@ -275,7 +274,7 @@ const AddClient: React.FC = () => {
       setfirstpage(true);
       setVehicleNoprovided(true);
     } else {
-      setfirstpage(true);
+      setfirstpage(false);
     }
   };
 
@@ -434,78 +433,71 @@ const AddClient: React.FC = () => {
   };
 
   return (
-    <div className="w-[90%] p-4 bg-white rounded-xl shadow-lg text-slate-800 ml-0 md:ml-10 mr-0 md:mr-10 md:pb-4 text-base">
+    <div className="w-[95%] bg-white rounded-xl py-4 text-slate-800 ml-2 md:ml-10 mr-0 md:mr-10 md:pb-4 text-base pt-20 ">
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Vehicle No Section */}
-        {gusrdatabyid?.user_data_byid === null && firstpage && (
-          <div className="mb-4">
-            <button
-              className="md:w-full w-full bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 text-white font-bold py-2 px-4 rounded-3xl shadow hover:bg-purple-800 transition"
-              disabled={isSubmitted || !vehicleno} // Disable if no vehicle number
-              type="submit"
-            >
-              Submit {isSubmitted && <Spinner />}
-            </button>
-            {!vehicleno && (
-              <p className="text-red-600 text-xs mt-2">
-                Please provide a Vehicle Registration Number before submitting.
-              </p>
-            )}
-          </div>
-        )}
-
         {!isVehicleNoprovided && (
-          <div>
-            <label className="block font-semibold mb-1">
-              Vehicle Registration Number:
-            </label>
-            <MyTextField
-              sx={{ width: "80%" }}
-              {...register("Vehicle_No", {
-                required: "Vehicle Registration Number is required",
-                maxLength: {
-                  value: 15,
-                  message: "Should be at most 15 characters",
-                },
-                pattern: {
-                  value: /^[A-Za-z0-9]*$/,
-                  message: "Should be alphanumeric",
-                },
-              })}
-              onChange={(e) =>
-                setVehicleno((e.target.value = e.target.value.toUpperCase()))
-              }
-            />
-            {errors.Vehicle_No && (
-              <p className="text-red-600 text-xs mt-1">
-                {errors.Vehicle_No.message}
-              </p>
-            )}
-            <button
-              type="button"
-              className="mt-2 bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 text-white font-bold py-2 px-6 rounded-3xl shadow hover:bg-purple-800 transition"
-              onClick={handleVehicleNoSubmit}
-            >
-              GO {gusrbyidload && <Spinner />}
-            </button>
-            {gusrbyiderror && (
-              <p className="text-red-600 mt-2">{gusrbyiderror.message}</p>
-            )}
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="w-full max-w-md bg-white rounded-2xl p-6 flex flex-col items-center border border-purple-200">
+              <label className="block font-semibold mb-3 text-center w-full text-purple-900">
+                Vehicle Registration Number:
+              </label>
+              <MyTextField
+                sx={{ width: "100%" }}
+                {...register("Vehicle_No", {
+                  required: "Vehicle Registration Number is required",
+                  maxLength: {
+                    value: 15,
+                    message: "Should be at most 15 characters",
+                  },
+                  pattern: {
+                    value: /^[A-Za-z0-9]*$/,
+                    message: "Should be alphanumeric",
+                  },
+                })}
+                onChange={(e) =>
+                  setVehicleno((e.target.value = e.target.value.toUpperCase()))
+                }
+                className="mb-2"
+                inputProps={{
+                  className:
+                    "w-full bg-gray-50 rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 transition",
+                }}
+              />
+              {errors.Vehicle_No && (
+                <p className="text-red-600 text-xs mt-1 text-center w-full">
+                  {errors.Vehicle_No.message}
+                </p>
+              )}
+              <button
+                type="button"
+                className="mt-4 w-full bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 text-white font-bold py-2 px-6 rounded-3xl hover:bg-purple-800 transition"
+                onClick={handleVehicleNoSubmit}
+              >
+                Add {gusrbyidload && <Spinner />}
+              </button>
+              {gusrbyiderror && (
+                <p className="text-red-600 mt-2 text-center w-full">
+                  {gusrbyiderror.message}
+                </p>
+              )}
+            </div>
           </div>
         )}
 
         {gusrdatabyid?.user_data_byid?.Vehicle_No != null && firstpage && (
-          <div>
-            <p className="text-red-600 font-semibold">
-              Vehicle No already Exist
-            </p>
-            <button
-              type="button"
-              className="mt-2 bg-gradient-to-r from-gray-300 via-white to-gray-300 text-purple-900 font-bold py-2 px-6 rounded-3xl shadow hover:bg-purple-200 transition"
-              onClick={() => window.location.reload()}
-            >
-              Go Back
-            </button>
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="w-full max-w-md bg-white rounded-2xl p-6 flex flex-col items-center border border-purple-200">
+              <p className="text-red-600 font-semibold mb-4 text-center w-full">
+                Vehicle No already Exist
+              </p>
+              <button
+                type="button"
+                className="w-full bg-gradient-to-r from-gray-300 via-white to-gray-300 text-purple-900 font-bold py-2 px-6 rounded-3xl hover:bg-purple-200 transition"
+                onClick={() => window.location.reload()}
+              >
+                Go Back
+              </button>
+            </div>
           </div>
         )}
 
@@ -552,7 +544,6 @@ const AddClient: React.FC = () => {
                   (e.target.value = e.target.value.toUpperCase())
                 }
                 className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
-                
               />
               {errors.Owner && (
                 <p className="text-xs text-red-600 mt-1">
@@ -579,7 +570,7 @@ const AddClient: React.FC = () => {
                 onChange={(e) =>
                   (e.target.value = e.target.value.toUpperCase())
                 }
-                className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"                 
+                className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
               />
               {errors.Customer && (
                 <p className="text-xs text-red-600 mt-1">
@@ -587,6 +578,32 @@ const AddClient: React.FC = () => {
                 </p>
               )}
             </div>
+
+            <DropDownControl
+              name="owner_type"
+              control={control}
+              placeholder="Owner Type"
+              options={OWNER_TYPE}
+              isCorporate={(e: Boolean) => {
+                      setCorporate(e);
+                    }}
+            />
+
+            <DropDownControl
+              name="Vehicle_type"
+              control={control}
+              placeholder="Vehicle Type"
+              options={VEHICLE_KIND}
+            />
+
+            {!corporate && (
+              <DropDownControl
+              name="gender"
+              control={control}
+              placeholder="Gender"
+              options={GENDER}
+            />
+            )}
 
             {!corporate && (
               <div>
@@ -638,7 +655,7 @@ const AddClient: React.FC = () => {
                 onChange={(e) =>
                   (e.target.value = e.target.value.toUpperCase())
                 }
-                className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"                
+                className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
               />
               {errors.RC_No && (
                 <p className="text-xs text-red-600 mt-1">
@@ -684,7 +701,7 @@ const AddClient: React.FC = () => {
                 onChange={(e) =>
                   (e.target.value = e.target.value.toUpperCase())
                 }
-                className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"                
+                className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
               />
               {errors.Engine_No && (
                 <p className="text-xs text-red-600 mt-1">
@@ -1364,7 +1381,7 @@ const AddClient: React.FC = () => {
                       "Mobile Number should be a 10-digit number starting with 6, 7, 8, or 9",
                   },
                 })}
-              className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
+                className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
               />
               {errors.Mobile_No1 &&
                 typeof errors.Mobile_No1 === "object" &&
@@ -1407,7 +1424,6 @@ const AddClient: React.FC = () => {
                   },
                 })}
                 className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
-
               />
               {errors.Mobile_No3 &&
                 typeof errors.Mobile_No3 === "object" &&
@@ -1447,7 +1463,6 @@ const AddClient: React.FC = () => {
                     },
                   })}
                   className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
-
                 />
                 {errors.Adhar_No &&
                   typeof errors.Adhar_No === "object" &&
@@ -1480,7 +1495,6 @@ const AddClient: React.FC = () => {
                   (e.target.value = e.target.value.toUpperCase())
                 }
                 className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
-
               />
               {errors.PanCard_No && (
                 <p className="error text-red-600">
@@ -1517,7 +1531,6 @@ const AddClient: React.FC = () => {
                     (e.target.value = e.target.value.toUpperCase())
                   }
                   className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
-
                 />
                 {errors.Nominee && (
                   <p className="error text-red-600">{errors.Nominee.message}</p>
@@ -1565,7 +1578,6 @@ const AddClient: React.FC = () => {
                   (e.target.value = e.target.value.toUpperCase())
                 }
                 className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
-
               />
               {errors.PUCC_Emission_No && (
                 <p className="error text-red-600">
@@ -1605,7 +1617,6 @@ const AddClient: React.FC = () => {
                   (e.target.value = e.target.value.toUpperCase())
                 }
                 className="md:w-full w-full bg-white rounded-lg border border-slate-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 px-3 py-2 text-base text-slate-900 shadow-sm transition"
-
               />
               {errors.GST_No && (
                 <p className="error text-red-600">{errors.GST_No.message}</p>
@@ -1711,7 +1722,6 @@ const AddClient: React.FC = () => {
                     message: "Comments should be at most 500 characters",
                   },
                 })}
-
               />
               {errors.Comments && (
                 <p className="error text-red-600">{errors.Comments.message}</p>
@@ -1744,10 +1754,25 @@ const AddClient: React.FC = () => {
                 />
               )}
             </div>
-            <div className="mt-10">
-              <Button disabled={isSubmitted} className="md:w-full">
+            {/* Submit button */}
+
+            <div className="m-4 md:mt-8">
+              <button
+                className="md:w-full w-full bg-gradient-to-r from-purple-600 via-purple-500 to-purple-600 text-white font-bold py-2 px-4 rounded-3xl shadow hover:bg-purple-800 transition"
+                disabled={isSubmitted || !vehicleno} // Disable if no vehicle number
+                type="submit"
+              >
                 Submit {isSubmitted && <Spinner />}
-              </Button>
+              </button>
+            </div>
+
+            <div className="m-4 md:mt-8">
+              <button
+                className="md:w-full w-full bg-gradient-to-r from-gray-300 via-white to-gray-300 text-purple-900 font-bold py-2 px-4 rounded-3xl shadow hover:bg-purple-200 transition"
+                onClick={() => window.location.reload()}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         )}

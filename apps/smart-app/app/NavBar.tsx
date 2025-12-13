@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { removeToken, getToken } from '../utils/auth';
@@ -12,6 +12,7 @@ const NavBar = () => {
   const currentPath = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [clientsMenuOpen, setClientsMenuOpen] = useState(false);
+  const closeTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const homeLinks = [
     { label: 'Home', href: '/' },
@@ -41,6 +42,15 @@ const NavBar = () => {
     router.push('/');
   };
 
+  const handleClientsMouseEnter = () => {
+    if (closeTimeout.current) clearTimeout(closeTimeout.current);
+    setClientsMenuOpen(true);
+  };
+
+  const handleClientsMouseLeave = () => {
+    closeTimeout.current = setTimeout(() => setClientsMenuOpen(false), 500);
+  };
+
   // Home page headers
   if (
     currentPath === '/' ||
@@ -50,7 +60,7 @@ const NavBar = () => {
     currentPath?.includes('Password')
   ) {
     return (
-      <nav className="w-full bg-gradient-to-r from-gray-300 via-white to-gray-300 text-purple-900 shadow h-16 flex items-center px-4 md:px-8 z-10 relative">
+      <nav className="w-full bg-gradient-to-r from-gray-300 via-white to-gray-300 text-purple-900 shadow h-16 flex items-center px-4 md:px-8 z-50 fixed top-0 left-0">
         <div className="flex items-center gap-2">
           <Link href="/" className="flex items-center">
             <div className="relative translate-y-1/4 -translate-x-2 scale-150 z-20">
@@ -118,10 +128,10 @@ const NavBar = () => {
 
   // Default NavBar for logged-in users
   return (
-    <nav className="w-full bg-gradient-to-r from-gray-300 via-white to-gray-300 text-purple-900 shadow h-16 flex items-center px-4 md:px-8 z-10 relative">
-      <div className="flex items-center gap-2">
+    <nav className="w-full bg-gradient-to-r from-gray-300 via-white to-gray-300 text-purple-900 shadow h-16 flex items-center px-4 md:px-8 z-50 fixed top-0 left-0">
+      <div className="flex items-center gap-2 z-50">
         <Link href="/" className="flex items-center">
-          <div className="relative translate-y-1/4 -translate-x-2 scale-150 z-20">
+          <div className="relative translate-y-1/4 -translate-x-2 scale-150 z-50">
             <img
               src="/images/SmartLeads01-Logo.png"
               alt="SMART LEADS Logo"
@@ -135,27 +145,38 @@ const NavBar = () => {
         {token &&
           links.map((link) =>
             link.href === '/clients' ? (
-              <div key={link.href} className="relative">
+              <div
+                key={link.href}
+                className="relative"
+                onMouseEnter={handleClientsMouseEnter}
+                onMouseLeave={handleClientsMouseLeave}
+              >
                 <button
-                  className={`px-4 py-2 rounded-3xl font-bold hover:bg-purple-800 transition ${link.href === currentPath ? 'bg-purple-700 text-white' : ''}`}
-                  onClick={() => setClientsMenuOpen(true)}
+                  className={`px-4 py-2 rounded-3xl font-bold hover:bg-purple-800 transition text-base ${link.href === currentPath ? 'bg-purple-700 text-white' : ''}`}
                 >
                   {link.label}
                 </button>
                 {clientsMenuOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white text-purple-900 rounded shadow-lg z-20">
-                    <Link href="/clients/add" className="block px-4 py-2 hover:bg-purple-100 rounded-3xl" onClick={() => setClientsMenuOpen(false)}>
-                      Add Client
-                    </Link>
-                    <Link href="/clients/update" className="block px-4 py-2 hover:bg-purple-100 rounded-3xl" onClick={() => setClientsMenuOpen(false)}>
-                      Update Client
-                    </Link>
-                    <Link href="/clients/delete" className="block px-4 py-2 hover:bg-purple-100 rounded-3xl" onClick={() => setClientsMenuOpen(false)}>
-                      Delete Client
-                    </Link>
-                    <Link href="/clients" className="block px-4 py-2 hover:bg-purple-100 rounded-3xl" onClick={() => setClientsMenuOpen(false)}>
-                      Report View
-                    </Link>
+                  <div
+                    className="fixed left-0 top-16 w-full bg-gradient-to-r from-gray-300 via-white to-gray-300 text-purple-900 shadow-lg z-40 rounded-b-xl py-2 px-1 flex justify-center"
+                    onMouseEnter={handleClientsMouseEnter}
+                    onMouseLeave={handleClientsMouseLeave}
+                    style={{ pointerEvents: 'auto' }}
+                  >
+                    <div className="max-w-4xl w-full grid grid-cols-2 md:grid-cols-4 gap-2">
+                      <Link href="/clients/add" className="block px-2 py-2 hover:bg-purple-100 rounded-xl text-center font-semibold text-xs" onClick={() => setClientsMenuOpen(false)}>
+                        Add Client
+                      </Link>
+                      <Link href="/clients/update" className="block px-2 py-2 hover:bg-purple-100 rounded-xl text-center font-semibold text-xs" onClick={() => setClientsMenuOpen(false)}>
+                        Update Client
+                      </Link>
+                      <Link href="/clients/delete" className="block px-2 py-2 hover:bg-purple-100 rounded-xl text-center font-semibold text-xs" onClick={() => setClientsMenuOpen(false)}>
+                        Delete Client
+                      </Link>
+                      <Link href="/clients" className="block px-2 py-2 hover:bg-purple-100 rounded-xl text-center font-semibold text-xs" onClick={() => setClientsMenuOpen(false)}>
+                        Report View
+                      </Link>
+                    </div>
                   </div>
                 )}
               </div>
@@ -163,14 +184,14 @@ const NavBar = () => {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`px-4 py-2 rounded-3xl font-bold hover:bg-purple-800 transition ${link.href === currentPath ? 'bg-purple-700 text-white' : ''}`}
+                className={`px-4 py-2 rounded-3xl font-bold hover:bg-purple-800 transition text-base ${link.href === currentPath ? 'bg-purple-700 text-white' : ''}`}
               >
                 {link.label}
               </Link>
             )
           )}
         {token && (
-          <div className="flex items-center">
+          <div className="flex items-center z-50">
             <TiptapEditor />
             <button
               className="px-4 py-2 rounded-3xl font-bold hover:bg-purple-800 transition"
@@ -188,7 +209,7 @@ const NavBar = () => {
           onClick={handleMenuOpen}
           aria-label="Open Menu"
         >
-          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 8h16M4 16h16" />
           </svg>
         </button>
@@ -252,7 +273,7 @@ const NavBar = () => {
             </div>
           </div>
         )}
-        {/* Clients sub-menu as a new page */}
+        {/* Clients sub-menu as a 2-line short page, options side by side */}
         {menuOpen && clientsMenuOpen && (
           <div className="fixed inset-0 bg-white text-purple-900 z-50 flex flex-col w-full h-full">
             <div className="flex items-center justify-between px-6 py-4 border-b border-purple-200">
@@ -272,19 +293,21 @@ const NavBar = () => {
                 &times;
               </button>
             </div>
-            <div className="flex flex-col gap-2 px-6 py-4 flex-1 overflow-y-auto">
-              <Link href="/clients/add" className="px-4 py-3 hover:bg-purple-100 rounded-3xl font-bold text-lg" onClick={handleMenuClose}>
-                Add Client
-              </Link>
-              <Link href="/clients/update" className="px-4 py-3 hover:bg-purple-100 rounded-3xl font-bold text-lg" onClick={handleMenuClose}>
-                Update Client
-              </Link>
-              <Link href="/clients/delete" className="px-4 py-3 hover:bg-purple-100 rounded-3xl font-bold text-lg" onClick={handleMenuClose}>
-                Delete Client
-              </Link>
-              <Link href="/clients" className="px-4 py-3 hover:bg-purple-100 rounded-3xl font-bold text-lg" onClick={handleMenuClose}>
-                Report View
-              </Link>
+            <div className="flex flex-col items-center justify-center flex-1">
+              <div className="grid grid-cols-2 gap-4 w-full max-w-md mx-auto">
+                <Link href="/clients/add" className="px-4 py-6 hover:bg-purple-100 rounded-3xl font-bold text-lg text-center" onClick={handleMenuClose}>
+                  Add Client
+                </Link>
+                <Link href="/clients/update" className="px-4 py-6 hover:bg-purple-100 rounded-3xl font-bold text-lg text-center" onClick={handleMenuClose}>
+                  Update Client
+                </Link>
+                <Link href="/clients/delete" className="px-4 py-6 hover:bg-purple-100 rounded-3xl font-bold text-lg text-center" onClick={handleMenuClose}>
+                  Delete Client
+                </Link>
+                <Link href="/clients" className="px-4 py-6 hover:bg-purple-100 rounded-3xl font-bold text-lg text-center" onClick={handleMenuClose}>
+                  Report View
+                </Link>
+              </div>
             </div>
           </div>
         )}

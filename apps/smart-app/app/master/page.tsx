@@ -60,7 +60,7 @@ function Master() {
   const [selectedEntity, setSelectedEntity] = useState(entities[0]); // Default to the first entity
 
   return (
-    <div className="min-h-screen bg-gray-100 py-6 px-2 md:px-8 flex flex-col md:flex-row gap-6">
+    <div className="min-h-screen bg-gray-100 py-6 px-2 md:px-8 flex flex-col md:flex-row gap-6 pt-20 ">
       {/* Sidebar */}
       <div className="w-full md:w-1/4 bg-white rounded-lg shadow-lg p-4 mb-4 md:mb-0">
         <h2 className="text-lg font-bold text-purple-900 mb-4 text-center">Master Data</h2>
